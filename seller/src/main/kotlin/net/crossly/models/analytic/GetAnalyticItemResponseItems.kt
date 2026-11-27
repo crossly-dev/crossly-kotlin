@@ -28,8 +28,12 @@ import com.squareup.moshi.Json
  *
  * @param saleId 
  * @param platform 
- * @param marginPct 
+ * @param detailsPending 
  * @param detectedAt 
+ * @param inventoryItemId 
+ * @param listingId 
+ * @param platformListingId 
+ * @param imageUrl 
  * @param platformOrderId 
  * @param itemTitle 
  * @param itemBrand 
@@ -39,6 +43,7 @@ import com.squareup.moshi.Json
  * @param shippingCost 
  * @param costOfGoods 
  * @param netProfit 
+ * @param marginPct 
  * @param daysToSell 
  */
 
@@ -50,11 +55,23 @@ data class GetAnalyticItemResponseItems (
     @Json(name = "platform")
     val platform: kotlin.String,
 
-    @Json(name = "marginPct")
-    val marginPct: java.math.BigDecimal,
+    @Json(name = "detailsPending")
+    val detailsPending: kotlin.Boolean,
 
     @Json(name = "detectedAt")
     val detectedAt: java.time.OffsetDateTime,
+
+    @Json(name = "inventoryItemId")
+    val inventoryItemId: kotlin.String? = null,
+
+    @Json(name = "listingId")
+    val listingId: kotlin.String? = null,
+
+    @Json(name = "platformListingId")
+    val platformListingId: kotlin.String? = null,
+
+    @Json(name = "imageUrl")
+    val imageUrl: kotlin.String? = null,
 
     @Json(name = "platformOrderId")
     val platformOrderId: kotlin.String? = null,
@@ -82,6 +99,9 @@ data class GetAnalyticItemResponseItems (
 
     @Json(name = "netProfit")
     val netProfit: java.math.BigDecimal? = null,
+
+    @Json(name = "marginPct")
+    val marginPct: java.math.BigDecimal? = null,
 
     @Json(name = "daysToSell")
     val daysToSell: java.math.BigDecimal? = null

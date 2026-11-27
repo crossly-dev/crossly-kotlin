@@ -20,31 +20,52 @@
 
 package net.crossly.models.spatial
 
+import net.crossly.models.world.CreateWorldMarketPlotRentResponseDataOneOf2Placed
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
+ * @param done 
+ * @param paymentId 
+ * @param requiresAction 
+ * @param clientSecret 
  * @param deedId 
  * @param address 
  * @param priceCents 
  * @param paidThrough 
+ * @param placed 
  */
 
 data class CreateSpatialStreetPlotBuyResponseData (
 
+    @Json(name = "done")
+    val done: kotlin.Boolean? = null,
+
+    @Json(name = "paymentId")
+    val paymentId: kotlin.String? = null,
+
+    @Json(name = "requiresAction")
+    val requiresAction: kotlin.Boolean? = null,
+
+    @Json(name = "clientSecret")
+    val clientSecret: kotlin.String? = null,
+
     @Json(name = "deedId")
-    val deedId: kotlin.String,
+    val deedId: kotlin.String? = null,
 
     @Json(name = "address")
-    val address: kotlin.String,
+    val address: kotlin.String? = null,
 
     @Json(name = "priceCents")
-    val priceCents: java.math.BigDecimal,
+    val priceCents: java.math.BigDecimal? = null,
 
     @Json(name = "paidThrough")
-    val paidThrough: kotlin.String
+    val paidThrough: kotlin.String? = null,
+
+    @Json(name = "placed")
+    val placed: CreateWorldMarketPlotRentResponseDataOneOf2Placed? = null
 
 )
 

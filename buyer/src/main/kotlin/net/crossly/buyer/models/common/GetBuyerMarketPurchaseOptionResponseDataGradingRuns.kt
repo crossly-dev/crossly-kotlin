@@ -27,10 +27,10 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param priceCents 
- * @param tierName 
- * @param cutoffAt 
  * @param graderName 
+ * @param tierName 
+ * @param priceCents 
+ * @param cutoffAt 
  */
 
 data class GetBuyerMarketPurchaseOptionResponseDataGradingRuns (
@@ -38,17 +38,17 @@ data class GetBuyerMarketPurchaseOptionResponseDataGradingRuns (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "priceCents")
-    val priceCents: java.math.BigDecimal,
+    @Json(name = "graderName")
+    val graderName: kotlin.String,
 
     @Json(name = "tierName")
     val tierName: kotlin.String,
 
-    @Json(name = "cutoffAt")
-    val cutoffAt: kotlin.String,
+    @Json(name = "priceCents")
+    val priceCents: java.math.BigDecimal,
 
-    @Json(name = "graderName")
-    val graderName: kotlin.String
+    @Json(name = "cutoffAt")
+    val cutoffAt: kotlin.String
 
 )
 

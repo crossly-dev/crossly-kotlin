@@ -55,13 +55,13 @@ data class GetWorldGameResponseDataRewards (
     /**
      * 
      *
-     * Values: ITEM,DECOR,CBX,COSM,PIN,EMOTE
+     * Values: ITEM,COSM,DECOR,CBX,PIN,EMOTE
      */
     enum class Grant(val value: kotlin.String) {
         @Json(name = "item") ITEM("item"),
+        @Json(name = "cosm") COSM("cosm"),
         @Json(name = "decor") DECOR("decor"),
         @Json(name = "cbx") CBX("cbx"),
-        @Json(name = "cosm") COSM("cosm"),
         @Json(name = "pin") PIN("pin"),
         @Json(name = "emote") EMOTE("emote");
     }

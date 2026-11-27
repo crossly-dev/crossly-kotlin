@@ -67,11 +67,11 @@ data class GetVaultMarketPositionResponseSplits (
     /**
      * 
      *
-     * Values: AUCTION,CLOSE,RECALL
+     * Values: CLOSE,AUCTION,RECALL
      */
     enum class Reason(val value: kotlin.String) {
-        @Json(name = "auction") AUCTION("auction"),
         @Json(name = "close") CLOSE("close"),
+        @Json(name = "auction") AUCTION("auction"),
         @Json(name = "recall") RECALL("recall");
     }
     /**
@@ -88,11 +88,11 @@ data class GetVaultMarketPositionResponseSplits (
     /**
      * 
      *
-     * Values: AUCTION,CLOSE
+     * Values: CLOSE,AUCTION
      */
     enum class Action(val value: kotlin.String) {
-        @Json(name = "auction") AUCTION("auction"),
-        @Json(name = "close") CLOSE("close");
+        @Json(name = "close") CLOSE("close"),
+        @Json(name = "auction") AUCTION("auction");
     }
 }
 

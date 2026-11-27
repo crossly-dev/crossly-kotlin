@@ -75,11 +75,11 @@ data class ListVaultMarketValuationStatementsItem (
     /**
      * 
      *
-     * Values: INSURANCE,APPRAISAL
+     * Values: APPRAISAL,INSURANCE
      */
     enum class Purpose(val value: kotlin.String) {
-        @Json(name = "insurance") INSURANCE("insurance"),
-        @Json(name = "appraisal") APPRAISAL("appraisal");
+        @Json(name = "appraisal") APPRAISAL("appraisal"),
+        @Json(name = "insurance") INSURANCE("insurance");
     }
 }
 

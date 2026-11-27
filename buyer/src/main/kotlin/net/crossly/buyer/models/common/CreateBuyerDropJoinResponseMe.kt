@@ -82,11 +82,11 @@ data class CreateBuyerDropJoinResponseMe (
     /**
      * 
      *
-     * Values: WON,EXPIRED,WAITLIST,CLAIMED
+     * Values: EXPIRED,WON,WAITLIST,CLAIMED
      */
     enum class Outcome(val value: kotlin.String) {
-        @Json(name = "won") WON("won"),
         @Json(name = "expired") EXPIRED("expired"),
+        @Json(name = "won") WON("won"),
         @Json(name = "waitlist") WAITLIST("waitlist"),
         @Json(name = "claimed") CLAIMED("claimed");
     }

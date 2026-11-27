@@ -26,25 +26,25 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param co2Kg 
- * @param waterL 
  * @param itemsBought 
  * @param itemsWithFigures 
+ * @param co2Kg 
+ * @param waterL 
  */
 
 data class GetBuyerImpactResponseData (
-
-    @Json(name = "co2Kg")
-    val co2Kg: java.math.BigDecimal,
-
-    @Json(name = "waterL")
-    val waterL: java.math.BigDecimal,
 
     @Json(name = "itemsBought")
     val itemsBought: java.math.BigDecimal,
 
     @Json(name = "itemsWithFigures")
-    val itemsWithFigures: java.math.BigDecimal
+    val itemsWithFigures: java.math.BigDecimal,
+
+    @Json(name = "co2Kg")
+    val co2Kg: java.math.BigDecimal,
+
+    @Json(name = "waterL")
+    val waterL: java.math.BigDecimal
 
 )
 

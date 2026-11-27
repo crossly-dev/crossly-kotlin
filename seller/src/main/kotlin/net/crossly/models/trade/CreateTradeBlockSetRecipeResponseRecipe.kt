@@ -32,13 +32,13 @@ import com.squareup.moshi.Json
  * @param active 
  * @param createdAt 
  * @param updatedAt 
+ * @param version 
+ * @param members 
  * @param merchantId 
  * @param creatorSubjectId 
  * @param outputCosmeticId 
- * @param version 
- * @param members 
- * @param note 
  * @param reviewedAt 
+ * @param note 
  * @param frozenAt 
  */
 
@@ -59,6 +59,12 @@ data class CreateTradeBlockSetRecipeResponseRecipe (
     @Json(name = "updatedAt")
     val updatedAt: java.time.OffsetDateTime,
 
+    @Json(name = "version")
+    val version: java.math.BigDecimal,
+
+    @Json(name = "members")
+    val members: kotlin.collections.List<CreateTradeBlockSetRecipeResponseRecipeMembers>,
+
     @Json(name = "merchantId")
     val merchantId: kotlin.String,
 
@@ -68,17 +74,11 @@ data class CreateTradeBlockSetRecipeResponseRecipe (
     @Json(name = "outputCosmeticId")
     val outputCosmeticId: kotlin.String,
 
-    @Json(name = "version")
-    val version: java.math.BigDecimal,
-
-    @Json(name = "members")
-    val members: kotlin.collections.List<CreateTradeBlockSetRecipeResponseRecipeMembers>,
+    @Json(name = "reviewedAt")
+    val reviewedAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "note")
     val note: kotlin.String? = null,
-
-    @Json(name = "reviewedAt")
-    val reviewedAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "frozenAt")
     val frozenAt: java.time.OffsetDateTime? = null

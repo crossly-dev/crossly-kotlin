@@ -104,13 +104,13 @@ data class CreateVaultMarketValuationStatementResponseUnits (
     /**
      * 
      *
-     * Values: NONE,A,B,C
+     * Values: NONE,C,A,B
      */
     enum class MarkQuality(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
-        @Json(name = "B") B("B"),
-        @Json(name = "C") C("C");
+        @Json(name = "B") B("B");
     }
 }
 

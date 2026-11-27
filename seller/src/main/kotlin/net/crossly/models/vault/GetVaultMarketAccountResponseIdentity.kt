@@ -27,6 +27,7 @@ import com.squareup.moshi.Json
  * 
  *
  * @param verified 
+ * @param retry 
  * @param status 
  */
 
@@ -34,6 +35,9 @@ data class GetVaultMarketAccountResponseIdentity (
 
     @Json(name = "verified")
     val verified: kotlin.Boolean,
+
+    @Json(name = "retry")
+    val retry: kotlin.Boolean,
 
     @Json(name = "status")
     val status: kotlin.String? = null

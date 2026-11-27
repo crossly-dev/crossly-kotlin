@@ -30,8 +30,10 @@ import com.squareup.moshi.Json
  * @param userId 
  * @param name 
  * @param triggerId 
+ * @param triggerConfig 
  * @param isActive 
  * @param createdAt 
+ * @param workflowId 
  */
 
 data class CreateWorkflowChainToggleResponseChain (
@@ -48,11 +50,17 @@ data class CreateWorkflowChainToggleResponseChain (
     @Json(name = "triggerId")
     val triggerId: kotlin.String,
 
+    @Json(name = "triggerConfig")
+    val triggerConfig: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
     @Json(name = "isActive")
     val isActive: kotlin.Boolean,
 
     @Json(name = "createdAt")
-    val createdAt: java.time.OffsetDateTime
+    val createdAt: java.time.OffsetDateTime,
+
+    @Json(name = "workflowId")
+    val workflowId: kotlin.String
 
 )
 

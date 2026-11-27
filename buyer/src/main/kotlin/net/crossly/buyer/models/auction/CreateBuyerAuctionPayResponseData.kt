@@ -28,8 +28,8 @@ import com.squareup.moshi.Json
  *
  * @param paid 
  * @param clientSecret Stripe PaymentIntent client secret — confirm it with Stripe on the buyer's device.
- * @param amountCents 
  * @param paymentIntentId 
+ * @param amountCents 
  */
 
 data class CreateBuyerAuctionPayResponseData (
@@ -41,11 +41,11 @@ data class CreateBuyerAuctionPayResponseData (
     @Json(name = "clientSecret")
     val clientSecret: kotlin.String? = null,
 
-    @Json(name = "amountCents")
-    val amountCents: java.math.BigDecimal? = null,
-
     @Json(name = "paymentIntentId")
-    val paymentIntentId: kotlin.String? = null
+    val paymentIntentId: kotlin.String? = null,
+
+    @Json(name = "amountCents")
+    val amountCents: java.math.BigDecimal? = null
 
 )
 

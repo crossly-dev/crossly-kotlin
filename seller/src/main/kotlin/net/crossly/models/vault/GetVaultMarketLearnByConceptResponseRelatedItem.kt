@@ -26,7 +26,7 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: LENDING,INSTANT_MINUS_EXIT,SHORTS,LIENS,AUCTIONS,INDEXES,MARKS
+ * Values: LENDING,INSTANT_MINUS_EXIT,SHORTS,LIENS,AUCTIONS,INDEXES,MARKS,VAULT_MINUS_SHARES
  */
 
 enum class GetVaultMarketLearnByConceptResponseRelatedItem(val value: kotlin.String) {
@@ -50,7 +50,10 @@ enum class GetVaultMarketLearnByConceptResponseRelatedItem(val value: kotlin.Str
     INDEXES("indexes"),
 
     @Json(name = "marks")
-    MARKS("marks");
+    MARKS("marks"),
+
+    @Json(name = "vault-shares")
+    VAULT_MINUS_SHARES("vault-shares");
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use

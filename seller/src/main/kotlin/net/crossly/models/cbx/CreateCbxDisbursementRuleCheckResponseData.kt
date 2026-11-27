@@ -63,16 +63,16 @@ data class CreateCbxDisbursementRuleCheckResponseData (
     /**
      * 
      *
-     * Values: FIRED,COVERAGE,NO_PRICE,BELOW_THRESHOLD,CADENCE,NO_RECIPIENTS,INACTIVE
+     * Values: COVERAGE,CADENCE,NO_PRICE,INACTIVE,FIRED,BELOW_THRESHOLD,NO_RECIPIENTS
      */
     enum class Outcome(val value: kotlin.String) {
-        @Json(name = "fired") FIRED("fired"),
         @Json(name = "coverage") COVERAGE("coverage"),
-        @Json(name = "no_price") NO_PRICE("no_price"),
-        @Json(name = "below_threshold") BELOW_THRESHOLD("below_threshold"),
         @Json(name = "cadence") CADENCE("cadence"),
-        @Json(name = "no_recipients") NO_RECIPIENTS("no_recipients"),
-        @Json(name = "inactive") INACTIVE("inactive");
+        @Json(name = "no_price") NO_PRICE("no_price"),
+        @Json(name = "inactive") INACTIVE("inactive"),
+        @Json(name = "fired") FIRED("fired"),
+        @Json(name = "below_threshold") BELOW_THRESHOLD("below_threshold"),
+        @Json(name = "no_recipients") NO_RECIPIENTS("no_recipients");
     }
 }
 

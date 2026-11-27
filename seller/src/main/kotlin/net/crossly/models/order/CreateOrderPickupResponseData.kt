@@ -32,15 +32,15 @@ import com.squareup.moshi.Json
  * @param status 
  * @param carrier 
  * @param orderIds 
- * @param shippoPickupId 
- * @param pickupDate 
  * @param minTime 
  * @param maxTime 
+ * @param shippoPickupId 
+ * @param pickupDate 
  * @param warnings 
  * @param confirmation 
+ * @param instructions 
  * @param confirmedStart 
  * @param confirmedEnd 
- * @param instructions 
  */
 
 data class CreateOrderPickupResponseData (
@@ -63,17 +63,17 @@ data class CreateOrderPickupResponseData (
     @Json(name = "orderIds")
     val orderIds: kotlin.collections.List<kotlin.String>,
 
-    @Json(name = "shippoPickupId")
-    val shippoPickupId: kotlin.String,
-
-    @Json(name = "pickupDate")
-    val pickupDate: kotlin.String,
-
     @Json(name = "minTime")
     val minTime: kotlin.String,
 
     @Json(name = "maxTime")
     val maxTime: kotlin.String,
+
+    @Json(name = "shippoPickupId")
+    val shippoPickupId: kotlin.String,
+
+    @Json(name = "pickupDate")
+    val pickupDate: kotlin.String,
 
     @Json(name = "warnings")
     val warnings: kotlin.collections.List<kotlin.String>,
@@ -81,14 +81,14 @@ data class CreateOrderPickupResponseData (
     @Json(name = "confirmation")
     val confirmation: kotlin.String? = null,
 
+    @Json(name = "instructions")
+    val instructions: kotlin.String? = null,
+
     @Json(name = "confirmedStart")
     val confirmedStart: java.time.OffsetDateTime? = null,
 
     @Json(name = "confirmedEnd")
-    val confirmedEnd: java.time.OffsetDateTime? = null,
-
-    @Json(name = "instructions")
-    val instructions: kotlin.String? = null
+    val confirmedEnd: java.time.OffsetDateTime? = null
 
 )
 

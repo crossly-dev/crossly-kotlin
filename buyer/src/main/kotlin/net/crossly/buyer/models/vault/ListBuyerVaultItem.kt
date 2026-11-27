@@ -27,20 +27,20 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param condition 
  * @param status 
  * @param skuId 
- * @param gradeKey 
- * @param receivedAt 
+ * @param condition 
+ * @param skuName 
  * @param imageUrl 
  * @param variantId 
+ * @param variantLabel 
+ * @param gradeKey 
+ * @param location 
  * @param lastSaleCents 
+ * @param askPriceCents 
  * @param withdrawSpeed 
  * @param withdrawTracking 
- * @param location 
- * @param skuName 
- * @param variantLabel 
- * @param askPriceCents 
+ * @param receivedAt 
  * @param situation What is really going on with it: in_auction, pledged, collateral, lent, in_grading, gift_pending, else the status.
  * @param earlyWithdrawFeeCents 
  */
@@ -50,20 +50,17 @@ data class ListBuyerVaultItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "condition")
-    val condition: kotlin.String,
-
     @Json(name = "status")
     val status: kotlin.String,
 
     @Json(name = "skuId")
     val skuId: kotlin.String,
 
-    @Json(name = "gradeKey")
-    val gradeKey: kotlin.String? = null,
+    @Json(name = "condition")
+    val condition: kotlin.String,
 
-    @Json(name = "receivedAt")
-    val receivedAt: kotlin.String? = null,
+    @Json(name = "skuName")
+    val skuName: kotlin.String? = null,
 
     @Json(name = "imageUrl")
     val imageUrl: kotlin.String? = null,
@@ -71,8 +68,20 @@ data class ListBuyerVaultItem (
     @Json(name = "variantId")
     val variantId: kotlin.String? = null,
 
+    @Json(name = "variantLabel")
+    val variantLabel: kotlin.String? = null,
+
+    @Json(name = "gradeKey")
+    val gradeKey: kotlin.String? = null,
+
+    @Json(name = "location")
+    val location: kotlin.String? = null,
+
     @Json(name = "lastSaleCents")
     val lastSaleCents: java.math.BigDecimal? = null,
+
+    @Json(name = "askPriceCents")
+    val askPriceCents: java.math.BigDecimal? = null,
 
     @Json(name = "withdrawSpeed")
     val withdrawSpeed: kotlin.String? = null,
@@ -80,17 +89,8 @@ data class ListBuyerVaultItem (
     @Json(name = "withdrawTracking")
     val withdrawTracking: kotlin.String? = null,
 
-    @Json(name = "location")
-    val location: kotlin.String? = null,
-
-    @Json(name = "skuName")
-    val skuName: kotlin.String? = null,
-
-    @Json(name = "variantLabel")
-    val variantLabel: kotlin.String? = null,
-
-    @Json(name = "askPriceCents")
-    val askPriceCents: java.math.BigDecimal? = null,
+    @Json(name = "receivedAt")
+    val receivedAt: kotlin.String? = null,
 
     /* What is really going on with it: in_auction, pledged, collateral, lent, in_grading, gift_pending, else the status. */
     @Json(name = "situation")

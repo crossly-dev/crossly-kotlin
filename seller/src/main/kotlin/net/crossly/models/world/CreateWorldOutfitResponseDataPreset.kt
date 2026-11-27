@@ -20,7 +20,7 @@
 
 package net.crossly.models.world
 
-import net.crossly.models.world.ListWorldOutfitsItemAppearance
+import net.crossly.models.world.CreateWorldOutfitResponseDataPresetAppearance
 
 import com.squareup.moshi.Json
 
@@ -44,7 +44,7 @@ data class CreateWorldOutfitResponseDataPreset (
     val name: kotlin.String,
 
     @Json(name = "appearance")
-    val appearance: ListWorldOutfitsItemAppearance,
+    val appearance: CreateWorldOutfitResponseDataPresetAppearance,
 
     @Json(name = "items")
     val items: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>,

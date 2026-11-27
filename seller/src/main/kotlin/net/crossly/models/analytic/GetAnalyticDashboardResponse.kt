@@ -22,11 +22,13 @@ package net.crossly.models.analytic
 
 import net.crossly.models.analytic.GetAnalyticDashboardResponseAvgSalePriceByPlatform
 import net.crossly.models.analytic.GetAnalyticDashboardResponseCancelRate
+import net.crossly.models.analytic.GetAnalyticDashboardResponsePeriod
 import net.crossly.models.analytic.GetAnalyticDashboardResponseRecentSales
 import net.crossly.models.analytic.GetAnalyticDashboardResponseRevenue
 import net.crossly.models.analytic.GetAnalyticDashboardResponseRevenueByDay
 import net.crossly.models.analytic.GetAnalyticDashboardResponseSalesByPlatform
 import net.crossly.models.analytic.GetAnalyticDashboardResponseSellThrough
+import net.crossly.models.analytic.GetAnalyticDashboardResponseSellThroughCohort
 import net.crossly.models.analytic.GetAnalyticDashboardResponseTop5ItemsByRevenue
 import net.crossly.models.analytic.GetAnalyticDashboardResponseTopCategories
 
@@ -38,6 +40,7 @@ import com.squareup.moshi.Json
  * @param revenue 
  * @param profit 
  * @param soldItemsCount 
+ * @param pendingDetailsCount \"N sales pending details\": in the period, not in revenue/profit/avg.
  * @param cancelledCount 
  * @param cancelRate 
  * @param refundedAmount 
@@ -45,6 +48,7 @@ import com.squareup.moshi.Json
  * @param listedItemsCount 
  * @param avgSalePrice 
  * @param sellThrough 
+ * @param sellThroughCohort 
  * @param salesByPlatform 
  * @param avgSalePriceByPlatform 
  * @param revenueByDay 
@@ -54,8 +58,10 @@ import com.squareup.moshi.Json
  * @param top5ItemsByRevenue 
  * @param recentSales 
  * @param availableLabels 
- * @param sellThroughRate 
+ * @param period 
+ * @param sellThroughRate 0–100 (legacy unit). The full cohort is `sellThroughCohort`.
  * @param avgDaysToSell 
+ * @param medianDaysToSell 
  */
 
 data class GetAnalyticDashboardResponse (
@@ -68,6 +74,10 @@ data class GetAnalyticDashboardResponse (
 
     @Json(name = "soldItemsCount")
     val soldItemsCount: GetAnalyticDashboardResponseRevenue,
+
+    /* \"N sales pending details\": in the period, not in revenue/profit/avg. */
+    @Json(name = "pendingDetailsCount")
+    val pendingDetailsCount: java.math.BigDecimal,
 
     @Json(name = "cancelledCount")
     val cancelledCount: GetAnalyticDashboardResponseRevenue,
@@ -89,6 +99,9 @@ data class GetAnalyticDashboardResponse (
 
     @Json(name = "sellThrough")
     val sellThrough: GetAnalyticDashboardResponseSellThrough,
+
+    @Json(name = "sellThroughCohort")
+    val sellThroughCohort: GetAnalyticDashboardResponseSellThroughCohort,
 
     @Json(name = "salesByPlatform")
     val salesByPlatform: kotlin.collections.List<GetAnalyticDashboardResponseSalesByPlatform>,
@@ -117,11 +130,18 @@ data class GetAnalyticDashboardResponse (
     @Json(name = "availableLabels")
     val availableLabels: kotlin.collections.List<kotlin.String>,
 
+    @Json(name = "period")
+    val period: GetAnalyticDashboardResponsePeriod,
+
+    /* 0–100 (legacy unit). The full cohort is `sellThroughCohort`. */
     @Json(name = "sellThroughRate")
     val sellThroughRate: java.math.BigDecimal? = null,
 
     @Json(name = "avgDaysToSell")
-    val avgDaysToSell: java.math.BigDecimal? = null
+    val avgDaysToSell: java.math.BigDecimal? = null,
+
+    @Json(name = "medianDaysToSell")
+    val medianDaysToSell: java.math.BigDecimal? = null
 
 )
 

@@ -54,12 +54,12 @@ data class GetWorldArcadeResponseDataScores (
     /**
      * `leaderboard`: Price Guess's ranking; `record`: a piece's room record; `top`: a creator game's best scores.
      *
-     * Values: TOP,LEADERBOARD,RECORD
+     * Values: RECORD,TOP,LEADERBOARD
      */
     enum class Kind(val value: kotlin.String) {
+        @Json(name = "record") RECORD("record"),
         @Json(name = "top") TOP("top"),
-        @Json(name = "leaderboard") LEADERBOARD("leaderboard"),
-        @Json(name = "record") RECORD("record");
+        @Json(name = "leaderboard") LEADERBOARD("leaderboard");
     }
 }
 

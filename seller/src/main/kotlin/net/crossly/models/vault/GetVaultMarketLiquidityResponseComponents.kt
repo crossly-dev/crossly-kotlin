@@ -55,14 +55,14 @@ data class GetVaultMarketLiquidityResponseComponents (
     /**
      * 
      *
-     * Values: SPREAD_BPS,TRADES30D,TRADES90D,COUNTERPARTIES90D,MEDIAN_GAP_DAYS,TWO_SIDED_SHARE,DEPTH_CENTS,AMIHUD,ROLL_BPS
+     * Values: TRADES30D,TRADES90D,COUNTERPARTIES90D,MEDIAN_GAP_DAYS,SPREAD_BPS,TWO_SIDED_SHARE,DEPTH_CENTS,AMIHUD,ROLL_BPS
      */
     enum class Name(val value: kotlin.String) {
-        @Json(name = "spreadBps") SPREAD_BPS("spreadBps"),
         @Json(name = "trades30d") TRADES30D("trades30d"),
         @Json(name = "trades90d") TRADES90D("trades90d"),
         @Json(name = "counterparties90d") COUNTERPARTIES90D("counterparties90d"),
         @Json(name = "medianGapDays") MEDIAN_GAP_DAYS("medianGapDays"),
+        @Json(name = "spreadBps") SPREAD_BPS("spreadBps"),
         @Json(name = "twoSidedShare") TWO_SIDED_SHARE("twoSidedShare"),
         @Json(name = "depthCents") DEPTH_CENTS("depthCents"),
         @Json(name = "amihud") AMIHUD("amihud"),
@@ -71,11 +71,11 @@ data class GetVaultMarketLiquidityResponseComponents (
     /**
      * 
      *
-     * Values: HIGH,LOW
+     * Values: LOW,HIGH
      */
     enum class Better(val value: kotlin.String) {
-        @Json(name = "high") HIGH("high"),
-        @Json(name = "low") LOW("low");
+        @Json(name = "low") LOW("low"),
+        @Json(name = "high") HIGH("high");
     }
 }
 

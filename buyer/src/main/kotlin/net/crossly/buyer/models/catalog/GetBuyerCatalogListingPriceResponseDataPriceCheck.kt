@@ -27,11 +27,11 @@ import com.squareup.moshi.Json
  * 
  *
  * @param verdict 
- * @param sales 
  * @param medianCents 
- * @param days 
  * @param lowCents 
  * @param highCents 
+ * @param sales 
+ * @param days 
  * @param lastSoldAt 
  */
 
@@ -40,20 +40,20 @@ data class GetBuyerCatalogListingPriceResponseDataPriceCheck (
     @Json(name = "verdict")
     val verdict: GetBuyerCatalogListingPriceResponseDataPriceCheck.Verdict,
 
-    @Json(name = "sales")
-    val sales: java.math.BigDecimal,
-
     @Json(name = "medianCents")
     val medianCents: java.math.BigDecimal,
-
-    @Json(name = "days")
-    val days: java.math.BigDecimal,
 
     @Json(name = "lowCents")
     val lowCents: java.math.BigDecimal,
 
     @Json(name = "highCents")
     val highCents: java.math.BigDecimal,
+
+    @Json(name = "sales")
+    val sales: java.math.BigDecimal,
+
+    @Json(name = "days")
+    val days: java.math.BigDecimal,
 
     @Json(name = "lastSoldAt")
     val lastSoldAt: kotlin.String
@@ -63,12 +63,12 @@ data class GetBuyerCatalogListingPriceResponseDataPriceCheck (
     /**
      * 
      *
-     * Values: HIGH,FAIR,GOOD,GREAT
+     * Values: GOOD,FAIR,HIGH,GREAT
      */
     enum class Verdict(val value: kotlin.String) {
-        @Json(name = "high") HIGH("high"),
-        @Json(name = "fair") FAIR("fair"),
         @Json(name = "good") GOOD("good"),
+        @Json(name = "fair") FAIR("fair"),
+        @Json(name = "high") HIGH("high"),
         @Json(name = "great") GREAT("great");
     }
 }

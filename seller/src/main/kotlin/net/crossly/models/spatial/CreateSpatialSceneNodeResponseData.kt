@@ -27,19 +27,22 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param transform 
  * @param id 
  * @param createdAt 
  * @param updatedAt 
- * @param transform 
  * @param sort 
  * @param sceneId 
  * @param unitKey 
  * @param label 
- * @param segment 
  * @param parentId 
+ * @param segment 
  */
 
 data class CreateSpatialSceneNodeResponseData (
+
+    @Json(name = "transform")
+    val transform: CreateSpatialSceneNodeResponseDataTransform,
 
     @Json(name = "id")
     val id: kotlin.String,
@@ -49,9 +52,6 @@ data class CreateSpatialSceneNodeResponseData (
 
     @Json(name = "updatedAt")
     val updatedAt: java.time.OffsetDateTime,
-
-    @Json(name = "transform")
-    val transform: CreateSpatialSceneNodeResponseDataTransform,
 
     @Json(name = "sort")
     val sort: java.math.BigDecimal,
@@ -65,11 +65,11 @@ data class CreateSpatialSceneNodeResponseData (
     @Json(name = "label")
     val label: kotlin.String? = null,
 
-    @Json(name = "segment")
-    val segment: kotlin.String? = null,
-
     @Json(name = "parentId")
-    val parentId: kotlin.String? = null
+    val parentId: kotlin.String? = null,
+
+    @Json(name = "segment")
+    val segment: kotlin.String? = null
 
 )
 

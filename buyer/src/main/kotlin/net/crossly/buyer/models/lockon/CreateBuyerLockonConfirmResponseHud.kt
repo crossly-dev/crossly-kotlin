@@ -73,11 +73,11 @@ data class CreateBuyerLockonConfirmResponseHud (
     /**
      * `win` earned a saving, `info` found something, `none` found nothing.
      *
-     * Values: NONE,INFO,WIN
+     * Values: INFO,NONE,WIN
      */
     enum class Tone(val value: kotlin.String) {
-        @Json(name = "none") NONE("none"),
         @Json(name = "info") INFO("info"),
+        @Json(name = "none") NONE("none"),
         @Json(name = "win") WIN("win");
     }
 }

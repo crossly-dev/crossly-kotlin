@@ -26,19 +26,19 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param amountCents 
  * @param bidder \"You\" for your own bids; otherwise anonymised, e.g. \"a***e (12)\".
+ * @param amountCents 
  * @param placedAt 
  */
 
 data class ListBuyerAuctionBidsItem (
 
-    @Json(name = "amountCents")
-    val amountCents: java.math.BigDecimal,
-
     /* \"You\" for your own bids; otherwise anonymised, e.g. \"a***e (12)\". */
     @Json(name = "bidder")
     val bidder: kotlin.String,
+
+    @Json(name = "amountCents")
+    val amountCents: java.math.BigDecimal,
 
     @Json(name = "placedAt")
     val placedAt: kotlin.String? = null

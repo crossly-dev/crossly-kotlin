@@ -45,6 +45,7 @@ import com.squareup.moshi.Json
  * @param condition 
  * @param salePriceCents The seller's running sale, applied: what checkout will charge. Null when none.
  * @param saleEndsAt When that sale ends — the tile's countdown.
+ * @param hasPassport The item has an active Crossly Passport (the tile's \"Crossly Passport\" chip, docs/PASSPORTS.md §7.4).  Optional: only the main browse query reads it; other row builders leave it out.
  * @param soldAt ISO timestamp of the sale.
  * @param soldPriceCents Per-unit item price the buyer paid. Also in `priceCents`, so a plain  product tile shows the sold price.
  * @param soldQuantity Units in this sale.
@@ -116,6 +117,10 @@ data class ListBuyerCatalogBrowseItem (
     /* When that sale ends — the tile's countdown. */
     @Json(name = "saleEndsAt")
     val saleEndsAt: kotlin.String? = null,
+
+    /* The item has an active Crossly Passport (the tile's \"Crossly Passport\" chip, docs/PASSPORTS.md §7.4).  Optional: only the main browse query reads it; other row builders leave it out. */
+    @Json(name = "hasPassport")
+    val hasPassport: kotlin.Boolean? = null,
 
     /* ISO timestamp of the sale. */
     @Json(name = "soldAt")

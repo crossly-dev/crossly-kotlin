@@ -119,21 +119,21 @@ data class ListMarketBullionItem (
     /**
      * 
      *
-     * Values: ROUND,BULLION_COIN,BAR
+     * Values: BULLION_COIN,BAR,ROUND
      */
     enum class Form(val value: kotlin.String) {
-        @Json(name = "round") ROUND("round"),
         @Json(name = "bullion_coin") BULLION_COIN("bullion_coin"),
-        @Json(name = "bar") BAR("bar");
+        @Json(name = "bar") BAR("bar"),
+        @Json(name = "round") ROUND("round");
     }
     /**
      * 
      *
-     * Values: QUARTER,FRACTIONAL,HALF,ONE,TWO_MINUS_FIVE,TEN,KILO,LARGE
+     * Values: FRACTIONAL,QUARTER,HALF,ONE,TWO_MINUS_FIVE,TEN,KILO,LARGE
      */
     enum class PropertySize(val value: kotlin.String) {
-        @Json(name = "quarter") QUARTER("quarter"),
         @Json(name = "fractional") FRACTIONAL("fractional"),
+        @Json(name = "quarter") QUARTER("quarter"),
         @Json(name = "half") HALF("half"),
         @Json(name = "one") ONE("one"),
         @Json(name = "two-five") TWO_MINUS_FIVE("two-five"),

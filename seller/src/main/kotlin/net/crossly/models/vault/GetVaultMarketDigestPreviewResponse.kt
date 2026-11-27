@@ -21,6 +21,7 @@
 package net.crossly.models.vault
 
 import net.crossly.models.vault.GetVaultMarketDigestPreviewResponseFirstMarks
+import net.crossly.models.vault.GetVaultMarketDigestPreviewResponseLearn
 import net.crossly.models.vault.GetVaultMarketDigestPreviewResponseOffers
 import net.crossly.models.vault.GetVaultMarketDigestPreviewResponseValue
 
@@ -34,6 +35,7 @@ import com.squareup.moshi.Json
  * @param `value` 
  * @param offers 
  * @param firstMarks 
+ * @param learn 
  */
 
 data class GetVaultMarketDigestPreviewResponse (
@@ -51,7 +53,10 @@ data class GetVaultMarketDigestPreviewResponse (
     val offers: kotlin.collections.List<GetVaultMarketDigestPreviewResponseOffers>,
 
     @Json(name = "firstMarks")
-    val firstMarks: kotlin.collections.List<GetVaultMarketDigestPreviewResponseFirstMarks>
+    val firstMarks: kotlin.collections.List<GetVaultMarketDigestPreviewResponseFirstMarks>,
+
+    @Json(name = "learn")
+    val learn: GetVaultMarketDigestPreviewResponseLearn
 
 )
 

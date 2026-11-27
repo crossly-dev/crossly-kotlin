@@ -32,9 +32,11 @@ import com.squareup.moshi.Json
  * @param updatedAt 
  * @param userId 
  * @param isDefault 
- * @param scope 
  * @param sortOrder 
+ * @param scope 
  * @param brand 
+ * @param description 
+ * @param notes 
  * @param condition 
  * @param propertySize 
  * @param material 
@@ -46,14 +48,12 @@ import com.squareup.moshi.Json
  * @param sizeSystem 
  * @param color 
  * @param tags 
- * @param notes 
  * @param weightOz 
- * @param description 
  * @param title 
- * @param shareToken 
  * @param descriptionVariants 
  * @param titleVariants 
  * @param defaultForCategory 
+ * @param shareToken 
  */
 
 data class ListMeTemplatesItem (
@@ -76,14 +76,20 @@ data class ListMeTemplatesItem (
     @Json(name = "isDefault")
     val isDefault: kotlin.Boolean,
 
-    @Json(name = "scope")
-    val scope: kotlin.String,
-
     @Json(name = "sortOrder")
     val sortOrder: java.math.BigDecimal,
 
+    @Json(name = "scope")
+    val scope: kotlin.String,
+
     @Json(name = "brand")
     val brand: kotlin.String? = null,
+
+    @Json(name = "description")
+    val description: kotlin.String? = null,
+
+    @Json(name = "notes")
+    val notes: kotlin.String? = null,
 
     @Json(name = "condition")
     val condition: kotlin.String? = null,
@@ -118,20 +124,11 @@ data class ListMeTemplatesItem (
     @Json(name = "tags")
     val tags: kotlin.collections.List<kotlin.String>? = null,
 
-    @Json(name = "notes")
-    val notes: kotlin.String? = null,
-
     @Json(name = "weightOz")
     val weightOz: java.math.BigDecimal? = null,
 
-    @Json(name = "description")
-    val description: kotlin.String? = null,
-
     @Json(name = "title")
     val title: kotlin.String? = null,
-
-    @Json(name = "shareToken")
-    val shareToken: kotlin.String? = null,
 
     @Json(name = "descriptionVariants")
     val descriptionVariants: kotlin.collections.List<kotlin.String>? = null,
@@ -140,7 +137,10 @@ data class ListMeTemplatesItem (
     val titleVariants: kotlin.collections.List<kotlin.String>? = null,
 
     @Json(name = "defaultForCategory")
-    val defaultForCategory: kotlin.String? = null
+    val defaultForCategory: kotlin.String? = null,
+
+    @Json(name = "shareToken")
+    val shareToken: kotlin.String? = null
 
 )
 

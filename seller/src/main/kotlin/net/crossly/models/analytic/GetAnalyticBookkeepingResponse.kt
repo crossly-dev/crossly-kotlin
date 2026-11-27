@@ -33,6 +33,8 @@ import com.squareup.moshi.Json
  * @param monthlyPL 
  * @param annualTotals 
  * @param platformBreakdown 
+ * @param pendingDetailsCount Sales of the year whose price and buyer are not known yet: in no line above. \"N sales pending details\".
+ * @param tz The books timezone the year was cut in.
  */
 
 data class GetAnalyticBookkeepingResponse (
@@ -47,7 +49,15 @@ data class GetAnalyticBookkeepingResponse (
     val annualTotals: GetAnalyticBookkeepingResponseAnnualTotals,
 
     @Json(name = "platformBreakdown")
-    val platformBreakdown: kotlin.collections.List<GetAnalyticBookkeepingResponsePlatformBreakdown>
+    val platformBreakdown: kotlin.collections.List<GetAnalyticBookkeepingResponsePlatformBreakdown>,
+
+    /* Sales of the year whose price and buyer are not known yet: in no line above. \"N sales pending details\". */
+    @Json(name = "pendingDetailsCount")
+    val pendingDetailsCount: java.math.BigDecimal,
+
+    /* The books timezone the year was cut in. */
+    @Json(name = "tz")
+    val tz: kotlin.String
 
 )
 

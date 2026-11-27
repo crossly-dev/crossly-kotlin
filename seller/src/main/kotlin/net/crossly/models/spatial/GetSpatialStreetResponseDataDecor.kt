@@ -55,17 +55,17 @@ data class GetSpatialStreetResponseDataDecor (
     /**
      * 
      *
-     * Values: RED,GREEN,TEAL,BLUE,PURPLE,CREAM,AMBER,INK
+     * Values: BLUE,GREEN,PURPLE,RED,TEAL,CREAM,INK,AMBER
      */
     enum class BannerColour(val value: kotlin.String) {
-        @Json(name = "red") RED("red"),
-        @Json(name = "green") GREEN("green"),
-        @Json(name = "teal") TEAL("teal"),
         @Json(name = "blue") BLUE("blue"),
+        @Json(name = "green") GREEN("green"),
         @Json(name = "purple") PURPLE("purple"),
+        @Json(name = "red") RED("red"),
+        @Json(name = "teal") TEAL("teal"),
         @Json(name = "cream") CREAM("cream"),
-        @Json(name = "amber") AMBER("amber"),
-        @Json(name = "ink") INK("ink");
+        @Json(name = "ink") INK("ink"),
+        @Json(name = "amber") AMBER("amber");
     }
 }
 

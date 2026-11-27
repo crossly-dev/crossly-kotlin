@@ -64,11 +64,11 @@ data class GetVaultMarketAdlResponseRecentEvents (
     /**
      * The side that went under water.
      *
-     * Values: LONG,SHORT
+     * Values: SHORT,LONG
      */
     enum class BankruptSide(val value: kotlin.String) {
-        @Json(name = "long") LONG("long"),
-        @Json(name = "short") SHORT("short");
+        @Json(name = "short") SHORT("short"),
+        @Json(name = "long") LONG("long");
     }
 }
 

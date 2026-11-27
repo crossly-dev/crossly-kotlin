@@ -24,12 +24,13 @@ package net.crossly.models.analytic
 import com.squareup.moshi.Json
 
 /**
- * The context the bare rate can't carry. `tooYoungToJudge` is the important one: a cohort measured the day its window closed has had no time to sell, and a low number there means \"wait\", not \"bad buys\" — a seller acting on it would stop sourcing for no reason.
+ * 
  *
  * @param cohortSize 
  * @param cohortSold 
  * @param maturityDays 
  * @param tooYoungToJudge 
+ * @param immature 
  * @param rate 
  */
 
@@ -46,6 +47,9 @@ data class GetAnalyticDashboardResponseSellThrough (
 
     @Json(name = "tooYoungToJudge")
     val tooYoungToJudge: kotlin.Boolean,
+
+    @Json(name = "immature")
+    val immature: java.math.BigDecimal,
 
     @Json(name = "rate")
     val rate: java.math.BigDecimal? = null

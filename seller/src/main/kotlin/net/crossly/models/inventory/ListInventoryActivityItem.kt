@@ -31,8 +31,8 @@ import com.squareup.moshi.Json
  * @param userId 
  * @param type 
  * @param platform 
- * @param orderId 
  * @param inventoryItemId 
+ * @param orderId 
  * @param delta 
  * @param quantityBefore 
  * @param quantityAfter 
@@ -56,11 +56,11 @@ data class ListInventoryActivityItem (
     @Json(name = "platform")
     val platform: kotlin.String? = null,
 
-    @Json(name = "orderId")
-    val orderId: kotlin.String? = null,
-
     @Json(name = "inventoryItemId")
     val inventoryItemId: kotlin.String? = null,
+
+    @Json(name = "orderId")
+    val orderId: kotlin.String? = null,
 
     @Json(name = "delta")
     val delta: java.math.BigDecimal? = null,

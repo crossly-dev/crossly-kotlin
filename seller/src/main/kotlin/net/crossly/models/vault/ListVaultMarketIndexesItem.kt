@@ -116,15 +116,15 @@ data class ListVaultMarketIndexesItem (
     /**
      * 
      *
-     * Values: CUSTOM,BRAND,CATEGORY,CURATED,COMPOSITE,SEGMENT
+     * Values: CUSTOM,BRAND,CATEGORY,SEGMENT,CURATED,COMPOSITE
      */
     enum class Kind(val value: kotlin.String) {
         @Json(name = "custom") CUSTOM("custom"),
         @Json(name = "brand") BRAND("brand"),
         @Json(name = "category") CATEGORY("category"),
+        @Json(name = "segment") SEGMENT("segment"),
         @Json(name = "curated") CURATED("curated"),
-        @Json(name = "composite") COMPOSITE("composite"),
-        @Json(name = "segment") SEGMENT("segment");
+        @Json(name = "composite") COMPOSITE("composite");
     }
     /**
      * 

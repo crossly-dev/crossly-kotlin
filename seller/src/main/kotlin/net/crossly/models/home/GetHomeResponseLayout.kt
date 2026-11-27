@@ -35,6 +35,7 @@ import com.squareup.moshi.Json
  * @param ref 
  * @param slot Shelf displays: which slot on the shelf.
  * @param set A set wall: which set it shows, \"category/brand/model\" (HOME_SET_KEY). Absent: the owner's most complete.
+ * @param tint A furniture piece's colour (HOME_TINTS key): its fabric and finish take it. Absent: as made.
  * @param item 
  */
 
@@ -64,6 +65,10 @@ data class GetHomeResponseLayout (
     @Json(name = "set")
     val set: kotlin.String? = null,
 
+    /* A furniture piece's colour (HOME_TINTS key): its fabric and finish take it. Absent: as made. */
+    @Json(name = "tint")
+    val tint: GetHomeResponseLayout.Tint? = null,
+
     @Json(name = "item")
     val item: GetHomeResponseLayoutItem? = null
 
@@ -77,6 +82,21 @@ data class GetHomeResponseLayout (
     enum class Kind(val value: kotlin.String) {
         @Json(name = "display") DISPLAY("display"),
         @Json(name = "prop") PROP("prop");
+    }
+    /**
+     * A furniture piece's colour (HOME_TINTS key): its fabric and finish take it. Absent: as made.
+     *
+     * Values: OAT,SAGE,FOREST,NAVY,CLAY,MUSTARD,BLUSH,CHARCOAL
+     */
+    enum class Tint(val value: kotlin.String) {
+        @Json(name = "oat") OAT("oat"),
+        @Json(name = "sage") SAGE("sage"),
+        @Json(name = "forest") FOREST("forest"),
+        @Json(name = "navy") NAVY("navy"),
+        @Json(name = "clay") CLAY("clay"),
+        @Json(name = "mustard") MUSTARD("mustard"),
+        @Json(name = "blush") BLUSH("blush"),
+        @Json(name = "charcoal") CHARCOAL("charcoal");
     }
 }
 

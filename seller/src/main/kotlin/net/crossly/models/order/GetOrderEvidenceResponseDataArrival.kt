@@ -60,13 +60,13 @@ data class GetOrderEvidenceResponseDataArrival (
     /**
      * 
      *
-     * Values: AWAITING,SUBMITTED,DECLINED,NOT_REQUESTED,WINDOW_CLOSED
+     * Values: DECLINED,SUBMITTED,NOT_REQUESTED,AWAITING,WINDOW_CLOSED
      */
     enum class State(val value: kotlin.String) {
-        @Json(name = "awaiting") AWAITING("awaiting"),
-        @Json(name = "submitted") SUBMITTED("submitted"),
         @Json(name = "declined") DECLINED("declined"),
+        @Json(name = "submitted") SUBMITTED("submitted"),
         @Json(name = "not_requested") NOT_REQUESTED("not_requested"),
+        @Json(name = "awaiting") AWAITING("awaiting"),
         @Json(name = "window_closed") WINDOW_CLOSED("window_closed");
     }
 }

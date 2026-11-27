@@ -22,10 +22,12 @@ package net.crossly.apis
 
 import java.io.IOException
 
+import net.crossly.models.common.CreateGeoLocationCheckResponse
+import net.crossly.models.policy.CreatePolicyPresetResponse
+import net.crossly.models.policy.DeletePolicyPresetResponse
 import net.crossly.models.common.Error
-import net.crossly.models.policy.ListPolicyPresetsItem
+import net.crossly.models.policy.GetPolicyResponse
 import net.crossly.models.policy.ListPolicyPresetsResponse
-import net.crossly.models.common.OkResponse
 
 import com.squareup.moshi.Json
 
@@ -51,9 +53,9 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     }
 
     /**
-    * Create a return / shipping / payment policy preset.
-    * 
-    * @return ListPolicyPresetsItem
+    * Check whether a shipping policy ships to an address.
+    * Pass an unsaved &#x60;policy&#x60; draft or a &#x60;presetId&#x60; (neither &#x3D; your default shipping policy), an &#x60;address&#x60;, and optionally &#x60;consolidateVia&#x60; (a ship-together hub). Returns &#x60;ships&#x60;, and when it does not: &#x60;reason&#x60;, &#x60;stage&#x60; (buyer | hub), &#x60;message&#x60; and the deciding &#x60;rule&#x60;. &#x60;partial&#x60; means a fuller address (state, ZIP) could change the answer. A draft that is not a valid shipping policy is a 422; a presetId that is not yours is a 404.
+    * @return CreateGeoLocationCheckResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -62,11 +64,78 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createPolicyPreset() : ListPolicyPresetsItem {
+    fun createGeoLocationCheck() : CreateGeoLocationCheckResponse {
+        val localVarResponse = createGeoLocationCheckWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateGeoLocationCheckResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Check whether a shipping policy ships to an address.
+    * Pass an unsaved &#x60;policy&#x60; draft or a &#x60;presetId&#x60; (neither &#x3D; your default shipping policy), an &#x60;address&#x60;, and optionally &#x60;consolidateVia&#x60; (a ship-together hub). Returns &#x60;ships&#x60;, and when it does not: &#x60;reason&#x60;, &#x60;stage&#x60; (buyer | hub), &#x60;message&#x60; and the deciding &#x60;rule&#x60;. &#x60;partial&#x60; means a fuller address (state, ZIP) could change the answer. A draft that is not a valid shipping policy is a 422; a presetId that is not yours is a 404.
+    * @return ApiResponse<CreateGeoLocationCheckResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createGeoLocationCheckWithHttpInfo() : ApiResponse<CreateGeoLocationCheckResponse?> {
+        val localVariableConfig = createGeoLocationCheckRequestConfig()
+
+        return request<Unit, CreateGeoLocationCheckResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createGeoLocationCheck
+    *
+    * @return RequestConfig
+    */
+    fun createGeoLocationCheckRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/geo/location-check",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Create a return / shipping / payment policy preset.
+    * 
+    * @return CreatePolicyPresetResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createPolicyPreset() : CreatePolicyPresetResponse {
         val localVarResponse = createPolicyPresetWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as ListPolicyPresetsItem
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreatePolicyPresetResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -83,16 +152,16 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     /**
     * Create a return / shipping / payment policy preset.
     * 
-    * @return ApiResponse<ListPolicyPresetsItem?>
+    * @return ApiResponse<CreatePolicyPresetResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createPolicyPresetWithHttpInfo() : ApiResponse<ListPolicyPresetsItem?> {
+    fun createPolicyPresetWithHttpInfo() : ApiResponse<CreatePolicyPresetResponse?> {
         val localVariableConfig = createPolicyPresetRequestConfig()
 
-        return request<Unit, ListPolicyPresetsItem>(
+        return request<Unit, CreatePolicyPresetResponse>(
             localVariableConfig
         )
     }
@@ -118,10 +187,10 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     }
 
     /**
-    * Delete a policy preset.
+    * Delete a policy preset. Listings that used it switch to the default preset of its kind.
     * 
     * @param id  
-    * @return OkResponse
+    * @return DeletePolicyPresetResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -130,11 +199,11 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun deletePolicyPreset(id: java.util.UUID) : OkResponse {
+    fun deletePolicyPreset(id: java.util.UUID) : DeletePolicyPresetResponse {
         val localVarResponse = deletePolicyPresetWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as OkResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeletePolicyPresetResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -149,19 +218,19 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     }
 
     /**
-    * Delete a policy preset.
+    * Delete a policy preset. Listings that used it switch to the default preset of its kind.
     * 
     * @param id  
-    * @return ApiResponse<OkResponse?>
+    * @return ApiResponse<DeletePolicyPresetResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun deletePolicyPresetWithHttpInfo(id: java.util.UUID) : ApiResponse<OkResponse?> {
+    fun deletePolicyPresetWithHttpInfo(id: java.util.UUID) : ApiResponse<DeletePolicyPresetResponse?> {
         val localVariableConfig = deletePolicyPresetRequestConfig(id = id)
 
-        return request<Unit, OkResponse>(
+        return request<Unit, DeletePolicyPresetResponse>(
             localVariableConfig
         )
     }
@@ -188,6 +257,73 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     }
 
     /**
+    * The seller&#39;s shipping / return / payment policy presets by kind, with each kind&#39;s default.
+    * Pass a preset &#x60;id&#x60; as &#x60;policies.shippingPresetId&#x60; / &#x60;returnPresetId&#x60; / &#x60;paymentPresetId&#x60; on POST or PATCH /v1/listings (null &#x3D; the marketplace&#39;s own default). A kind you omit uses &#x60;defaultPresetId&#x60;.
+    * @return GetPolicyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getPolicy() : GetPolicyResponse {
+        val localVarResponse = getPolicyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetPolicyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The seller&#39;s shipping / return / payment policy presets by kind, with each kind&#39;s default.
+    * Pass a preset &#x60;id&#x60; as &#x60;policies.shippingPresetId&#x60; / &#x60;returnPresetId&#x60; / &#x60;paymentPresetId&#x60; on POST or PATCH /v1/listings (null &#x3D; the marketplace&#39;s own default). A kind you omit uses &#x60;defaultPresetId&#x60;.
+    * @return ApiResponse<GetPolicyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getPolicyWithHttpInfo() : ApiResponse<GetPolicyResponse?> {
+        val localVariableConfig = getPolicyRequestConfig()
+
+        return request<Unit, GetPolicyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getPolicy
+    *
+    * @return RequestConfig
+    */
+    fun getPolicyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/policies",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * enum for parameter kind
      */
      enum class Kind_listPolicyPresets(val value: kotlin.String) {
@@ -198,7 +334,7 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
      }
 
     /**
-    * List the seller&#39;s return / shipping / payment policy presets.
+    * List the seller&#39;s return / shipping / payment policy presets. meta.migrationNotices lists defaults the policy migration demoted (kind still has no default).
     * 
     * @param kind  (optional)
     * @return ListPolicyPresetsResponse
@@ -229,7 +365,7 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     }
 
     /**
-    * List the seller&#39;s return / shipping / payment policy presets.
+    * List the seller&#39;s return / shipping / payment policy presets. meta.migrationNotices lists defaults the policy migration demoted (kind still has no default).
     * 
     * @param kind  (optional)
     * @return ApiResponse<ListPolicyPresetsResponse?>
@@ -276,7 +412,7 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     * Update a policy preset.
     * 
     * @param id  
-    * @return ListPolicyPresetsItem
+    * @return CreatePolicyPresetResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -285,11 +421,11 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun updatePolicyPreset(id: java.util.UUID) : ListPolicyPresetsItem {
+    fun updatePolicyPreset(id: java.util.UUID) : CreatePolicyPresetResponse {
         val localVarResponse = updatePolicyPresetWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as ListPolicyPresetsItem
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreatePolicyPresetResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -307,16 +443,16 @@ class PolicyPresetsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(ba
     * Update a policy preset.
     * 
     * @param id  
-    * @return ApiResponse<ListPolicyPresetsItem?>
+    * @return ApiResponse<CreatePolicyPresetResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun updatePolicyPresetWithHttpInfo(id: java.util.UUID) : ApiResponse<ListPolicyPresetsItem?> {
+    fun updatePolicyPresetWithHttpInfo(id: java.util.UUID) : ApiResponse<CreatePolicyPresetResponse?> {
         val localVariableConfig = updatePolicyPresetRequestConfig(id = id)
 
-        return request<Unit, ListPolicyPresetsItem>(
+        return request<Unit, CreatePolicyPresetResponse>(
             localVariableConfig
         )
     }

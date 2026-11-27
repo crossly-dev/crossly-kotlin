@@ -28,42 +28,30 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param status 
- * @param expiresAt 
- * @param isBundle 
  * @param platformListingId 
  * @param sellerUserId 
  * @param amountCents The offer amount for the whole set, in cents.
- * @param expired 
+ * @param status 
+ * @param expiresAt 
+ * @param createdAt 
  * @param items 
- * @param awaitingBuyer A seller counter waiting on YOU: accept, decline or counter back.
+ * @param isBundle 
  * @param redeemable Accepted, unpaid, unexpired and every item still live — pay for it now.
- * @param decidedAt 
+ * @param expired 
+ * @param awaitingBuyer A seller counter waiting on YOU: accept, decline or counter back.
+ * @param platformListingIds 
+ * @param listedTotalCents Asking-price total when the offer was made, in cents.
  * @param message 
  * @param parentOfferId 
- * @param platformListingIds 
- * @param consumedAt 
- * @param listedTotalCents Asking-price total when the offer was made, in cents.
  * @param origin null = you made it; seller_counter / buyer_counter / second_chance / seller_offer (to watchers) / live_auction otherwise.
+ * @param decidedAt 
+ * @param consumedAt 
  */
 
 data class ListBuyerOffersItem (
 
     @Json(name = "id")
     val id: kotlin.String,
-
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
-
-    @Json(name = "status")
-    val status: kotlin.String,
-
-    @Json(name = "expiresAt")
-    val expiresAt: kotlin.String,
-
-    @Json(name = "isBundle")
-    val isBundle: kotlin.Boolean,
 
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String,
@@ -75,22 +63,38 @@ data class ListBuyerOffersItem (
     @Json(name = "amountCents")
     val amountCents: java.math.BigDecimal,
 
-    @Json(name = "expired")
-    val expired: kotlin.Boolean,
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    @Json(name = "expiresAt")
+    val expiresAt: kotlin.String,
+
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
 
     @Json(name = "items")
     val items: kotlin.collections.List<ListBuyerOffersItemItems>,
 
-    /* A seller counter waiting on YOU: accept, decline or counter back. */
-    @Json(name = "awaitingBuyer")
-    val awaitingBuyer: kotlin.Boolean,
+    @Json(name = "isBundle")
+    val isBundle: kotlin.Boolean,
 
     /* Accepted, unpaid, unexpired and every item still live — pay for it now. */
     @Json(name = "redeemable")
     val redeemable: kotlin.Boolean,
 
-    @Json(name = "decidedAt")
-    val decidedAt: kotlin.String? = null,
+    @Json(name = "expired")
+    val expired: kotlin.Boolean,
+
+    /* A seller counter waiting on YOU: accept, decline or counter back. */
+    @Json(name = "awaitingBuyer")
+    val awaitingBuyer: kotlin.Boolean,
+
+    @Json(name = "platformListingIds")
+    val platformListingIds: kotlin.collections.List<kotlin.String>? = null,
+
+    /* Asking-price total when the offer was made, in cents. */
+    @Json(name = "listedTotalCents")
+    val listedTotalCents: java.math.BigDecimal? = null,
 
     @Json(name = "message")
     val message: kotlin.String? = null,
@@ -98,19 +102,15 @@ data class ListBuyerOffersItem (
     @Json(name = "parentOfferId")
     val parentOfferId: kotlin.String? = null,
 
-    @Json(name = "platformListingIds")
-    val platformListingIds: kotlin.collections.List<kotlin.String>? = null,
-
-    @Json(name = "consumedAt")
-    val consumedAt: kotlin.String? = null,
-
-    /* Asking-price total when the offer was made, in cents. */
-    @Json(name = "listedTotalCents")
-    val listedTotalCents: java.math.BigDecimal? = null,
-
     /* null = you made it; seller_counter / buyer_counter / second_chance / seller_offer (to watchers) / live_auction otherwise. */
     @Json(name = "origin")
-    val origin: kotlin.String? = null
+    val origin: kotlin.String? = null,
+
+    @Json(name = "decidedAt")
+    val decidedAt: kotlin.String? = null,
+
+    @Json(name = "consumedAt")
+    val consumedAt: kotlin.String? = null
 
 )
 

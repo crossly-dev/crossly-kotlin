@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param live 
  * @param title 
+ * @param live 
  * @param endsAt 
  * @param kind 
  * @param startsAt 
@@ -39,11 +39,11 @@ data class ListNeighbourhoodsItemNextEvent (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "live")
-    val live: kotlin.Boolean,
-
     @Json(name = "title")
     val title: kotlin.String,
+
+    @Json(name = "live")
+    val live: kotlin.Boolean,
 
     @Json(name = "endsAt")
     val endsAt: kotlin.String,

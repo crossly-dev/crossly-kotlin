@@ -20,7 +20,7 @@
 
 package net.crossly.models.spatial
 
-import net.crossly.models.spatial.UpdateSpatialSceneCosmeticResponseDataProps
+import net.crossly.models.showroom.GetShowroomResponseDataRoomProps
 
 import com.squareup.moshi.Json
 
@@ -65,7 +65,7 @@ data class UpdateSpatialSceneCosmeticResponseData (
 
     /* Decorative props. Never containers — see CosmeticProp. */
     @Json(name = "props")
-    val props: kotlin.collections.List<UpdateSpatialSceneCosmeticResponseDataProps>? = null,
+    val props: kotlin.collections.List<GetShowroomResponseDataRoomProps>? = null,
 
     /* How this room's door presents itself in the hall. See SHOPFRONT_STYLES.  Undefined means \"never chosen\", which the renderer reads as SHOPFRONT_DEFAULT — NOT as `none`. The two are different answers and the distinction is the whole reason this is optional rather than defaulted here: a validator that filled in `fascia` would make \"I explicitly want a bare opening\" unrepresentable. */
     @Json(name = "shopfront")
@@ -142,13 +142,13 @@ data class UpdateSpatialSceneCosmeticResponseData (
     /**
      * How this room's door presents itself in the hall. See SHOPFRONT_STYLES.  Undefined means \"never chosen\", which the renderer reads as SHOPFRONT_DEFAULT — NOT as `none`. The two are different answers and the distinction is the whole reason this is optional rather than defaulted here: a validator that filled in `fascia` would make \"I explicitly want a bare opening\" unrepresentable.
      *
-     * Values: FULL,NONE,AWNING,FASCIA,NEON_FASCIA,GILDED_FASCIA,SCALLOPED_AWNING
+     * Values: FULL,NONE,FASCIA,AWNING,NEON_FASCIA,GILDED_FASCIA,SCALLOPED_AWNING
      */
     enum class Shopfront(val value: kotlin.String) {
         @Json(name = "full") FULL("full"),
         @Json(name = "none") NONE("none"),
-        @Json(name = "awning") AWNING("awning"),
         @Json(name = "fascia") FASCIA("fascia"),
+        @Json(name = "awning") AWNING("awning"),
         @Json(name = "neon_fascia") NEON_FASCIA("neon_fascia"),
         @Json(name = "gilded_fascia") GILDED_FASCIA("gilded_fascia"),
         @Json(name = "scalloped_awning") SCALLOPED_AWNING("scalloped_awning");

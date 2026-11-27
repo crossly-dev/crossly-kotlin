@@ -51,11 +51,11 @@ data class CreateWorldInteractiveAssetResponseData (
     /**
      * 
      *
-     * Values: PNG,GLB,WAV
+     * Values: GLB,PNG,WAV
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "png") PNG("png"),
         @Json(name = "glb") GLB("glb"),
+        @Json(name = "png") PNG("png"),
         @Json(name = "wav") WAV("wav");
     }
 }

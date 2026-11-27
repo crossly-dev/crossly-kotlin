@@ -22,6 +22,7 @@ package net.crossly.models.web3
 
 import net.crossly.models.web3.GetWeb3LaunchToolResponseAllowlist
 import net.crossly.models.web3.GetWeb3LaunchToolResponseArt
+import net.crossly.models.web3.GetWeb3LaunchToolResponseRoyalties
 import net.crossly.models.web3.GetWeb3LaunchToolResponseSupply
 
 import com.squareup.moshi.Json
@@ -29,12 +30,16 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param royalties 
  * @param allowlist 
  * @param art 
  * @param supply 
  */
 
 data class GetWeb3LaunchToolResponse (
+
+    @Json(name = "royalties")
+    val royalties: GetWeb3LaunchToolResponseRoyalties,
 
     @Json(name = "allowlist")
     val allowlist: GetWeb3LaunchToolResponseAllowlist,

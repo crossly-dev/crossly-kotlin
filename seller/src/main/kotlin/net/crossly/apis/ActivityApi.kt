@@ -22,11 +22,43 @@ package net.crossly.apis
 
 import java.io.IOException
 
+import net.crossly.models.action.CreateActionLogExportRequest
+import net.crossly.models.action.CreateActionLogSearchTranslateRequest
+import net.crossly.models.action.CreateActionLogSearchTranslateResponse
+import net.crossly.models.detected.CreateDetectedEventEventConfirmRequest
+import net.crossly.models.detected.CreateDetectedEventEventUndoResponse
+import net.crossly.models.detected.CreateDetectedEventRulePlaceRequest
+import net.crossly.models.detected.CreateDetectedEventRulePlaceResponse
+import net.crossly.models.detected.CreateDetectedEventRuleReorderRequest
+import net.crossly.models.detected.CreateDetectedEventRuleReorderResponse
+import net.crossly.models.detected.CreateDetectedEventRuleRequest
+import net.crossly.models.detected.CreateDetectedEventRuleResetDefaultRequest
+import net.crossly.models.detected.CreateDetectedEventRuleResponse
+import net.crossly.models.detected.CreateDetectedEventSimulateImpactRequest
+import net.crossly.models.detected.CreateDetectedEventSimulateImpactResponse
+import net.crossly.models.detected.CreateDetectedEventSimulateRequest
+import net.crossly.models.detected.CreateDetectedEventSimulateResponse
+import net.crossly.models.email.CreateEmailEventConfirmRequest
+import net.crossly.models.email.CreateEmailEventConfirmResponse
+import net.crossly.models.event.CreateEventPolicyDecisionConfirmResponse
+import net.crossly.models.common.DeleteStoryResponse
 import net.crossly.models.common.Error
-import net.crossly.models.common.GetActionLogFacetResponse
-import net.crossly.models.common.ListActionLogCallsResponse
-import net.crossly.models.common.ListActionLogItem
-import net.crossly.models.common.ListActionLogResponse
+import net.crossly.models.action.GetActionLogExportDownloadResponse
+import net.crossly.models.action.GetActionLogExportResponse
+import net.crossly.models.action.GetActionLogFacetResponse
+import net.crossly.models.detected.GetDetectedEventEventResponse
+import net.crossly.models.event.GetEventPolicyResponse
+import net.crossly.models.common.IdStatusResponse
+import net.crossly.models.action.ListActionLogCallsResponse
+import net.crossly.models.action.ListActionLogHistogramResponse
+import net.crossly.models.action.ListActionLogItem
+import net.crossly.models.action.ListActionLogResponse
+import net.crossly.models.detected.ListDetectedEventEventsResponse
+import net.crossly.models.detected.ListDetectedEventRulesResponse
+import net.crossly.models.email.ListEmailEventsResponse
+import net.crossly.models.event.ListEventPolicyDecisionsResponse
+import net.crossly.models.event.UpdateEventPolicyRuleRequest
+import net.crossly.models.event.UpdateEventPolicyRuleResponse
 
 import com.squareup.moshi.Json
 
@@ -52,7 +84,1073 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * Get one action-log event by id (ownership-checked).
+    * Queue an export of the Activity Log: every event (csv, ndjson, pdf) or a summary report (pdf, ndjson). Poll GET /api/v1/action-log/exports/{exportId}, then download it. Exports never contain IP addresses.
+    * 
+    * @param createActionLogExportRequest  
+    * @return GetActionLogExportResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createActionLogExport(createActionLogExportRequest: CreateActionLogExportRequest) : GetActionLogExportResponse {
+        val localVarResponse = createActionLogExportWithHttpInfo(createActionLogExportRequest = createActionLogExportRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetActionLogExportResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Queue an export of the Activity Log: every event (csv, ndjson, pdf) or a summary report (pdf, ndjson). Poll GET /api/v1/action-log/exports/{exportId}, then download it. Exports never contain IP addresses.
+    * 
+    * @param createActionLogExportRequest  
+    * @return ApiResponse<GetActionLogExportResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createActionLogExportWithHttpInfo(createActionLogExportRequest: CreateActionLogExportRequest) : ApiResponse<GetActionLogExportResponse?> {
+        val localVariableConfig = createActionLogExportRequestConfig(createActionLogExportRequest = createActionLogExportRequest)
+
+        return request<CreateActionLogExportRequest, GetActionLogExportResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createActionLogExport
+    *
+    * @param createActionLogExportRequest  
+    * @return RequestConfig
+    */
+    fun createActionLogExportRequestConfig(createActionLogExportRequest: CreateActionLogExportRequest) : RequestConfig<CreateActionLogExportRequest> {
+        val localVariableBody = createActionLogExportRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/action-log/exports",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Turn a question in words (\&quot;failed delists on Mercari last week\&quot;) into an Activity Log search: pass the returned &#x60;q&#x60; to GET /api/v1/action-log (or the histogram and csv/ndjson exports). Nothing is run. A 404 with details.code &#x60;not_enabled&#x60; means natural-language search is off for this account.
+    * 
+    * @param createActionLogSearchTranslateRequest  
+    * @return CreateActionLogSearchTranslateResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createActionLogSearchTranslate(createActionLogSearchTranslateRequest: CreateActionLogSearchTranslateRequest) : CreateActionLogSearchTranslateResponse {
+        val localVarResponse = createActionLogSearchTranslateWithHttpInfo(createActionLogSearchTranslateRequest = createActionLogSearchTranslateRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateActionLogSearchTranslateResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Turn a question in words (\&quot;failed delists on Mercari last week\&quot;) into an Activity Log search: pass the returned &#x60;q&#x60; to GET /api/v1/action-log (or the histogram and csv/ndjson exports). Nothing is run. A 404 with details.code &#x60;not_enabled&#x60; means natural-language search is off for this account.
+    * 
+    * @param createActionLogSearchTranslateRequest  
+    * @return ApiResponse<CreateActionLogSearchTranslateResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createActionLogSearchTranslateWithHttpInfo(createActionLogSearchTranslateRequest: CreateActionLogSearchTranslateRequest) : ApiResponse<CreateActionLogSearchTranslateResponse?> {
+        val localVariableConfig = createActionLogSearchTranslateRequestConfig(createActionLogSearchTranslateRequest = createActionLogSearchTranslateRequest)
+
+        return request<CreateActionLogSearchTranslateRequest, CreateActionLogSearchTranslateResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createActionLogSearchTranslate
+    *
+    * @param createActionLogSearchTranslateRequest  
+    * @return RequestConfig
+    */
+    fun createActionLogSearchTranslateRequestConfig(createActionLogSearchTranslateRequest: CreateActionLogSearchTranslateRequest) : RequestConfig<CreateActionLogSearchTranslateRequest> {
+        val localVariableBody = createActionLogSearchTranslateRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/action-log/search/translate",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Answer an open ask (canConfirm true): optionally which item it is (itemId, one of the match candidates) and which actions to run instead of the ask&#39;s preselected ones. Returns the event. 409 ask_not_open when the event is not waiting.
+    * 
+    * @param id  
+    * @param createDetectedEventEventConfirmRequest  
+    * @return CreateDetectedEventEventUndoResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createDetectedEventEventConfirm(id: java.util.UUID, createDetectedEventEventConfirmRequest: CreateDetectedEventEventConfirmRequest) : CreateDetectedEventEventUndoResponse {
+        val localVarResponse = createDetectedEventEventConfirmWithHttpInfo(id = id, createDetectedEventEventConfirmRequest = createDetectedEventEventConfirmRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventEventUndoResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Answer an open ask (canConfirm true): optionally which item it is (itemId, one of the match candidates) and which actions to run instead of the ask&#39;s preselected ones. Returns the event. 409 ask_not_open when the event is not waiting.
+    * 
+    * @param id  
+    * @param createDetectedEventEventConfirmRequest  
+    * @return ApiResponse<CreateDetectedEventEventUndoResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createDetectedEventEventConfirmWithHttpInfo(id: java.util.UUID, createDetectedEventEventConfirmRequest: CreateDetectedEventEventConfirmRequest) : ApiResponse<CreateDetectedEventEventUndoResponse?> {
+        val localVariableConfig = createDetectedEventEventConfirmRequestConfig(id = id, createDetectedEventEventConfirmRequest = createDetectedEventEventConfirmRequest)
+
+        return request<CreateDetectedEventEventConfirmRequest, CreateDetectedEventEventUndoResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createDetectedEventEventConfirm
+    *
+    * @param id  
+    * @param createDetectedEventEventConfirmRequest  
+    * @return RequestConfig
+    */
+    fun createDetectedEventEventConfirmRequestConfig(id: java.util.UUID, createDetectedEventEventConfirmRequest: CreateDetectedEventEventConfirmRequest) : RequestConfig<CreateDetectedEventEventConfirmRequest> {
+        val localVariableBody = createDetectedEventEventConfirmRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/detected-events/events/{id}/confirm".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Undo what Crossly did for an event (canUndo true): every executed action&#39;s stored inverse runs, newest first (restore stock, relist, unlink…). Returns the event. 409 nothing_to_undo when nothing is reversible.
+    * 
+    * @param id  
+    * @return CreateDetectedEventEventUndoResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createDetectedEventEventUndo(id: java.util.UUID) : CreateDetectedEventEventUndoResponse {
+        val localVarResponse = createDetectedEventEventUndoWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventEventUndoResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Undo what Crossly did for an event (canUndo true): every executed action&#39;s stored inverse runs, newest first (restore stock, relist, unlink…). Returns the event. 409 nothing_to_undo when nothing is reversible.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateDetectedEventEventUndoResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createDetectedEventEventUndoWithHttpInfo(id: java.util.UUID) : ApiResponse<CreateDetectedEventEventUndoResponse?> {
+        val localVariableConfig = createDetectedEventEventUndoRequestConfig(id = id)
+
+        return request<Unit, CreateDetectedEventEventUndoResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createDetectedEventEventUndo
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createDetectedEventEventUndoRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/detected-events/events/{id}/undo".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Create a detection rule: which detected events it applies to (filter + optional condition over any event axis) and what Crossly does then (and else). Without order it is placed most-specific-first, above the default set. Returns the stored rule with its id.
+    * 
+    * @param createDetectedEventRuleRequest  
+    * @return CreateDetectedEventRuleResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createDetectedEventRule(createDetectedEventRuleRequest: CreateDetectedEventRuleRequest) : CreateDetectedEventRuleResponse {
+        val localVarResponse = createDetectedEventRuleWithHttpInfo(createDetectedEventRuleRequest = createDetectedEventRuleRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventRuleResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Create a detection rule: which detected events it applies to (filter + optional condition over any event axis) and what Crossly does then (and else). Without order it is placed most-specific-first, above the default set. Returns the stored rule with its id.
+    * 
+    * @param createDetectedEventRuleRequest  
+    * @return ApiResponse<CreateDetectedEventRuleResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createDetectedEventRuleWithHttpInfo(createDetectedEventRuleRequest: CreateDetectedEventRuleRequest) : ApiResponse<CreateDetectedEventRuleResponse?> {
+        val localVariableConfig = createDetectedEventRuleRequestConfig(createDetectedEventRuleRequest = createDetectedEventRuleRequest)
+
+        return request<CreateDetectedEventRuleRequest, CreateDetectedEventRuleResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createDetectedEventRule
+    *
+    * @param createDetectedEventRuleRequest  
+    * @return RequestConfig
+    */
+    fun createDetectedEventRuleRequestConfig(createDetectedEventRuleRequest: CreateDetectedEventRuleRequest) : RequestConfig<CreateDetectedEventRuleRequest> {
+        val localVariableBody = createDetectedEventRuleRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/detected-events/rules",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Save one rule and the whole evaluation order in one transaction: rule.id is an existing id (replace) or any new client id (create); ids is every rule id top-down, naming the rule by that id. Returns the stored rule and the list.
+    * 
+    * @param createDetectedEventRulePlaceRequest  
+    * @return CreateDetectedEventRulePlaceResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createDetectedEventRulePlace(createDetectedEventRulePlaceRequest: CreateDetectedEventRulePlaceRequest) : CreateDetectedEventRulePlaceResponse {
+        val localVarResponse = createDetectedEventRulePlaceWithHttpInfo(createDetectedEventRulePlaceRequest = createDetectedEventRulePlaceRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventRulePlaceResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Save one rule and the whole evaluation order in one transaction: rule.id is an existing id (replace) or any new client id (create); ids is every rule id top-down, naming the rule by that id. Returns the stored rule and the list.
+    * 
+    * @param createDetectedEventRulePlaceRequest  
+    * @return ApiResponse<CreateDetectedEventRulePlaceResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createDetectedEventRulePlaceWithHttpInfo(createDetectedEventRulePlaceRequest: CreateDetectedEventRulePlaceRequest) : ApiResponse<CreateDetectedEventRulePlaceResponse?> {
+        val localVariableConfig = createDetectedEventRulePlaceRequestConfig(createDetectedEventRulePlaceRequest = createDetectedEventRulePlaceRequest)
+
+        return request<CreateDetectedEventRulePlaceRequest, CreateDetectedEventRulePlaceResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createDetectedEventRulePlace
+    *
+    * @param createDetectedEventRulePlaceRequest  
+    * @return RequestConfig
+    */
+    fun createDetectedEventRulePlaceRequestConfig(createDetectedEventRulePlaceRequest: CreateDetectedEventRulePlaceRequest) : RequestConfig<CreateDetectedEventRulePlaceRequest> {
+        val localVariableBody = createDetectedEventRulePlaceRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/detected-events/rules/place",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Set the evaluation order: ids top-down, defaults included (ids from the rules list). Rules are re-numbered 10, 20, 30…; a default moved above one of your rules is stored as your edit. Returns the list.
+    * 
+    * @param createDetectedEventRuleReorderRequest  
+    * @return CreateDetectedEventRuleReorderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createDetectedEventRuleReorder(createDetectedEventRuleReorderRequest: CreateDetectedEventRuleReorderRequest) : CreateDetectedEventRuleReorderResponse {
+        val localVarResponse = createDetectedEventRuleReorderWithHttpInfo(createDetectedEventRuleReorderRequest = createDetectedEventRuleReorderRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventRuleReorderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set the evaluation order: ids top-down, defaults included (ids from the rules list). Rules are re-numbered 10, 20, 30…; a default moved above one of your rules is stored as your edit. Returns the list.
+    * 
+    * @param createDetectedEventRuleReorderRequest  
+    * @return ApiResponse<CreateDetectedEventRuleReorderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createDetectedEventRuleReorderWithHttpInfo(createDetectedEventRuleReorderRequest: CreateDetectedEventRuleReorderRequest) : ApiResponse<CreateDetectedEventRuleReorderResponse?> {
+        val localVariableConfig = createDetectedEventRuleReorderRequestConfig(createDetectedEventRuleReorderRequest = createDetectedEventRuleReorderRequest)
+
+        return request<CreateDetectedEventRuleReorderRequest, CreateDetectedEventRuleReorderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createDetectedEventRuleReorder
+    *
+    * @param createDetectedEventRuleReorderRequest  
+    * @return RequestConfig
+    */
+    fun createDetectedEventRuleReorderRequestConfig(createDetectedEventRuleReorderRequest: CreateDetectedEventRuleReorderRequest) : RequestConfig<CreateDetectedEventRuleReorderRequest> {
+        val localVariableBody = createDetectedEventRuleReorderRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/detected-events/rules/reorder",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Drop your edits of the shipped default rules (keys, or all when omitted). Returns the list.
+    * 
+    * @param createDetectedEventRuleResetDefaultRequest  
+    * @return CreateDetectedEventRuleReorderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createDetectedEventRuleResetDefault(createDetectedEventRuleResetDefaultRequest: CreateDetectedEventRuleResetDefaultRequest) : CreateDetectedEventRuleReorderResponse {
+        val localVarResponse = createDetectedEventRuleResetDefaultWithHttpInfo(createDetectedEventRuleResetDefaultRequest = createDetectedEventRuleResetDefaultRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventRuleReorderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Drop your edits of the shipped default rules (keys, or all when omitted). Returns the list.
+    * 
+    * @param createDetectedEventRuleResetDefaultRequest  
+    * @return ApiResponse<CreateDetectedEventRuleReorderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createDetectedEventRuleResetDefaultWithHttpInfo(createDetectedEventRuleResetDefaultRequest: CreateDetectedEventRuleResetDefaultRequest) : ApiResponse<CreateDetectedEventRuleReorderResponse?> {
+        val localVariableConfig = createDetectedEventRuleResetDefaultRequestConfig(createDetectedEventRuleResetDefaultRequest = createDetectedEventRuleResetDefaultRequest)
+
+        return request<CreateDetectedEventRuleResetDefaultRequest, CreateDetectedEventRuleReorderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createDetectedEventRuleResetDefault
+    *
+    * @param createDetectedEventRuleResetDefaultRequest  
+    * @return RequestConfig
+    */
+    fun createDetectedEventRuleResetDefaultRequestConfig(createDetectedEventRuleResetDefaultRequest: CreateDetectedEventRuleResetDefaultRequest) : RequestConfig<CreateDetectedEventRuleResetDefaultRequest> {
+        val localVariableBody = createDetectedEventRuleResetDefaultRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/detected-events/rules/reset-defaults",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Run one event through the rules without acting: the winning rule, rules it shadowed, the trace, the guards that held actions back and the plan per target with how it would run (direct / relay / ask / skip). event needs only kind; every axis left out takes its default. rules &#x3D; an unsaved draft list.
+    * 
+    * @param createDetectedEventSimulateRequest  
+    * @return CreateDetectedEventSimulateResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createDetectedEventSimulate(createDetectedEventSimulateRequest: CreateDetectedEventSimulateRequest) : CreateDetectedEventSimulateResponse {
+        val localVarResponse = createDetectedEventSimulateWithHttpInfo(createDetectedEventSimulateRequest = createDetectedEventSimulateRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventSimulateResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Run one event through the rules without acting: the winning rule, rules it shadowed, the trace, the guards that held actions back and the plan per target with how it would run (direct / relay / ask / skip). event needs only kind; every axis left out takes its default. rules &#x3D; an unsaved draft list.
+    * 
+    * @param createDetectedEventSimulateRequest  
+    * @return ApiResponse<CreateDetectedEventSimulateResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createDetectedEventSimulateWithHttpInfo(createDetectedEventSimulateRequest: CreateDetectedEventSimulateRequest) : ApiResponse<CreateDetectedEventSimulateResponse?> {
+        val localVariableConfig = createDetectedEventSimulateRequestConfig(createDetectedEventSimulateRequest = createDetectedEventSimulateRequest)
+
+        return request<CreateDetectedEventSimulateRequest, CreateDetectedEventSimulateResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createDetectedEventSimulate
+    *
+    * @param createDetectedEventSimulateRequest  
+    * @return RequestConfig
+    */
+    fun createDetectedEventSimulateRequestConfig(createDetectedEventSimulateRequest: CreateDetectedEventSimulateRequest) : RequestConfig<CreateDetectedEventSimulateRequest> {
+        val localVariableBody = createDetectedEventSimulateRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/detected-events/simulate",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What a rule edit would change: your detected events of the last days (default 30, at most 500) re-resolved against the draft rules and against the stored ones. Per event: winning rule and actions before and after, and whether it changed. Nothing runs.
+    * 
+    * @param createDetectedEventSimulateImpactRequest  
+    * @return CreateDetectedEventSimulateImpactResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createDetectedEventSimulateImpact(createDetectedEventSimulateImpactRequest: CreateDetectedEventSimulateImpactRequest) : CreateDetectedEventSimulateImpactResponse {
+        val localVarResponse = createDetectedEventSimulateImpactWithHttpInfo(createDetectedEventSimulateImpactRequest = createDetectedEventSimulateImpactRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventSimulateImpactResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What a rule edit would change: your detected events of the last days (default 30, at most 500) re-resolved against the draft rules and against the stored ones. Per event: winning rule and actions before and after, and whether it changed. Nothing runs.
+    * 
+    * @param createDetectedEventSimulateImpactRequest  
+    * @return ApiResponse<CreateDetectedEventSimulateImpactResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createDetectedEventSimulateImpactWithHttpInfo(createDetectedEventSimulateImpactRequest: CreateDetectedEventSimulateImpactRequest) : ApiResponse<CreateDetectedEventSimulateImpactResponse?> {
+        val localVariableConfig = createDetectedEventSimulateImpactRequestConfig(createDetectedEventSimulateImpactRequest = createDetectedEventSimulateImpactRequest)
+
+        return request<CreateDetectedEventSimulateImpactRequest, CreateDetectedEventSimulateImpactResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createDetectedEventSimulateImpact
+    *
+    * @param createDetectedEventSimulateImpactRequest  
+    * @return RequestConfig
+    */
+    fun createDetectedEventSimulateImpactRequestConfig(createDetectedEventSimulateImpactRequest: CreateDetectedEventSimulateImpactRequest) : RequestConfig<CreateDetectedEventSimulateImpactRequest> {
+        val localVariableBody = createDetectedEventSimulateImpactRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/detected-events/simulate/impact",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Confirm an email-detected event: re-run it as certain (a possible sale records the sale and delists the item elsewhere). When several listings could be meant, pass platformListingDbId to choose one.
+    * 
+    * @param id  
+    * @param createEmailEventConfirmRequest  
+    * @return CreateEmailEventConfirmResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createEmailEventConfirm(id: java.util.UUID, createEmailEventConfirmRequest: CreateEmailEventConfirmRequest) : CreateEmailEventConfirmResponse {
+        val localVarResponse = createEmailEventConfirmWithHttpInfo(id = id, createEmailEventConfirmRequest = createEmailEventConfirmRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateEmailEventConfirmResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Confirm an email-detected event: re-run it as certain (a possible sale records the sale and delists the item elsewhere). When several listings could be meant, pass platformListingDbId to choose one.
+    * 
+    * @param id  
+    * @param createEmailEventConfirmRequest  
+    * @return ApiResponse<CreateEmailEventConfirmResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createEmailEventConfirmWithHttpInfo(id: java.util.UUID, createEmailEventConfirmRequest: CreateEmailEventConfirmRequest) : ApiResponse<CreateEmailEventConfirmResponse?> {
+        val localVariableConfig = createEmailEventConfirmRequestConfig(id = id, createEmailEventConfirmRequest = createEmailEventConfirmRequest)
+
+        return request<CreateEmailEventConfirmRequest, CreateEmailEventConfirmResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createEmailEventConfirm
+    *
+    * @param id  
+    * @param createEmailEventConfirmRequest  
+    * @return RequestConfig
+    */
+    fun createEmailEventConfirmRequestConfig(id: java.util.UUID, createEmailEventConfirmRequest: CreateEmailEventConfirmRequest) : RequestConfig<CreateEmailEventConfirmRequest> {
+        val localVariableBody = createEmailEventConfirmRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/email-events/{id}/confirm".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Dismiss an email-detected event (\&quot;not a sale\&quot;): closes the card without acting.
+    * 
+    * @param id  
+    * @return IdStatusResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createEmailEventDismiss(id: java.util.UUID) : IdStatusResponse {
+        val localVarResponse = createEmailEventDismissWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as IdStatusResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Dismiss an email-detected event (\&quot;not a sale\&quot;): closes the card without acting.
+    * 
+    * @param id  
+    * @return ApiResponse<IdStatusResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createEmailEventDismissWithHttpInfo(id: java.util.UUID) : ApiResponse<IdStatusResponse?> {
+        val localVariableConfig = createEmailEventDismissRequestConfig(id = id)
+
+        return request<Unit, IdStatusResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createEmailEventDismiss
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createEmailEventDismissRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/email-events/{id}/dismiss".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Confirm a review decision from a webhook, order poller or app relay (canConfirm true): the event runs again with the seller confirmed, so a review rule runs the strongest allowed non-review action for that cell. Returns the new decision. 409 when the decision was already confirmed or is not confirmable (email review decisions are confirmed on their review card).
+    * 
+    * @param id  
+    * @return CreateEventPolicyDecisionConfirmResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createEventPolicyDecisionConfirm(id: java.util.UUID) : CreateEventPolicyDecisionConfirmResponse {
+        val localVarResponse = createEventPolicyDecisionConfirmWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateEventPolicyDecisionConfirmResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Confirm a review decision from a webhook, order poller or app relay (canConfirm true): the event runs again with the seller confirmed, so a review rule runs the strongest allowed non-review action for that cell. Returns the new decision. 409 when the decision was already confirmed or is not confirmable (email review decisions are confirmed on their review card).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateEventPolicyDecisionConfirmResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createEventPolicyDecisionConfirmWithHttpInfo(id: java.util.UUID) : ApiResponse<CreateEventPolicyDecisionConfirmResponse?> {
+        val localVariableConfig = createEventPolicyDecisionConfirmRequestConfig(id = id)
+
+        return request<Unit, CreateEventPolicyDecisionConfirmResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createEventPolicyDecisionConfirm
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createEventPolicyDecisionConfirmRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/event-policies/decisions/{id}/confirm".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Delete a detection rule. Deleting your edit of a default (its id, or default:&lt;key&gt;) brings the shipped default back; deleting a translated event-policy rule deletes that policy rule too.
+    * 
+    * @param id  
+    * @return DeleteStoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteDetectedEventRule(id: kotlin.String) : DeleteStoryResponse {
+        val localVarResponse = deleteDetectedEventRuleWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteStoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Delete a detection rule. Deleting your edit of a default (its id, or default:&lt;key&gt;) brings the shipped default back; deleting a translated event-policy rule deletes that policy rule too.
+    * 
+    * @param id  
+    * @return ApiResponse<DeleteStoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteDetectedEventRuleWithHttpInfo(id: kotlin.String) : ApiResponse<DeleteStoryResponse?> {
+        val localVariableConfig = deleteDetectedEventRuleRequestConfig(id = id)
+
+        return request<Unit, DeleteStoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteDetectedEventRule
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteDetectedEventRuleRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/detected-events/rules/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Delete a rule: its cell falls back to the next scope (platform → global → the built-in default).
+    * 
+    * @param id  
+    * @return DeleteStoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteEventPolicyRule(id: java.util.UUID) : DeleteStoryResponse {
+        val localVarResponse = deleteEventPolicyRuleWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteStoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Delete a rule: its cell falls back to the next scope (platform → global → the built-in default).
+    * 
+    * @param id  
+    * @return ApiResponse<DeleteStoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteEventPolicyRuleWithHttpInfo(id: java.util.UUID) : ApiResponse<DeleteStoryResponse?> {
+        val localVariableConfig = deleteEventPolicyRuleRequestConfig(id = id)
+
+        return request<Unit, DeleteStoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteEventPolicyRule
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteEventPolicyRuleRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/event-policies/rules/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One Activity Log event by id, with &#x60;view&#x60; including its steps and, for bulk jobs, its children.
     * 
     * @param id  
     * @return ListActionLogItem
@@ -83,7 +1181,7 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * Get one action-log event by id (ownership-checked).
+    * One Activity Log event by id, with &#x60;view&#x60; including its steps and, for bulk jobs, its children.
     * 
     * @param id  
     * @return ApiResponse<ListActionLogItem?>
@@ -122,7 +1220,147 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * Distinct platforms / actions / categories present in the caller&#39;s action log (last 90 days) — powers filter dropdowns before you query.
+    * The state of one Activity Log export.
+    * 
+    * @param exportId  
+    * @return GetActionLogExportResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getActionLogExport(exportId: kotlin.String) : GetActionLogExportResponse {
+        val localVarResponse = getActionLogExportWithHttpInfo(exportId = exportId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetActionLogExportResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The state of one Activity Log export.
+    * 
+    * @param exportId  
+    * @return ApiResponse<GetActionLogExportResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getActionLogExportWithHttpInfo(exportId: kotlin.String) : ApiResponse<GetActionLogExportResponse?> {
+        val localVariableConfig = getActionLogExportRequestConfig(exportId = exportId)
+
+        return request<Unit, GetActionLogExportResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getActionLogExport
+    *
+    * @param exportId  
+    * @return RequestConfig
+    */
+    fun getActionLogExportRequestConfig(exportId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/action-log/exports/{exportId}".replace("{"+"exportId"+"}", "$exportId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Download a finished Activity Log export (for 24 hours after it completes).
+    * 
+    * @param exportId  
+    * @return GetActionLogExportDownloadResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getActionLogExportDownload(exportId: kotlin.String) : GetActionLogExportDownloadResponse {
+        val localVarResponse = getActionLogExportDownloadWithHttpInfo(exportId = exportId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetActionLogExportDownloadResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Download a finished Activity Log export (for 24 hours after it completes).
+    * 
+    * @param exportId  
+    * @return ApiResponse<GetActionLogExportDownloadResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getActionLogExportDownloadWithHttpInfo(exportId: kotlin.String) : ApiResponse<GetActionLogExportDownloadResponse?> {
+        val localVariableConfig = getActionLogExportDownloadRequestConfig(exportId = exportId)
+
+        return request<Unit, GetActionLogExportDownloadResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getActionLogExportDownload
+    *
+    * @param exportId  
+    * @return RequestConfig
+    */
+    fun getActionLogExportDownloadRequestConfig(exportId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/action-log/exports/{exportId}/download".replace("{"+"exportId"+"}", "$exportId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Filter options of the caller&#39;s Activity Log (last 90 days): areas with their actions and counts, the team members who acted, platforms and outcomes.
     * 
     * @return GetActionLogFacetResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -152,7 +1390,7 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * Distinct platforms / actions / categories present in the caller&#39;s action log (last 90 days) — powers filter dropdowns before you query.
+    * Filter options of the caller&#39;s Activity Log (last 90 days): areas with their actions and counts, the team members who acted, platforms and outcomes.
     * 
     * @return ApiResponse<GetActionLogFacetResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -189,19 +1427,205 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * List action-log events — the semantic \&quot;what happened\&quot; record of every user + platform action. Filter by platform / action / category / status / source / target, and a since/until created_at window.
+    * One detected event with every report of it (first + corroborations, with correlation and contradiction), the guards that held actions back, the plan and each executed action&#39;s outcome and reversibility.
+    * 
+    * @param id  
+    * @return GetDetectedEventEventResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getDetectedEventEvent(id: java.util.UUID) : GetDetectedEventEventResponse {
+        val localVarResponse = getDetectedEventEventWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetDetectedEventEventResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One detected event with every report of it (first + corroborations, with correlation and contradiction), the guards that held actions back, the plan and each executed action&#39;s outcome and reversibility.
+    * 
+    * @param id  
+    * @return ApiResponse<GetDetectedEventEventResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getDetectedEventEventWithHttpInfo(id: java.util.UUID) : ApiResponse<GetDetectedEventEventResponse?> {
+        val localVariableConfig = getDetectedEventEventRequestConfig(id = id)
+
+        return request<Unit, GetDetectedEventEventResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getDetectedEventEvent
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getDetectedEventEventRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/detected-events/events/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What Crossly does with each detected marketplace event (sale, listing ended, offer, cancellation, label, shipped, delivered, refund, return, payout, message), per who owns the item (crossly, imported, app_managed, other_tool, untracked). Each matrix cell lists the allowed actions and the effective one, with the scope it comes from (app &gt; platform &gt; global &gt; default). Pass platform (or appId) to see the matrix as that platform&#39;s (or app&#39;s) items see it. Also returns the rules, platforms and connected apps.
     * 
     * @param platform  (optional)
-    * @param action  (optional)
+    * @param appId  (optional)
+    * @return GetEventPolicyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getEventPolicy(platform: kotlin.String?, appId: java.util.UUID?) : GetEventPolicyResponse {
+        val localVarResponse = getEventPolicyWithHttpInfo(platform = platform, appId = appId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetEventPolicyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What Crossly does with each detected marketplace event (sale, listing ended, offer, cancellation, label, shipped, delivered, refund, return, payout, message), per who owns the item (crossly, imported, app_managed, other_tool, untracked). Each matrix cell lists the allowed actions and the effective one, with the scope it comes from (app &gt; platform &gt; global &gt; default). Pass platform (or appId) to see the matrix as that platform&#39;s (or app&#39;s) items see it. Also returns the rules, platforms and connected apps.
+    * 
+    * @param platform  (optional)
+    * @param appId  (optional)
+    * @return ApiResponse<GetEventPolicyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getEventPolicyWithHttpInfo(platform: kotlin.String?, appId: java.util.UUID?) : ApiResponse<GetEventPolicyResponse?> {
+        val localVariableConfig = getEventPolicyRequestConfig(platform = platform, appId = appId)
+
+        return request<Unit, GetEventPolicyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getEventPolicy
+    *
+    * @param platform  (optional)
+    * @param appId  (optional)
+    * @return RequestConfig
+    */
+    fun getEventPolicyRequestConfig(platform: kotlin.String?, appId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (platform != null) {
+                    put("platform", listOf(platform.toString()))
+                }
+                if (appId != null) {
+                    put("appId", listOf(appId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/event-policies",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter area
+     */
+     enum class Area_listActionLog(val value: kotlin.String) {
+         @Json(name = "listings") LISTINGS("listings"),
+         @Json(name = "inventory") INVENTORY("inventory"),
+         @Json(name = "orders") ORDERS("orders"),
+         @Json(name = "shipping") SHIPPING("shipping"),
+         @Json(name = "messages") MESSAGES("messages"),
+         @Json(name = "automations") AUTOMATIONS("automations"),
+         @Json(name = "connections") CONNECTIONS("connections"),
+         @Json(name = "settings") SETTINGS("settings"),
+         @Json(name = "billing") BILLING("billing"),
+         @Json(name = "account") ACCOUNT("account"),
+         @Json(name = "emails") EMAILS("emails"),
+         ;
+     }
+
+    /**
+     * enum for parameter status
+     */
+     enum class Status_listActionLog(val value: kotlin.String) {
+         @Json(name = "pending") PENDING("pending"),
+         @Json(name = "success") SUCCESS("success"),
+         @Json(name = "failure") FAILURE("failure"),
+         @Json(name = "partial") PARTIAL("partial"),
+         @Json(name = "skipped") SKIPPED("skipped"),
+         ;
+     }
+
+    /**
+    * List Activity Log events, newest first. Each event carries &#x60;view&#x60; (title, sentence, fields, failure advice, who did it) and typed &#x60;detail&#x60;. Page with &#x60;cursor&#x60;; &#x60;pagination.total&#x60; counts matches.
+    * 
+    * @param platform Platform id (&#x60;ebay&#x60;, &#x60;poshmark&#x60;, ...). (optional)
+    * @param action A canonical action key (&#x60;listing.delist&#x60;, see the public action catalog) or a legacy action word. (optional)
     * @param category  (optional)
+    * @param area A seller area: every action of that area (the grouped filter of the dashboard). (optional)
     * @param status  (optional)
     * @param source  (optional)
-    * @param targetType  (optional)
+    * @param targetType With targetId: events about that object (any of their targets). (optional)
     * @param targetId  (optional)
-    * @param since ISO lower bound (inclusive) on created_at. (optional)
-    * @param until ISO upper bound (exclusive) on created_at. (optional)
+    * @param actorUserId Only what one team member did. (optional)
+    * @param q A search in the activity query language (&#x60;action:listing.* -outcome:failure \&quot;free text\&quot;&#x60;), ANDed with the other filters. POST /api/v1/action-log/search/translate turns a question in words into one. (optional)
+    * @param since Inclusive lower bound on when the action happened. (optional)
+    * @param until Exclusive upper bound. (optional)
+    * @param at Jump to a time: the page starts at the newest event at or before it. (optional)
+    * @param cursor &#x60;pagination.nextCursor&#x60; of the previous page. (optional)
     * @param limit  (optional, default to 50)
-    * @param offset  (optional, default to 0)
+    * @param offset Deprecated: use cursor. offset + limit may reach at most 1000 events. (optional)
     * @return ListActionLogResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -211,8 +1635,8 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun listActionLog(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, status: kotlin.String?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, since: kotlin.String?, until: kotlin.String?, limit: kotlin.Int?, offset: kotlin.Int?) : ListActionLogResponse {
-        val localVarResponse = listActionLogWithHttpInfo(platform = platform, action = action, category = category, status = status, source = source, targetType = targetType, targetId = targetId, since = since, until = until, limit = limit, offset = offset)
+    fun listActionLog(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, area: Area_listActionLog?, status: Status_listActionLog?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, actorUserId: kotlin.String?, q: kotlin.String?, since: java.time.OffsetDateTime?, until: java.time.OffsetDateTime?, at: java.time.OffsetDateTime?, cursor: kotlin.String?, limit: kotlin.Int?, offset: kotlin.Int?) : ListActionLogResponse {
+        val localVarResponse = listActionLogWithHttpInfo(platform = platform, action = action, category = category, area = area, status = status, source = source, targetType = targetType, targetId = targetId, actorUserId = actorUserId, q = q, since = since, until = until, at = at, cursor = cursor, limit = limit, offset = offset)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListActionLogResponse
@@ -230,27 +1654,32 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * List action-log events — the semantic \&quot;what happened\&quot; record of every user + platform action. Filter by platform / action / category / status / source / target, and a since/until created_at window.
+    * List Activity Log events, newest first. Each event carries &#x60;view&#x60; (title, sentence, fields, failure advice, who did it) and typed &#x60;detail&#x60;. Page with &#x60;cursor&#x60;; &#x60;pagination.total&#x60; counts matches.
     * 
-    * @param platform  (optional)
-    * @param action  (optional)
+    * @param platform Platform id (&#x60;ebay&#x60;, &#x60;poshmark&#x60;, ...). (optional)
+    * @param action A canonical action key (&#x60;listing.delist&#x60;, see the public action catalog) or a legacy action word. (optional)
     * @param category  (optional)
+    * @param area A seller area: every action of that area (the grouped filter of the dashboard). (optional)
     * @param status  (optional)
     * @param source  (optional)
-    * @param targetType  (optional)
+    * @param targetType With targetId: events about that object (any of their targets). (optional)
     * @param targetId  (optional)
-    * @param since ISO lower bound (inclusive) on created_at. (optional)
-    * @param until ISO upper bound (exclusive) on created_at. (optional)
+    * @param actorUserId Only what one team member did. (optional)
+    * @param q A search in the activity query language (&#x60;action:listing.* -outcome:failure \&quot;free text\&quot;&#x60;), ANDed with the other filters. POST /api/v1/action-log/search/translate turns a question in words into one. (optional)
+    * @param since Inclusive lower bound on when the action happened. (optional)
+    * @param until Exclusive upper bound. (optional)
+    * @param at Jump to a time: the page starts at the newest event at or before it. (optional)
+    * @param cursor &#x60;pagination.nextCursor&#x60; of the previous page. (optional)
     * @param limit  (optional, default to 50)
-    * @param offset  (optional, default to 0)
+    * @param offset Deprecated: use cursor. offset + limit may reach at most 1000 events. (optional)
     * @return ApiResponse<ListActionLogResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun listActionLogWithHttpInfo(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, status: kotlin.String?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, since: kotlin.String?, until: kotlin.String?, limit: kotlin.Int?, offset: kotlin.Int?) : ApiResponse<ListActionLogResponse?> {
-        val localVariableConfig = listActionLogRequestConfig(platform = platform, action = action, category = category, status = status, source = source, targetType = targetType, targetId = targetId, since = since, until = until, limit = limit, offset = offset)
+    fun listActionLogWithHttpInfo(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, area: Area_listActionLog?, status: Status_listActionLog?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, actorUserId: kotlin.String?, q: kotlin.String?, since: java.time.OffsetDateTime?, until: java.time.OffsetDateTime?, at: java.time.OffsetDateTime?, cursor: kotlin.String?, limit: kotlin.Int?, offset: kotlin.Int?) : ApiResponse<ListActionLogResponse?> {
+        val localVariableConfig = listActionLogRequestConfig(platform = platform, action = action, category = category, area = area, status = status, source = source, targetType = targetType, targetId = targetId, actorUserId = actorUserId, q = q, since = since, until = until, at = at, cursor = cursor, limit = limit, offset = offset)
 
         return request<Unit, ListActionLogResponse>(
             localVariableConfig
@@ -260,20 +1689,25 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     /**
     * To obtain the request config of the operation listActionLog
     *
-    * @param platform  (optional)
-    * @param action  (optional)
+    * @param platform Platform id (&#x60;ebay&#x60;, &#x60;poshmark&#x60;, ...). (optional)
+    * @param action A canonical action key (&#x60;listing.delist&#x60;, see the public action catalog) or a legacy action word. (optional)
     * @param category  (optional)
+    * @param area A seller area: every action of that area (the grouped filter of the dashboard). (optional)
     * @param status  (optional)
     * @param source  (optional)
-    * @param targetType  (optional)
+    * @param targetType With targetId: events about that object (any of their targets). (optional)
     * @param targetId  (optional)
-    * @param since ISO lower bound (inclusive) on created_at. (optional)
-    * @param until ISO upper bound (exclusive) on created_at. (optional)
+    * @param actorUserId Only what one team member did. (optional)
+    * @param q A search in the activity query language (&#x60;action:listing.* -outcome:failure \&quot;free text\&quot;&#x60;), ANDed with the other filters. POST /api/v1/action-log/search/translate turns a question in words into one. (optional)
+    * @param since Inclusive lower bound on when the action happened. (optional)
+    * @param until Exclusive upper bound. (optional)
+    * @param at Jump to a time: the page starts at the newest event at or before it. (optional)
+    * @param cursor &#x60;pagination.nextCursor&#x60; of the previous page. (optional)
     * @param limit  (optional, default to 50)
-    * @param offset  (optional, default to 0)
+    * @param offset Deprecated: use cursor. offset + limit may reach at most 1000 events. (optional)
     * @return RequestConfig
     */
-    fun listActionLogRequestConfig(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, status: kotlin.String?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, since: kotlin.String?, until: kotlin.String?, limit: kotlin.Int?, offset: kotlin.Int?) : RequestConfig<Unit> {
+    fun listActionLogRequestConfig(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, area: Area_listActionLog?, status: Status_listActionLog?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, actorUserId: kotlin.String?, q: kotlin.String?, since: java.time.OffsetDateTime?, until: java.time.OffsetDateTime?, at: java.time.OffsetDateTime?, cursor: kotlin.String?, limit: kotlin.Int?, offset: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -285,6 +1719,9 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
                 }
                 if (category != null) {
                     put("category", listOf(category.toString()))
+                }
+                if (area != null) {
+                    put("area", listOf(area.toString()))
                 }
                 if (status != null) {
                     put("status", listOf(status.toString()))
@@ -298,11 +1735,23 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
                 if (targetId != null) {
                     put("targetId", listOf(targetId.toString()))
                 }
+                if (actorUserId != null) {
+                    put("actorUserId", listOf(actorUserId.toString()))
+                }
+                if (q != null) {
+                    put("q", listOf(q.toString()))
+                }
                 if (since != null) {
-                    put("since", listOf(since.toString()))
+                    put("since", listOf(parseDateToQueryString(since)))
                 }
                 if (until != null) {
-                    put("until", listOf(until.toString()))
+                    put("until", listOf(parseDateToQueryString(until)))
+                }
+                if (at != null) {
+                    put("at", listOf(parseDateToQueryString(at)))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
                 }
                 if (limit != null) {
                     put("limit", listOf(limit.toString()))
@@ -324,7 +1773,7 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * The outbound platform HTTP calls under an event (oldest first) — url, method, status, latency, redacted request/response bodies, proxy + recipe/hash. Answers \&quot;what was sent / what went wrong\&quot;.
+    * The outbound platform HTTP calls under an event (oldest first) — platform, operation, method, host, status, latency, error class/message, proxy + recipe id. Answers \&quot;what was sent / what went wrong\&quot;. The URL path, request/response bodies and persisted-query hash are never returned.
     * 
     * @param id  
     * @return ListActionLogCallsResponse
@@ -355,7 +1804,7 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * The outbound platform HTTP calls under an event (oldest first) — url, method, status, latency, redacted request/response bodies, proxy + recipe/hash. Answers \&quot;what was sent / what went wrong\&quot;.
+    * The outbound platform HTTP calls under an event (oldest first) — platform, operation, method, host, status, latency, error class/message, proxy + recipe id. Answers \&quot;what was sent / what went wrong\&quot;. The URL path, request/response bodies and persisted-query hash are never returned.
     * 
     * @param id  
     * @return ApiResponse<ListActionLogCallsResponse?>
@@ -387,6 +1836,729 @@ class ActivityApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/action-log/{id}/calls".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter area
+     */
+     enum class Area_listActionLogHistogram(val value: kotlin.String) {
+         @Json(name = "listings") LISTINGS("listings"),
+         @Json(name = "inventory") INVENTORY("inventory"),
+         @Json(name = "orders") ORDERS("orders"),
+         @Json(name = "shipping") SHIPPING("shipping"),
+         @Json(name = "messages") MESSAGES("messages"),
+         @Json(name = "automations") AUTOMATIONS("automations"),
+         @Json(name = "connections") CONNECTIONS("connections"),
+         @Json(name = "settings") SETTINGS("settings"),
+         @Json(name = "billing") BILLING("billing"),
+         @Json(name = "account") ACCOUNT("account"),
+         @Json(name = "emails") EMAILS("emails"),
+         ;
+     }
+
+    /**
+     * enum for parameter status
+     */
+     enum class Status_listActionLogHistogram(val value: kotlin.String) {
+         @Json(name = "pending") PENDING("pending"),
+         @Json(name = "success") SUCCESS("success"),
+         @Json(name = "failure") FAILURE("failure"),
+         @Json(name = "partial") PARTIAL("partial"),
+         @Json(name = "skipped") SKIPPED("skipped"),
+         ;
+     }
+
+    /**
+    * Events per UTC day for the list filters (default: the last 30 days; at most 366).
+    * 
+    * @param platform Platform id (&#x60;ebay&#x60;, &#x60;poshmark&#x60;, ...). (optional)
+    * @param action A canonical action key (&#x60;listing.delist&#x60;, see the public action catalog) or a legacy action word. (optional)
+    * @param category  (optional)
+    * @param area A seller area: every action of that area (the grouped filter of the dashboard). (optional)
+    * @param status  (optional)
+    * @param source  (optional)
+    * @param targetType With targetId: events about that object (any of their targets). (optional)
+    * @param targetId  (optional)
+    * @param actorUserId Only what one team member did. (optional)
+    * @param q A search in the activity query language (&#x60;action:listing.* -outcome:failure \&quot;free text\&quot;&#x60;), ANDed with the other filters. POST /api/v1/action-log/search/translate turns a question in words into one. (optional)
+    * @param since Inclusive lower bound on when the action happened. (optional)
+    * @param until Exclusive upper bound. (optional)
+    * @return ListActionLogHistogramResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listActionLogHistogram(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, area: Area_listActionLogHistogram?, status: Status_listActionLogHistogram?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, actorUserId: kotlin.String?, q: kotlin.String?, since: java.time.OffsetDateTime?, until: java.time.OffsetDateTime?) : ListActionLogHistogramResponse {
+        val localVarResponse = listActionLogHistogramWithHttpInfo(platform = platform, action = action, category = category, area = area, status = status, source = source, targetType = targetType, targetId = targetId, actorUserId = actorUserId, q = q, since = since, until = until)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListActionLogHistogramResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Events per UTC day for the list filters (default: the last 30 days; at most 366).
+    * 
+    * @param platform Platform id (&#x60;ebay&#x60;, &#x60;poshmark&#x60;, ...). (optional)
+    * @param action A canonical action key (&#x60;listing.delist&#x60;, see the public action catalog) or a legacy action word. (optional)
+    * @param category  (optional)
+    * @param area A seller area: every action of that area (the grouped filter of the dashboard). (optional)
+    * @param status  (optional)
+    * @param source  (optional)
+    * @param targetType With targetId: events about that object (any of their targets). (optional)
+    * @param targetId  (optional)
+    * @param actorUserId Only what one team member did. (optional)
+    * @param q A search in the activity query language (&#x60;action:listing.* -outcome:failure \&quot;free text\&quot;&#x60;), ANDed with the other filters. POST /api/v1/action-log/search/translate turns a question in words into one. (optional)
+    * @param since Inclusive lower bound on when the action happened. (optional)
+    * @param until Exclusive upper bound. (optional)
+    * @return ApiResponse<ListActionLogHistogramResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listActionLogHistogramWithHttpInfo(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, area: Area_listActionLogHistogram?, status: Status_listActionLogHistogram?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, actorUserId: kotlin.String?, q: kotlin.String?, since: java.time.OffsetDateTime?, until: java.time.OffsetDateTime?) : ApiResponse<ListActionLogHistogramResponse?> {
+        val localVariableConfig = listActionLogHistogramRequestConfig(platform = platform, action = action, category = category, area = area, status = status, source = source, targetType = targetType, targetId = targetId, actorUserId = actorUserId, q = q, since = since, until = until)
+
+        return request<Unit, ListActionLogHistogramResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listActionLogHistogram
+    *
+    * @param platform Platform id (&#x60;ebay&#x60;, &#x60;poshmark&#x60;, ...). (optional)
+    * @param action A canonical action key (&#x60;listing.delist&#x60;, see the public action catalog) or a legacy action word. (optional)
+    * @param category  (optional)
+    * @param area A seller area: every action of that area (the grouped filter of the dashboard). (optional)
+    * @param status  (optional)
+    * @param source  (optional)
+    * @param targetType With targetId: events about that object (any of their targets). (optional)
+    * @param targetId  (optional)
+    * @param actorUserId Only what one team member did. (optional)
+    * @param q A search in the activity query language (&#x60;action:listing.* -outcome:failure \&quot;free text\&quot;&#x60;), ANDed with the other filters. POST /api/v1/action-log/search/translate turns a question in words into one. (optional)
+    * @param since Inclusive lower bound on when the action happened. (optional)
+    * @param until Exclusive upper bound. (optional)
+    * @return RequestConfig
+    */
+    fun listActionLogHistogramRequestConfig(platform: kotlin.String?, action: kotlin.String?, category: kotlin.String?, area: Area_listActionLogHistogram?, status: Status_listActionLogHistogram?, source: kotlin.String?, targetType: kotlin.String?, targetId: kotlin.String?, actorUserId: kotlin.String?, q: kotlin.String?, since: java.time.OffsetDateTime?, until: java.time.OffsetDateTime?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (platform != null) {
+                    put("platform", listOf(platform.toString()))
+                }
+                if (action != null) {
+                    put("action", listOf(action.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (area != null) {
+                    put("area", listOf(area.toString()))
+                }
+                if (status != null) {
+                    put("status", listOf(status.toString()))
+                }
+                if (source != null) {
+                    put("source", listOf(source.toString()))
+                }
+                if (targetType != null) {
+                    put("targetType", listOf(targetType.toString()))
+                }
+                if (targetId != null) {
+                    put("targetId", listOf(targetId.toString()))
+                }
+                if (actorUserId != null) {
+                    put("actorUserId", listOf(actorUserId.toString()))
+                }
+                if (q != null) {
+                    put("q", listOf(q.toString()))
+                }
+                if (since != null) {
+                    put("since", listOf(parseDateToQueryString(since)))
+                }
+                if (until != null) {
+                    put("until", listOf(parseDateToQueryString(until)))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/action-log/histogram",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms statuses and accounts (comma-separated) and since (ISO time).
+    * 
+    * @param kinds  (optional)
+    * @param platforms  (optional)
+    * @param accounts Comma-separated platform account ids (scope.account). (optional)
+    * @param statuses Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected (optional)
+    * @param since  (optional)
+    * @param cursor  (optional)
+    * @param limit  (optional)
+    * @return ListDetectedEventEventsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listDetectedEventEvents(kinds: kotlin.String?, platforms: kotlin.String?, accounts: kotlin.String?, statuses: kotlin.String?, since: java.time.OffsetDateTime?, cursor: kotlin.String?, limit: kotlin.Int?) : ListDetectedEventEventsResponse {
+        val localVarResponse = listDetectedEventEventsWithHttpInfo(kinds = kinds, platforms = platforms, accounts = accounts, statuses = statuses, since = since, cursor = cursor, limit = limit)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListDetectedEventEventsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Every event Crossly detected (sales, order changes, listing changes, offers, messages, account notices), newest first: all its axes, the rule that decided it, its corroborating reports, the plan per target and how each action went, with canConfirm (an open ask) and canUndo. Cursor-paged; filter by kinds, platforms statuses and accounts (comma-separated) and since (ISO time).
+    * 
+    * @param kinds  (optional)
+    * @param platforms  (optional)
+    * @param accounts Comma-separated platform account ids (scope.account). (optional)
+    * @param statuses Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected (optional)
+    * @param since  (optional)
+    * @param cursor  (optional)
+    * @param limit  (optional)
+    * @return ApiResponse<ListDetectedEventEventsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listDetectedEventEventsWithHttpInfo(kinds: kotlin.String?, platforms: kotlin.String?, accounts: kotlin.String?, statuses: kotlin.String?, since: java.time.OffsetDateTime?, cursor: kotlin.String?, limit: kotlin.Int?) : ApiResponse<ListDetectedEventEventsResponse?> {
+        val localVariableConfig = listDetectedEventEventsRequestConfig(kinds = kinds, platforms = platforms, accounts = accounts, statuses = statuses, since = since, cursor = cursor, limit = limit)
+
+        return request<Unit, ListDetectedEventEventsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listDetectedEventEvents
+    *
+    * @param kinds  (optional)
+    * @param platforms  (optional)
+    * @param accounts Comma-separated platform account ids (scope.account). (optional)
+    * @param statuses Comma-separated: acted, held, asked, confirmed, ignored, undone, failed, received, corrected (optional)
+    * @param since  (optional)
+    * @param cursor  (optional)
+    * @param limit  (optional)
+    * @return RequestConfig
+    */
+    fun listDetectedEventEventsRequestConfig(kinds: kotlin.String?, platforms: kotlin.String?, accounts: kotlin.String?, statuses: kotlin.String?, since: java.time.OffsetDateTime?, cursor: kotlin.String?, limit: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (kinds != null) {
+                    put("kinds", listOf(kinds.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (accounts != null) {
+                    put("accounts", listOf(accounts.toString()))
+                }
+                if (statuses != null) {
+                    put("statuses", listOf(statuses.toString()))
+                }
+                if (since != null) {
+                    put("since", listOf(parseDateToQueryString(since)))
+                }
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
+                }
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/detected-events/events",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The seller&#39;s detection rules, top-down in the order they are evaluated (first match wins unless a rule says continue): the seller&#39;s own rules, translations of their event-policy rules (source legacy), then the shipped default set (source default, ids default:&lt;key&gt;; a stored edit of a default replaces it). Each rule has a filter (event kinds, platforms, accounts, apps, tags, items), an optional condition over any event axis, the actions it runs (then / else) and its guard loosenings.
+    * 
+    * @return ListDetectedEventRulesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listDetectedEventRules() : ListDetectedEventRulesResponse {
+        val localVarResponse = listDetectedEventRulesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListDetectedEventRulesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The seller&#39;s detection rules, top-down in the order they are evaluated (first match wins unless a rule says continue): the seller&#39;s own rules, translations of their event-policy rules (source legacy), then the shipped default set (source default, ids default:&lt;key&gt;; a stored edit of a default replaces it). Each rule has a filter (event kinds, platforms, accounts, apps, tags, items), an optional condition over any event axis, the actions it runs (then / else) and its guard loosenings.
+    * 
+    * @return ApiResponse<ListDetectedEventRulesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listDetectedEventRulesWithHttpInfo() : ApiResponse<ListDetectedEventRulesResponse?> {
+        val localVariableConfig = listDetectedEventRulesRequestConfig()
+
+        return request<Unit, ListDetectedEventRulesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listDetectedEventRules
+    *
+    * @return RequestConfig
+    */
+    fun listDetectedEventRulesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/detected-events/rules",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter status
+     */
+     enum class Status_listEmailEvents(val value: kotlin.String) {
+         @Json(name = "needs_review") NEEDS_REVIEW("needs_review"),
+         ;
+     }
+
+    /**
+    * List email-detected events waiting for the seller (status&#x3D;needs_review): a possible sale, ended listing, cancellation or other event an email reported that was not certain enough to act on automatically.
+    * 
+    * @param status  (optional, default to needs_review)
+    * @return ListEmailEventsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listEmailEvents(status: Status_listEmailEvents?) : ListEmailEventsResponse {
+        val localVarResponse = listEmailEventsWithHttpInfo(status = status)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListEmailEventsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * List email-detected events waiting for the seller (status&#x3D;needs_review): a possible sale, ended listing, cancellation or other event an email reported that was not certain enough to act on automatically.
+    * 
+    * @param status  (optional, default to needs_review)
+    * @return ApiResponse<ListEmailEventsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listEmailEventsWithHttpInfo(status: Status_listEmailEvents?) : ApiResponse<ListEmailEventsResponse?> {
+        val localVariableConfig = listEmailEventsRequestConfig(status = status)
+
+        return request<Unit, ListEmailEventsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listEmailEvents
+    *
+    * @param status  (optional, default to needs_review)
+    * @return RequestConfig
+    */
+    fun listEmailEventsRequestConfig(status: Status_listEmailEvents?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (status != null) {
+                    put("status", listOf(status.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/email-events",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter event
+     */
+     enum class Event_listEventPolicyDecisions(val value: kotlin.String) {
+         @Json(name = "sale") SALE("sale"),
+         @Json(name = "listing_ended") LISTING_ENDED("listing_ended"),
+         @Json(name = "offer") OFFER("offer"),
+         @Json(name = "order_cancelled") ORDER_CANCELLED("order_cancelled"),
+         @Json(name = "label_ready") LABEL_READY("label_ready"),
+         @Json(name = "shipped") SHIPPED("shipped"),
+         @Json(name = "delivered") DELIVERED("delivered"),
+         @Json(name = "refunded") REFUNDED("refunded"),
+         @Json(name = "return_opened") RETURN_OPENED("return_opened"),
+         @Json(name = "payout_sent") PAYOUT_SENT("payout_sent"),
+         @Json(name = "message") MESSAGE("message"),
+         ;
+     }
+
+    /**
+     * enum for parameter ownership
+     */
+     enum class Ownership_listEventPolicyDecisions(val value: kotlin.String) {
+         @Json(name = "crossly") CROSSLY("crossly"),
+         @Json(name = "imported") IMPORTED("imported"),
+         @Json(name = "app_managed") APP_MANAGED("app_managed"),
+         @Json(name = "other_tool") OTHER_TOOL("other_tool"),
+         @Json(name = "untracked") UNTRACKED("untracked"),
+         ;
+     }
+
+    /**
+     * enum for parameter outcome
+     */
+     enum class Outcome_listEventPolicyDecisions(val value: kotlin.String) {
+         @Json(name = "done") DONE("done"),
+         @Json(name = "skipped") SKIPPED("skipped"),
+         @Json(name = "failed") FAILED("failed"),
+         @Json(name = "review") REVIEW("review"),
+         ;
+     }
+
+    /**
+    * The decision log, newest first: for each detected event, what the rule or default asked for, what was done (after capability fallback and the email confidence ceiling), the rule that decided it, and the outcome (done / skipped / failed / review). Cursor-paged; filter by event, ownership, platform or outcome (outcome&#x3D;review: still waiting for the seller). Kept 90 days.
+    * 
+    * @param cursor  (optional)
+    * @param limit  (optional)
+    * @param event  (optional)
+    * @param ownership  (optional)
+    * @param platform  (optional)
+    * @param outcome  (optional)
+    * @return ListEventPolicyDecisionsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listEventPolicyDecisions(cursor: kotlin.String?, limit: kotlin.Int?, event: Event_listEventPolicyDecisions?, ownership: Ownership_listEventPolicyDecisions?, platform: kotlin.String?, outcome: Outcome_listEventPolicyDecisions?) : ListEventPolicyDecisionsResponse {
+        val localVarResponse = listEventPolicyDecisionsWithHttpInfo(cursor = cursor, limit = limit, event = event, ownership = ownership, platform = platform, outcome = outcome)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListEventPolicyDecisionsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The decision log, newest first: for each detected event, what the rule or default asked for, what was done (after capability fallback and the email confidence ceiling), the rule that decided it, and the outcome (done / skipped / failed / review). Cursor-paged; filter by event, ownership, platform or outcome (outcome&#x3D;review: still waiting for the seller). Kept 90 days.
+    * 
+    * @param cursor  (optional)
+    * @param limit  (optional)
+    * @param event  (optional)
+    * @param ownership  (optional)
+    * @param platform  (optional)
+    * @param outcome  (optional)
+    * @return ApiResponse<ListEventPolicyDecisionsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listEventPolicyDecisionsWithHttpInfo(cursor: kotlin.String?, limit: kotlin.Int?, event: Event_listEventPolicyDecisions?, ownership: Ownership_listEventPolicyDecisions?, platform: kotlin.String?, outcome: Outcome_listEventPolicyDecisions?) : ApiResponse<ListEventPolicyDecisionsResponse?> {
+        val localVariableConfig = listEventPolicyDecisionsRequestConfig(cursor = cursor, limit = limit, event = event, ownership = ownership, platform = platform, outcome = outcome)
+
+        return request<Unit, ListEventPolicyDecisionsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listEventPolicyDecisions
+    *
+    * @param cursor  (optional)
+    * @param limit  (optional)
+    * @param event  (optional)
+    * @param ownership  (optional)
+    * @param platform  (optional)
+    * @param outcome  (optional)
+    * @return RequestConfig
+    */
+    fun listEventPolicyDecisionsRequestConfig(cursor: kotlin.String?, limit: kotlin.Int?, event: Event_listEventPolicyDecisions?, ownership: Ownership_listEventPolicyDecisions?, platform: kotlin.String?, outcome: Outcome_listEventPolicyDecisions?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (cursor != null) {
+                    put("cursor", listOf(cursor.toString()))
+                }
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+                if (event != null) {
+                    put("event", listOf(event.toString()))
+                }
+                if (ownership != null) {
+                    put("ownership", listOf(ownership.toString()))
+                }
+                if (platform != null) {
+                    put("platform", listOf(platform.toString()))
+                }
+                if (outcome != null) {
+                    put("outcome", listOf(outcome.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/event-policies/decisions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Replace a detection rule. An id default:&lt;key&gt; stores your edit of that shipped default (delete it, or reset-defaults, to go back to the shipped one).
+    * 
+    * @param id  
+    * @param createDetectedEventRuleRequest  
+    * @return CreateDetectedEventRuleResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateDetectedEventRule(id: kotlin.String, createDetectedEventRuleRequest: CreateDetectedEventRuleRequest) : CreateDetectedEventRuleResponse {
+        val localVarResponse = updateDetectedEventRuleWithHttpInfo(id = id, createDetectedEventRuleRequest = createDetectedEventRuleRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateDetectedEventRuleResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Replace a detection rule. An id default:&lt;key&gt; stores your edit of that shipped default (delete it, or reset-defaults, to go back to the shipped one).
+    * 
+    * @param id  
+    * @param createDetectedEventRuleRequest  
+    * @return ApiResponse<CreateDetectedEventRuleResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateDetectedEventRuleWithHttpInfo(id: kotlin.String, createDetectedEventRuleRequest: CreateDetectedEventRuleRequest) : ApiResponse<CreateDetectedEventRuleResponse?> {
+        val localVariableConfig = updateDetectedEventRuleRequestConfig(id = id, createDetectedEventRuleRequest = createDetectedEventRuleRequest)
+
+        return request<CreateDetectedEventRuleRequest, CreateDetectedEventRuleResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateDetectedEventRule
+    *
+    * @param id  
+    * @param createDetectedEventRuleRequest  
+    * @return RequestConfig
+    */
+    fun updateDetectedEventRuleRequestConfig(id: kotlin.String, createDetectedEventRuleRequest: CreateDetectedEventRuleRequest) : RequestConfig<CreateDetectedEventRuleRequest> {
+        val localVariableBody = createDetectedEventRuleRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/detected-events/rules/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Set what Crossly does with one kind of detected event for one kind of item: scope global (scopeValue null), platform (scopeValue &#x3D; platform id) or app (scopeValue &#x3D; OAuth app id, app_managed items only). Replaces the rule for the same cell and scope. The action must be one the matrix allows for that cell; import actions exist only for untracked items.
+    * 
+    * @param updateEventPolicyRuleRequest  
+    * @return UpdateEventPolicyRuleResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateEventPolicyRule(updateEventPolicyRuleRequest: UpdateEventPolicyRuleRequest) : UpdateEventPolicyRuleResponse {
+        val localVarResponse = updateEventPolicyRuleWithHttpInfo(updateEventPolicyRuleRequest = updateEventPolicyRuleRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateEventPolicyRuleResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set what Crossly does with one kind of detected event for one kind of item: scope global (scopeValue null), platform (scopeValue &#x3D; platform id) or app (scopeValue &#x3D; OAuth app id, app_managed items only). Replaces the rule for the same cell and scope. The action must be one the matrix allows for that cell; import actions exist only for untracked items.
+    * 
+    * @param updateEventPolicyRuleRequest  
+    * @return ApiResponse<UpdateEventPolicyRuleResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateEventPolicyRuleWithHttpInfo(updateEventPolicyRuleRequest: UpdateEventPolicyRuleRequest) : ApiResponse<UpdateEventPolicyRuleResponse?> {
+        val localVariableConfig = updateEventPolicyRuleRequestConfig(updateEventPolicyRuleRequest = updateEventPolicyRuleRequest)
+
+        return request<UpdateEventPolicyRuleRequest, UpdateEventPolicyRuleResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateEventPolicyRule
+    *
+    * @param updateEventPolicyRuleRequest  
+    * @return RequestConfig
+    */
+    fun updateEventPolicyRuleRequestConfig(updateEventPolicyRuleRequest: UpdateEventPolicyRuleRequest) : RequestConfig<UpdateEventPolicyRuleRequest> {
+        val localVariableBody = updateEventPolicyRuleRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/event-policies/rules",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

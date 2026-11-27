@@ -20,31 +20,75 @@
 
 package net.crossly.models.order
 
+import net.crossly.models.order.CreateOrderCancelResponseRefund
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
- * @param orderId 
+ * @param platformCancel The marketplace outcome, or already_cancelled when the order was cancelled before this call.
  * @param platform 
- * @param cancelledInCrossly 
- * @param platformCancel 
+ * @param orderId 
+ * @param cancelledInCrossly True unless the cancel was relayed to the managing app (then false until it completes).
+ * @param refund 
+ * @param error The platform's error, VERBATIM. Deliberately not summarised — the marketplace names what it objected to, and summarising throws that away. eBay reason codes are now fetched per order via checkCancelEligibility rather than guessed, but a rejection can still happen (order state changed between the probe and the cancel), and this is how it gets diagnosed.
+ * @param jobId Cookie track only.
+ * @param commandId platformCancel 'relayed': the app command tracking it.
+ * @param platformResult Platform payload (e.g. eBay's cancellationId) when it answered.
  */
 
 data class CreateOrderCancelResponse (
 
-    @Json(name = "orderId")
-    val orderId: kotlin.String,
+    /* The marketplace outcome, or already_cancelled when the order was cancelled before this call. */
+    @Json(name = "platformCancel")
+    val platformCancel: CreateOrderCancelResponse.PlatformCancel,
 
     @Json(name = "platform")
     val platform: kotlin.String,
 
+    @Json(name = "orderId")
+    val orderId: kotlin.String,
+
+    /* True unless the cancel was relayed to the managing app (then false until it completes). */
     @Json(name = "cancelledInCrossly")
     val cancelledInCrossly: kotlin.Boolean,
 
-    @Json(name = "platformCancel")
-    val platformCancel: kotlin.String
+    @Json(name = "refund")
+    val refund: CreateOrderCancelResponseRefund? = null,
 
-)
+    /* The platform's error, VERBATIM. Deliberately not summarised — the marketplace names what it objected to, and summarising throws that away. eBay reason codes are now fetched per order via checkCancelEligibility rather than guessed, but a rejection can still happen (order state changed between the probe and the cancel), and this is how it gets diagnosed. */
+    @Json(name = "error")
+    val error: kotlin.String? = null,
+
+    /* Cookie track only. */
+    @Json(name = "jobId")
+    val jobId: kotlin.String? = null,
+
+    /* platformCancel 'relayed': the app command tracking it. */
+    @Json(name = "commandId")
+    val commandId: kotlin.String? = null,
+
+    /* Platform payload (e.g. eBay's cancellationId) when it answered. */
+    @Json(name = "platformResult")
+    val platformResult: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+
+) {
+
+    /**
+     * The marketplace outcome, or already_cancelled when the order was cancelled before this call.
+     *
+     * Values: SENT,FAILED,QUEUED,RELAYED,UNSUPPORTED,NO_PLATFORM_ORDER_ID,RECORDED_ONLY,ALREADY_CANCELLED
+     */
+    enum class PlatformCancel(val value: kotlin.String) {
+        @Json(name = "sent") SENT("sent"),
+        @Json(name = "failed") FAILED("failed"),
+        @Json(name = "queued") QUEUED("queued"),
+        @Json(name = "relayed") RELAYED("relayed"),
+        @Json(name = "unsupported") UNSUPPORTED("unsupported"),
+        @Json(name = "no_platform_order_id") NO_PLATFORM_ORDER_ID("no_platform_order_id"),
+        @Json(name = "recorded_only") RECORDED_ONLY("recorded_only"),
+        @Json(name = "already_cancelled") ALREADY_CANCELLED("already_cancelled");
+    }
+}
 

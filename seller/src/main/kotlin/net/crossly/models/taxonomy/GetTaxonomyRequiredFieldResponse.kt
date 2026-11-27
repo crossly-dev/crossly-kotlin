@@ -20,7 +20,7 @@
 
 package net.crossly.models.taxonomy
 
-import net.crossly.models.taxonomy.GetTaxonomyCategoryAspectResponseAspects
+import net.crossly.models.taxonomy.GetTaxonomyRequiredFieldResponseInlineAspects
 import net.crossly.models.taxonomy.GetTaxonomyRequiredFieldResponseRequiredFields
 
 import com.squareup.moshi.Json
@@ -42,7 +42,7 @@ data class GetTaxonomyRequiredFieldResponse (
     val requiredFields: kotlin.collections.List<GetTaxonomyRequiredFieldResponseRequiredFields>,
 
     @Json(name = "inlineAspects")
-    val inlineAspects: kotlin.collections.List<GetTaxonomyCategoryAspectResponseAspects>
+    val inlineAspects: kotlin.collections.List<GetTaxonomyRequiredFieldResponseInlineAspects>
 
 ) {
 

@@ -81,12 +81,12 @@ data class GetBuyerListingCertResponseData (
     /**
      * 
      *
-     * Values: VERIFIED,NOT_FOUND,MISMATCH,UNCHECKED
+     * Values: VERIFIED,MISMATCH,NOT_FOUND,UNCHECKED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "verified") VERIFIED("verified"),
-        @Json(name = "not_found") NOT_FOUND("not_found"),
         @Json(name = "mismatch") MISMATCH("mismatch"),
+        @Json(name = "not_found") NOT_FOUND("not_found"),
         @Json(name = "unchecked") UNCHECKED("unchecked");
     }
 }

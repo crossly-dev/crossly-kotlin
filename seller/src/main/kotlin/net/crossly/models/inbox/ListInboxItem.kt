@@ -26,29 +26,38 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param canSendOffer 
  * @param id 
  * @param createdAt 
  * @param userId 
- * @param status 
  * @param platform 
  * @param accountSlot 
+ * @param status 
+ * @param labels 
  * @param platformConversationId 
  * @param isRead 
  * @param isHidden 
  * @param hasOffer 
- * @param listingId 
+ * @param isStarred 
+ * @param source 
  * @param inventoryItemId 
+ * @param listingId 
  * @param platformListingId 
  * @param buyerUsername 
- * @param subject 
  * @param buyerPlatformId 
+ * @param buyerAvatarUrl 
+ * @param subject 
  * @param offerAmount 
  * @param offerStatus 
  * @param platformConversationUrl 
  * @param lastMessageAt 
+ * @param supersededAt 
  */
 
 data class ListInboxItem (
+
+    @Json(name = "canSendOffer")
+    val canSendOffer: kotlin.Boolean,
 
     @Json(name = "id")
     val id: kotlin.String,
@@ -59,14 +68,17 @@ data class ListInboxItem (
     @Json(name = "userId")
     val userId: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "platform")
     val platform: kotlin.String,
 
     @Json(name = "accountSlot")
     val accountSlot: java.math.BigDecimal,
+
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    @Json(name = "labels")
+    val labels: kotlin.collections.List<kotlin.String>,
 
     @Json(name = "platformConversationId")
     val platformConversationId: kotlin.String,
@@ -80,11 +92,17 @@ data class ListInboxItem (
     @Json(name = "hasOffer")
     val hasOffer: kotlin.Boolean,
 
-    @Json(name = "listingId")
-    val listingId: kotlin.String? = null,
+    @Json(name = "isStarred")
+    val isStarred: kotlin.Boolean,
+
+    @Json(name = "source")
+    val source: kotlin.String? = null,
 
     @Json(name = "inventoryItemId")
     val inventoryItemId: kotlin.String? = null,
+
+    @Json(name = "listingId")
+    val listingId: kotlin.String? = null,
 
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String? = null,
@@ -92,11 +110,14 @@ data class ListInboxItem (
     @Json(name = "buyerUsername")
     val buyerUsername: kotlin.String? = null,
 
-    @Json(name = "subject")
-    val subject: kotlin.String? = null,
-
     @Json(name = "buyerPlatformId")
     val buyerPlatformId: kotlin.String? = null,
+
+    @Json(name = "buyerAvatarUrl")
+    val buyerAvatarUrl: kotlin.String? = null,
+
+    @Json(name = "subject")
+    val subject: kotlin.String? = null,
 
     @Json(name = "offerAmount")
     val offerAmount: kotlin.String? = null,
@@ -108,7 +129,10 @@ data class ListInboxItem (
     val platformConversationUrl: kotlin.String? = null,
 
     @Json(name = "lastMessageAt")
-    val lastMessageAt: java.time.OffsetDateTime? = null
+    val lastMessageAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "supersededAt")
+    val supersededAt: java.time.OffsetDateTime? = null
 
 )
 

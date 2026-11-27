@@ -12,6 +12,7 @@ Method | HTTP request | Description
 [**deleteMeTemplateShare**](TemplatesApi.md#deleteMeTemplateShare) | **DELETE** /v1/me/templates/{id}/share | Revoke a template share link.
 [**getMeTemplate**](TemplatesApi.md#getMeTemplate) | **GET** /v1/me/templates/{id} | Fetch one template in full.
 [**getMeTemplateSuggest**](TemplatesApi.md#getMeTemplateSuggest) | **GET** /v1/me/templates/suggest | The seller&#39;s default template for a category.
+[**getPublicTemplate**](TemplatesApi.md#getPublicTemplate) | **GET** /v1/public/templates/{token} | A shared template by its share token (public, no auth).
 [**listMeTemplates**](TemplatesApi.md#listMeTemplates) | **GET** /v1/me/templates | List the seller&#39;s templates.
 [**updateMeTemplate**](TemplatesApi.md#updateMeTemplate) | **PATCH** /v1/me/templates/{id} | Patch a template.
 
@@ -380,6 +381,51 @@ This endpoint does not need any parameter.
 
 Configure PersonalAccessToken:
     ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getPublicTemplate"></a>
+# **getPublicTemplate**
+> GetPublicTemplateResponse getPublicTemplate(token)
+
+A shared template by its share token (public, no auth).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = TemplatesApi()
+val token : kotlin.String = token_example // kotlin.String | 
+try {
+    val result : GetPublicTemplateResponse = apiInstance.getPublicTemplate(token)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling TemplatesApi#getPublicTemplate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling TemplatesApi#getPublicTemplate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **token** | **kotlin.String**|  |
+
+### Return type
+
+**GetPublicTemplateResponse**
+
+### Authorization
+
+No authorization required
 
 ### HTTP request headers
 

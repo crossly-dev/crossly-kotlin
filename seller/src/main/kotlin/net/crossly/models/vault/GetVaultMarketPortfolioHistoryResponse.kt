@@ -22,6 +22,7 @@ package net.crossly.models.vault
 
 import net.crossly.models.vault.GetVaultMarketPortfolioHistoryResponseNow
 import net.crossly.models.vault.GetVaultMarketPortfolioHistoryResponseSeries
+import net.crossly.models.vault.GetVaultMarketPortfolioHistoryResponseToday
 
 import com.squareup.moshi.Json
 
@@ -30,6 +31,7 @@ import com.squareup.moshi.Json
  *
  * @param series 
  * @param now 
+ * @param today 
  */
 
 data class GetVaultMarketPortfolioHistoryResponse (
@@ -38,7 +40,10 @@ data class GetVaultMarketPortfolioHistoryResponse (
     val series: kotlin.collections.List<GetVaultMarketPortfolioHistoryResponseSeries>,
 
     @Json(name = "now")
-    val now: GetVaultMarketPortfolioHistoryResponseNow
+    val now: GetVaultMarketPortfolioHistoryResponseNow,
+
+    @Json(name = "today")
+    val today: GetVaultMarketPortfolioHistoryResponseToday
 
 )
 

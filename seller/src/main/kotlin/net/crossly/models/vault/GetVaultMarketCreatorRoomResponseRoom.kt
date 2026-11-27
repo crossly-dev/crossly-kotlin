@@ -79,13 +79,13 @@ data class GetVaultMarketCreatorRoomResponseRoom (
     /**
      * 
      *
-     * Values: APPLIED,VERIFIED,REJECTED,PAUSED
+     * Values: PAUSED,VERIFIED,APPLIED,REJECTED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "applied") APPLIED("applied"),
+        @Json(name = "paused") PAUSED("paused"),
         @Json(name = "verified") VERIFIED("verified"),
-        @Json(name = "rejected") REJECTED("rejected"),
-        @Json(name = "paused") PAUSED("paused");
+        @Json(name = "applied") APPLIED("applied"),
+        @Json(name = "rejected") REJECTED("rejected");
     }
 }
 

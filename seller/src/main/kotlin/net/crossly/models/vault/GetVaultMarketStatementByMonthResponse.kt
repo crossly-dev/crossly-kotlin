@@ -47,6 +47,7 @@ import com.squareup.moshi.Json
  * @param pledges 
  * @param activity 
  * @param fees 
+ * @param cash 
  * @param notes 
  */
 
@@ -99,6 +100,9 @@ data class GetVaultMarketStatementByMonthResponse (
 
     @Json(name = "fees")
     val fees: GetVaultMarketStatementByMonthResponseOneOf1Fees? = null,
+
+    @Json(name = "cash")
+    val cash: kotlin.Any? = null,
 
     @Json(name = "notes")
     val notes: kotlin.collections.List<kotlin.String>? = null

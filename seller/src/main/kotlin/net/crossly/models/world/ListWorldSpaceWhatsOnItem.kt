@@ -72,13 +72,13 @@ data class ListWorldSpaceWhatsOnItem (
     /**
      * 
      *
-     * Values: STREET,FESTIVAL,SPACE,STAGE
+     * Values: STAGE,STREET,FESTIVAL,SPACE
      */
     enum class Place(val value: kotlin.String) {
+        @Json(name = "stage") STAGE("stage"),
         @Json(name = "street") STREET("street"),
         @Json(name = "festival") FESTIVAL("festival"),
-        @Json(name = "space") SPACE("space"),
-        @Json(name = "stage") STAGE("stage");
+        @Json(name = "space") SPACE("space");
     }
 }
 

@@ -26,7 +26,7 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: CARD,BUCKS,CBX
+ * Values: CARD,CBX,BUCKS
  */
 
 enum class GetStallQuoteResponseQuoteRailsItem(val value: kotlin.String) {
@@ -34,11 +34,11 @@ enum class GetStallQuoteResponseQuoteRailsItem(val value: kotlin.String) {
     @Json(name = "card")
     CARD("card"),
 
-    @Json(name = "bucks")
-    BUCKS("bucks"),
-
     @Json(name = "cbx")
-    CBX("cbx");
+    CBX("cbx"),
+
+    @Json(name = "bucks")
+    BUCKS("bucks");
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use

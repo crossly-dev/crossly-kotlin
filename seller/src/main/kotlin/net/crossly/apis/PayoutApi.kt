@@ -24,11 +24,18 @@ import java.io.IOException
 
 import net.crossly.models.payout.CreatePayoutConnectOnboardRequest
 import net.crossly.models.payout.CreatePayoutConnectOnboardResponse
+import net.crossly.models.payout.CreatePayoutIdentityLinkResponse
+import net.crossly.models.payout.CreatePayoutPayoutRequest
+import net.crossly.models.payout.CreatePayoutPayoutResponse
 import net.crossly.models.common.Error
 import net.crossly.models.payout.GetPayoutConnectResponse
 import net.crossly.models.payout.GetPayoutEstimateResponse
 import net.crossly.models.payout.GetPayoutGrossForNetResponse
+import net.crossly.models.payout.GetPayoutIdentityResponse
+import net.crossly.models.payout.GetPayoutWalletResponse
 import net.crossly.models.payout.ListPayoutCompareResponse
+import net.crossly.models.payout.UpdatePayoutScheduleRequest
+import net.crossly.models.payout.UpdatePayoutScheduleResponse
 
 import com.squareup.moshi.Json
 
@@ -118,6 +125,148 @@ class PayoutApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/payout/connect/onboard",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Continue with Stripe: a one-time Stripe-hosted link that collects what Stripe needs.
+    * Creates the payout account first when there is none (country: ISO alpha-2, default the ship-from country). type is account_onboarding (Stripe shows only what is outstanding) or account_update. The link expires in minutes; ask for a new one rather than storing it. Nothing changes until a person completes it.
+    * @param createPayoutConnectOnboardRequest  
+    * @return CreatePayoutIdentityLinkResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createPayoutIdentityLink(createPayoutConnectOnboardRequest: CreatePayoutConnectOnboardRequest) : CreatePayoutIdentityLinkResponse {
+        val localVarResponse = createPayoutIdentityLinkWithHttpInfo(createPayoutConnectOnboardRequest = createPayoutConnectOnboardRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreatePayoutIdentityLinkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Continue with Stripe: a one-time Stripe-hosted link that collects what Stripe needs.
+    * Creates the payout account first when there is none (country: ISO alpha-2, default the ship-from country). type is account_onboarding (Stripe shows only what is outstanding) or account_update. The link expires in minutes; ask for a new one rather than storing it. Nothing changes until a person completes it.
+    * @param createPayoutConnectOnboardRequest  
+    * @return ApiResponse<CreatePayoutIdentityLinkResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createPayoutIdentityLinkWithHttpInfo(createPayoutConnectOnboardRequest: CreatePayoutConnectOnboardRequest) : ApiResponse<CreatePayoutIdentityLinkResponse?> {
+        val localVariableConfig = createPayoutIdentityLinkRequestConfig(createPayoutConnectOnboardRequest = createPayoutConnectOnboardRequest)
+
+        return request<CreatePayoutConnectOnboardRequest, CreatePayoutIdentityLinkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createPayoutIdentityLink
+    *
+    * @param createPayoutConnectOnboardRequest  
+    * @return RequestConfig
+    */
+    fun createPayoutIdentityLinkRequestConfig(createPayoutConnectOnboardRequest: CreatePayoutConnectOnboardRequest) : RequestConfig<CreatePayoutConnectOnboardRequest> {
+        val localVariableBody = createPayoutConnectOnboardRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/payouts/identity/link",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pay out now: instant (fee, minutes, to an eligible card/bank) or standard (free, manual schedule only).
+    * amountCents defaults to everything eligible. Pass idempotencyKey so a retry is the same payout. Returns { payout, feeCents }. 409 when the account cannot be paid or instant is unavailable.
+    * @param createPayoutPayoutRequest  
+    * @return CreatePayoutPayoutResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createPayoutPayout(createPayoutPayoutRequest: CreatePayoutPayoutRequest) : CreatePayoutPayoutResponse {
+        val localVarResponse = createPayoutPayoutWithHttpInfo(createPayoutPayoutRequest = createPayoutPayoutRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreatePayoutPayoutResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pay out now: instant (fee, minutes, to an eligible card/bank) or standard (free, manual schedule only).
+    * amountCents defaults to everything eligible. Pass idempotencyKey so a retry is the same payout. Returns { payout, feeCents }. 409 when the account cannot be paid or instant is unavailable.
+    * @param createPayoutPayoutRequest  
+    * @return ApiResponse<CreatePayoutPayoutResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createPayoutPayoutWithHttpInfo(createPayoutPayoutRequest: CreatePayoutPayoutRequest) : ApiResponse<CreatePayoutPayoutResponse?> {
+        val localVariableConfig = createPayoutPayoutRequestConfig(createPayoutPayoutRequest = createPayoutPayoutRequest)
+
+        return request<CreatePayoutPayoutRequest, CreatePayoutPayoutResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createPayoutPayout
+    *
+    * @param createPayoutPayoutRequest  
+    * @return RequestConfig
+    */
+    fun createPayoutPayoutRequestConfig(createPayoutPayoutRequest: CreatePayoutPayoutRequest) : RequestConfig<CreatePayoutPayoutRequest> {
+        val localVariableBody = createPayoutPayoutRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/payout/payouts",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -326,6 +475,157 @@ class PayoutApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     }
 
     /**
+     * enum for parameter fresh
+     */
+     enum class Fresh_getPayoutIdentity(val value: kotlin.String) {
+         @Json(name = "0") _0("0"),
+         @Json(name = "1") _1("1"),
+         ;
+     }
+
+    /**
+    * Stripe&#39;s verification of your payout account: status and what Stripe still needs, in plain words.
+    * status is not_started, pending (Stripe is checking), action_required (dueNow lists what to add), verified (payouts on) or restricted (disabledReasonText says why). dueNow / dueLater / inReview are Stripe&#39;s requirement keys as plain-words lines ({ keys, label }); errors carry Stripe&#39;s reason. Cached up to 60 s; fresh&#x3D;1 re-reads Stripe. Payouts are gated on payoutsEnabled only.
+    * @param fresh  (optional)
+    * @return GetPayoutIdentityResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getPayoutIdentity(fresh: Fresh_getPayoutIdentity?) : GetPayoutIdentityResponse {
+        val localVarResponse = getPayoutIdentityWithHttpInfo(fresh = fresh)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetPayoutIdentityResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Stripe&#39;s verification of your payout account: status and what Stripe still needs, in plain words.
+    * status is not_started, pending (Stripe is checking), action_required (dueNow lists what to add), verified (payouts on) or restricted (disabledReasonText says why). dueNow / dueLater / inReview are Stripe&#39;s requirement keys as plain-words lines ({ keys, label }); errors carry Stripe&#39;s reason. Cached up to 60 s; fresh&#x3D;1 re-reads Stripe. Payouts are gated on payoutsEnabled only.
+    * @param fresh  (optional)
+    * @return ApiResponse<GetPayoutIdentityResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getPayoutIdentityWithHttpInfo(fresh: Fresh_getPayoutIdentity?) : ApiResponse<GetPayoutIdentityResponse?> {
+        val localVariableConfig = getPayoutIdentityRequestConfig(fresh = fresh)
+
+        return request<Unit, GetPayoutIdentityResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getPayoutIdentity
+    *
+    * @param fresh  (optional)
+    * @return RequestConfig
+    */
+    fun getPayoutIdentityRequestConfig(fresh: Fresh_getPayoutIdentity?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (fresh != null) {
+                    put("fresh", listOf(fresh.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/payouts/identity",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your payout wallet: balances, schedule, next payout, instant-payout quote, methods, payouts, transactions.
+    * connected:false (with defaultCountry) before onboarding. balance has availableCents, pendingCents and instantAvailableCents in the account currency. instant.available says whether an instant payout can be made now, with feeCents/netCents for the full instant-available amount and reason when not.
+    * @return GetPayoutWalletResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getPayoutWallet() : GetPayoutWalletResponse {
+        val localVarResponse = getPayoutWalletWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetPayoutWalletResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your payout wallet: balances, schedule, next payout, instant-payout quote, methods, payouts, transactions.
+    * connected:false (with defaultCountry) before onboarding. balance has availableCents, pendingCents and instantAvailableCents in the account currency. instant.available says whether an instant payout can be made now, with feeCents/netCents for the full instant-available amount and reason when not.
+    * @return ApiResponse<GetPayoutWalletResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getPayoutWalletWithHttpInfo() : ApiResponse<GetPayoutWalletResponse?> {
+        val localVariableConfig = getPayoutWalletRequestConfig()
+
+        return request<Unit, GetPayoutWalletResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getPayoutWallet
+    *
+    * @return RequestConfig
+    */
+    fun getPayoutWalletRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/payout/wallet",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Rank platforms by what they net at a given price. Defaults to connected ones.
     * 
     * @return ListPayoutCompareResponse
@@ -386,6 +686,77 @@ class PayoutApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/payout/compare",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Change the automatic payout schedule.
+    * 
+    * @param updatePayoutScheduleRequest  
+    * @return UpdatePayoutScheduleResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updatePayoutSchedule(updatePayoutScheduleRequest: UpdatePayoutScheduleRequest) : UpdatePayoutScheduleResponse {
+        val localVarResponse = updatePayoutScheduleWithHttpInfo(updatePayoutScheduleRequest = updatePayoutScheduleRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdatePayoutScheduleResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Change the automatic payout schedule.
+    * 
+    * @param updatePayoutScheduleRequest  
+    * @return ApiResponse<UpdatePayoutScheduleResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updatePayoutScheduleWithHttpInfo(updatePayoutScheduleRequest: UpdatePayoutScheduleRequest) : ApiResponse<UpdatePayoutScheduleResponse?> {
+        val localVariableConfig = updatePayoutScheduleRequestConfig(updatePayoutScheduleRequest = updatePayoutScheduleRequest)
+
+        return request<UpdatePayoutScheduleRequest, UpdatePayoutScheduleResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updatePayoutSchedule
+    *
+    * @param updatePayoutScheduleRequest  
+    * @return RequestConfig
+    */
+    fun updatePayoutScheduleRequestConfig(updatePayoutScheduleRequest: UpdatePayoutScheduleRequest) : RequestConfig<UpdatePayoutScheduleRequest> {
+        val localVariableBody = updatePayoutScheduleRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/payout/schedule",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

@@ -26,16 +26,16 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: CBX,COSM
+ * Values: COSM,CBX
  */
 
 enum class ListWorldDecorCatalogueItemBuyWithItem(val value: kotlin.String) {
 
-    @Json(name = "cbx")
-    CBX("cbx"),
-
     @Json(name = "cosm")
-    COSM("cosm");
+    COSM("cosm"),
+
+    @Json(name = "cbx")
+    CBX("cbx");
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use

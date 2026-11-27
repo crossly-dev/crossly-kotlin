@@ -22,7 +22,7 @@ package net.crossly.models.game
 
 import net.crossly.models.game.ListGameBreakUpcomingItemHits
 import net.crossly.models.game.ListGameBreakUpcomingItemSpots
-import net.crossly.models.common.SlugName
+import net.crossly.models.common.NameSlug
 
 import com.squareup.moshi.Json
 
@@ -39,6 +39,7 @@ import com.squareup.moshi.Json
  * @param hits 
  * @param product 
  * @param startsAt Scheduled start (ISO), and whether the seller is breaking right now.
+ * @param doorsOpenAt When the viewer gets in (ISO): the start, or earlier for a loyalty member with the seller's `live_early_entry` perk. Null with no start. Optional: a board read without a viewer leaves it at the start.
  * @param buyUrl The listing the spots are bought through, on crossly.net. Never a world checkout.
  */
 
@@ -57,7 +58,7 @@ data class ListGameBreakUpcomingItem (
     val live: kotlin.Boolean,
 
     @Json(name = "shop")
-    val shop: SlugName,
+    val shop: NameSlug,
 
     @Json(name = "spotsLeft")
     val spotsLeft: java.math.BigDecimal,
@@ -74,6 +75,10 @@ data class ListGameBreakUpcomingItem (
     /* Scheduled start (ISO), and whether the seller is breaking right now. */
     @Json(name = "startsAt")
     val startsAt: kotlin.String? = null,
+
+    /* When the viewer gets in (ISO): the start, or earlier for a loyalty member with the seller's `live_early_entry` perk. Null with no start. Optional: a board read without a viewer leaves it at the start. */
+    @Json(name = "doorsOpenAt")
+    val doorsOpenAt: kotlin.String? = null,
 
     /* The listing the spots are bought through, on crossly.net. Never a world checkout. */
     @Json(name = "buyUrl")

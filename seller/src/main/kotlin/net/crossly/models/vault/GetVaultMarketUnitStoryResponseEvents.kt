@@ -89,20 +89,20 @@ data class GetVaultMarketUnitStoryResponseEvents (
     /**
      * 
      *
-     * Values: TRANSFER,EVIDENCE,SALE,GRADED,PLEDGED,RELEASED,RECEIVED,RECEIPT,LENT,RECALLED,FORECLOSED,SENT_IN,VAULTED_FROM_GRADING,BOUGHT_IN,GRADING_SENT,GRADING_RETURNED,LOAN_RETURNED,HALL_ON_SHOW,HALL_ENDED,TOKEN_EXPORTED,TOKEN_REDEEMED,SHIPPED_OUT
+     * Values: SALE,RECEIPT,RECEIVED,RELEASED,EVIDENCE,GRADED,TRANSFER,PLEDGED,LENT,FORECLOSED,RECALLED,SENT_IN,VAULTED_FROM_GRADING,BOUGHT_IN,GRADING_SENT,GRADING_RETURNED,LOAN_RETURNED,HALL_ON_SHOW,HALL_ENDED,TOKEN_EXPORTED,TOKEN_REDEEMED,SHIPPED_OUT
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "transfer") TRANSFER("transfer"),
-        @Json(name = "evidence") EVIDENCE("evidence"),
         @Json(name = "sale") SALE("sale"),
-        @Json(name = "graded") GRADED("graded"),
-        @Json(name = "pledged") PLEDGED("pledged"),
-        @Json(name = "released") RELEASED("released"),
-        @Json(name = "received") RECEIVED("received"),
         @Json(name = "receipt") RECEIPT("receipt"),
+        @Json(name = "received") RECEIVED("received"),
+        @Json(name = "released") RELEASED("released"),
+        @Json(name = "evidence") EVIDENCE("evidence"),
+        @Json(name = "graded") GRADED("graded"),
+        @Json(name = "transfer") TRANSFER("transfer"),
+        @Json(name = "pledged") PLEDGED("pledged"),
         @Json(name = "lent") LENT("lent"),
-        @Json(name = "recalled") RECALLED("recalled"),
         @Json(name = "foreclosed") FORECLOSED("foreclosed"),
+        @Json(name = "recalled") RECALLED("recalled"),
         @Json(name = "sent_in") SENT_IN("sent_in"),
         @Json(name = "vaulted_from_grading") VAULTED_FROM_GRADING("vaulted_from_grading"),
         @Json(name = "bought_in") BOUGHT_IN("bought_in"),
@@ -118,17 +118,17 @@ data class GetVaultMarketUnitStoryResponseEvents (
     /**
      * 
      *
-     * Values: TOKEN,GRADE,LOAN,HALL,RECEIPT,INTAKE,OWNER,CUSTODY
+     * Values: GRADE,TOKEN,RECEIPT,OWNER,HALL,INTAKE,CUSTODY,LOAN
      */
     enum class Group(val value: kotlin.String) {
-        @Json(name = "token") TOKEN("token"),
         @Json(name = "grade") GRADE("grade"),
-        @Json(name = "loan") LOAN("loan"),
-        @Json(name = "hall") HALL("hall"),
+        @Json(name = "token") TOKEN("token"),
         @Json(name = "receipt") RECEIPT("receipt"),
-        @Json(name = "intake") INTAKE("intake"),
         @Json(name = "owner") OWNER("owner"),
-        @Json(name = "custody") CUSTODY("custody");
+        @Json(name = "hall") HALL("hall"),
+        @Json(name = "intake") INTAKE("intake"),
+        @Json(name = "custody") CUSTODY("custody"),
+        @Json(name = "loan") LOAN("loan");
     }
 }
 

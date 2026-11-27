@@ -36,7 +36,7 @@ data class CreateAutomationRuleRunNowResponse (
     val success: kotlin.Boolean,
 
     @Json(name = "jobId")
-    val jobId: kotlin.String? = null
+    val jobId: kotlin.String
 
 )
 

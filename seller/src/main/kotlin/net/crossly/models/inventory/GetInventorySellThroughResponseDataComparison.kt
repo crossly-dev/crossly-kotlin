@@ -20,24 +20,35 @@
 
 package net.crossly.models.inventory
 
+import net.crossly.models.analytic.GetAnalyticOverviewResponseDataKpisNetSalesDelta
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
+ * @param pctChange Always null: a relative change of a rate is not reported. Read `pp`.
  * @param comparable 
- * @param pctChange 
+ * @param delta 
+ * @param pp Percentage points, null when not comparable.
  * @param reason 
  */
 
 data class GetInventorySellThroughResponseDataComparison (
 
+    /* Always null: a relative change of a rate is not reported. Read `pp`. */
+    @Json(name = "pctChange")
+    val pctChange: kotlin.Any?,
+
     @Json(name = "comparable")
     val comparable: kotlin.Boolean,
 
-    @Json(name = "pctChange")
-    val pctChange: java.math.BigDecimal? = null,
+    @Json(name = "delta")
+    val delta: GetAnalyticOverviewResponseDataKpisNetSalesDelta,
+
+    /* Percentage points, null when not comparable. */
+    @Json(name = "pp")
+    val pp: java.math.BigDecimal? = null,
 
     @Json(name = "reason")
     val reason: kotlin.String? = null

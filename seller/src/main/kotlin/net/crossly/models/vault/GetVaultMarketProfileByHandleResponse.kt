@@ -21,7 +21,7 @@
 package net.crossly.models.vault
 
 import net.crossly.models.vault.GetVaultMarketProfileByHandleResponseOneOfHoldings
-import net.crossly.models.vault.ListVaultMarketFeedItem
+import net.crossly.models.vault.GetVaultMarketProfileByHandleResponseOneOfRecentBuys
 
 import com.squareup.moshi.Json
 
@@ -66,7 +66,7 @@ data class GetVaultMarketProfileByHandleResponse (
     val isMe: kotlin.Boolean,
 
     @Json(name = "recentBuys")
-    val recentBuys: kotlin.collections.List<ListVaultMarketFeedItem>,
+    val recentBuys: kotlin.collections.List<GetVaultMarketProfileByHandleResponseOneOfRecentBuys>,
 
     @Json(name = "displayName")
     val displayName: kotlin.String,

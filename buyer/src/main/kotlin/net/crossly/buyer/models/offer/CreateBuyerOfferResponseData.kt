@@ -27,17 +27,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param offer 
  * @param ok 
+ * @param offer 
  */
 
 data class CreateBuyerOfferResponseData (
 
-    @Json(name = "offer")
-    val offer: CreateBuyerOfferResponseDataOffer,
-
     @Json(name = "ok")
-    val ok: kotlin.Boolean
+    val ok: kotlin.Boolean,
+
+    @Json(name = "offer")
+    val offer: CreateBuyerOfferResponseDataOffer
 
 )
 

@@ -27,13 +27,12 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param updatedAt 
+ * @param purchaseId 
+ * @param sellerUserId 
  * @param reason 
  * @param state 
- * @param sellerUserId 
- * @param purchaseId 
- * @param resolvedAt 
+ * @param createdAt 
+ * @param updatedAt 
  * @param buyerNote 
  * @param photoUrls 
  * @param awaitingParty 
@@ -41,6 +40,7 @@ import com.squareup.moshi.Json
  * @param offeredRefundCents 
  * @param resolvedRefundCents 
  * @param resolvedDecision 
+ * @param resolvedAt 
  */
 
 data class GetBuyerCaseResponseDataCase (
@@ -48,11 +48,11 @@ data class GetBuyerCaseResponseDataCase (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
+    @Json(name = "purchaseId")
+    val purchaseId: kotlin.String,
 
-    @Json(name = "updatedAt")
-    val updatedAt: kotlin.String,
+    @Json(name = "sellerUserId")
+    val sellerUserId: kotlin.String,
 
     @Json(name = "reason")
     val reason: kotlin.String,
@@ -60,14 +60,11 @@ data class GetBuyerCaseResponseDataCase (
     @Json(name = "state")
     val state: kotlin.String,
 
-    @Json(name = "sellerUserId")
-    val sellerUserId: kotlin.String,
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
 
-    @Json(name = "purchaseId")
-    val purchaseId: kotlin.String,
-
-    @Json(name = "resolvedAt")
-    val resolvedAt: kotlin.String? = null,
+    @Json(name = "updatedAt")
+    val updatedAt: kotlin.String,
 
     @Json(name = "buyerNote")
     val buyerNote: kotlin.String? = null,
@@ -88,7 +85,10 @@ data class GetBuyerCaseResponseDataCase (
     val resolvedRefundCents: java.math.BigDecimal? = null,
 
     @Json(name = "resolvedDecision")
-    val resolvedDecision: kotlin.String? = null
+    val resolvedDecision: kotlin.String? = null,
+
+    @Json(name = "resolvedAt")
+    val resolvedAt: kotlin.String? = null
 
 )
 

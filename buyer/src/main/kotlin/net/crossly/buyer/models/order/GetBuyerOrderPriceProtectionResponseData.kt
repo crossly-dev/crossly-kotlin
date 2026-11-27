@@ -26,18 +26,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param active 
  * @param until 
+ * @param active 
  * @param creditedCents 
  */
 
 data class GetBuyerOrderPriceProtectionResponseData (
 
-    @Json(name = "active")
-    val active: kotlin.Boolean,
-
     @Json(name = "until")
     val until: kotlin.String,
+
+    @Json(name = "active")
+    val active: kotlin.Boolean,
 
     @Json(name = "creditedCents")
     val creditedCents: java.math.BigDecimal

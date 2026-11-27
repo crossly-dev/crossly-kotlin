@@ -29,9 +29,16 @@ import com.squareup.moshi.Json
  * @param bucket 
  * @param itemCount 
  * @param unitCount 
- * @param costCents What the seller PAID for the stock in this bucket — the number that makes 90+ feel urgent. Retail value flatters it; cost is the money actually stuck on the shelf.
- * @param retailCents What it would bring in at current prices, for the opportunity figure.
- * @param recommendation One line the seller can act on.
+ * @param retailCents Old name for listedValueCents.
+ * @param recommendation 
+ * @param key 
+ * @param items 
+ * @param units 
+ * @param costCents Σ unit cost × units over the items whose cost is known.
+ * @param costKnownItems 
+ * @param costUnknownItems 
+ * @param listedValueCents Σ ask × units; items with no ask add nothing.
+ * @param marketValueCents Σ market × units over the marked items; null when none in the bucket are marked.
  */
 
 data class GetInventoryAgingResponseDataBuckets (
@@ -45,31 +52,65 @@ data class GetInventoryAgingResponseDataBuckets (
     @Json(name = "unitCount")
     val unitCount: java.math.BigDecimal,
 
-    /* What the seller PAID for the stock in this bucket — the number that makes 90+ feel urgent. Retail value flatters it; cost is the money actually stuck on the shelf. */
-    @Json(name = "costCents")
-    val costCents: java.math.BigDecimal,
-
-    /* What it would bring in at current prices, for the opportunity figure. */
+    /* Old name for listedValueCents. */
     @Json(name = "retailCents")
     val retailCents: java.math.BigDecimal,
 
-    /* One line the seller can act on. */
     @Json(name = "recommendation")
-    val recommendation: kotlin.String
+    val recommendation: kotlin.String,
+
+    @Json(name = "key")
+    val key: GetInventoryAgingResponseDataBuckets.Key,
+
+    @Json(name = "items")
+    val items: java.math.BigDecimal,
+
+    @Json(name = "units")
+    val units: java.math.BigDecimal,
+
+    /* Σ unit cost × units over the items whose cost is known. */
+    @Json(name = "costCents")
+    val costCents: java.math.BigDecimal,
+
+    @Json(name = "costKnownItems")
+    val costKnownItems: java.math.BigDecimal,
+
+    @Json(name = "costUnknownItems")
+    val costUnknownItems: java.math.BigDecimal,
+
+    /* Σ ask × units; items with no ask add nothing. */
+    @Json(name = "listedValueCents")
+    val listedValueCents: java.math.BigDecimal,
+
+    /* Σ market × units over the marked items; null when none in the bucket are marked. */
+    @Json(name = "marketValueCents")
+    val marketValueCents: java.math.BigDecimal? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: _0_MINUS7,_7_MINUS30,_30_MINUS90,_90_PLUS,UNLISTED
+     * Values: UNLISTED,_90_PLUS,_0_MINUS7,_7_MINUS30,_30_MINUS90
      */
     enum class Bucket(val value: kotlin.String) {
+        @Json(name = "unlisted") UNLISTED("unlisted"),
+        @Json(name = "90+") _90_PLUS("90+"),
         @Json(name = "0-7") _0_MINUS7("0-7"),
         @Json(name = "7-30") _7_MINUS30("7-30"),
-        @Json(name = "30-90") _30_MINUS90("30-90"),
-        @Json(name = "90+") _90_PLUS("90+"),
-        @Json(name = "unlisted") UNLISTED("unlisted");
+        @Json(name = "30-90") _30_MINUS90("30-90");
+    }
+    /**
+     * 
+     *
+     * Values: UNLISTED,LT7,D7_30,D30_90,GT90
+     */
+    enum class Key(val value: kotlin.String) {
+        @Json(name = "unlisted") UNLISTED("unlisted"),
+        @Json(name = "lt7") LT7("lt7"),
+        @Json(name = "d7_30") D7_30("d7_30"),
+        @Json(name = "d30_90") D30_90("d30_90"),
+        @Json(name = "gt90") GT90("gt90");
     }
 }
 

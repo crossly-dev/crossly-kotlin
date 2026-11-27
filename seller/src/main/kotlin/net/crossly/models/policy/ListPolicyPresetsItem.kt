@@ -26,6 +26,9 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param summary 
+ * @param incomplete 
+ * @param listingCount 
  * @param id 
  * @param name 
  * @param createdAt 
@@ -33,9 +36,20 @@ import com.squareup.moshi.Json
  * @param userId 
  * @param isDefault 
  * @param kind 
+ * @param revision 
+ * @param hasDomesticRules 
  */
 
 data class ListPolicyPresetsItem (
+
+    @Json(name = "summary")
+    val summary: kotlin.String,
+
+    @Json(name = "incomplete")
+    val incomplete: kotlin.Boolean,
+
+    @Json(name = "listingCount")
+    val listingCount: java.math.BigDecimal,
 
     @Json(name = "id")
     val id: kotlin.String,
@@ -56,7 +70,13 @@ data class ListPolicyPresetsItem (
     val isDefault: kotlin.Boolean,
 
     @Json(name = "kind")
-    val kind: kotlin.String
+    val kind: kotlin.String,
+
+    @Json(name = "revision")
+    val revision: java.math.BigDecimal,
+
+    @Json(name = "hasDomesticRules")
+    val hasDomesticRules: kotlin.Boolean
 
 )
 

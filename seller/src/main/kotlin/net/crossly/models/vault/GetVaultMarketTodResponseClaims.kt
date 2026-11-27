@@ -63,15 +63,15 @@ data class GetVaultMarketTodResponseClaims (
     /**
      * 
      *
-     * Values: DRAFT,REJECTED,WITHDRAWN,RELEASED,WAITING,SUBMITTED,NEEDS_INFO,PARTLY_RELEASED,OBJECTED
+     * Values: DRAFT,SUBMITTED,REJECTED,WITHDRAWN,RELEASED,WAITING,NEEDS_INFO,PARTLY_RELEASED,OBJECTED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "draft") DRAFT("draft"),
+        @Json(name = "submitted") SUBMITTED("submitted"),
         @Json(name = "rejected") REJECTED("rejected"),
         @Json(name = "withdrawn") WITHDRAWN("withdrawn"),
         @Json(name = "released") RELEASED("released"),
         @Json(name = "waiting") WAITING("waiting"),
-        @Json(name = "submitted") SUBMITTED("submitted"),
         @Json(name = "needs_info") NEEDS_INFO("needs_info"),
         @Json(name = "partly_released") PARTLY_RELEASED("partly_released"),
         @Json(name = "objected") OBJECTED("objected");

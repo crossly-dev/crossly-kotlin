@@ -27,18 +27,22 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param name 
- * @param createdAt 
- * @param updatedAt 
  * @param userId 
+ * @param name 
  * @param isActive 
  * @param triggerType 
+ * @param triggerConfig 
  * @param actionType 
+ * @param actionConfig 
  * @param runCount 
- * @param platforms 
- * @param nextRunAt 
- * @param lastRunAt 
+ * @param createdAt 
+ * @param updatedAt 
+ * @param workflowId The workflow this rule is (open it in /v1/workflows).
  * @param conditionType 
+ * @param conditionConfig 
+ * @param platforms 
+ * @param lastRunAt 
+ * @param nextRunAt 
  */
 
 data class ListAutomationRulesItem (
@@ -46,17 +50,11 @@ data class ListAutomationRulesItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "name")
-    val name: kotlin.String,
-
-    @Json(name = "createdAt")
-    val createdAt: java.time.OffsetDateTime,
-
-    @Json(name = "updatedAt")
-    val updatedAt: java.time.OffsetDateTime,
-
     @Json(name = "userId")
     val userId: kotlin.String,
+
+    @Json(name = "name")
+    val name: kotlin.String,
 
     @Json(name = "isActive")
     val isActive: kotlin.Boolean,
@@ -64,23 +62,42 @@ data class ListAutomationRulesItem (
     @Json(name = "triggerType")
     val triggerType: kotlin.String,
 
+    @Json(name = "triggerConfig")
+    val triggerConfig: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
     @Json(name = "actionType")
     val actionType: kotlin.String,
+
+    @Json(name = "actionConfig")
+    val actionConfig: kotlin.collections.Map<kotlin.String, kotlin.Any>,
 
     @Json(name = "runCount")
     val runCount: java.math.BigDecimal,
 
+    @Json(name = "createdAt")
+    val createdAt: java.time.OffsetDateTime,
+
+    @Json(name = "updatedAt")
+    val updatedAt: java.time.OffsetDateTime,
+
+    /* The workflow this rule is (open it in /v1/workflows). */
+    @Json(name = "workflowId")
+    val workflowId: kotlin.String,
+
+    @Json(name = "conditionType")
+    val conditionType: kotlin.String? = null,
+
+    @Json(name = "conditionConfig")
+    val conditionConfig: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
     @Json(name = "platforms")
     val platforms: kotlin.collections.List<kotlin.String>? = null,
-
-    @Json(name = "nextRunAt")
-    val nextRunAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "lastRunAt")
     val lastRunAt: java.time.OffsetDateTime? = null,
 
-    @Json(name = "conditionType")
-    val conditionType: kotlin.String? = null
+    @Json(name = "nextRunAt")
+    val nextRunAt: java.time.OffsetDateTime? = null
 
 )
 

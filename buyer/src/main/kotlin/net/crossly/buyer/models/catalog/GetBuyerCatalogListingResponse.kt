@@ -20,6 +20,9 @@
 
 package net.crossly.buyer.models.catalog
 
+import net.crossly.buyer.models.catalog.GetBuyerCatalogListingResponseDescriptionBlocksItem
+import net.crossly.buyer.models.catalog.GetBuyerCatalogListingResponseTokenGate
+import net.crossly.buyer.models.catalog.GetBuyerCatalogListingResponseVariants
 
 import com.squareup.moshi.Json
 
@@ -28,6 +31,7 @@ import com.squareup.moshi.Json
  *
  * @param slug 
  * @param title 
+ * @param descriptionBlocks 
  * @param priceCents 
  * @param currency 
  * @param status 
@@ -36,6 +40,7 @@ import com.squareup.moshi.Json
  * @param images 
  * @param description 
  * @param compareAtCents 
+ * @param variants 
  * @param condition 
  * @param brand 
  * @param propertySize 
@@ -45,6 +50,7 @@ import com.squareup.moshi.Json
  * @param sellerUsername 
  * @param sellerDisplayName 
  * @param listedAt 
+ * @param tokenGate 
  */
 
 data class GetBuyerCatalogListingResponse (
@@ -54,6 +60,9 @@ data class GetBuyerCatalogListingResponse (
 
     @Json(name = "title")
     val title: kotlin.String,
+
+    @Json(name = "descriptionBlocks")
+    val descriptionBlocks: kotlin.collections.List<GetBuyerCatalogListingResponseDescriptionBlocksItem>,
 
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
@@ -78,6 +87,9 @@ data class GetBuyerCatalogListingResponse (
 
     @Json(name = "compareAtCents")
     val compareAtCents: java.math.BigDecimal? = null,
+
+    @Json(name = "variants")
+    val variants: kotlin.collections.List<GetBuyerCatalogListingResponseVariants>? = null,
 
     @Json(name = "condition")
     val condition: kotlin.String? = null,
@@ -104,7 +116,10 @@ data class GetBuyerCatalogListingResponse (
     val sellerDisplayName: kotlin.String? = null,
 
     @Json(name = "listedAt")
-    val listedAt: kotlin.String? = null
+    val listedAt: kotlin.String? = null,
+
+    @Json(name = "tokenGate")
+    val tokenGate: GetBuyerCatalogListingResponseTokenGate? = null
 
 )
 

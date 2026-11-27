@@ -29,10 +29,10 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param item 
  * @param rating 
  * @param media 
+ * @param item 
+ * @param createdAt 
  * @param body 
  * @param sellerReply 
  * @param reviewer 
@@ -43,17 +43,17 @@ data class ListBuyerListingSellerReviewsItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
-
-    @Json(name = "item")
-    val item: ListBuyerListingSellerReviewsItemItem,
-
     @Json(name = "rating")
     val rating: java.math.BigDecimal,
 
     @Json(name = "media")
     val media: kotlin.collections.List<ListBuyerListingSellerReviewsItemMedia>,
+
+    @Json(name = "item")
+    val item: ListBuyerListingSellerReviewsItemItem,
+
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
 
     @Json(name = "body")
     val body: kotlin.String? = null,

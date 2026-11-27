@@ -27,20 +27,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param nonce 
  * @param serverSeedHash 
  * @param clientSeed 
- * @param tierId 
+ * @param nonce 
  * @param serverSeed 
- * @param poolItemId 
  * @param tierItemIds 
  * @param tierWeights 
+ * @param tierId 
+ * @param poolItemId 
  */
 
 data class ListBuyerPackOpeningsItemProof (
-
-    @Json(name = "nonce")
-    val nonce: java.math.BigDecimal,
 
     @Json(name = "serverSeedHash")
     val serverSeedHash: kotlin.String,
@@ -48,20 +45,23 @@ data class ListBuyerPackOpeningsItemProof (
     @Json(name = "clientSeed")
     val clientSeed: kotlin.String,
 
-    @Json(name = "tierId")
-    val tierId: kotlin.String? = null,
+    @Json(name = "nonce")
+    val nonce: java.math.BigDecimal,
 
     @Json(name = "serverSeed")
     val serverSeed: kotlin.String? = null,
-
-    @Json(name = "poolItemId")
-    val poolItemId: kotlin.String? = null,
 
     @Json(name = "tierItemIds")
     val tierItemIds: kotlin.collections.List<kotlin.String>? = null,
 
     @Json(name = "tierWeights")
-    val tierWeights: kotlin.collections.List<ListBuyerPackOpeningsItemProofTierWeights>? = null
+    val tierWeights: kotlin.collections.List<ListBuyerPackOpeningsItemProofTierWeights>? = null,
+
+    @Json(name = "tierId")
+    val tierId: kotlin.String? = null,
+
+    @Json(name = "poolItemId")
+    val poolItemId: kotlin.String? = null
 
 )
 

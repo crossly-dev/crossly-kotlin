@@ -22,6 +22,7 @@ package net.crossly.buyer.models.vault
 
 import net.crossly.buyer.models.vault.GetBuyerVaultMarketHistoryResponseNow
 import net.crossly.buyer.models.vault.GetBuyerVaultMarketHistoryResponseSeries
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketHistoryResponseToday
 
 import com.squareup.moshi.Json
 
@@ -30,6 +31,7 @@ import com.squareup.moshi.Json
  *
  * @param series 
  * @param now 
+ * @param today 
  */
 
 data class GetBuyerVaultMarketHistoryResponse (
@@ -38,7 +40,10 @@ data class GetBuyerVaultMarketHistoryResponse (
     val series: kotlin.collections.List<GetBuyerVaultMarketHistoryResponseSeries>,
 
     @Json(name = "now")
-    val now: GetBuyerVaultMarketHistoryResponseNow
+    val now: GetBuyerVaultMarketHistoryResponseNow,
+
+    @Json(name = "today")
+    val today: GetBuyerVaultMarketHistoryResponseToday
 
 )
 

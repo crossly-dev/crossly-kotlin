@@ -25,9 +25,9 @@ import net.crossly.models.world.GetWorldGameLeaderboardResponseDataScoring
 import net.crossly.models.world.GetWorldGameResponseDataContests
 import net.crossly.models.world.GetWorldGameResponseDataPiece
 import net.crossly.models.world.GetWorldGameResponseDataPlacesItem
-import net.crossly.models.world.GetWorldGameResponseDataPlayers
 import net.crossly.models.world.GetWorldGameResponseDataRewards
 import net.crossly.models.world.GetWorldGameResponseDataStore
+import net.crossly.models.common.MinMax
 
 import com.squareup.moshi.Json
 
@@ -82,7 +82,7 @@ data class GetWorldGameResponseData (
     val mode: GetWorldGameResponseData.Mode,
 
     @Json(name = "players")
-    val players: GetWorldGameResponseDataPlayers,
+    val players: MinMax,
 
     @Json(name = "places")
     val places: kotlin.collections.List<GetWorldGameResponseDataPlacesItem>,

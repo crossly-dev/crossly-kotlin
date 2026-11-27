@@ -75,13 +75,13 @@ data class ListVaultMarketSetGoalBasketsItemLegs (
     /**
      * 
      *
-     * Values: PENDING,FILLED,CANCELLED,REJECTED,WORKING
+     * Values: PENDING,CANCELLED,REJECTED,FILLED,WORKING
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "pending") PENDING("pending"),
-        @Json(name = "filled") FILLED("filled"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
         @Json(name = "rejected") REJECTED("rejected"),
+        @Json(name = "filled") FILLED("filled"),
         @Json(name = "working") WORKING("working");
     }
 }

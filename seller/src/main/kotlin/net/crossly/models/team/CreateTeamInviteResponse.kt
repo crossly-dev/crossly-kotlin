@@ -52,7 +52,7 @@ data class CreateTeamInviteResponse (
     val expiresAt: kotlin.String,
 
     @Json(name = "acceptUrl")
-    val acceptUrl: kotlin.String
+    val acceptUrl: kotlin.String? = null
 
 ) {
 

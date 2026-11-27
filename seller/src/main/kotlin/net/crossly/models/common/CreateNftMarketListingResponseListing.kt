@@ -31,13 +31,13 @@ import com.squareup.moshi.Json
  * @param updatedAt 
  * @param status 
  * @param priceCents 
- * @param merchantId 
  * @param cosmeticId 
+ * @param merchantId 
  * @param ownershipId 
  * @param sellerSubjectId 
  * @param soldAt 
- * @param sellerUserId 
  * @param buyerUserId 
+ * @param sellerUserId 
  * @param txSig 
  */
 
@@ -58,11 +58,11 @@ data class CreateNftMarketListingResponseListing (
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
 
-    @Json(name = "merchantId")
-    val merchantId: kotlin.String,
-
     @Json(name = "cosmeticId")
     val cosmeticId: kotlin.String,
+
+    @Json(name = "merchantId")
+    val merchantId: kotlin.String,
 
     @Json(name = "ownershipId")
     val ownershipId: kotlin.String,
@@ -73,11 +73,11 @@ data class CreateNftMarketListingResponseListing (
     @Json(name = "soldAt")
     val soldAt: java.time.OffsetDateTime? = null,
 
-    @Json(name = "sellerUserId")
-    val sellerUserId: kotlin.String? = null,
-
     @Json(name = "buyerUserId")
     val buyerUserId: kotlin.String? = null,
+
+    @Json(name = "sellerUserId")
+    val sellerUserId: kotlin.String? = null,
 
     @Json(name = "txSig")
     val txSig: kotlin.String? = null

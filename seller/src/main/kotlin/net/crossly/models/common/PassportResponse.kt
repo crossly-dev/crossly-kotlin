@@ -20,7 +20,7 @@
 
 package net.crossly.models.common
 
-import net.crossly.models.common.ListPassportsItem
+import net.crossly.models.common.PassportResponseData
 
 import com.squareup.moshi.Json
 
@@ -33,7 +33,7 @@ import com.squareup.moshi.Json
 data class PassportResponse (
 
     @Json(name = "data")
-    val `data`: ListPassportsItem
+    val `data`: PassportResponseData
 
 )
 

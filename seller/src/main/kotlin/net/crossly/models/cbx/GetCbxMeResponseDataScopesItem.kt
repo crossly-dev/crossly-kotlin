@@ -26,19 +26,19 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: SPEND,CAMPAIGN,READ,ACCRUE,TREASURY
+ * Values: READ,SPEND,CAMPAIGN,ACCRUE,TREASURY
  */
 
 enum class GetCbxMeResponseDataScopesItem(val value: kotlin.String) {
+
+    @Json(name = "read")
+    READ("read"),
 
     @Json(name = "spend")
     SPEND("spend"),
 
     @Json(name = "campaign")
     CAMPAIGN("campaign"),
-
-    @Json(name = "read")
-    READ("read"),
 
     @Json(name = "accrue")
     ACCRUE("accrue"),

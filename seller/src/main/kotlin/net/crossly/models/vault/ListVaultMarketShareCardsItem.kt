@@ -25,6 +25,7 @@ import net.crossly.models.vault.ListVaultMarketShareCardsItemChange
 import net.crossly.models.vault.ListVaultMarketShareCardsItemLevel
 import net.crossly.models.vault.ListVaultMarketShareCardsItemLinks
 import net.crossly.models.vault.ListVaultMarketShareCardsItemMark
+import net.crossly.models.vault.ListVaultMarketShareCardsItemOwner
 import net.crossly.models.vault.ListVaultMarketShareCardsItemPortfolio
 
 import com.squareup.moshi.Json
@@ -37,6 +38,7 @@ import com.squareup.moshi.Json
  * @param verified 
  * @param createdAt 
  * @param showAmounts 
+ * @param owner 
  * @param title 
  * @param change 
  * @param links 
@@ -66,6 +68,9 @@ data class ListVaultMarketShareCardsItem (
 
     @Json(name = "showAmounts")
     val showAmounts: kotlin.Boolean,
+
+    @Json(name = "owner")
+    val owner: ListVaultMarketShareCardsItemOwner,
 
     @Json(name = "title")
     val title: kotlin.String,
@@ -105,13 +110,13 @@ data class ListVaultMarketShareCardsItem (
     /**
      * 
      *
-     * Values: POSITION,UNIT,INDEX,PORTFOLIO
+     * Values: POSITION,UNIT,PORTFOLIO,INDEX
      */
     enum class Kind(val value: kotlin.String) {
         @Json(name = "position") POSITION("position"),
         @Json(name = "unit") UNIT("unit"),
-        @Json(name = "index") INDEX("index"),
-        @Json(name = "portfolio") PORTFOLIO("portfolio");
+        @Json(name = "portfolio") PORTFOLIO("portfolio"),
+        @Json(name = "index") INDEX("index");
     }
 }
 

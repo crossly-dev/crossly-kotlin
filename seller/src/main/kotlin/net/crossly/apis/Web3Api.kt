@@ -40,14 +40,21 @@ import net.crossly.models.web3.CreateWeb3SolanaListTxResponse
 import net.crossly.models.web3.CreateWeb3SolanaOfferConfirmResponse
 import net.crossly.models.web3.CreateWeb3SolanaOfferTxResponse
 import net.crossly.models.web3.CreateWeb3SolanaOrderBuyTxResponse
+import net.crossly.models.web3.CreateWeb3SolanaTensorBidConfirmResponse
 import net.crossly.models.web3.CreateWeb3SolanaTensorBidPlaceTxResponse
+import net.crossly.models.web3.CreateWeb3StakingStakeResponse
+import net.crossly.models.web3.CreateWeb3StakingUnstakeResponse
+import net.crossly.models.web3.CreateWeb3StoreWalletResponse
+import net.crossly.models.web3.CreateWeb3StoreWalletSyncResponse
 import net.crossly.models.web3.CreateWeb3TokenRefreshResponse
 import net.crossly.models.web3.CreateWeb3TransactionResponse
 import net.crossly.models.web3.CreateWeb3WalletChallengeResponse
+import net.crossly.models.web3.CreateWeb3WalletImportResponse
 import net.crossly.models.web3.CreateWeb3WalletSyncResponse
 import net.crossly.models.web3.CreateWeb3WalletVerifyResponse
 import net.crossly.models.common.Error
 import net.crossly.models.web3.GetWeb3AuctionResponse
+import net.crossly.models.web3.GetWeb3BalanceResponse
 import net.crossly.models.web3.GetWeb3BrowseResponse
 import net.crossly.models.web3.GetWeb3CollectionDepthResponse
 import net.crossly.models.web3.GetWeb3CollectionInsightResponse
@@ -62,6 +69,7 @@ import net.crossly.models.web3.GetWeb3FeaturedResponse
 import net.crossly.models.web3.GetWeb3InventoryResponse
 import net.crossly.models.web3.GetWeb3LaunchAllowlistRootTxResponse
 import net.crossly.models.web3.GetWeb3LaunchDeployTxResponse
+import net.crossly.models.web3.GetWeb3LaunchStatResponse
 import net.crossly.models.web3.GetWeb3LaunchToolResponse
 import net.crossly.models.web3.GetWeb3OrderFulfillmentResponse
 import net.crossly.models.web3.GetWeb3Phygital2Response
@@ -71,7 +79,10 @@ import net.crossly.models.web3.GetWeb3PortfolioTaxResponse
 import net.crossly.models.web3.GetWeb3ProfileResponse
 import net.crossly.models.web3.GetWeb3ResolveResponse
 import net.crossly.models.web3.GetWeb3SolanaCollectionTensorBidResponse
+import net.crossly.models.web3.GetWeb3StakingResponse
+import net.crossly.models.web3.GetWeb3StoreWalletNftResponse
 import net.crossly.models.web3.GetWeb3TokenResponse
+import net.crossly.models.web3.GetWeb3WalletHoldingResponse
 import net.crossly.models.common.IdResponse
 import net.crossly.models.web3.ListWeb3ActivityResponse
 import net.crossly.models.web3.ListWeb3AlertsResponse
@@ -84,8 +95,8 @@ import net.crossly.models.web3.ListWeb3CollectionHistoryResponse
 import net.crossly.models.web3.ListWeb3CollectionsResponse
 import net.crossly.models.web3.ListWeb3CreatorCollectionsResponse
 import net.crossly.models.web3.ListWeb3DropsResponse
-import net.crossly.models.web3.ListWeb3HolderPerksItem
 import net.crossly.models.web3.ListWeb3HolderPerksResponse
+import net.crossly.models.web3.ListWeb3LaunchPerksResponse
 import net.crossly.models.web3.ListWeb3LaunchesItem
 import net.crossly.models.web3.ListWeb3LaunchesResponse
 import net.crossly.models.web3.ListWeb3ListingsResponse
@@ -98,11 +109,17 @@ import net.crossly.models.web3.ListWeb3RankingsResponse
 import net.crossly.models.web3.ListWeb3SalesResponse
 import net.crossly.models.web3.ListWeb3SearchResponse
 import net.crossly.models.web3.ListWeb3SearchTokensResponse
+import net.crossly.models.web3.ListWeb3StoreWalletBalancesResponse
+import net.crossly.models.web3.ListWeb3StoreWalletsResponse
 import net.crossly.models.web3.ListWeb3WalletsResponse
 import net.crossly.models.web3.ListWeb3WatchlistResponse
 import net.crossly.models.common.OkResponse
 import net.crossly.models.common.OrderHashResponse
+import net.crossly.models.web3.UpdateWeb3HolderPerkResponse
 import net.crossly.models.web3.UpdateWeb3LaunchAllowlistResponse
+import net.crossly.models.web3.UpdateWeb3LaunchResponse
+import net.crossly.models.web3.UpdateWeb3StoreWalletResponse
+import net.crossly.models.web3.UpdateWeb3WalletResponse
 
 import com.squareup.moshi.Json
 
@@ -2416,6 +2433,73 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
+    * After your wallet’s Tensor transaction confirms: &#x60;action&#x60; place, cancel or accept, with its &#x60;signature&#x60; and the &#x60;wallet&#x60; that signed. Checked on chain, then recorded in your Activity. Accept needs listings:write; place and cancel need buyer:offers:write.
+    * 
+    * @return CreateWeb3SolanaTensorBidConfirmResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3SolanaTensorBidConfirm() : CreateWeb3SolanaTensorBidConfirmResponse {
+        val localVarResponse = createWeb3SolanaTensorBidConfirmWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3SolanaTensorBidConfirmResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * After your wallet’s Tensor transaction confirms: &#x60;action&#x60; place, cancel or accept, with its &#x60;signature&#x60; and the &#x60;wallet&#x60; that signed. Checked on chain, then recorded in your Activity. Accept needs listings:write; place and cancel need buyer:offers:write.
+    * 
+    * @return ApiResponse<CreateWeb3SolanaTensorBidConfirmResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3SolanaTensorBidConfirmWithHttpInfo() : ApiResponse<CreateWeb3SolanaTensorBidConfirmResponse?> {
+        val localVariableConfig = createWeb3SolanaTensorBidConfirmRequestConfig()
+
+        return request<Unit, CreateWeb3SolanaTensorBidConfirmResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3SolanaTensorBidConfirm
+    *
+    * @return RequestConfig
+    */
+    fun createWeb3SolanaTensorBidConfirmRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/solana/tensor-bids/confirm",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Build a Tensor collection bid (or trait bid with &#x60;trait&#x60;) for your Solana wallet to sign. Price in lamports.
     * 
     * @return CreateWeb3SolanaTensorBidPlaceTxResponse
@@ -2476,6 +2560,481 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/web3/solana/tensor-bids/place-tx",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Lock earned CBX (&#x60;baseUnits&#x60;, a string) into the best tier it reaches. 409 while a stake or unstake is in progress.
+    * 
+    * @return CreateWeb3StakingStakeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3StakingStake() : CreateWeb3StakingStakeResponse {
+        val localVarResponse = createWeb3StakingStakeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3StakingStakeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Lock earned CBX (&#x60;baseUnits&#x60;, a string) into the best tier it reaches. 409 while a stake or unstake is in progress.
+    * 
+    * @return ApiResponse<CreateWeb3StakingStakeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3StakingStakeWithHttpInfo() : ApiResponse<CreateWeb3StakingStakeResponse?> {
+        val localVariableConfig = createWeb3StakingStakeRequestConfig()
+
+        return request<Unit, CreateWeb3StakingStakeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3StakingStake
+    *
+    * @return RequestConfig
+    */
+    fun createWeb3StakingStakeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/staking/stake",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Start unstaking: the earn boost stops now, the tokens release when the tier’s cooldown ends. Returns &#x60;{ unlocksAt, cooldownDays }&#x60;.
+    * 
+    * @return CreateWeb3StakingUnstakeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3StakingUnstake() : CreateWeb3StakingUnstakeResponse {
+        val localVarResponse = createWeb3StakingUnstakeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3StakingUnstakeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Start unstaking: the earn boost stops now, the tokens release when the tier’s cooldown ends. Returns &#x60;{ unlocksAt, cooldownDays }&#x60;.
+    * 
+    * @return ApiResponse<CreateWeb3StakingUnstakeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3StakingUnstakeWithHttpInfo() : ApiResponse<CreateWeb3StakingUnstakeResponse?> {
+        val localVariableConfig = createWeb3StakingUnstakeRequestConfig()
+
+        return request<Unit, CreateWeb3StakingUnstakeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3StakingUnstake
+    *
+    * @return RequestConfig
+    */
+    fun createWeb3StakingUnstakeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/staking/unstake",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
+    * 
+    * @return CreateWeb3StoreWalletResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3StoreWallet() : CreateWeb3StoreWalletResponse {
+        val localVarResponse = createWeb3StoreWalletWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3StoreWalletResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Link one of your verified wallets to the store so it sells NFTs from it and is paid into it.
+    * 
+    * @return ApiResponse<CreateWeb3StoreWalletResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3StoreWalletWithHttpInfo() : ApiResponse<CreateWeb3StoreWalletResponse?> {
+        val localVariableConfig = createWeb3StoreWalletRequestConfig()
+
+        return request<Unit, CreateWeb3StoreWalletResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3StoreWallet
+    *
+    * @return RequestConfig
+    */
+    fun createWeb3StoreWalletRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/store-wallets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Start adding a selling wallet to the store: the message the wallet signs.
+    * 
+    * @return CreateWeb3WalletChallengeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3StoreWalletChallenge() : CreateWeb3WalletChallengeResponse {
+        val localVarResponse = createWeb3StoreWalletChallengeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3WalletChallengeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Start adding a selling wallet to the store: the message the wallet signs.
+    * 
+    * @return ApiResponse<CreateWeb3WalletChallengeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3StoreWalletChallengeWithHttpInfo() : ApiResponse<CreateWeb3WalletChallengeResponse?> {
+        val localVariableConfig = createWeb3StoreWalletChallengeRequestConfig()
+
+        return request<Unit, CreateWeb3WalletChallengeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3StoreWalletChallenge
+    *
+    * @return RequestConfig
+    */
+    fun createWeb3StoreWalletChallengeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/store-wallets/challenge",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Add picked NFTs (&#x60;tokens: [{ chain, contract, tokenId }]&#x60;) from a store wallet to inventory.
+    * 
+    * @param walletId  
+    * @return CreateWeb3WalletImportResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3StoreWalletImport(walletId: java.util.UUID) : CreateWeb3WalletImportResponse {
+        val localVarResponse = createWeb3StoreWalletImportWithHttpInfo(walletId = walletId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3WalletImportResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Add picked NFTs (&#x60;tokens: [{ chain, contract, tokenId }]&#x60;) from a store wallet to inventory.
+    * 
+    * @param walletId  
+    * @return ApiResponse<CreateWeb3WalletImportResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3StoreWalletImportWithHttpInfo(walletId: java.util.UUID) : ApiResponse<CreateWeb3WalletImportResponse?> {
+        val localVariableConfig = createWeb3StoreWalletImportRequestConfig(walletId = walletId)
+
+        return request<Unit, CreateWeb3WalletImportResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3StoreWalletImport
+    *
+    * @param walletId  
+    * @return RequestConfig
+    */
+    fun createWeb3StoreWalletImportRequestConfig(walletId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/store-wallets/{walletId}/import".replace("{"+"walletId"+"}", "$walletId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Sync a store wallet: refresh its NFTs in inventory; new ones are added when the store&#39;s link auto-imports.
+    * 
+    * @param walletId  
+    * @return CreateWeb3StoreWalletSyncResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3StoreWalletSync(walletId: java.util.UUID) : CreateWeb3StoreWalletSyncResponse {
+        val localVarResponse = createWeb3StoreWalletSyncWithHttpInfo(walletId = walletId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3StoreWalletSyncResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Sync a store wallet: refresh its NFTs in inventory; new ones are added when the store&#39;s link auto-imports.
+    * 
+    * @param walletId  
+    * @return ApiResponse<CreateWeb3StoreWalletSyncResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3StoreWalletSyncWithHttpInfo(walletId: java.util.UUID) : ApiResponse<CreateWeb3StoreWalletSyncResponse?> {
+        val localVariableConfig = createWeb3StoreWalletSyncRequestConfig(walletId = walletId)
+
+        return request<Unit, CreateWeb3StoreWalletSyncResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3StoreWalletSync
+    *
+    * @param walletId  
+    * @return RequestConfig
+    */
+    fun createWeb3StoreWalletSyncRequestConfig(walletId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/store-wallets/{walletId}/sync".replace("{"+"walletId"+"}", "$walletId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Finish adding a selling wallet: verify its signature and link it to the store.
+    * 
+    * @return CreateWeb3StoreWalletResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3StoreWalletVerify() : CreateWeb3StoreWalletResponse {
+        val localVarResponse = createWeb3StoreWalletVerifyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3StoreWalletResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Finish adding a selling wallet: verify its signature and link it to the store.
+    * 
+    * @return ApiResponse<CreateWeb3StoreWalletResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3StoreWalletVerifyWithHttpInfo() : ApiResponse<CreateWeb3StoreWalletResponse?> {
+        val localVariableConfig = createWeb3StoreWalletVerifyRequestConfig()
+
+        return request<Unit, CreateWeb3StoreWalletResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3StoreWalletVerify
+    *
+    * @return RequestConfig
+    */
+    fun createWeb3StoreWalletVerifyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/store-wallets/verify",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -2693,6 +3252,76 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
+    * Add picked NFTs (&#x60;tokens&#x60;: chain, contract, tokenId; up to 200) from a linked wallet to inventory. Tokens the wallet does not hold are counted in &#x60;notInWallet&#x60;, never added.
+    * 
+    * @param id  
+    * @return CreateWeb3WalletImportResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWeb3WalletImport(id: kotlin.String) : CreateWeb3WalletImportResponse {
+        val localVarResponse = createWeb3WalletImportWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWeb3WalletImportResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Add picked NFTs (&#x60;tokens&#x60;: chain, contract, tokenId; up to 200) from a linked wallet to inventory. Tokens the wallet does not hold are counted in &#x60;notInWallet&#x60;, never added.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWeb3WalletImportResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWeb3WalletImportWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWeb3WalletImportResponse?> {
+        val localVariableConfig = createWeb3WalletImportRequestConfig(id = id)
+
+        return request<Unit, CreateWeb3WalletImportResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWeb3WalletImport
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWeb3WalletImportRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/web3/wallets/{id}/import".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Import a linked wallet&#39;s NFTs into inventory; archives ones that have left the wallet.
     * 
     * @param id  
@@ -2900,7 +3529,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Remove a holder perk. Returns &#x60;{ ok }&#x60;.
+    * DEPRECATED: use /api/v1/discounts/holders/:id. Remove a Collection holders deal. Returns &#x60;{ ok }&#x60;.
     * 
     * @param id  
     * @return OkResponse
@@ -2912,7 +3541,9 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun deleteWeb3HolderPerk(id: kotlin.String) : OkResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = deleteWeb3HolderPerkWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
@@ -2931,7 +3562,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Remove a holder perk. Returns &#x60;{ ok }&#x60;.
+    * DEPRECATED: use /api/v1/discounts/holders/:id. Remove a Collection holders deal. Returns &#x60;{ ok }&#x60;.
     * 
     * @param id  
     * @return ApiResponse<OkResponse?>
@@ -2940,7 +3571,9 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun deleteWeb3HolderPerkWithHttpInfo(id: kotlin.String) : ApiResponse<OkResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = deleteWeb3HolderPerkRequestConfig(id = id)
 
         return request<Unit, OkResponse>(
@@ -2954,6 +3587,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     * @param id  
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun deleteWeb3HolderPerkRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -3110,6 +3744,76 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
+    * Remove every collection perk of a launch. Returns &#x60;{ ok }&#x60;.
+    * 
+    * @param id  
+    * @return OkResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteWeb3LaunchPerk(id: java.util.UUID) : OkResponse {
+        val localVarResponse = deleteWeb3LaunchPerkWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as OkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Remove every collection perk of a launch. Returns &#x60;{ ok }&#x60;.
+    * 
+    * @param id  
+    * @return ApiResponse<OkResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteWeb3LaunchPerkWithHttpInfo(id: java.util.UUID) : ApiResponse<OkResponse?> {
+        val localVariableConfig = deleteWeb3LaunchPerkRequestConfig(id = id)
+
+        return request<Unit, OkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteWeb3LaunchPerk
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteWeb3LaunchPerkRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/web3/launches/{id}/perks".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * enum for parameter marketplace
      */
      enum class Marketplace_deleteWeb3MarketplaceKey(val value: kotlin.String) {
@@ -3182,6 +3886,74 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
         return RequestConfig(
             method = RequestMethod.DELETE,
             path = "/v1/web3/marketplace-keys/{marketplace}".replace("{"+"marketplace"+"}", "$marketplace"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Stop the store selling from a wallet (the wallet and its other stores are unaffected).
+    * 
+    * @param walletId  
+    * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteWeb3StoreWallet(walletId: java.util.UUID) : Unit {
+        val localVarResponse = deleteWeb3StoreWalletWithHttpInfo(walletId = walletId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> Unit
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Stop the store selling from a wallet (the wallet and its other stores are unaffected).
+    * 
+    * @param walletId  
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteWeb3StoreWalletWithHttpInfo(walletId: java.util.UUID) : ApiResponse<Unit?> {
+        val localVariableConfig = deleteWeb3StoreWalletRequestConfig(walletId = walletId)
+
+        return request<Unit, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteWeb3StoreWallet
+    *
+    * @param walletId  
+    * @return RequestConfig
+    */
+    fun deleteWeb3StoreWalletRequestConfig(walletId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/web3/store-wallets/{walletId}".replace("{"+"walletId"+"}", "$walletId"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -3328,6 +4100,73 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/web3/auctions/{chain}/{contract}/{tokenId}".replace("{"+"chain"+"}", "$chain").replace("{"+"contract"+"}", "$contract").replace("{"+"tokenId"+"}", "$tokenId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Every CBX you have, in one read, with the three balances kept apart.
+    * &#x60;credit&#x60;: EARNED (withdrawable once matured; &#x60;withdrawableBaseUnits&#x60; is earned minus anything staked) and GRANTED (in-platform spend only, never withdrawable). &#x60;connected&#x60;: headroom on your connected-wallet delegation, a ceiling on what Crossly may pull, never a balance. &#x60;wallets&#x60;: each linked wallet with its own on-chain CBX (&#x60;status&#x60; read / not_solana / not_live / unavailable). &#x60;totals.allBaseUnits&#x60; is credit + wallets and never adds the delegation headroom. Amounts are base-unit strings (&#x60;decimals&#x60;).
+    * @return GetWeb3BalanceResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWeb3Balance() : GetWeb3BalanceResponse {
+        val localVarResponse = getWeb3BalanceWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWeb3BalanceResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Every CBX you have, in one read, with the three balances kept apart.
+    * &#x60;credit&#x60;: EARNED (withdrawable once matured; &#x60;withdrawableBaseUnits&#x60; is earned minus anything staked) and GRANTED (in-platform spend only, never withdrawable). &#x60;connected&#x60;: headroom on your connected-wallet delegation, a ceiling on what Crossly may pull, never a balance. &#x60;wallets&#x60;: each linked wallet with its own on-chain CBX (&#x60;status&#x60; read / not_solana / not_live / unavailable). &#x60;totals.allBaseUnits&#x60; is credit + wallets and never adds the delegation headroom. Amounts are base-unit strings (&#x60;decimals&#x60;).
+    * @return ApiResponse<GetWeb3BalanceResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWeb3BalanceWithHttpInfo() : ApiResponse<GetWeb3BalanceResponse?> {
+        val localVariableConfig = getWeb3BalanceRequestConfig()
+
+        return request<Unit, GetWeb3BalanceResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWeb3Balance
+    *
+    * @return RequestConfig
+    */
+    fun getWeb3BalanceRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/balances",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -4324,6 +5163,76 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
+    * A launch’s phase timeline, mint progress, proceeds (gross, Crossly’s cut, yours; airdrops excluded), allowlist and art counts, and recent mints.
+    * 
+    * @param id  
+    * @return GetWeb3LaunchStatResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWeb3LaunchStat(id: kotlin.String) : GetWeb3LaunchStatResponse {
+        val localVarResponse = getWeb3LaunchStatWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWeb3LaunchStatResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A launch’s phase timeline, mint progress, proceeds (gross, Crossly’s cut, yours; airdrops excluded), allowlist and art counts, and recent mints.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWeb3LaunchStatResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWeb3LaunchStatWithHttpInfo(id: kotlin.String) : ApiResponse<GetWeb3LaunchStatResponse?> {
+        val localVariableConfig = getWeb3LaunchStatRequestConfig(id = id)
+
+        return request<Unit, GetWeb3LaunchStatResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWeb3LaunchStat
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWeb3LaunchStatRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/launches/{id}/stats".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * A launch’s creator tools: allowlist size and root (and whether the contract has it yet), uploaded art and reveal, supply minted.
     * 
     * @param id  
@@ -4957,6 +5866,210 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
+    * Your CBX stake: what is locked, its tier, the tier ladder and your past positions.
+    * A stake locks EARNED CBX; it moves nothing and pays no yield. Each tier buys a withdrawal-fee discount and an earn-rate boost on future purchases, and has a cooldown before an unstake releases.
+    * @return GetWeb3StakingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWeb3Staking() : GetWeb3StakingResponse {
+        val localVarResponse = getWeb3StakingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWeb3StakingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your CBX stake: what is locked, its tier, the tier ladder and your past positions.
+    * A stake locks EARNED CBX; it moves nothing and pays no yield. Each tier buys a withdrawal-fee discount and an earn-rate boost on future purchases, and has a cooldown before an unstake releases.
+    * @return ApiResponse<GetWeb3StakingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWeb3StakingWithHttpInfo() : ApiResponse<GetWeb3StakingResponse?> {
+        val localVariableConfig = getWeb3StakingRequestConfig()
+
+        return request<Unit, GetWeb3StakingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWeb3Staking
+    *
+    * @return RequestConfig
+    */
+    fun getWeb3StakingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/staking",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What a store wallet holds (chain + contract + token id), each marked in-inventory or not.
+    * 
+    * @param walletId  
+    * @return GetWeb3WalletHoldingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWeb3StoreWalletHolding(walletId: java.util.UUID) : GetWeb3WalletHoldingResponse {
+        val localVarResponse = getWeb3StoreWalletHoldingWithHttpInfo(walletId = walletId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWeb3WalletHoldingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What a store wallet holds (chain + contract + token id), each marked in-inventory or not.
+    * 
+    * @param walletId  
+    * @return ApiResponse<GetWeb3WalletHoldingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWeb3StoreWalletHoldingWithHttpInfo(walletId: java.util.UUID) : ApiResponse<GetWeb3WalletHoldingResponse?> {
+        val localVariableConfig = getWeb3StoreWalletHoldingRequestConfig(walletId = walletId)
+
+        return request<Unit, GetWeb3WalletHoldingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWeb3StoreWalletHolding
+    *
+    * @param walletId  
+    * @return RequestConfig
+    */
+    fun getWeb3StoreWalletHoldingRequestConfig(walletId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/store-wallets/{walletId}/holdings".replace("{"+"walletId"+"}", "$walletId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The store&#39;s Crossly NFTs: plots (deeds and leases), streets its owner founded and vault receipt tokens in its wallets, with the wallets a plot purchase and a receipt export use.
+    * 
+    * @return GetWeb3StoreWalletNftResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWeb3StoreWalletNft() : GetWeb3StoreWalletNftResponse {
+        val localVarResponse = getWeb3StoreWalletNftWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWeb3StoreWalletNftResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The store&#39;s Crossly NFTs: plots (deeds and leases), streets its owner founded and vault receipt tokens in its wallets, with the wallets a plot purchase and a receipt export use.
+    * 
+    * @return ApiResponse<GetWeb3StoreWalletNftResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWeb3StoreWalletNftWithHttpInfo() : ApiResponse<GetWeb3StoreWalletNftResponse?> {
+        val localVariableConfig = getWeb3StoreWalletNftRequestConfig()
+
+        return request<Unit, GetWeb3StoreWalletNftResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWeb3StoreWalletNft
+    *
+    * @return RequestConfig
+    */
+    fun getWeb3StoreWalletNftRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/store-wallets/nfts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * One NFT: metadata, traits, owner, open listings and offers, activity.
     * 
     * @param chain  
@@ -5026,6 +6139,76 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/web3/tokens/{chain}/{contract}/{tokenId}".replace("{"+"chain"+"}", "$chain").replace("{"+"contract"+"}", "$contract").replace("{"+"tokenId"+"}", "$tokenId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What a linked wallet holds right now, each NFT marked &#x60;inInventory&#x60; or not. Reads the chain; writes nothing.
+    * 
+    * @param id  
+    * @return GetWeb3WalletHoldingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWeb3WalletHolding(id: kotlin.String) : GetWeb3WalletHoldingResponse {
+        val localVarResponse = getWeb3WalletHoldingWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWeb3WalletHoldingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What a linked wallet holds right now, each NFT marked &#x60;inInventory&#x60; or not. Reads the chain; writes nothing.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWeb3WalletHoldingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWeb3WalletHoldingWithHttpInfo(id: kotlin.String) : ApiResponse<GetWeb3WalletHoldingResponse?> {
+        val localVariableConfig = getWeb3WalletHoldingRequestConfig(id = id)
+
+        return request<Unit, GetWeb3WalletHoldingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWeb3WalletHolding
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWeb3WalletHoldingRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/wallets/{id}/holdings".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -5776,7 +6959,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Your holder perks: percent off your Crossly shop for holders of an NFT collection, best first.
+    * DEPRECATED: use /api/v1/discounts/holders. Your Collection holders deals in the old holder-perk shape, best first.
     * 
     * @return ListWeb3HolderPerksResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -5787,7 +6970,9 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun listWeb3HolderPerks() : ListWeb3HolderPerksResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = listWeb3HolderPerksWithHttpInfo()
 
         return when (localVarResponse.responseType) {
@@ -5806,7 +6991,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Your holder perks: percent off your Crossly shop for holders of an NFT collection, best first.
+    * DEPRECATED: use /api/v1/discounts/holders. Your Collection holders deals in the old holder-perk shape, best first.
     * 
     * @return ApiResponse<ListWeb3HolderPerksResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -5814,7 +6999,9 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun listWeb3HolderPerksWithHttpInfo() : ApiResponse<ListWeb3HolderPerksResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = listWeb3HolderPerksRequestConfig()
 
         return request<Unit, ListWeb3HolderPerksResponse>(
@@ -5827,6 +7014,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     *
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun listWeb3HolderPerksRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -5836,6 +7024,76 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/web3/holder-perks",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The perks holders of this launch’s collection get (percent off your shop, early drop access, a World item, a loyalty tier, live early entry, an event ticket).
+    * 
+    * @param id  
+    * @return ListWeb3LaunchPerksResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWeb3LaunchPerks(id: java.util.UUID) : ListWeb3LaunchPerksResponse {
+        val localVarResponse = listWeb3LaunchPerksWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWeb3LaunchPerksResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The perks holders of this launch’s collection get (percent off your shop, early drop access, a World item, a loyalty tier, live early entry, an event ticket).
+    * 
+    * @param id  
+    * @return ApiResponse<ListWeb3LaunchPerksResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWeb3LaunchPerksWithHttpInfo(id: java.util.UUID) : ApiResponse<ListWeb3LaunchPerksResponse?> {
+        val localVariableConfig = listWeb3LaunchPerksRequestConfig(id = id)
+
+        return request<Unit, ListWeb3LaunchPerksResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWeb3LaunchPerks
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun listWeb3LaunchPerksRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/launches/{id}/perks".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -6150,7 +7408,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Your orders in the Crossly book (listings and offers), any status.
+    * Your orders in the Crossly book (listings and offers), any status. With X-Storefront-Id: that store&#39;s listings (offers always).
     * 
     * @return ListWeb3OrdersResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -6180,7 +7438,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Your orders in the Crossly book (listings and offers), any status.
+    * Your orders in the Crossly book (listings and offers), any status. With X-Storefront-Id: that store&#39;s listings (offers always).
     * 
     * @return ApiResponse<ListWeb3OrdersResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -6619,6 +7877,140 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
+    * The native-coin balance (SOL, ETH, POL, …) of each of the store&#39;s selling wallets, read on chain.
+    * 
+    * @return ListWeb3StoreWalletBalancesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWeb3StoreWalletBalances() : ListWeb3StoreWalletBalancesResponse {
+        val localVarResponse = listWeb3StoreWalletBalancesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWeb3StoreWalletBalancesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The native-coin balance (SOL, ETH, POL, …) of each of the store&#39;s selling wallets, read on chain.
+    * 
+    * @return ApiResponse<ListWeb3StoreWalletBalancesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWeb3StoreWalletBalancesWithHttpInfo() : ApiResponse<ListWeb3StoreWalletBalancesResponse?> {
+        val localVariableConfig = listWeb3StoreWalletBalancesRequestConfig()
+
+        return request<Unit, ListWeb3StoreWalletBalancesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWeb3StoreWalletBalances
+    *
+    * @return RequestConfig
+    */
+    fun listWeb3StoreWalletBalancesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/store-wallets/balances",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * List the store&#39;s selling wallets (X-Storefront-Id; default store when omitted).
+    * 
+    * @return ListWeb3StoreWalletsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWeb3StoreWallets() : ListWeb3StoreWalletsResponse {
+        val localVarResponse = listWeb3StoreWalletsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWeb3StoreWalletsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * List the store&#39;s selling wallets (X-Storefront-Id; default store when omitted).
+    * 
+    * @return ApiResponse<ListWeb3StoreWalletsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWeb3StoreWalletsWithHttpInfo() : ApiResponse<ListWeb3StoreWalletsResponse?> {
+        val localVariableConfig = listWeb3StoreWalletsRequestConfig()
+
+        return request<Unit, ListWeb3StoreWalletsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWeb3StoreWallets
+    *
+    * @return RequestConfig
+    */
+    fun listWeb3StoreWalletsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/web3/store-wallets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * List your verified, linked wallets (EVM and Solana).
     * 
     * @return ListWeb3WalletsResponse
@@ -6753,9 +8145,9 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Set the percent off (100–5000 bps) holders of a collection get across your Crossly shop; one perk per collection.
+    * DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
     * 
-    * @return ListWeb3HolderPerksItem
+    * @return UpdateWeb3HolderPerkResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -6764,11 +8156,13 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun updateWeb3HolderPerk() : ListWeb3HolderPerksItem {
+    @Deprecated(message = "This operation is deprecated.")
+    fun updateWeb3HolderPerk() : UpdateWeb3HolderPerkResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = updateWeb3HolderPerkWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWeb3HolderPerksItem
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWeb3HolderPerkResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -6783,18 +8177,20 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Set the percent off (100–5000 bps) holders of a collection get across your Crossly shop; one perk per collection.
+    * DEPRECATED: use /api/v1/discounts/holders. Set the percent off (100–5000 bps) holders of a collection get in your store (the key’s store, else the default); one per collection.
     * 
-    * @return ApiResponse<ListWeb3HolderPerksItem?>
+    * @return ApiResponse<UpdateWeb3HolderPerkResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun updateWeb3HolderPerkWithHttpInfo() : ApiResponse<ListWeb3HolderPerksItem?> {
+    @Deprecated(message = "This operation is deprecated.")
+    fun updateWeb3HolderPerkWithHttpInfo() : ApiResponse<UpdateWeb3HolderPerkResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = updateWeb3HolderPerkRequestConfig()
 
-        return request<Unit, ListWeb3HolderPerksItem>(
+        return request<Unit, UpdateWeb3HolderPerkResponse>(
             localVariableConfig
         )
     }
@@ -6804,6 +8200,7 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     *
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun updateWeb3HolderPerkRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -6813,6 +8210,76 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/web3/holder-perks",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Edit a launch draft (or a failed deploy) before it deploys: any creation field except chain and owner. The schedule is re-checked; 409 once live.
+    * 
+    * @param id  
+    * @return UpdateWeb3LaunchResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWeb3Launch(id: kotlin.String) : UpdateWeb3LaunchResponse {
+        val localVarResponse = updateWeb3LaunchWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWeb3LaunchResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Edit a launch draft (or a failed deploy) before it deploys: any creation field except chain and owner. The schedule is re-checked; 409 once live.
+    * 
+    * @param id  
+    * @return ApiResponse<UpdateWeb3LaunchResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWeb3LaunchWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateWeb3LaunchResponse?> {
+        val localVariableConfig = updateWeb3LaunchRequestConfig(id = id)
+
+        return request<Unit, UpdateWeb3LaunchResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWeb3Launch
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateWeb3LaunchRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/web3/launches/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -6883,6 +8350,76 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/web3/launches/{id}/allowlist".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Replace a launch’s collection perks: &#x60;{ perks: [{ config: { type, ... }, active }] }&#x60;, one per type; a type left out is removed.
+    * 
+    * @param id  
+    * @return ListWeb3LaunchPerksResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWeb3LaunchPerk(id: java.util.UUID) : ListWeb3LaunchPerksResponse {
+        val localVarResponse = updateWeb3LaunchPerkWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWeb3LaunchPerksResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Replace a launch’s collection perks: &#x60;{ perks: [{ config: { type, ... }, active }] }&#x60;, one per type; a type left out is removed.
+    * 
+    * @param id  
+    * @return ApiResponse<ListWeb3LaunchPerksResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWeb3LaunchPerkWithHttpInfo(id: java.util.UUID) : ApiResponse<ListWeb3LaunchPerksResponse?> {
+        val localVariableConfig = updateWeb3LaunchPerkRequestConfig(id = id)
+
+        return request<Unit, ListWeb3LaunchPerksResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWeb3LaunchPerk
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateWeb3LaunchPerkRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/web3/launches/{id}/perks".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -6964,6 +8501,216 @@ class Web3Api(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/web3/marketplace-keys/{marketplace}".replace("{"+"marketplace"+"}", "$marketplace"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
+    * 
+    * @param walletId  
+    * @return UpdateWeb3StoreWalletResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWeb3StoreWallet(walletId: java.util.UUID) : UpdateWeb3StoreWalletResponse {
+        val localVarResponse = updateWeb3StoreWalletWithHttpInfo(walletId = walletId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWeb3StoreWalletResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Turn on or off whether syncing this store wallet adds new NFTs to the store’s inventory (X-Storefront-Id).
+    * 
+    * @param walletId  
+    * @return ApiResponse<UpdateWeb3StoreWalletResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWeb3StoreWalletWithHttpInfo(walletId: java.util.UUID) : ApiResponse<UpdateWeb3StoreWalletResponse?> {
+        val localVariableConfig = updateWeb3StoreWalletRequestConfig(walletId = walletId)
+
+        return request<Unit, UpdateWeb3StoreWalletResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWeb3StoreWallet
+    *
+    * @param walletId  
+    * @return RequestConfig
+    */
+    fun updateWeb3StoreWalletRequestConfig(walletId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/web3/store-wallets/{walletId}".replace("{"+"walletId"+"}", "$walletId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Make a linked wallet the store&#39;s default selling wallet on its network (EVM or Solana).
+    * 
+    * @param walletId  
+    * @return ListWeb3StoreWalletsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWeb3StoreWalletDefault(walletId: java.util.UUID) : ListWeb3StoreWalletsResponse {
+        val localVarResponse = updateWeb3StoreWalletDefaultWithHttpInfo(walletId = walletId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWeb3StoreWalletsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Make a linked wallet the store&#39;s default selling wallet on its network (EVM or Solana).
+    * 
+    * @param walletId  
+    * @return ApiResponse<ListWeb3StoreWalletsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWeb3StoreWalletDefaultWithHttpInfo(walletId: java.util.UUID) : ApiResponse<ListWeb3StoreWalletsResponse?> {
+        val localVariableConfig = updateWeb3StoreWalletDefaultRequestConfig(walletId = walletId)
+
+        return request<Unit, ListWeb3StoreWalletsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWeb3StoreWalletDefault
+    *
+    * @param walletId  
+    * @return RequestConfig
+    */
+    fun updateWeb3StoreWalletDefaultRequestConfig(walletId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/web3/store-wallets/{walletId}/default".replace("{"+"walletId"+"}", "$walletId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Change a linked wallet: &#x60;autoImport&#x60; (a sync adds new NFTs to inventory; off, it only refreshes the ones there) and &#x60;label&#x60;.
+    * 
+    * @param id  
+    * @return UpdateWeb3WalletResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWeb3Wallet(id: kotlin.String) : UpdateWeb3WalletResponse {
+        val localVarResponse = updateWeb3WalletWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWeb3WalletResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Change a linked wallet: &#x60;autoImport&#x60; (a sync adds new NFTs to inventory; off, it only refreshes the ones there) and &#x60;label&#x60;.
+    * 
+    * @param id  
+    * @return ApiResponse<UpdateWeb3WalletResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWeb3WalletWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateWeb3WalletResponse?> {
+        val localVariableConfig = updateWeb3WalletRequestConfig(id = id)
+
+        return request<Unit, UpdateWeb3WalletResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWeb3Wallet
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateWeb3WalletRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/web3/wallets/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

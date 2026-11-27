@@ -31,6 +31,11 @@ import com.squareup.moshi.Json
  * @param revenue 
  * @param fees 
  * @param netProfit 
+ * @param pendingDetailsCount 
+ * @param netSalesCents 
+ * @param feesCents 
+ * @param netProfitCents 
+ * @param share 
  */
 
 data class GetAnalyticByPlatformResponseBreakdown (
@@ -48,7 +53,22 @@ data class GetAnalyticByPlatformResponseBreakdown (
     val fees: java.math.BigDecimal,
 
     @Json(name = "netProfit")
-    val netProfit: java.math.BigDecimal
+    val netProfit: java.math.BigDecimal,
+
+    @Json(name = "pendingDetailsCount")
+    val pendingDetailsCount: java.math.BigDecimal,
+
+    @Json(name = "netSalesCents")
+    val netSalesCents: java.math.BigDecimal,
+
+    @Json(name = "feesCents")
+    val feesCents: java.math.BigDecimal,
+
+    @Json(name = "netProfitCents")
+    val netProfitCents: java.math.BigDecimal,
+
+    @Json(name = "share")
+    val share: java.math.BigDecimal
 
 )
 

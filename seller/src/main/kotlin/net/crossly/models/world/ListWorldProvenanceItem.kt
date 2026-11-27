@@ -62,13 +62,13 @@ data class ListWorldProvenanceItem (
     /**
      * 
      *
-     * Values: AUCTION,WINDOW,AGENT,ROOM,STALL,WORN,DROP,SPACE
+     * Values: WINDOW,AUCTION,ROOM,AGENT,STALL,WORN,DROP,SPACE
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "auction") AUCTION("auction"),
         @Json(name = "window") WINDOW("window"),
-        @Json(name = "agent") AGENT("agent"),
+        @Json(name = "auction") AUCTION("auction"),
         @Json(name = "room") ROOM("room"),
+        @Json(name = "agent") AGENT("agent"),
         @Json(name = "stall") STALL("stall"),
         @Json(name = "worn") WORN("worn"),
         @Json(name = "drop") DROP("drop"),

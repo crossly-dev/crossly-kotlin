@@ -27,15 +27,15 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
  * @param status 
  * @param title 
  * @param priceCents 
+ * @param createdAt 
  * @param purchaseId 
- * @param termsUrl 
- * @param refundCents 
  * @param termMonths 
  * @param coverage 
+ * @param termsUrl 
+ * @param refundCents 
  * @param contractId 
  * @param itemTitle 
  */
@@ -44,9 +44,6 @@ data class ListBuyerProtectionPlansItem (
 
     @Json(name = "id")
     val id: kotlin.String,
-
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
 
     @Json(name = "status")
     val status: kotlin.String,
@@ -57,20 +54,23 @@ data class ListBuyerProtectionPlansItem (
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
 
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
+
     @Json(name = "purchaseId")
     val purchaseId: kotlin.String? = null,
-
-    @Json(name = "termsUrl")
-    val termsUrl: kotlin.String? = null,
-
-    @Json(name = "refundCents")
-    val refundCents: java.math.BigDecimal? = null,
 
     @Json(name = "termMonths")
     val termMonths: java.math.BigDecimal? = null,
 
     @Json(name = "coverage")
     val coverage: kotlin.String? = null,
+
+    @Json(name = "termsUrl")
+    val termsUrl: kotlin.String? = null,
+
+    @Json(name = "refundCents")
+    val refundCents: java.math.BigDecimal? = null,
 
     @Json(name = "contractId")
     val contractId: kotlin.String? = null,

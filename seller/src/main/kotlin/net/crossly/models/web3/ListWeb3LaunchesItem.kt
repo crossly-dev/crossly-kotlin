@@ -20,8 +20,9 @@
 
 package net.crossly.models.web3
 
-import net.crossly.models.web3.ListWeb3LaunchesItemCreator
-import net.crossly.models.web3.ListWeb3LaunchesItemHolderGate
+import net.crossly.models.common.ContractName
+import net.crossly.models.web3.ListWeb3LaunchesItemHolderPerksItem
+import net.crossly.models.common.NameObject
 
 import com.squareup.moshi.Json
 
@@ -51,6 +52,9 @@ import com.squareup.moshi.Json
  * @param holderStart 
  * @param endTime 
  * @param holderGate 
+ * @param cardSetId Creator Studio (migration 1163): the card set this collection takes on chain, and the creations it mints.
+ * @param creationRefs 
+ * @param holderPerks Migration 1178 (R-studio-15): what holding a token gets you, decided at mint (shared/creator/holder-perks).
  */
 
 data class ListWeb3LaunchesItem (
@@ -95,7 +99,7 @@ data class ListWeb3LaunchesItem (
     val phase: ListWeb3LaunchesItem.Phase,
 
     @Json(name = "creator")
-    val creator: ListWeb3LaunchesItemCreator,
+    val creator: NameObject,
 
     /* Card checkout (Crossmint) is set up and the collection is verified there. */
     @Json(name = "card")
@@ -125,44 +129,55 @@ data class ListWeb3LaunchesItem (
     val endTime: kotlin.String? = null,
 
     @Json(name = "holderGate")
-    val holderGate: ListWeb3LaunchesItemHolderGate? = null
+    val holderGate: ContractName? = null,
+
+    /* Creator Studio (migration 1163): the card set this collection takes on chain, and the creations it mints. */
+    @Json(name = "cardSetId")
+    val cardSetId: kotlin.String? = null,
+
+    @Json(name = "creationRefs")
+    val creationRefs: kotlin.collections.List<kotlin.String>? = null,
+
+    /* Migration 1178 (R-studio-15): what holding a token gets you, decided at mint (shared/creator/holder-perks). */
+    @Json(name = "holderPerks")
+    val holderPerks: kotlin.collections.List<ListWeb3LaunchesItemHolderPerksItem>? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: SOLANA,ETHEREUM,BASE,POLYGON,ARBITRUM,OPTIMISM
+     * Values: ETHEREUM,BASE,POLYGON,ARBITRUM,OPTIMISM,SOLANA
      */
     enum class Chain(val value: kotlin.String) {
-        @Json(name = "solana") SOLANA("solana"),
         @Json(name = "ethereum") ETHEREUM("ethereum"),
         @Json(name = "base") BASE("base"),
         @Json(name = "polygon") POLYGON("polygon"),
         @Json(name = "arbitrum") ARBITRUM("arbitrum"),
-        @Json(name = "optimism") OPTIMISM("optimism");
+        @Json(name = "optimism") OPTIMISM("optimism"),
+        @Json(name = "solana") SOLANA("solana");
     }
     /**
      * 
      *
-     * Values: LIVE,DRAFT,FAILED,DEPLOYING
+     * Values: DRAFT,LIVE,FAILED,DEPLOYING
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "live") LIVE("live"),
         @Json(name = "draft") DRAFT("draft"),
+        @Json(name = "live") LIVE("live"),
         @Json(name = "failed") FAILED("failed"),
         @Json(name = "deploying") DEPLOYING("deploying");
     }
     /**
      * 
      *
-     * Values: ENDED,HOLDER,PUBLIC,UPCOMING,SOLD_OUT
+     * Values: PUBLIC,ENDED,UPCOMING,HOLDER,SOLD_OUT
      */
     enum class Phase(val value: kotlin.String) {
-        @Json(name = "ended") ENDED("ended"),
-        @Json(name = "holder") HOLDER("holder"),
         @Json(name = "public") PUBLIC("public"),
+        @Json(name = "ended") ENDED("ended"),
         @Json(name = "upcoming") UPCOMING("upcoming"),
+        @Json(name = "holder") HOLDER("holder"),
         @Json(name = "sold_out") SOLD_OUT("sold_out");
     }
 }

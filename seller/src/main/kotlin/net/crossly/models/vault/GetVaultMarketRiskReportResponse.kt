@@ -23,6 +23,7 @@ package net.crossly.models.vault
 import net.crossly.models.vault.CreateVaultMarketPortfolioMarginEnrollResponseOneOfAccount
 import net.crossly.models.vault.GetVaultMarketNavResponseTotals
 import net.crossly.models.vault.GetVaultMarketRiskReportResponseConcentration
+import net.crossly.models.vault.GetVaultMarketRiskReportResponseCounterparty
 import net.crossly.models.vault.GetVaultMarketRiskReportResponseLvar
 import net.crossly.models.vault.GetVaultMarketRiskReportResponsePartnerDcm
 import net.crossly.models.vault.GetVaultMarketRiskReportResponseStress
@@ -40,6 +41,7 @@ import com.squareup.moshi.Json
  * @param lvar 
  * @param stress 
  * @param concentration 
+ * @param counterparty 
  * @param partnerDcm 
  */
 
@@ -65,6 +67,9 @@ data class GetVaultMarketRiskReportResponse (
 
     @Json(name = "concentration")
     val concentration: GetVaultMarketRiskReportResponseConcentration,
+
+    @Json(name = "counterparty")
+    val counterparty: GetVaultMarketRiskReportResponseCounterparty,
 
     @Json(name = "partnerDcm")
     val partnerDcm: GetVaultMarketRiskReportResponsePartnerDcm

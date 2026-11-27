@@ -26,14 +26,24 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param grossSales 
+ * @param refunds 
  * @param revenue 
  * @param cogs 
  * @param platformFees 
  * @param shippingCosts 
+ * @param mileage 
+ * @param otherExpenses 
  * @param netProfit 
  */
 
 data class GetAnalyticBookkeepingResponseAnnualTotals (
+
+    @Json(name = "grossSales")
+    val grossSales: java.math.BigDecimal,
+
+    @Json(name = "refunds")
+    val refunds: java.math.BigDecimal,
 
     @Json(name = "revenue")
     val revenue: java.math.BigDecimal,
@@ -46,6 +56,12 @@ data class GetAnalyticBookkeepingResponseAnnualTotals (
 
     @Json(name = "shippingCosts")
     val shippingCosts: java.math.BigDecimal,
+
+    @Json(name = "mileage")
+    val mileage: java.math.BigDecimal,
+
+    @Json(name = "otherExpenses")
+    val otherExpenses: java.math.BigDecimal,
 
     @Json(name = "netProfit")
     val netProfit: java.math.BigDecimal

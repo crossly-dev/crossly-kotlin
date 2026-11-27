@@ -32,7 +32,9 @@ import com.squareup.moshi.Json
  * @param name 
  * @param designId 
  * @param createdAt 
+ * @param updatedAt 
  * @param versions 
+ * @param unpublishedAt 
  */
 
 data class ListWorldGamePackagesItem (
@@ -52,8 +54,14 @@ data class ListWorldGamePackagesItem (
     @Json(name = "createdAt")
     val createdAt: java.time.OffsetDateTime,
 
+    @Json(name = "updatedAt")
+    val updatedAt: java.time.OffsetDateTime,
+
     @Json(name = "versions")
-    val versions: kotlin.collections.List<GetWorldGamePackageResponseDataVersions>
+    val versions: kotlin.collections.List<GetWorldGamePackageResponseDataVersions>,
+
+    @Json(name = "unpublishedAt")
+    val unpublishedAt: java.time.OffsetDateTime? = null
 
 )
 

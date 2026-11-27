@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.GetVaultMarketKeyStatResponseGemRate
 
 import com.squareup.moshi.Json
 
@@ -27,12 +28,16 @@ import com.squareup.moshi.Json
  * 
  *
  * @param bookKey 
+ * @param gemRate 
  */
 
 data class GetVaultMarketKeyStatResponse (
 
     @Json(name = "bookKey")
-    val bookKey: kotlin.String
+    val bookKey: kotlin.String,
+
+    @Json(name = "gemRate")
+    val gemRate: GetVaultMarketKeyStatResponseGemRate
 
 )
 

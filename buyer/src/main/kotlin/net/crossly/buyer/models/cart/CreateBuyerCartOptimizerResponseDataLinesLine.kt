@@ -26,17 +26,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param quantity 
  * @param query 
+ * @param quantity 
  */
 
 data class CreateBuyerCartOptimizerResponseDataLinesLine (
 
-    @Json(name = "quantity")
-    val quantity: java.math.BigDecimal,
-
     @Json(name = "query")
-    val query: kotlin.String
+    val query: kotlin.String,
+
+    @Json(name = "quantity")
+    val quantity: java.math.BigDecimal
 
 )
 

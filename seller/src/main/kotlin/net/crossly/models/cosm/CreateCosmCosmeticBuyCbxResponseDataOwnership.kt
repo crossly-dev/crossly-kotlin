@@ -28,15 +28,15 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param acquiredAt 
- * @param merchantId 
  * @param cosmeticId 
+ * @param merchantId 
  * @param subjectId 
  * @param acquiredVia 
  * @param bound 
  * @param retiredAt 
+ * @param paidCents 
  * @param ledgerId 
  * @param editionNumber 
- * @param paidCents 
  * @param paymentRef 
  * @param retiredReason 
  * @param requestRef 
@@ -50,11 +50,11 @@ data class CreateCosmCosmeticBuyCbxResponseDataOwnership (
     @Json(name = "acquiredAt")
     val acquiredAt: java.time.OffsetDateTime,
 
-    @Json(name = "merchantId")
-    val merchantId: kotlin.String,
-
     @Json(name = "cosmeticId")
     val cosmeticId: kotlin.String,
+
+    @Json(name = "merchantId")
+    val merchantId: kotlin.String,
 
     @Json(name = "subjectId")
     val subjectId: kotlin.String,
@@ -68,14 +68,14 @@ data class CreateCosmCosmeticBuyCbxResponseDataOwnership (
     @Json(name = "retiredAt")
     val retiredAt: java.time.OffsetDateTime? = null,
 
+    @Json(name = "paidCents")
+    val paidCents: java.math.BigDecimal? = null,
+
     @Json(name = "ledgerId")
     val ledgerId: kotlin.String? = null,
 
     @Json(name = "editionNumber")
     val editionNumber: java.math.BigDecimal? = null,
-
-    @Json(name = "paidCents")
-    val paidCents: java.math.BigDecimal? = null,
 
     @Json(name = "paymentRef")
     val paymentRef: kotlin.String? = null,

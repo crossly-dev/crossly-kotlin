@@ -32,9 +32,9 @@ import com.squareup.moshi.Json
  * @param kind 
  * @param seq 
  * @param quantity 
- * @param detail 
  * @param priceCents 
  * @param tradeId 
+ * @param detail 
  */
 
 data class ListVaultMarketProEventsItem (
@@ -57,14 +57,14 @@ data class ListVaultMarketProEventsItem (
     @Json(name = "quantity")
     val quantity: java.math.BigDecimal? = null,
 
-    @Json(name = "detail")
-    val detail: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
-
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal? = null,
 
     @Json(name = "tradeId")
-    val tradeId: kotlin.String? = null
+    val tradeId: kotlin.String? = null,
+
+    @Json(name = "detail")
+    val detail: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 )
 

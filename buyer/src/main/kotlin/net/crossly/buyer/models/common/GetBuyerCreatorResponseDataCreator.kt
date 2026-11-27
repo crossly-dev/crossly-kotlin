@@ -28,8 +28,8 @@ import com.squareup.moshi.Json
  *
  * @param handle 
  * @param displayName 
- * @param avatarUrl 
  * @param bio 
+ * @param avatarUrl 
  * @param code 
  */
 
@@ -41,11 +41,11 @@ data class GetBuyerCreatorResponseDataCreator (
     @Json(name = "displayName")
     val displayName: kotlin.String? = null,
 
-    @Json(name = "avatarUrl")
-    val avatarUrl: kotlin.String? = null,
-
     @Json(name = "bio")
     val bio: kotlin.String? = null,
+
+    @Json(name = "avatarUrl")
+    val avatarUrl: kotlin.String? = null,
 
     @Json(name = "code")
     val code: kotlin.String? = null

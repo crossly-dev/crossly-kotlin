@@ -30,10 +30,10 @@ import com.squareup.moshi.Json
  * @param createdAt 
  * @param userId 
  * @param status 
+ * @param amount 
  * @param kind 
  * @param place 
  * @param contestId 
- * @param amount 
  * @param ref 
  * @param note 
  */
@@ -52,6 +52,9 @@ data class GetWorldContestMineResponseDataPrizes (
     @Json(name = "status")
     val status: GetWorldContestMineResponseDataPrizes.Status,
 
+    @Json(name = "amount")
+    val amount: java.math.BigDecimal,
+
     @Json(name = "kind")
     val kind: kotlin.String,
 
@@ -60,9 +63,6 @@ data class GetWorldContestMineResponseDataPrizes (
 
     @Json(name = "contestId")
     val contestId: kotlin.String,
-
-    @Json(name = "amount")
-    val amount: java.math.BigDecimal,
 
     @Json(name = "ref")
     val ref: kotlin.String? = null,

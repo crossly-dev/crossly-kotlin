@@ -20,6 +20,8 @@
 
 package net.crossly.models.world
 
+import net.crossly.models.world.GetWorldWalletResponseDataCbx
+import net.crossly.models.world.GetWorldWalletResponseDataCosm
 
 import com.squareup.moshi.Json
 
@@ -27,12 +29,20 @@ import com.squareup.moshi.Json
  * 
  *
  * @param bucksCents 
+ * @param cbx 
+ * @param cosm 
  */
 
 data class GetWorldWalletResponseData (
 
     @Json(name = "bucksCents")
-    val bucksCents: java.math.BigDecimal
+    val bucksCents: java.math.BigDecimal,
+
+    @Json(name = "cbx")
+    val cbx: GetWorldWalletResponseDataCbx,
+
+    @Json(name = "cosm")
+    val cosm: GetWorldWalletResponseDataCosm
 
 )
 

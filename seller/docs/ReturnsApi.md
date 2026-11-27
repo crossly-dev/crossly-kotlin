@@ -6,9 +6,11 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createPolicyReturnReceived**](ReturnsApi.md#createPolicyReturnReceived) | **POST** /v1/policy-returns/{id}/received | Mark a return received: refunds the buyer, less the restocking or try fee you keep.
 [**createReturn**](ReturnsApi.md#createReturn) | **POST** /v1/returns | Open a return record on an order (rejects if another open return exists).
+[**createReturnAccept**](ReturnsApi.md#createReturnAccept) | **POST** /v1/returns/{id}/accept | Accept a Crossly-marketplace return request: a prepaid return label to your return address (the buyer has 14 days to ship), a return record linked to it, and optionally a refund now (refund: { amount? } in dollars; needs orders:refund). Without one, the rest is refunded when the return is delivered. Safe to repeat. Crossposted orders: not_supported_on_platform.
+[**createReturnDecline**](ReturnsApi.md#createReturnDecline) | **POST** /v1/returns/{id}/decline | Decline a Crossly-marketplace return request with a reason (required, 8-2000 chars), posted to the buyer as your response. It does not close the request: the buyer can reply or ask Crossly to decide. Not after the label is issued.
 [**getReturn**](ReturnsApi.md#getReturn) | **GET** /v1/returns/{id} | Get one return record.
 [**listPolicyReturns**](ReturnsApi.md#listPolicyReturns) | **GET** /v1/policy-returns | Returns Crossly buyers opened under your return policy or try at home; filter by orderId.
-[**listReturns**](ReturnsApi.md#listReturns) | **GET** /v1/returns | List returns (physical-return workflow). status&#x3D;open|closed|&lt;exact&gt;.
+[**listReturns**](ReturnsApi.md#listReturns) | **GET** /v1/returns | List returns. Default: your return records (the physical-return workflow), status&#x3D;open|closed|&lt;exact&gt;. source&#x3D;request: the OPEN return requests buyers made on the Crossly marketplace, newest first; accept or decline each with POST /v1/returns/{id}/accept | decline.
 [**updateReturn**](ReturnsApi.md#updateReturn) | **PATCH** /v1/returns/{id} | Transition return status (received/inspected/restocked) and bump inventory on restock.
 
 
@@ -61,7 +63,7 @@ Configure PersonalAccessToken:
 
 <a name="createReturn"></a>
 # **createReturn**
-> ListReturnsItem createReturn()
+> GetReturnResponse createReturn()
 
 Open a return record on an order (rejects if another open return exists).
 
@@ -73,7 +75,7 @@ Open a return record on an order (rejects if another open return exists).
 
 val apiInstance = ReturnsApi()
 try {
-    val result : ListReturnsItem = apiInstance.createReturn()
+    val result : GetReturnResponse = apiInstance.createReturn()
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling ReturnsApi#createReturn")
@@ -89,7 +91,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**ListReturnsItem**
+**GetReturnResponse**
 
 ### Authorization
 
@@ -102,9 +104,105 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createReturnAccept"></a>
+# **createReturnAccept**
+> CreateReturnAcceptResponse createReturnAccept(id)
+
+Accept a Crossly-marketplace return request: a prepaid return label to your return address (the buyer has 14 days to ship), a return record linked to it, and optionally a refund now (refund: { amount? } in dollars; needs orders:refund). Without one, the rest is refunded when the return is delivered. Safe to repeat. Crossposted orders: not_supported_on_platform.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = ReturnsApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+try {
+    val result : CreateReturnAcceptResponse = apiInstance.createReturnAccept(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling ReturnsApi#createReturnAccept")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling ReturnsApi#createReturnAccept")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+
+### Return type
+
+**CreateReturnAcceptResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createReturnDecline"></a>
+# **createReturnDecline**
+> ListReturnsItem createReturnDecline(id, createReturnDeclineRequest)
+
+Decline a Crossly-marketplace return request with a reason (required, 8-2000 chars), posted to the buyer as your response. It does not close the request: the buyer can reply or ask Crossly to decide. Not after the label is issued.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = ReturnsApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val createReturnDeclineRequest : CreateReturnDeclineRequest =  // CreateReturnDeclineRequest | 
+try {
+    val result : ListReturnsItem = apiInstance.createReturnDecline(id, createReturnDeclineRequest)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling ReturnsApi#createReturnDecline")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling ReturnsApi#createReturnDecline")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+ **createReturnDeclineRequest** | **CreateReturnDeclineRequest**|  |
+
+### Return type
+
+**ListReturnsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
+ - **Accept**: application/json
+
 <a name="getReturn"></a>
 # **getReturn**
-> ListReturnsItem getReturn(id)
+> GetReturnResponse getReturn(id)
 
 Get one return record.
 
@@ -117,7 +215,7 @@ Get one return record.
 val apiInstance = ReturnsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 try {
-    val result : ListReturnsItem = apiInstance.getReturn(id)
+    val result : GetReturnResponse = apiInstance.getReturn(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling ReturnsApi#getReturn")
@@ -136,7 +234,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**ListReturnsItem**
+**GetReturnResponse**
 
 ### Authorization
 
@@ -196,7 +294,7 @@ Configure PersonalAccessToken:
 # **listReturns**
 > ListReturnsResponse listReturns()
 
-List returns (physical-return workflow). status&#x3D;open|closed|&lt;exact&gt;.
+List returns. Default: your return records (the physical-return workflow), status&#x3D;open|closed|&lt;exact&gt;. source&#x3D;request: the OPEN return requests buyers made on the Crossly marketplace, newest first; accept or decline each with POST /v1/returns/{id}/accept | decline.
 
 ### Example
 ```kotlin
@@ -237,7 +335,7 @@ Configure PersonalAccessToken:
 
 <a name="updateReturn"></a>
 # **updateReturn**
-> ListReturnsItem updateReturn(id)
+> GetReturnResponse updateReturn(id)
 
 Transition return status (received/inspected/restocked) and bump inventory on restock.
 
@@ -250,7 +348,7 @@ Transition return status (received/inspected/restocked) and bump inventory on re
 val apiInstance = ReturnsApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 try {
-    val result : ListReturnsItem = apiInstance.updateReturn(id)
+    val result : GetReturnResponse = apiInstance.updateReturn(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling ReturnsApi#updateReturn")
@@ -269,7 +367,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**ListReturnsItem**
+**GetReturnResponse**
 
 ### Authorization
 

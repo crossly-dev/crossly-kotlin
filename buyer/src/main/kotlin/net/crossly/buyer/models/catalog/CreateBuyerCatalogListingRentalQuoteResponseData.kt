@@ -20,23 +20,48 @@
 
 package net.crossly.buyer.models.catalog
 
+import net.crossly.buyer.models.catalog.CreateBuyerCatalogListingRentalQuoteResponseDataBuyout
+import net.crossly.buyer.models.catalog.CreateBuyerCatalogListingRentalQuoteResponseDataCancellation
+import net.crossly.buyer.models.catalog.CreateBuyerCatalogListingRentalQuoteResponseDataLines
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
+ * @param fulfilment 
+ * @param needsApproval 
+ * @param cancellation 
+ * @param buyout 
  * @param startDate 
  * @param endDate 
  * @param days 
- * @param rentCents 
+ * @param lines 
+ * @param rentCents Rent after discounts.
+ * @param cleaningFeeCents 
+ * @param damageWaiverCents 
  * @param depositCents 
- * @param problem 
+ * @param chargeableCents Everything but shipping and the deposit: what the seller's fee is taken on.
  * @param shippingCents 
  * @param totalCents 
+ * @param problem 
+ * @param unit The unit the booking would hold (null when none is free).
+ * @param depositNote Why the deposit is 0 or lowered, when it is.
  */
 
 data class CreateBuyerCatalogListingRentalQuoteResponseData (
+
+    @Json(name = "fulfilment")
+    val fulfilment: CreateBuyerCatalogListingRentalQuoteResponseData.Fulfilment,
+
+    @Json(name = "needsApproval")
+    val needsApproval: kotlin.Boolean,
+
+    @Json(name = "cancellation")
+    val cancellation: CreateBuyerCatalogListingRentalQuoteResponseDataCancellation,
+
+    @Json(name = "buyout")
+    val buyout: CreateBuyerCatalogListingRentalQuoteResponseDataBuyout,
 
     @Json(name = "startDate")
     val startDate: kotlin.String,
@@ -47,20 +72,53 @@ data class CreateBuyerCatalogListingRentalQuoteResponseData (
     @Json(name = "days")
     val days: java.math.BigDecimal,
 
+    @Json(name = "lines")
+    val lines: kotlin.collections.List<CreateBuyerCatalogListingRentalQuoteResponseDataLines>,
+
+    /* Rent after discounts. */
     @Json(name = "rentCents")
     val rentCents: java.math.BigDecimal,
+
+    @Json(name = "cleaningFeeCents")
+    val cleaningFeeCents: java.math.BigDecimal,
+
+    @Json(name = "damageWaiverCents")
+    val damageWaiverCents: java.math.BigDecimal,
 
     @Json(name = "depositCents")
     val depositCents: java.math.BigDecimal,
 
-    @Json(name = "problem")
-    val problem: kotlin.String? = null,
+    /* Everything but shipping and the deposit: what the seller's fee is taken on. */
+    @Json(name = "chargeableCents")
+    val chargeableCents: java.math.BigDecimal,
 
     @Json(name = "shippingCents")
     val shippingCents: java.math.BigDecimal? = null,
 
     @Json(name = "totalCents")
-    val totalCents: java.math.BigDecimal? = null
+    val totalCents: java.math.BigDecimal? = null,
 
-)
+    @Json(name = "problem")
+    val problem: kotlin.String? = null,
+
+    /* The unit the booking would hold (null when none is free). */
+    @Json(name = "unit")
+    val unit: java.math.BigDecimal? = null,
+
+    /* Why the deposit is 0 or lowered, when it is. */
+    @Json(name = "depositNote")
+    val depositNote: kotlin.String? = null
+
+) {
+
+    /**
+     * 
+     *
+     * Values: SHIP,PICKUP
+     */
+    enum class Fulfilment(val value: kotlin.String) {
+        @Json(name = "ship") SHIP("ship"),
+        @Json(name = "pickup") PICKUP("pickup");
+    }
+}
 

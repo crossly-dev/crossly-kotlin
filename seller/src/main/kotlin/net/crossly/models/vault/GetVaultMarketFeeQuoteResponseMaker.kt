@@ -68,13 +68,13 @@ data class GetVaultMarketFeeQuoteResponseMaker (
     /**
      * 
      *
-     * Values: VOLUME,LP,DMM,RETAIL
+     * Values: RETAIL,VOLUME,LP,DMM
      */
     enum class Program(val value: kotlin.String) {
+        @Json(name = "retail") RETAIL("retail"),
         @Json(name = "volume") VOLUME("volume"),
         @Json(name = "lp") LP("lp"),
-        @Json(name = "dmm") DMM("dmm"),
-        @Json(name = "retail") RETAIL("retail");
+        @Json(name = "dmm") DMM("dmm");
     }
 }
 

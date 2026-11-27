@@ -30,8 +30,8 @@ import com.squareup.moshi.Json
  * @param createdAt 
  * @param status 
  * @param platformListingId 
- * @param sellerUserId 
  * @param buyerUserId 
+ * @param sellerUserId 
  * @param videoUrl 
  * @param note 
  * @param answeredAt 
@@ -52,11 +52,11 @@ data class CreateBuyerCatalogListingVideoRequestResponseData (
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String,
 
-    @Json(name = "sellerUserId")
-    val sellerUserId: kotlin.String,
-
     @Json(name = "buyerUserId")
     val buyerUserId: kotlin.String,
+
+    @Json(name = "sellerUserId")
+    val sellerUserId: kotlin.String,
 
     @Json(name = "videoUrl")
     val videoUrl: kotlin.String? = null,

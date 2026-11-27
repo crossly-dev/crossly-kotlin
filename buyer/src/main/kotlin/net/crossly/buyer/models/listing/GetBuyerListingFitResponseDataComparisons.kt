@@ -27,18 +27,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param label 
  * @param refId 
+ * @param label 
  * @param result 
  */
 
 data class GetBuyerListingFitResponseDataComparisons (
 
-    @Json(name = "label")
-    val label: kotlin.String,
-
     @Json(name = "refId")
     val refId: kotlin.String,
+
+    @Json(name = "label")
+    val label: kotlin.String,
 
     @Json(name = "result")
     val result: GetBuyerListingFitResponseDataComparisonsResult

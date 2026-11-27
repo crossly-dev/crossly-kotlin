@@ -27,11 +27,11 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param updatedAt 
- * @param isPublic 
- * @param itemCount 
  * @param title 
+ * @param isPublic 
  * @param shareToken 
+ * @param itemCount 
+ * @param updatedAt 
  * @param coverUrl 
  */
 
@@ -40,20 +40,20 @@ data class ListBuyerBoardsItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "updatedAt")
-    val updatedAt: kotlin.String,
+    @Json(name = "title")
+    val title: kotlin.String,
 
     @Json(name = "isPublic")
     val isPublic: kotlin.Boolean,
 
+    @Json(name = "shareToken")
+    val shareToken: kotlin.String,
+
     @Json(name = "itemCount")
     val itemCount: java.math.BigDecimal,
 
-    @Json(name = "title")
-    val title: kotlin.String,
-
-    @Json(name = "shareToken")
-    val shareToken: kotlin.String,
+    @Json(name = "updatedAt")
+    val updatedAt: kotlin.String,
 
     @Json(name = "coverUrl")
     val coverUrl: kotlin.String? = null

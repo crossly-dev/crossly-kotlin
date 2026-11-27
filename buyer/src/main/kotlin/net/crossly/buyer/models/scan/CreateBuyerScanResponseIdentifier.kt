@@ -26,28 +26,28 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param `value` 
  * @param ns 
+ * @param `value` 
  */
 
 data class CreateBuyerScanResponseIdentifier (
 
-    @Json(name = "value")
-    val `value`: kotlin.String,
-
     @Json(name = "ns")
-    val ns: CreateBuyerScanResponseIdentifier.Ns
+    val ns: CreateBuyerScanResponseIdentifier.Ns,
+
+    @Json(name = "value")
+    val `value`: kotlin.String
 
 ) {
 
     /**
      * 
      *
-     * Values: STYLE_CODE,GTIN,LEGO_SET,TCGPLAYER,DISCOGS,ASIN
+     * Values: GTIN,STYLE_CODE,LEGO_SET,TCGPLAYER,DISCOGS,ASIN
      */
     enum class Ns(val value: kotlin.String) {
-        @Json(name = "style_code") STYLE_CODE("style_code"),
         @Json(name = "gtin") GTIN("gtin"),
+        @Json(name = "style_code") STYLE_CODE("style_code"),
         @Json(name = "lego_set") LEGO_SET("lego_set"),
         @Json(name = "tcgplayer") TCGPLAYER("tcgplayer"),
         @Json(name = "discogs") DISCOGS("discogs"),

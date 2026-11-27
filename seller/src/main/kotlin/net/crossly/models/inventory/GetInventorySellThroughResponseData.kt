@@ -20,9 +20,10 @@
 
 package net.crossly.models.inventory
 
-import net.crossly.models.analytic.GetAnalyticDashboardResponseSellThrough
+import net.crossly.models.analytic.GetAnalyticDashboardResponseSellThroughCohort
 import net.crossly.models.inventory.GetInventorySellThroughResponseDataComparison
-import net.crossly.models.inventory.GetInventorySellThroughResponseDataWindow
+import net.crossly.models.inventory.GetInventorySellThroughResponseDataCurrent
+import net.crossly.models.common.StartEnd
 
 import com.squareup.moshi.Json
 
@@ -33,21 +34,25 @@ import com.squareup.moshi.Json
  * @param previous 
  * @param comparison 
  * @param window 
+ * @param cohort 
  */
 
 data class GetInventorySellThroughResponseData (
 
     @Json(name = "current")
-    val current: GetAnalyticDashboardResponseSellThrough,
+    val current: GetInventorySellThroughResponseDataCurrent,
 
     @Json(name = "previous")
-    val previous: GetAnalyticDashboardResponseSellThrough,
+    val previous: GetInventorySellThroughResponseDataCurrent,
 
     @Json(name = "comparison")
     val comparison: GetInventorySellThroughResponseDataComparison,
 
     @Json(name = "window")
-    val window: GetInventorySellThroughResponseDataWindow
+    val window: StartEnd,
+
+    @Json(name = "cohort")
+    val cohort: GetAnalyticDashboardResponseSellThroughCohort
 
 )
 

@@ -30,8 +30,8 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param userId 
- * @param status 
  * @param platform 
+ * @param status 
  * @param importMode 
  * @param includeInactive 
  * @param mergeIntoExistingListing 
@@ -43,9 +43,9 @@ import com.squareup.moshi.Json
  * @param listOnCrossly 
  * @param lastError 
  * @param startedAt 
- * @param batchId 
  * @param finishedAt 
  * @param filters 
+ * @param batchId 
  * @param crosslyListedAt 
  */
 
@@ -60,11 +60,11 @@ data class ListImportsItem (
     @Json(name = "userId")
     val userId: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "platform")
     val platform: kotlin.String,
+
+    @Json(name = "status")
+    val status: kotlin.String,
 
     @Json(name = "importMode")
     val importMode: kotlin.String,
@@ -99,14 +99,14 @@ data class ListImportsItem (
     @Json(name = "startedAt")
     val startedAt: java.time.OffsetDateTime? = null,
 
-    @Json(name = "batchId")
-    val batchId: kotlin.String? = null,
-
     @Json(name = "finishedAt")
     val finishedAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "filters")
     val filters: ListImportsItemFilters? = null,
+
+    @Json(name = "batchId")
+    val batchId: kotlin.String? = null,
 
     @Json(name = "crosslyListedAt")
     val crosslyListedAt: java.time.OffsetDateTime? = null

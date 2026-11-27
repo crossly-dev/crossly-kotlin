@@ -28,6 +28,8 @@ import com.squareup.moshi.Json
  *
  * @param orderId 
  * @param sent 
+ * @param relayed True when the managing app was asked to send it (action authority).
+ * @param commandId The managing-app command id, on a relay.
  * @param platformConversationId 
  */
 
@@ -39,8 +41,16 @@ data class CreateOrderMessageResponse (
     @Json(name = "sent")
     val sent: kotlin.Boolean,
 
+    /* True when the managing app was asked to send it (action authority). */
+    @Json(name = "relayed")
+    val relayed: kotlin.Boolean? = null,
+
+    /* The managing-app command id, on a relay. */
+    @Json(name = "commandId")
+    val commandId: kotlin.String? = null,
+
     @Json(name = "platformConversationId")
-    val platformConversationId: kotlin.String
+    val platformConversationId: kotlin.String? = null
 
 )
 

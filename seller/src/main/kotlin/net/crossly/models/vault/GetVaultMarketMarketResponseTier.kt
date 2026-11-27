@@ -87,23 +87,23 @@ data class GetVaultMarketMarketResponseTier (
     /**
      * 
      *
-     * Values: STANDARD,CLOSED,DEEP,THIN
+     * Values: CLOSED,STANDARD,DEEP,THIN
      */
     enum class Tier(val value: kotlin.String) {
-        @Json(name = "standard") STANDARD("standard"),
         @Json(name = "closed") CLOSED("closed"),
+        @Json(name = "standard") STANDARD("standard"),
         @Json(name = "deep") DEEP("deep"),
         @Json(name = "thin") THIN("thin");
     }
     /**
      * 
      *
-     * Values: A,B,C,D
+     * Values: C,A,B,D
      */
     enum class LiquidityTier(val value: kotlin.String) {
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
         @Json(name = "B") B("B"),
-        @Json(name = "C") C("C"),
         @Json(name = "D") D("D");
     }
 }

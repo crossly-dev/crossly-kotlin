@@ -26,22 +26,22 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param C 
  * @param A 
  * @param B 
- * @param C 
  * @param D 
  */
 
 data class GetVaultMarketMmResponseRulesSpreadCapBps (
+
+    @Json(name = "C")
+    val C: java.math.BigDecimal,
 
     @Json(name = "A")
     val A: java.math.BigDecimal,
 
     @Json(name = "B")
     val B: java.math.BigDecimal,
-
-    @Json(name = "C")
-    val C: java.math.BigDecimal,
 
     @Json(name = "D")
     val D: java.math.BigDecimal

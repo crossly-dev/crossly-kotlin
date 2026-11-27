@@ -22,6 +22,7 @@ package net.crossly.models.listing
 
 import net.crossly.models.listing.CreateListingResponseJobs
 import net.crossly.models.listing.CreateListingResponseSkipped
+import net.crossly.models.listing.CreateListingResponseWarnings
 import net.crossly.models.common.IdResponse
 
 import com.squareup.moshi.Json
@@ -30,9 +31,12 @@ import com.squareup.moshi.Json
  * 
  *
  * @param listing 
- * @param jobs 
- * @param skipped 
+ * @param jobs One dispatched crosspost job per accepted platform.
+ * @param skipped Platforms not dispatched, and why (category gate, dropship_not_allowed_on_platform, a dispatch refusal such as validation_error \"Add a weight before listing\", ...). The listing itself was created.
  * @param bulkJobId 
+ * @param clientReferenceId 
+ * @param existing 
+ * @param warnings Soft item-specifics problems (strictItemSpecifics off) and eBay fields accepted but mapped or ignored.
  */
 
 data class CreateListingResponse (
@@ -40,14 +44,26 @@ data class CreateListingResponse (
     @Json(name = "listing")
     val listing: IdResponse,
 
+    /* One dispatched crosspost job per accepted platform. */
     @Json(name = "jobs")
     val jobs: kotlin.collections.List<CreateListingResponseJobs>,
 
+    /* Platforms not dispatched, and why (category gate, dropship_not_allowed_on_platform, a dispatch refusal such as validation_error \"Add a weight before listing\", ...). The listing itself was created. */
     @Json(name = "skipped")
     val skipped: kotlin.collections.List<CreateListingResponseSkipped>,
 
     @Json(name = "bulkJobId")
-    val bulkJobId: kotlin.String? = null
+    val bulkJobId: kotlin.String? = null,
+
+    @Json(name = "clientReferenceId")
+    val clientReferenceId: kotlin.String? = null,
+
+    @Json(name = "existing")
+    val existing: kotlin.Boolean? = null,
+
+    /* Soft item-specifics problems (strictItemSpecifics off) and eBay fields accepted but mapped or ignored. */
+    @Json(name = "warnings")
+    val warnings: kotlin.collections.List<CreateListingResponseWarnings>? = null
 
 )
 

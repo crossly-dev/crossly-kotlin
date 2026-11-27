@@ -79,11 +79,11 @@ data class GetVaultMarketTaxResponsePositions (
     /**
      * 
      *
-     * Values: LONG,SHORT
+     * Values: SHORT,LONG
      */
     enum class Term(val value: kotlin.String) {
-        @Json(name = "long") LONG("long"),
-        @Json(name = "short") SHORT("short");
+        @Json(name = "short") SHORT("short"),
+        @Json(name = "long") LONG("long");
     }
 }
 

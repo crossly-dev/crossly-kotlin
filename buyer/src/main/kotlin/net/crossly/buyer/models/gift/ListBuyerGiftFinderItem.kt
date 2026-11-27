@@ -29,8 +29,8 @@ import com.squareup.moshi.Json
  * @param slug 
  * @param priceCents 
  * @param title 
- * @param salePriceCents 
  * @param thumbnail 
+ * @param salePriceCents 
  */
 
 data class ListBuyerGiftFinderItem (
@@ -44,11 +44,11 @@ data class ListBuyerGiftFinderItem (
     @Json(name = "title")
     val title: kotlin.String? = null,
 
-    @Json(name = "salePriceCents")
-    val salePriceCents: java.math.BigDecimal? = null,
-
     @Json(name = "thumbnail")
-    val thumbnail: kotlin.String? = null
+    val thumbnail: kotlin.String? = null,
+
+    @Json(name = "salePriceCents")
+    val salePriceCents: java.math.BigDecimal? = null
 
 )
 

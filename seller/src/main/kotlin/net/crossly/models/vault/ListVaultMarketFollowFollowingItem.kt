@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.ListVaultMarketFollowFollowingItemPerson
 import net.crossly.models.vault.ListVaultMarketFollowFollowingItemShares
 
 import com.squareup.moshi.Json
@@ -27,12 +28,16 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param person 
  * @param shares 
  * @param copyWatching 
  * @param since 
  */
 
 data class ListVaultMarketFollowFollowingItem (
+
+    @Json(name = "person")
+    val person: ListVaultMarketFollowFollowingItemPerson,
 
     @Json(name = "shares")
     val shares: ListVaultMarketFollowFollowingItemShares,

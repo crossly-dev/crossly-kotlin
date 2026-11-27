@@ -26,17 +26,21 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param platform 
  * @param listPriceCents 
+ * @param platform 
+ * @param platformName 
  */
 
 data class GetBuyerCatalogListingPriceResponseDataPriceMatch (
 
+    @Json(name = "listPriceCents")
+    val listPriceCents: java.math.BigDecimal,
+
     @Json(name = "platform")
     val platform: kotlin.String,
 
-    @Json(name = "listPriceCents")
-    val listPriceCents: java.math.BigDecimal
+    @Json(name = "platformName")
+    val platformName: kotlin.String? = null
 
 )
 

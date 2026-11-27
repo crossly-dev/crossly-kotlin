@@ -26,7 +26,7 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: FREE,SPONSORED,PAID
+ * Values: FREE,PAID,SPONSORED
  */
 
 enum class GetWorldGameResponseDataContestsEntryItem(val value: kotlin.String) {
@@ -34,11 +34,11 @@ enum class GetWorldGameResponseDataContestsEntryItem(val value: kotlin.String) {
     @Json(name = "free")
     FREE("free"),
 
-    @Json(name = "sponsored")
-    SPONSORED("sponsored"),
-
     @Json(name = "paid")
-    PAID("paid");
+    PAID("paid"),
+
+    @Json(name = "sponsored")
+    SPONSORED("sponsored");
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use

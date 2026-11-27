@@ -32,6 +32,8 @@ import com.squareup.moshi.Json
  * @param rotationY 
  * @param sign A sign over it, ≤ 40 chars. Absent = the profile's label.
  * @param hidden Shown to visitors? A hidden section keeps its stock off the floor.
+ * @param units How many units (cases, bays, pages) it stands with, at least; absent = as many as its stock needs. Set from the showroom organizer so an empty display has slots to fill (shared showroom/).
+ * @param holder The holder model it stands as (showroom/fixtures.ts FIXTURE_HOLDERS); absent = its type's free holder.
  */
 
 data class UpdateSpatialSceneShopLayoutResponseDataSections (
@@ -57,7 +59,15 @@ data class UpdateSpatialSceneShopLayoutResponseDataSections (
 
     /* Shown to visitors? A hidden section keeps its stock off the floor. */
     @Json(name = "hidden")
-    val hidden: kotlin.Boolean? = null
+    val hidden: kotlin.Boolean? = null,
+
+    /* How many units (cases, bays, pages) it stands with, at least; absent = as many as its stock needs. Set from the showroom organizer so an empty display has slots to fill (shared showroom/). */
+    @Json(name = "units")
+    val units: java.math.BigDecimal? = null,
+
+    /* The holder model it stands as (showroom/fixtures.ts FIXTURE_HOLDERS); absent = its type's free holder. */
+    @Json(name = "holder")
+    val holder: kotlin.String? = null
 
 )
 

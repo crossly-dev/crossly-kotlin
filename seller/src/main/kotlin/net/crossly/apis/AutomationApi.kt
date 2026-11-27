@@ -36,7 +36,6 @@ import net.crossly.models.automation.ListAutomationRulesResponse
 import net.crossly.models.automation.ListAutomationRunsResponse
 import net.crossly.models.common.ListRepriceEventsResponse
 import net.crossly.models.common.OkResponse
-import net.crossly.models.automation.UpdateAutomationRuleResponse
 
 import com.squareup.moshi.Json
 
@@ -63,7 +62,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Create an automation rule.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @return ListAutomationRulesItem
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -73,7 +72,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRule() : ListAutomationRulesItem {
+        @Suppress("DEPRECATION")
         val localVarResponse = createAutomationRuleWithHttpInfo()
 
         return when (localVarResponse.responseType) {
@@ -93,14 +94,16 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Create an automation rule.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @return ApiResponse<ListAutomationRulesItem?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleWithHttpInfo() : ApiResponse<ListAutomationRulesItem?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = createAutomationRuleRequestConfig()
 
         return request<Unit, ListAutomationRulesItem>(
@@ -113,6 +116,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     *
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -130,7 +134,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Import one or more rules from recipe JSON (single or bundle).
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param activate  (optional, default to false)
     * @return CreateAutomationRuleImportResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -141,7 +145,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleImport(activate: kotlin.Boolean?) : CreateAutomationRuleImportResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = createAutomationRuleImportWithHttpInfo(activate = activate)
 
         return when (localVarResponse.responseType) {
@@ -161,7 +167,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Import one or more rules from recipe JSON (single or bundle).
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param activate  (optional, default to false)
     * @return ApiResponse<CreateAutomationRuleImportResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -169,7 +175,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleImportWithHttpInfo(activate: kotlin.Boolean?) : ApiResponse<CreateAutomationRuleImportResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = createAutomationRuleImportRequestConfig(activate = activate)
 
         return request<Unit, CreateAutomationRuleImportResponse>(
@@ -183,6 +191,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     * @param activate  (optional, default to false)
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleImportRequestConfig(activate: kotlin.Boolean?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
@@ -205,7 +214,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Fire an automation rule immediately.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
     * @return CreateAutomationRuleRunNowResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -216,7 +225,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleRunNow(id: java.util.UUID) : CreateAutomationRuleRunNowResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = createAutomationRuleRunNowWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
@@ -236,7 +247,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Fire an automation rule immediately.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
     * @return ApiResponse<CreateAutomationRuleRunNowResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -244,7 +255,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleRunNowWithHttpInfo(id: java.util.UUID) : ApiResponse<CreateAutomationRuleRunNowResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = createAutomationRuleRunNowRequestConfig(id = id)
 
         return request<Unit, CreateAutomationRuleRunNowResponse>(
@@ -258,6 +271,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     * @param id  
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleRunNowRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -275,9 +289,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Flip an automation rule between active and inactive.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
-    * @return UpdateAutomationRuleResponse
+    * @return GetAutomationRuleResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -286,11 +300,13 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createAutomationRuleToggle(id: java.util.UUID) : UpdateAutomationRuleResponse {
+    @Deprecated(message = "This operation is deprecated.")
+    fun createAutomationRuleToggle(id: java.util.UUID) : GetAutomationRuleResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = createAutomationRuleToggleWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateAutomationRuleResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAutomationRuleResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -306,18 +322,20 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Flip an automation rule between active and inactive.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
-    * @return ApiResponse<UpdateAutomationRuleResponse?>
+    * @return ApiResponse<GetAutomationRuleResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createAutomationRuleToggleWithHttpInfo(id: java.util.UUID) : ApiResponse<UpdateAutomationRuleResponse?> {
+    @Deprecated(message = "This operation is deprecated.")
+    fun createAutomationRuleToggleWithHttpInfo(id: java.util.UUID) : ApiResponse<GetAutomationRuleResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = createAutomationRuleToggleRequestConfig(id = id)
 
-        return request<Unit, UpdateAutomationRuleResponse>(
+        return request<Unit, GetAutomationRuleResponse>(
             localVariableConfig
         )
     }
@@ -328,6 +346,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     * @param id  
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleToggleRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -345,7 +364,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Dry-run validate one or more recipes against the live catalog.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @return CreateAutomationRuleValidateRecipeResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -355,7 +374,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleValidateRecipe() : CreateAutomationRuleValidateRecipeResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = createAutomationRuleValidateRecipeWithHttpInfo()
 
         return when (localVarResponse.responseType) {
@@ -375,14 +396,16 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Dry-run validate one or more recipes against the live catalog.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @return ApiResponse<CreateAutomationRuleValidateRecipeResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleValidateRecipeWithHttpInfo() : ApiResponse<CreateAutomationRuleValidateRecipeResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = createAutomationRuleValidateRecipeRequestConfig()
 
         return request<Unit, CreateAutomationRuleValidateRecipeResponse>(
@@ -395,6 +418,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     *
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun createAutomationRuleValidateRecipeRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -552,7 +576,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Delete an automation rule.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
     * @return OkResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -563,7 +587,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun deleteAutomationRule(id: java.util.UUID) : OkResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = deleteAutomationRuleWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
@@ -583,7 +609,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Delete an automation rule.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
     * @return ApiResponse<OkResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -591,7 +617,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun deleteAutomationRuleWithHttpInfo(id: java.util.UUID) : ApiResponse<OkResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = deleteAutomationRuleRequestConfig(id = id)
 
         return request<Unit, OkResponse>(
@@ -605,6 +633,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     * @param id  
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun deleteAutomationRuleRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -689,7 +718,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Get a single automation rule.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
     * @return GetAutomationRuleResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -700,7 +729,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRule(id: java.util.UUID) : GetAutomationRuleResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = getAutomationRuleWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
@@ -720,7 +751,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Get a single automation rule.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
     * @return ApiResponse<GetAutomationRuleResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -728,7 +759,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRuleWithHttpInfo(id: java.util.UUID) : ApiResponse<GetAutomationRuleResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = getAutomationRuleRequestConfig(id = id)
 
         return request<Unit, GetAutomationRuleResponse>(
@@ -742,6 +775,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     * @param id  
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRuleRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -759,7 +793,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Export the user&#39;s full rule library as a portable recipe bundle.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @return GetAutomationRuleExportResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -769,7 +803,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRuleExport() : GetAutomationRuleExportResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = getAutomationRuleExportWithHttpInfo()
 
         return when (localVarResponse.responseType) {
@@ -789,14 +825,16 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Export the user&#39;s full rule library as a portable recipe bundle.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @return ApiResponse<GetAutomationRuleExportResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRuleExportWithHttpInfo() : ApiResponse<GetAutomationRuleExportResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = getAutomationRuleExportRequestConfig()
 
         return request<Unit, GetAutomationRuleExportResponse>(
@@ -809,6 +847,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     *
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRuleExportRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -826,7 +865,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Export a single automation rule as a portable recipe.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
     * @return GetAutomationRuleExportByIdResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -837,7 +876,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRuleExportById(id: java.util.UUID) : GetAutomationRuleExportByIdResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = getAutomationRuleExportByIdWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
@@ -857,7 +898,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Export a single automation rule as a portable recipe.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
     * @return ApiResponse<GetAutomationRuleExportByIdResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -865,7 +906,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRuleExportByIdWithHttpInfo(id: java.util.UUID) : ApiResponse<GetAutomationRuleExportByIdResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = getAutomationRuleExportByIdRequestConfig(id = id)
 
         return request<Unit, GetAutomationRuleExportByIdResponse>(
@@ -879,6 +922,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     * @param id  
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun getAutomationRuleExportByIdRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -896,7 +940,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * List automation rules.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @return ListAutomationRulesResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -906,7 +950,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun listAutomationRules() : ListAutomationRulesResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = listAutomationRulesWithHttpInfo()
 
         return when (localVarResponse.responseType) {
@@ -926,14 +972,16 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * List automation rules.
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @return ApiResponse<ListAutomationRulesResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun listAutomationRulesWithHttpInfo() : ApiResponse<ListAutomationRulesResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = listAutomationRulesRequestConfig()
 
         return request<Unit, ListAutomationRulesResponse>(
@@ -946,6 +994,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     *
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun listAutomationRulesRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
@@ -963,7 +1012,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Per-fire history for automation rules and workflow chain runs.
-    * 
+    * Deprecated: use /v1/workflow-runs.
     * @param ruleId  (optional)
     * @param chainId  (optional)
     * @param limit  (optional, default to 100)
@@ -976,7 +1025,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun listAutomationRuns(ruleId: java.util.UUID?, chainId: java.util.UUID?, limit: kotlin.Int?) : ListAutomationRunsResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = listAutomationRunsWithHttpInfo(ruleId = ruleId, chainId = chainId, limit = limit)
 
         return when (localVarResponse.responseType) {
@@ -996,7 +1047,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Per-fire history for automation rules and workflow chain runs.
-    * 
+    * Deprecated: use /v1/workflow-runs.
     * @param ruleId  (optional)
     * @param chainId  (optional)
     * @param limit  (optional, default to 100)
@@ -1006,7 +1057,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
+    @Deprecated(message = "This operation is deprecated.")
     fun listAutomationRunsWithHttpInfo(ruleId: java.util.UUID?, chainId: java.util.UUID?, limit: kotlin.Int?) : ApiResponse<ListAutomationRunsResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = listAutomationRunsRequestConfig(ruleId = ruleId, chainId = chainId, limit = limit)
 
         return request<Unit, ListAutomationRunsResponse>(
@@ -1022,6 +1075,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     * @param limit  (optional, default to 100)
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun listAutomationRunsRequestConfig(ruleId: java.util.UUID?, chainId: java.util.UUID?, limit: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
@@ -1117,9 +1171,9 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Update an automation rule (full replace).
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
-    * @return UpdateAutomationRuleResponse
+    * @return GetAutomationRuleResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -1128,11 +1182,13 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun updateAutomationRule(id: java.util.UUID) : UpdateAutomationRuleResponse {
+    @Deprecated(message = "This operation is deprecated.")
+    fun updateAutomationRule(id: java.util.UUID) : GetAutomationRuleResponse {
+        @Suppress("DEPRECATION")
         val localVarResponse = updateAutomationRuleWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateAutomationRuleResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAutomationRuleResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -1148,18 +1204,20 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
 
     /**
     * Update an automation rule (full replace).
-    * 
+    * Deprecated: automation rules are workflows now. Use /v1/workflows.
     * @param id  
-    * @return ApiResponse<UpdateAutomationRuleResponse?>
+    * @return ApiResponse<GetAutomationRuleResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun updateAutomationRuleWithHttpInfo(id: java.util.UUID) : ApiResponse<UpdateAutomationRuleResponse?> {
+    @Deprecated(message = "This operation is deprecated.")
+    fun updateAutomationRuleWithHttpInfo(id: java.util.UUID) : ApiResponse<GetAutomationRuleResponse?> {
+        @Suppress("DEPRECATION")
         val localVariableConfig = updateAutomationRuleRequestConfig(id = id)
 
-        return request<Unit, UpdateAutomationRuleResponse>(
+        return request<Unit, GetAutomationRuleResponse>(
             localVariableConfig
         )
     }
@@ -1170,6 +1228,7 @@ class AutomationApi(basePath: kotlin.String = defaultBasePath) : ApiClient(baseP
     * @param id  
     * @return RequestConfig
     */
+    @Deprecated(message = "This operation is deprecated.")
     fun updateAutomationRuleRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()

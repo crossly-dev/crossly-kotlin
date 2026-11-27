@@ -28,20 +28,15 @@ import com.squareup.moshi.Json
  * 
  *
  * @param shop 
- * @param canMove 
  * @param options 
  * @param home 
  * @param suggested 
- * @param move 
  */
 
 data class GetSpatialShopNeighbourhoodResponseData (
 
     @Json(name = "shop")
     val shop: kotlin.Any?,
-
-    @Json(name = "canMove")
-    val canMove: kotlin.Boolean,
 
     @Json(name = "options")
     val options: kotlin.collections.List<ListNeighbourhoodsItem>,
@@ -50,10 +45,7 @@ data class GetSpatialShopNeighbourhoodResponseData (
     val home: kotlin.Any? = null,
 
     @Json(name = "suggested")
-    val suggested: GetSpatialShopNeighbourhoodResponseData.Suggested? = null,
-
-    @Json(name = "move")
-    val move: kotlin.Any? = null
+    val suggested: GetSpatialShopNeighbourhoodResponseData.Suggested? = null
 
 ) {
 

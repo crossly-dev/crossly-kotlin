@@ -31,13 +31,13 @@ import com.squareup.moshi.Json
  * @param active 
  * @param createdAt 
  * @param updatedAt 
+ * @param version 
  * @param merchantId 
  * @param creatorSubjectId 
- * @param inputAVariantId 
  * @param outputCosmeticId 
- * @param version 
- * @param note 
+ * @param inputAVariantId 
  * @param reviewedAt 
+ * @param note 
  * @param inputACondition 
  * @param inputAGradeKey 
  * @param inputBVariantId 
@@ -63,26 +63,26 @@ data class CreateTradeBlockEvolutionRecipeResponseRecipe (
     @Json(name = "updatedAt")
     val updatedAt: java.time.OffsetDateTime,
 
+    @Json(name = "version")
+    val version: java.math.BigDecimal,
+
     @Json(name = "merchantId")
     val merchantId: kotlin.String,
 
     @Json(name = "creatorSubjectId")
     val creatorSubjectId: kotlin.String,
 
-    @Json(name = "inputAVariantId")
-    val inputAVariantId: kotlin.String,
-
     @Json(name = "outputCosmeticId")
     val outputCosmeticId: kotlin.String,
 
-    @Json(name = "version")
-    val version: java.math.BigDecimal,
-
-    @Json(name = "note")
-    val note: kotlin.String? = null,
+    @Json(name = "inputAVariantId")
+    val inputAVariantId: kotlin.String,
 
     @Json(name = "reviewedAt")
     val reviewedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "note")
+    val note: kotlin.String? = null,
 
     @Json(name = "inputACondition")
     val inputACondition: kotlin.String? = null,

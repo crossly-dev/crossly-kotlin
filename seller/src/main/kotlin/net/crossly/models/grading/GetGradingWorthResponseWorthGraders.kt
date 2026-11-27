@@ -67,11 +67,11 @@ data class GetGradingWorthResponseWorthGraders (
     /**
      * 
      *
-     * Values: RUN,SINGLE
+     * Values: SINGLE,RUN
      */
     enum class Via(val value: kotlin.String) {
-        @Json(name = "run") RUN("run"),
-        @Json(name = "single") SINGLE("single");
+        @Json(name = "single") SINGLE("single"),
+        @Json(name = "run") RUN("run");
     }
 }
 

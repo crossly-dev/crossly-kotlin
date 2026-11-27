@@ -20,10 +20,10 @@
 
 package net.crossly.models.web3
 
-import net.crossly.models.web3.GetWeb3CreatorResponseDaily
+import net.crossly.models.creator.GetCreatorCollectionResponseDataDashboardDaily
+import net.crossly.models.creator.GetCreatorCollectionResponseDataDashboardMint
+import net.crossly.models.creator.GetCreatorCollectionResponseDataDashboardRecent
 import net.crossly.models.web3.GetWeb3CreatorResponseHolders
-import net.crossly.models.web3.GetWeb3CreatorResponseMint
-import net.crossly.models.web3.GetWeb3CreatorResponseRecent
 import net.crossly.models.web3.GetWeb3CreatorResponseSales
 
 import com.squareup.moshi.Json
@@ -62,10 +62,10 @@ data class GetWeb3CreatorResponse (
     val sales: GetWeb3CreatorResponseSales,
 
     @Json(name = "daily")
-    val daily: kotlin.collections.List<GetWeb3CreatorResponseDaily>,
+    val daily: kotlin.collections.List<GetCreatorCollectionResponseDataDashboardDaily>,
 
     @Json(name = "recent")
-    val recent: kotlin.collections.List<GetWeb3CreatorResponseRecent>,
+    val recent: kotlin.collections.List<GetCreatorCollectionResponseDataDashboardRecent>,
 
     @Json(name = "name")
     val name: kotlin.String? = null,
@@ -77,7 +77,7 @@ data class GetWeb3CreatorResponse (
     val holders: GetWeb3CreatorResponseHolders? = null,
 
     @Json(name = "mint")
-    val mint: GetWeb3CreatorResponseMint? = null
+    val mint: GetCreatorCollectionResponseDataDashboardMint? = null
 
 )
 

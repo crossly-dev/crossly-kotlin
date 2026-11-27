@@ -105,11 +105,11 @@ data class CreateBuyerIdentifyResponse (
     /**
      * 
      *
-     * Values: IDENTIFIER,NONE,VISUAL,VISION
+     * Values: NONE,IDENTIFIER,VISUAL,VISION
      */
     enum class Tier(val value: kotlin.String) {
-        @Json(name = "identifier") IDENTIFIER("identifier"),
         @Json(name = "none") NONE("none"),
+        @Json(name = "identifier") IDENTIFIER("identifier"),
         @Json(name = "visual") VISUAL("visual"),
         @Json(name = "vision") VISION("vision");
     }

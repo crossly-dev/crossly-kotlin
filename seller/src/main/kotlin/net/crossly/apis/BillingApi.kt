@@ -22,9 +22,11 @@ package net.crossly.apis
 
 import java.io.IOException
 
-import net.crossly.models.common.CreateBillingUpgradeRequest
-import net.crossly.models.common.CreateBillingUpgradeResponse
+import net.crossly.models.billing.CreateBillingUpgradeRequest
+import net.crossly.models.billing.CreateBillingUpgradeResponse
 import net.crossly.models.common.Error
+import net.crossly.models.billing.ListBillingAppAllowancesResponse
+import net.crossly.models.billing.ListBillingPlansResponse
 
 import com.squareup.moshi.Json
 
@@ -114,6 +116,140 @@ class BillingApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/billing/upgrade",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your listing allowances through OAuth apps (used of limit, per app, with its platform scope).
+    * Staff can let an OAuth app list above a seller&#39;s plan, counted apart from the plan&#39;s itemsPerMonth and only on the allowance&#39;s platforms. &#x60;label&#x60; is the sentence to show (12 of 10,000 managed by Infinity; ... this month via Infinity (resets Dec 1); or counts toward your plan for limitMode shared).
+    * @return ListBillingAppAllowancesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBillingAppAllowances() : ListBillingAppAllowancesResponse {
+        val localVarResponse = listBillingAppAllowancesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBillingAppAllowancesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your listing allowances through OAuth apps (used of limit, per app, with its platform scope).
+    * Staff can let an OAuth app list above a seller&#39;s plan, counted apart from the plan&#39;s itemsPerMonth and only on the allowance&#39;s platforms. &#x60;label&#x60; is the sentence to show (12 of 10,000 managed by Infinity; ... this month via Infinity (resets Dec 1); or counts toward your plan for limitMode shared).
+    * @return ApiResponse<ListBillingAppAllowancesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBillingAppAllowancesWithHttpInfo() : ApiResponse<ListBillingAppAllowancesResponse?> {
+        val localVariableConfig = listBillingAppAllowancesRequestConfig()
+
+        return request<Unit, ListBillingAppAllowancesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBillingAppAllowances
+    *
+    * @return RequestConfig
+    */
+    fun listBillingAppAllowancesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/billing/app-allowances",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * List the plans with their prices, limits and features.
+    * Prices are the Stripe Prices checkout charges (whole USD). A null limit means no cap.
+    * @return ListBillingPlansResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBillingPlans() : ListBillingPlansResponse {
+        val localVarResponse = listBillingPlansWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBillingPlansResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * List the plans with their prices, limits and features.
+    * Prices are the Stripe Prices checkout charges (whole USD). A null limit means no cap.
+    * @return ApiResponse<ListBillingPlansResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBillingPlansWithHttpInfo() : ApiResponse<ListBillingPlansResponse?> {
+        val localVariableConfig = listBillingPlansRequestConfig()
+
+        return request<Unit, ListBillingPlansResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBillingPlans
+    *
+    * @return RequestConfig
+    */
+    fun listBillingPlansRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/billing/plans",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

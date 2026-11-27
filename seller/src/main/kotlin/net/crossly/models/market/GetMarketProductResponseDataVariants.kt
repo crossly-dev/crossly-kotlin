@@ -29,8 +29,8 @@ import com.squareup.moshi.Json
  * @param id 
  * @param label 
  * @param sortKey 
- * @param tradesCount 
  * @param skuId 
+ * @param tradesCount 
  * @param externalId 
  * @param externalSource 
  * @param externalSyncedAt 
@@ -51,11 +51,11 @@ data class GetMarketProductResponseDataVariants (
     @Json(name = "sortKey")
     val sortKey: java.math.BigDecimal,
 
-    @Json(name = "tradesCount")
-    val tradesCount: java.math.BigDecimal,
-
     @Json(name = "skuId")
     val skuId: kotlin.String,
+
+    @Json(name = "tradesCount")
+    val tradesCount: java.math.BigDecimal,
 
     @Json(name = "externalId")
     val externalId: kotlin.String? = null,

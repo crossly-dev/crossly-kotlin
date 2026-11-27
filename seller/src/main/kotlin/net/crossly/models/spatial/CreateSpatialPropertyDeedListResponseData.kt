@@ -29,9 +29,10 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param status 
- * @param sellerUserId 
  * @param priceCents 
+ * @param sellerUserId 
  * @param deedId 
+ * @param storefrontId 
  * @param buyerUserId 
  * @param closedAt 
  */
@@ -47,14 +48,17 @@ data class CreateSpatialPropertyDeedListResponseData (
     @Json(name = "status")
     val status: kotlin.String,
 
-    @Json(name = "sellerUserId")
-    val sellerUserId: kotlin.String,
-
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
 
+    @Json(name = "sellerUserId")
+    val sellerUserId: kotlin.String,
+
     @Json(name = "deedId")
     val deedId: kotlin.String,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
 
     @Json(name = "buyerUserId")
     val buyerUserId: kotlin.String? = null,

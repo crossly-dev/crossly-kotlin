@@ -22,10 +22,12 @@ package net.crossly.apis
 
 import java.io.IOException
 
-import net.crossly.models.common.CreateWebhookResponse
-import net.crossly.models.common.CreateWebhookTestResponse
+import net.crossly.models.webhook.CreateWebhookDeliveryRedeliverResponse
+import net.crossly.models.webhook.CreateWebhookResponse
+import net.crossly.models.webhook.CreateWebhookTestResponse
 import net.crossly.models.common.Error
-import net.crossly.models.common.ListWebhooksResponse
+import net.crossly.models.webhook.ListWebhookDeliveriesResponse
+import net.crossly.models.webhook.ListWebhooksResponse
 import net.crossly.models.common.OkResponse
 
 import com.squareup.moshi.Json
@@ -119,7 +121,80 @@ class WebhooksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * Fire a synthetic test.ping delivery to one webhook.
+    * Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+    * 
+    * @param id  
+    * @param deliveryId  
+    * @return CreateWebhookDeliveryRedeliverResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWebhookDeliveryRedeliver(id: java.util.UUID, deliveryId: java.util.UUID) : CreateWebhookDeliveryRedeliverResponse {
+        val localVarResponse = createWebhookDeliveryRedeliverWithHttpInfo(id = id, deliveryId = deliveryId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWebhookDeliveryRedeliverResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+    * 
+    * @param id  
+    * @param deliveryId  
+    * @return ApiResponse<CreateWebhookDeliveryRedeliverResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWebhookDeliveryRedeliverWithHttpInfo(id: java.util.UUID, deliveryId: java.util.UUID) : ApiResponse<CreateWebhookDeliveryRedeliverResponse?> {
+        val localVariableConfig = createWebhookDeliveryRedeliverRequestConfig(id = id, deliveryId = deliveryId)
+
+        return request<Unit, CreateWebhookDeliveryRedeliverResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWebhookDeliveryRedeliver
+    *
+    * @param id  
+    * @param deliveryId  
+    * @return RequestConfig
+    */
+    fun createWebhookDeliveryRedeliverRequestConfig(id: java.util.UUID, deliveryId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/webhooks/{id}/deliveries/{deliveryId}/redeliver".replace("{"+"id"+"}", "$id").replace("{"+"deliveryId"+"}", "$deliveryId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\&quot;event\&quot;:\&quot;order.created\&quot;}, payload marked test: true).
     * 
     * @param id  
     * @return CreateWebhookTestResponse
@@ -150,7 +225,7 @@ class WebhooksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * Fire a synthetic test.ping delivery to one webhook.
+    * Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\&quot;event\&quot;:\&quot;order.created\&quot;}, payload marked test: true).
     * 
     * @param id  
     * @return ApiResponse<CreateWebhookTestResponse?>
@@ -319,6 +394,100 @@ class WebhooksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/webhooks/stream",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter status
+     */
+     enum class Status_listWebhookDeliveries(val value: kotlin.String) {
+         @Json(name = "pending") PENDING("pending"),
+         @Json(name = "succeeded") SUCCEEDED("succeeded"),
+         @Json(name = "failed") FAILED("failed"),
+         ;
+     }
+
+    /**
+    * List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+    * 
+    * @param id  
+    * @param status  (optional)
+    * @param limit  (optional, default to 25)
+    * @return ListWebhookDeliveriesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWebhookDeliveries(id: java.util.UUID, status: Status_listWebhookDeliveries?, limit: kotlin.Int?) : ListWebhookDeliveriesResponse {
+        val localVarResponse = listWebhookDeliveriesWithHttpInfo(id = id, status = status, limit = limit)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWebhookDeliveriesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+    * 
+    * @param id  
+    * @param status  (optional)
+    * @param limit  (optional, default to 25)
+    * @return ApiResponse<ListWebhookDeliveriesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWebhookDeliveriesWithHttpInfo(id: java.util.UUID, status: Status_listWebhookDeliveries?, limit: kotlin.Int?) : ApiResponse<ListWebhookDeliveriesResponse?> {
+        val localVariableConfig = listWebhookDeliveriesRequestConfig(id = id, status = status, limit = limit)
+
+        return request<Unit, ListWebhookDeliveriesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWebhookDeliveries
+    *
+    * @param id  
+    * @param status  (optional)
+    * @param limit  (optional, default to 25)
+    * @return RequestConfig
+    */
+    fun listWebhookDeliveriesRequestConfig(id: java.util.UUID, status: Status_listWebhookDeliveries?, limit: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (status != null) {
+                    put("status", listOf(status.toString()))
+                }
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/webhooks/{id}/deliveries".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

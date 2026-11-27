@@ -73,11 +73,11 @@ data class ListMainStageEventsItem (
     /**
      * 
      *
-     * Values: CREATOR_MEETUP,BRAND_LAUNCH,FESTIVAL,TALK,LIVE_SALE
+     * Values: BRAND_LAUNCH,CREATOR_MEETUP,FESTIVAL,TALK,LIVE_SALE
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "creator_meetup") CREATOR_MEETUP("creator_meetup"),
         @Json(name = "brand_launch") BRAND_LAUNCH("brand_launch"),
+        @Json(name = "creator_meetup") CREATOR_MEETUP("creator_meetup"),
         @Json(name = "festival") FESTIVAL("festival"),
         @Json(name = "talk") TALK("talk"),
         @Json(name = "live_sale") LIVE_SALE("live_sale");

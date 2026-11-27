@@ -59,12 +59,12 @@ data class CreateBuyerAgentSessionActResponseQuotePriceCheck (
     /**
      * 
      *
-     * Values: HIGH,FAIR,GOOD,GREAT
+     * Values: GOOD,FAIR,HIGH,GREAT
      */
     enum class Verdict(val value: kotlin.String) {
-        @Json(name = "high") HIGH("high"),
-        @Json(name = "fair") FAIR("fair"),
         @Json(name = "good") GOOD("good"),
+        @Json(name = "fair") FAIR("fair"),
+        @Json(name = "high") HIGH("high"),
         @Json(name = "great") GREAT("great");
     }
 }

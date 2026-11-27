@@ -29,9 +29,9 @@ import com.squareup.moshi.Json
  * @param id 
  * @param name 
  * @param mode 
- * @param status 
  * @param maxPriceCents 
  * @param buysLeft 
+ * @param status 
  */
 
 data class ListBuyerHuntsItem (
@@ -45,14 +45,14 @@ data class ListBuyerHuntsItem (
     @Json(name = "mode")
     val mode: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "maxPriceCents")
     val maxPriceCents: java.math.BigDecimal,
 
     @Json(name = "buysLeft")
-    val buysLeft: java.math.BigDecimal
+    val buysLeft: java.math.BigDecimal,
+
+    @Json(name = "status")
+    val status: kotlin.String
 
 )
 

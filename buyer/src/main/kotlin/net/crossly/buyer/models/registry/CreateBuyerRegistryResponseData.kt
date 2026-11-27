@@ -29,10 +29,10 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param updatedAt 
- * @param token 
- * @param kind 
  * @param ownerUserId 
+ * @param kind 
  * @param wishlistId 
+ * @param token 
  * @param message 
  * @param eventDate 
  * @param shipAddressId 
@@ -49,17 +49,17 @@ data class CreateBuyerRegistryResponseData (
     @Json(name = "updatedAt")
     val updatedAt: java.time.OffsetDateTime,
 
-    @Json(name = "token")
-    val token: kotlin.String,
+    @Json(name = "ownerUserId")
+    val ownerUserId: kotlin.String,
 
     @Json(name = "kind")
     val kind: kotlin.String,
 
-    @Json(name = "ownerUserId")
-    val ownerUserId: kotlin.String,
-
     @Json(name = "wishlistId")
     val wishlistId: kotlin.String,
+
+    @Json(name = "token")
+    val token: kotlin.String,
 
     @Json(name = "message")
     val message: kotlin.String? = null,

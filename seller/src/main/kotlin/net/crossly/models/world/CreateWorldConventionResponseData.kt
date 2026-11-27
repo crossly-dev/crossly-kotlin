@@ -32,14 +32,25 @@ import com.squareup.moshi.Json
  * @param status 
  * @param title 
  * @param endsAt 
- * @param hostUserId 
  * @param startsAt 
+ * @param timezone 
+ * @param theme 
  * @param sceneId 
+ * @param hostUserId 
  * @param entryModel 
  * @param tableCount 
+ * @param opensHour 
+ * @param closesHour 
+ * @param floorPlanVersion 
+ * @param bookingMode 
+ * @param walkIns 
+ * @param description 
+ * @param storefrontId 
  * @param categorySlug 
+ * @param sellerEventId 
  * @param entryFeeCents 
  * @param revenueShareBps 
+ * @param venueBookingId 
  */
 
 data class CreateWorldConventionResponseData (
@@ -62,14 +73,20 @@ data class CreateWorldConventionResponseData (
     @Json(name = "endsAt")
     val endsAt: java.time.OffsetDateTime,
 
-    @Json(name = "hostUserId")
-    val hostUserId: kotlin.String,
-
     @Json(name = "startsAt")
     val startsAt: java.time.OffsetDateTime,
 
+    @Json(name = "timezone")
+    val timezone: kotlin.String,
+
+    @Json(name = "theme")
+    val theme: kotlin.String,
+
     @Json(name = "sceneId")
     val sceneId: kotlin.String,
+
+    @Json(name = "hostUserId")
+    val hostUserId: kotlin.String,
 
     @Json(name = "entryModel")
     val entryModel: CreateWorldConventionResponseData.EntryModel,
@@ -77,38 +94,65 @@ data class CreateWorldConventionResponseData (
     @Json(name = "tableCount")
     val tableCount: java.math.BigDecimal,
 
+    @Json(name = "opensHour")
+    val opensHour: java.math.BigDecimal,
+
+    @Json(name = "closesHour")
+    val closesHour: java.math.BigDecimal,
+
+    @Json(name = "floorPlanVersion")
+    val floorPlanVersion: java.math.BigDecimal,
+
+    @Json(name = "bookingMode")
+    val bookingMode: kotlin.String,
+
+    @Json(name = "walkIns")
+    val walkIns: java.math.BigDecimal,
+
+    @Json(name = "description")
+    val description: kotlin.String? = null,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
+
     @Json(name = "categorySlug")
     val categorySlug: kotlin.String? = null,
+
+    @Json(name = "sellerEventId")
+    val sellerEventId: kotlin.String? = null,
 
     @Json(name = "entryFeeCents")
     val entryFeeCents: java.math.BigDecimal? = null,
 
     @Json(name = "revenueShareBps")
-    val revenueShareBps: java.math.BigDecimal? = null
+    val revenueShareBps: java.math.BigDecimal? = null,
+
+    @Json(name = "venueBookingId")
+    val venueBookingId: kotlin.String? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: LIVE,DRAFT,OPEN,CANCELLED,ENDED
+     * Values: DRAFT,LIVE,CANCELLED,OPEN,ENDED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "live") LIVE("live"),
         @Json(name = "draft") DRAFT("draft"),
-        @Json(name = "open") OPEN("open"),
+        @Json(name = "live") LIVE("live"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "open") OPEN("open"),
         @Json(name = "ended") ENDED("ended");
     }
     /**
      * 
      *
-     * Values: FREE,INVITE,FEE,REVENUE_SHARE
+     * Values: FREE,FEE,INVITE,REVENUE_SHARE
      */
     enum class EntryModel(val value: kotlin.String) {
         @Json(name = "free") FREE("free"),
-        @Json(name = "invite") INVITE("invite"),
         @Json(name = "fee") FEE("fee"),
+        @Json(name = "invite") INVITE("invite"),
         @Json(name = "revenue_share") REVENUE_SHARE("revenue_share");
     }
 }

@@ -119,12 +119,12 @@ data class ListVaultMarketOracleHistoryItem (
     /**
      * 
      *
-     * Values: SKIPPED,FAILED,PUBLISHED
+     * Values: SKIPPED,PUBLISHED,FAILED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "skipped") SKIPPED("skipped"),
-        @Json(name = "failed") FAILED("failed"),
-        @Json(name = "published") PUBLISHED("published");
+        @Json(name = "published") PUBLISHED("published"),
+        @Json(name = "failed") FAILED("failed");
     }
 }
 

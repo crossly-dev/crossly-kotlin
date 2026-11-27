@@ -29,6 +29,10 @@ import com.squareup.moshi.Json
  * @param id 
  * @param requestedAt 
  * @param scheduledFor 
+ * @param listingCount What the cascade will take.
+ * @param inventoryCount 
+ * @param pausedAt Set when the account was found in use: it waits for a re-confirmation.
+ * @param pauseReason 
  */
 
 data class GetAccountDeletionStatusResponsePending (
@@ -40,7 +44,21 @@ data class GetAccountDeletionStatusResponsePending (
     val requestedAt: java.time.OffsetDateTime,
 
     @Json(name = "scheduledFor")
-    val scheduledFor: java.time.OffsetDateTime
+    val scheduledFor: java.time.OffsetDateTime,
+
+    /* What the cascade will take. */
+    @Json(name = "listingCount")
+    val listingCount: java.math.BigDecimal,
+
+    @Json(name = "inventoryCount")
+    val inventoryCount: java.math.BigDecimal,
+
+    /* Set when the account was found in use: it waits for a re-confirmation. */
+    @Json(name = "pausedAt")
+    val pausedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "pauseReason")
+    val pauseReason: kotlin.String? = null
 
 )
 

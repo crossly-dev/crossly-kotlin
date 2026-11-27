@@ -20,8 +20,9 @@
 
 package net.crossly.models.game
 
+import net.crossly.models.game.ListGameHuntsItemRules
 import net.crossly.models.game.ListGameHuntsItemStall
-import net.crossly.models.common.SlugName
+import net.crossly.models.common.NameSlug
 
 import com.squareup.moshi.Json
 
@@ -36,6 +37,7 @@ import com.squareup.moshi.Json
  * @param endsAt 
  * @param finishers 
  * @param stall 
+ * @param rules 
  */
 
 data class ListGameHuntsItem (
@@ -47,7 +49,7 @@ data class ListGameHuntsItem (
     val title: kotlin.String,
 
     @Json(name = "shop")
-    val shop: SlugName,
+    val shop: NameSlug,
 
     @Json(name = "tokens")
     val tokens: java.math.BigDecimal,
@@ -63,7 +65,10 @@ data class ListGameHuntsItem (
     val finishers: java.math.BigDecimal,
 
     @Json(name = "stall")
-    val stall: ListGameHuntsItemStall? = null
+    val stall: ListGameHuntsItemStall? = null,
+
+    @Json(name = "rules")
+    val rules: ListGameHuntsItemRules? = null
 
 )
 

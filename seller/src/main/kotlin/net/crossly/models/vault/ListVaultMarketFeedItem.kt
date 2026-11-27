@@ -20,7 +20,8 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.vault.ListVaultMarketFeedItemMark
+import net.crossly.models.vault.ListVaultMarketFeedItemBy
+import net.crossly.models.vault.ListVaultMarketOpeningItemMark
 
 import com.squareup.moshi.Json
 
@@ -29,6 +30,7 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param at 
+ * @param by 
  * @param bookKey 
  * @param mark 
  * @param buyHref 
@@ -45,11 +47,14 @@ data class ListVaultMarketFeedItem (
     @Json(name = "at")
     val at: kotlin.String,
 
+    @Json(name = "by")
+    val by: ListVaultMarketFeedItemBy,
+
     @Json(name = "bookKey")
     val bookKey: kotlin.String,
 
     @Json(name = "mark")
-    val mark: ListVaultMarketFeedItemMark,
+    val mark: ListVaultMarketOpeningItemMark,
 
     @Json(name = "buyHref")
     val buyHref: kotlin.String,

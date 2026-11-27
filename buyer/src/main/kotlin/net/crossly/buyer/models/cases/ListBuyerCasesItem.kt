@@ -27,25 +27,25 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param updatedAt 
+ * @param purchaseId 
  * @param reason inr, snad, counterfeit, damaged, wrong_item, other.
  * @param state 
+ * @param createdAt 
+ * @param updatedAt 
  * @param kind not_received | return | problem.
- * @param purchaseId 
  * @param closed 
  * @param yourTurn The case is waiting on you.
- * @param resolvedAt 
- * @param buyerPaidCents What you paid for the order, in cents.
  * @param awaitingParty 
  * @param escalateAfter 
  * @param offeredRefundCents A refund on the table, in cents.
  * @param resolvedRefundCents 
+ * @param resolvedAt 
  * @param returnLabelUrl 
  * @param returnTrackingCode 
  * @param returnTrackingCarrier 
  * @param returnTrackingStatus 
  * @param returnDeliveredAt 
+ * @param buyerPaidCents What you paid for the order, in cents.
  * @param itemTitle 
  * @param itemThumbnail 
  * @param sellerName 
@@ -56,11 +56,8 @@ data class ListBuyerCasesItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
-
-    @Json(name = "updatedAt")
-    val updatedAt: kotlin.String,
+    @Json(name = "purchaseId")
+    val purchaseId: kotlin.String,
 
     /* inr, snad, counterfeit, damaged, wrong_item, other. */
     @Json(name = "reason")
@@ -69,12 +66,15 @@ data class ListBuyerCasesItem (
     @Json(name = "state")
     val state: kotlin.String,
 
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
+
+    @Json(name = "updatedAt")
+    val updatedAt: kotlin.String,
+
     /* not_received | return | problem. */
     @Json(name = "kind")
     val kind: kotlin.String,
-
-    @Json(name = "purchaseId")
-    val purchaseId: kotlin.String,
 
     @Json(name = "closed")
     val closed: kotlin.Boolean,
@@ -82,13 +82,6 @@ data class ListBuyerCasesItem (
     /* The case is waiting on you. */
     @Json(name = "yourTurn")
     val yourTurn: kotlin.Boolean,
-
-    @Json(name = "resolvedAt")
-    val resolvedAt: kotlin.String? = null,
-
-    /* What you paid for the order, in cents. */
-    @Json(name = "buyerPaidCents")
-    val buyerPaidCents: java.math.BigDecimal? = null,
 
     @Json(name = "awaitingParty")
     val awaitingParty: kotlin.String? = null,
@@ -102,6 +95,9 @@ data class ListBuyerCasesItem (
 
     @Json(name = "resolvedRefundCents")
     val resolvedRefundCents: java.math.BigDecimal? = null,
+
+    @Json(name = "resolvedAt")
+    val resolvedAt: kotlin.String? = null,
 
     @Json(name = "returnLabelUrl")
     val returnLabelUrl: kotlin.String? = null,
@@ -117,6 +113,10 @@ data class ListBuyerCasesItem (
 
     @Json(name = "returnDeliveredAt")
     val returnDeliveredAt: kotlin.String? = null,
+
+    /* What you paid for the order, in cents. */
+    @Json(name = "buyerPaidCents")
+    val buyerPaidCents: java.math.BigDecimal? = null,
 
     @Json(name = "itemTitle")
     val itemTitle: kotlin.String? = null,

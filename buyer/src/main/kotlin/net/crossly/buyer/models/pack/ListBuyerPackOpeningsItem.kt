@@ -28,24 +28,30 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
+ * @param packTitle 
+ * @param packSlug 
  * @param status 
  * @param priceCents 
  * @param proof 
- * @param packTitle 
- * @param packSlug 
- * @param imageUrl 
- * @param vaultItemId 
- * @param openedAt 
- * @param tierName 
  * @param valueCents 
  * @param buybackCents 
  * @param itemTitle 
+ * @param imageUrl 
+ * @param tierName 
+ * @param vaultItemId 
+ * @param openedAt 
  */
 
 data class ListBuyerPackOpeningsItem (
 
     @Json(name = "id")
     val id: kotlin.String,
+
+    @Json(name = "packTitle")
+    val packTitle: kotlin.String,
+
+    @Json(name = "packSlug")
+    val packSlug: kotlin.String,
 
     @Json(name = "status")
     val status: kotlin.String,
@@ -56,24 +62,6 @@ data class ListBuyerPackOpeningsItem (
     @Json(name = "proof")
     val proof: ListBuyerPackOpeningsItemProof,
 
-    @Json(name = "packTitle")
-    val packTitle: kotlin.String,
-
-    @Json(name = "packSlug")
-    val packSlug: kotlin.String,
-
-    @Json(name = "imageUrl")
-    val imageUrl: kotlin.String? = null,
-
-    @Json(name = "vaultItemId")
-    val vaultItemId: kotlin.String? = null,
-
-    @Json(name = "openedAt")
-    val openedAt: kotlin.String? = null,
-
-    @Json(name = "tierName")
-    val tierName: kotlin.String? = null,
-
     @Json(name = "valueCents")
     val valueCents: java.math.BigDecimal? = null,
 
@@ -81,7 +69,19 @@ data class ListBuyerPackOpeningsItem (
     val buybackCents: java.math.BigDecimal? = null,
 
     @Json(name = "itemTitle")
-    val itemTitle: kotlin.String? = null
+    val itemTitle: kotlin.String? = null,
+
+    @Json(name = "imageUrl")
+    val imageUrl: kotlin.String? = null,
+
+    @Json(name = "tierName")
+    val tierName: kotlin.String? = null,
+
+    @Json(name = "vaultItemId")
+    val vaultItemId: kotlin.String? = null,
+
+    @Json(name = "openedAt")
+    val openedAt: kotlin.String? = null
 
 )
 

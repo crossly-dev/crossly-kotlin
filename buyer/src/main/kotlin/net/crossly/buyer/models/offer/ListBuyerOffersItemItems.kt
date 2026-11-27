@@ -28,10 +28,10 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param priceCents Listing price now, in cents.
- * @param status 
- * @param title 
  * @param slug 
+ * @param title 
  * @param thumbnail 
+ * @param status 
  */
 
 data class ListBuyerOffersItemItems (
@@ -43,17 +43,17 @@ data class ListBuyerOffersItemItems (
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
 
-    @Json(name = "status")
-    val status: kotlin.String? = null,
+    @Json(name = "slug")
+    val slug: kotlin.String? = null,
 
     @Json(name = "title")
     val title: kotlin.String? = null,
 
-    @Json(name = "slug")
-    val slug: kotlin.String? = null,
-
     @Json(name = "thumbnail")
-    val thumbnail: kotlin.String? = null
+    val thumbnail: kotlin.String? = null,
+
+    @Json(name = "status")
+    val status: kotlin.String? = null
 
 )
 

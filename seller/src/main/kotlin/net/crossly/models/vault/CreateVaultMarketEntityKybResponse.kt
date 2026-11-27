@@ -43,12 +43,12 @@ data class CreateVaultMarketEntityKybResponse (
     /**
      * 
      *
-     * Values: PENDING,APPROVED,REJECTED,RESTRICTED
+     * Values: PENDING,REJECTED,APPROVED,RESTRICTED
      */
     enum class KybStatus(val value: kotlin.String) {
         @Json(name = "pending") PENDING("pending"),
-        @Json(name = "approved") APPROVED("approved"),
         @Json(name = "rejected") REJECTED("rejected"),
+        @Json(name = "approved") APPROVED("approved"),
         @Json(name = "restricted") RESTRICTED("restricted");
     }
 }

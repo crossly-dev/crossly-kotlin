@@ -26,30 +26,30 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param displayName 
  * @param username 
- * @param totalItemsSold 
+ * @param displayName 
  * @param isVerified 
  * @param activeListings 
+ * @param totalItemsSold 
  * @param avatarUrl 
  */
 
 data class ListBuyerCatalogSellersItem (
 
-    @Json(name = "displayName")
-    val displayName: kotlin.String,
-
     @Json(name = "username")
     val username: kotlin.String,
 
-    @Json(name = "totalItemsSold")
-    val totalItemsSold: java.math.BigDecimal,
+    @Json(name = "displayName")
+    val displayName: kotlin.String,
 
     @Json(name = "isVerified")
     val isVerified: kotlin.Boolean,
 
     @Json(name = "activeListings")
     val activeListings: java.math.BigDecimal,
+
+    @Json(name = "totalItemsSold")
+    val totalItemsSold: java.math.BigDecimal,
 
     @Json(name = "avatarUrl")
     val avatarUrl: kotlin.String? = null

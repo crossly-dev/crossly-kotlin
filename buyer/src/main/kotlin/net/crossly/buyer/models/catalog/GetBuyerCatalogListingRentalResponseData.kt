@@ -21,6 +21,7 @@
 package net.crossly.buyer.models.catalog
 
 import net.crossly.buyer.models.catalog.GetBuyerCatalogListingRentalResponseDataBooked
+import net.crossly.buyer.models.catalog.GetBuyerCatalogListingRentalResponseDataOptions
 
 import com.squareup.moshi.Json
 
@@ -28,7 +29,6 @@ import com.squareup.moshi.Json
  * 
  *
  * @param dailyCents 
- * @param depositCents 
  * @param minDays 
  * @param maxDays 
  * @param bufferDays 
@@ -36,16 +36,17 @@ import com.squareup.moshi.Json
  * @param requireApproval 
  * @param available 
  * @param booked 
+ * @param options 
+ * @param unitsFree 
  * @param weeklyCents 
+ * @param depositCents 
+ * @param returnPolicy 
  */
 
 data class GetBuyerCatalogListingRentalResponseData (
 
     @Json(name = "dailyCents")
     val dailyCents: java.math.BigDecimal,
-
-    @Json(name = "depositCents")
-    val depositCents: java.math.BigDecimal,
 
     @Json(name = "minDays")
     val minDays: java.math.BigDecimal,
@@ -68,8 +69,20 @@ data class GetBuyerCatalogListingRentalResponseData (
     @Json(name = "booked")
     val booked: kotlin.collections.List<GetBuyerCatalogListingRentalResponseDataBooked>,
 
+    @Json(name = "options")
+    val options: GetBuyerCatalogListingRentalResponseDataOptions,
+
+    @Json(name = "unitsFree")
+    val unitsFree: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
     @Json(name = "weeklyCents")
-    val weeklyCents: java.math.BigDecimal? = null
+    val weeklyCents: java.math.BigDecimal? = null,
+
+    @Json(name = "depositCents")
+    val depositCents: java.math.BigDecimal? = null,
+
+    @Json(name = "returnPolicy")
+    val returnPolicy: kotlin.String? = null
 
 )
 

@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param pickupPoint 
- * @param carrier 
  * @param trackingNumber 
+ * @param carrier 
  * @param consolidation 
  */
 
@@ -37,11 +37,11 @@ data class GetBuyerPurchaseDeliveryResponseData (
     @Json(name = "pickupPoint")
     val pickupPoint: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
-    @Json(name = "carrier")
-    val carrier: kotlin.String? = null,
-
     @Json(name = "trackingNumber")
     val trackingNumber: kotlin.String? = null,
+
+    @Json(name = "carrier")
+    val carrier: kotlin.String? = null,
 
     @Json(name = "consolidation")
     val consolidation: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null

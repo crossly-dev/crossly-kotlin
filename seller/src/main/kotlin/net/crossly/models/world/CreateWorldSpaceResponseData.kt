@@ -32,13 +32,13 @@ import com.squareup.moshi.Json
  * @param updatedAt 
  * @param status 
  * @param slug 
- * @param hostUserId 
  * @param venue 
+ * @param hostUserId 
  * @param membership 
+ * @param about 
  * @param gateChain 
  * @param gateContract 
  * @param gateName 
- * @param about 
  */
 
 data class CreateWorldSpaceResponseData (
@@ -61,14 +61,17 @@ data class CreateWorldSpaceResponseData (
     @Json(name = "slug")
     val slug: kotlin.String,
 
-    @Json(name = "hostUserId")
-    val hostUserId: kotlin.String,
-
     @Json(name = "venue")
     val venue: kotlin.String,
 
+    @Json(name = "hostUserId")
+    val hostUserId: kotlin.String,
+
     @Json(name = "membership")
     val membership: kotlin.String,
+
+    @Json(name = "about")
+    val about: kotlin.String? = null,
 
     @Json(name = "gateChain")
     val gateChain: kotlin.String? = null,
@@ -77,10 +80,7 @@ data class CreateWorldSpaceResponseData (
     val gateContract: kotlin.String? = null,
 
     @Json(name = "gateName")
-    val gateName: kotlin.String? = null,
-
-    @Json(name = "about")
-    val about: kotlin.String? = null
+    val gateName: kotlin.String? = null
 
 )
 

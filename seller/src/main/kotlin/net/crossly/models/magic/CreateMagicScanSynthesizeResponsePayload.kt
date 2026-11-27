@@ -20,10 +20,10 @@
 
 package net.crossly.models.magic
 
+import net.crossly.models.bulk.CreateBulkBatchItemResponseGrading
 import net.crossly.models.magic.CreateMagicScanSynthesizeResponsePayloadCategory
 import net.crossly.models.magic.CreateMagicScanSynthesizeResponsePayloadDimensions
 import net.crossly.models.magic.CreateMagicScanSynthesizeResponsePayloadSectionApplicability
-import net.crossly.models.grading.ListGradingSubmissionsItemGrading
 
 import com.squareup.moshi.Json
 
@@ -96,7 +96,7 @@ data class CreateMagicScanSynthesizeResponsePayload (
     val condition: CreateMagicScanSynthesizeResponsePayload.Condition? = null,
 
     @Json(name = "grading")
-    val grading: ListGradingSubmissionsItemGrading? = null,
+    val grading: CreateBulkBatchItemResponseGrading? = null,
 
     @Json(name = "color")
     val color: kotlin.String? = null,
@@ -217,12 +217,12 @@ data class CreateMagicScanSynthesizeResponsePayload (
     /**
      * Master form enum value — one of new/like_new/good/fair/poor. The heuristic synth maps eBay/Mercari/Poshmark condition strings into this canonical form so the UI's <Select> finds a match.
      *
-     * Values: NEW,FAIR,GOOD,LIKE_NEW,POOR,REFURBISHED
+     * Values: NEW,GOOD,FAIR,LIKE_NEW,POOR,REFURBISHED
      */
     enum class Condition(val value: kotlin.String) {
         @Json(name = "new") NEW("new"),
-        @Json(name = "fair") FAIR("fair"),
         @Json(name = "good") GOOD("good"),
+        @Json(name = "fair") FAIR("fair"),
         @Json(name = "like_new") LIKE_NEW("like_new"),
         @Json(name = "poor") POOR("poor"),
         @Json(name = "refurbished") REFURBISHED("refurbished");
@@ -239,11 +239,11 @@ data class CreateMagicScanSynthesizeResponsePayload (
     /**
      * 
      *
-     * Values: YES,NO
+     * Values: NO,YES
      */
     enum class ReturnsAccepted(val value: kotlin.String) {
-        @Json(name = "yes") YES("yes"),
-        @Json(name = "no") NO("no");
+        @Json(name = "no") NO("no"),
+        @Json(name = "yes") YES("yes");
     }
 }
 

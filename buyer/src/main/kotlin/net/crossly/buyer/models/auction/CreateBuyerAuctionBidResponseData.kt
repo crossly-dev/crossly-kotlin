@@ -26,28 +26,28 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param endsAt Possibly extended by anti-sniping.
- * @param currentBidCents The price now, in cents, after proxy bidding resolved.
  * @param ok 
  * @param leading false = a standing proxy bid outbid you straight away.
+ * @param currentBidCents The price now, in cents, after proxy bidding resolved.
+ * @param endsAt Possibly extended by anti-sniping.
  */
 
 data class CreateBuyerAuctionBidResponseData (
-
-    /* Possibly extended by anti-sniping. */
-    @Json(name = "endsAt")
-    val endsAt: kotlin.String,
-
-    /* The price now, in cents, after proxy bidding resolved. */
-    @Json(name = "currentBidCents")
-    val currentBidCents: java.math.BigDecimal,
 
     @Json(name = "ok")
     val ok: kotlin.Boolean,
 
     /* false = a standing proxy bid outbid you straight away. */
     @Json(name = "leading")
-    val leading: kotlin.Boolean
+    val leading: kotlin.Boolean,
+
+    /* The price now, in cents, after proxy bidding resolved. */
+    @Json(name = "currentBidCents")
+    val currentBidCents: java.math.BigDecimal,
+
+    /* Possibly extended by anti-sniping. */
+    @Json(name = "endsAt")
+    val endsAt: kotlin.String
 
 )
 

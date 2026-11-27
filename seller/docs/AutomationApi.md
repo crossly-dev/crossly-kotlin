@@ -28,6 +28,8 @@ Method | HTTP request | Description
 
 Create an automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -70,6 +72,8 @@ Configure PersonalAccessToken:
 > CreateAutomationRuleImportResponse createAutomationRuleImport(activate)
 
 Import one or more rules from recipe JSON (single or bundle).
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Example
 ```kotlin
@@ -118,6 +122,8 @@ Configure PersonalAccessToken:
 
 Fire an automation rule immediately.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -161,9 +167,11 @@ Configure PersonalAccessToken:
 
 <a name="createAutomationRuleToggle"></a>
 # **createAutomationRuleToggle**
-> UpdateAutomationRuleResponse createAutomationRuleToggle(id)
+> GetAutomationRuleResponse createAutomationRuleToggle(id)
 
 Flip an automation rule between active and inactive.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Example
 ```kotlin
@@ -174,7 +182,7 @@ Flip an automation rule between active and inactive.
 val apiInstance = AutomationApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 try {
-    val result : UpdateAutomationRuleResponse = apiInstance.createAutomationRuleToggle(id)
+    val result : GetAutomationRuleResponse = apiInstance.createAutomationRuleToggle(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling AutomationApi#createAutomationRuleToggle")
@@ -193,7 +201,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**UpdateAutomationRuleResponse**
+**GetAutomationRuleResponse**
 
 ### Authorization
 
@@ -211,6 +219,8 @@ Configure PersonalAccessToken:
 > CreateAutomationRuleValidateRecipeResponse createAutomationRuleValidateRecipe()
 
 Dry-run validate one or more recipes against the live catalog.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Example
 ```kotlin
@@ -349,6 +359,8 @@ Configure PersonalAccessToken:
 
 Delete an automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -439,6 +451,8 @@ Configure PersonalAccessToken:
 
 Get a single automation rule.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -486,6 +500,8 @@ Configure PersonalAccessToken:
 
 Export the user&#39;s full rule library as a portable recipe bundle.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -528,6 +544,8 @@ Configure PersonalAccessToken:
 > GetAutomationRuleExportByIdResponse getAutomationRuleExportById(id)
 
 Export a single automation rule as a portable recipe.
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Example
 ```kotlin
@@ -576,6 +594,8 @@ Configure PersonalAccessToken:
 
 List automation rules.
 
+Deprecated: automation rules are workflows now. Use /v1/workflows.
+
 ### Example
 ```kotlin
 // Import classes:
@@ -618,6 +638,8 @@ Configure PersonalAccessToken:
 > ListAutomationRunsResponse listAutomationRuns(ruleId, chainId, limit)
 
 Per-fire history for automation rules and workflow chain runs.
+
+Deprecated: use /v1/workflow-runs.
 
 ### Example
 ```kotlin
@@ -709,9 +731,11 @@ Configure PersonalAccessToken:
 
 <a name="updateAutomationRule"></a>
 # **updateAutomationRule**
-> UpdateAutomationRuleResponse updateAutomationRule(id)
+> GetAutomationRuleResponse updateAutomationRule(id)
 
 Update an automation rule (full replace).
+
+Deprecated: automation rules are workflows now. Use /v1/workflows.
 
 ### Example
 ```kotlin
@@ -722,7 +746,7 @@ Update an automation rule (full replace).
 val apiInstance = AutomationApi()
 val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
 try {
-    val result : UpdateAutomationRuleResponse = apiInstance.updateAutomationRule(id)
+    val result : GetAutomationRuleResponse = apiInstance.updateAutomationRule(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling AutomationApi#updateAutomationRule")
@@ -741,7 +765,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**UpdateAutomationRuleResponse**
+**GetAutomationRuleResponse**
 
 ### Authorization
 

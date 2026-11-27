@@ -20,7 +20,7 @@
 
 package net.crossly.models.web3
 
-import net.crossly.models.web3.CreateWeb3WalletSyncResponseSummary
+import net.crossly.models.web3.CreateWeb3StoreWalletSyncResponseData
 
 import com.squareup.moshi.Json
 
@@ -33,7 +33,7 @@ import com.squareup.moshi.Json
 data class CreateWeb3WalletSyncResponse (
 
     @Json(name = "summary")
-    val summary: CreateWeb3WalletSyncResponseSummary
+    val summary: CreateWeb3StoreWalletSyncResponseData
 
 )
 

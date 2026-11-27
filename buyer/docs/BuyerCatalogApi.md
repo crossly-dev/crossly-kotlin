@@ -584,11 +584,11 @@ Configure BuyerOAuth:
 
 <a name="getBuyerCatalogListingShipping"></a>
 # **getBuyerCatalogListingShipping**
-> GetBuyerCatalogListingShippingResponse getBuyerCatalogListingShipping(slug, zip, country, quantity)
+> GetBuyerCatalogListingShippingResponse getBuyerCatalogListingShipping(slug, zip, state, country, quantity)
 
 Shipping services and prices to a destination.
 
-Lists every shipping service the seller offers to &#x60;country&#x60; (default: the seller’s own country) with its price for &#x60;quantity&#x60; units and its delivery window in business days (handling included). &#x60;zip&#x60; is required for a domestic quote. &#x60;shipsToCountry: false&#x60; means the seller does not ship there. Pass a service &#x60;id&#x60; as &#x60;shippingServiceId&#x60; to POST /api/v1/buyer/checkout, or in &#x60;shippingServiceBySeller&#x60; to POST /api/v1/buyer/cart/quote.
+Lists every shipping service the seller offers to &#x60;country&#x60; (default: the seller’s own country) with its price for &#x60;quantity&#x60; units and its delivery window in business days (handling included). &#x60;zip&#x60; is required for a domestic quote; &#x60;state&#x60; is optional. &#x60;shipsToCountry: false&#x60; means the seller does not ship there (&#x60;noShipMessage&#x60; says why); &#x60;partial: true&#x60; means a ZIP or postcode could change the answer. Pass a service &#x60;id&#x60; as &#x60;shippingServiceId&#x60; to POST /api/v1/buyer/checkout, or in &#x60;shippingServiceBySeller&#x60; to POST /api/v1/buyer/cart/quote. A seller on \&quot;buyer pays: calculated\&quot; prices each allowed carrier service from the live label rate for this parcel plus their handling fee (rates cached 15 minutes): those services carry &#x60;carrier&#x60; and &#x60;carrierService&#x60;, and &#x60;calculatedAtCheckout: true&#x60; means a ZIP is needed first.
 
 ### Example
 ```kotlin
@@ -599,10 +599,11 @@ Lists every shipping service the seller offers to &#x60;country&#x60; (default: 
 val apiInstance = BuyerCatalogApi()
 val slug : kotlin.String = slug_example // kotlin.String | 
 val zip : kotlin.String = zip_example // kotlin.String | 
+val state : kotlin.String = state_example // kotlin.String | 
 val country : kotlin.String = country_example // kotlin.String | 
 val quantity : kotlin.Int = 56 // kotlin.Int | 
 try {
-    val result : GetBuyerCatalogListingShippingResponse = apiInstance.getBuyerCatalogListingShipping(slug, zip, country, quantity)
+    val result : GetBuyerCatalogListingShippingResponse = apiInstance.getBuyerCatalogListingShipping(slug, zip, state, country, quantity)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling BuyerCatalogApi#getBuyerCatalogListingShipping")
@@ -619,6 +620,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **slug** | **kotlin.String**|  |
  **zip** | **kotlin.String**|  | [optional]
+ **state** | **kotlin.String**|  | [optional]
  **country** | **kotlin.String**|  | [optional]
  **quantity** | **kotlin.Int**|  | [optional]
 

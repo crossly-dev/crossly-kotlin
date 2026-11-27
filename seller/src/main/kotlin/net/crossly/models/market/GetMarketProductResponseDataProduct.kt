@@ -44,15 +44,15 @@ import com.squareup.moshi.Json
  * @param colorFamily 
  * @param brand 
  * @param retailCents 
- * @param externalId 
  * @param imageUrl 
+ * @param approvedByUserId 
+ * @param approvedAt 
+ * @param externalId 
  * @param model 
  * @param colorway 
  * @param styleCode 
  * @param releaseDate 
  * @param submittedByUserId 
- * @param approvedByUserId 
- * @param approvedAt 
  * @param rejectionReason 
  * @param aiVerdict 
  * @param submissionSource 
@@ -120,11 +120,17 @@ data class GetMarketProductResponseDataProduct (
     @Json(name = "retailCents")
     val retailCents: java.math.BigDecimal? = null,
 
-    @Json(name = "externalId")
-    val externalId: kotlin.String? = null,
-
     @Json(name = "imageUrl")
     val imageUrl: kotlin.String? = null,
+
+    @Json(name = "approvedByUserId")
+    val approvedByUserId: kotlin.String? = null,
+
+    @Json(name = "approvedAt")
+    val approvedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "externalId")
+    val externalId: kotlin.String? = null,
 
     @Json(name = "model")
     val model: kotlin.String? = null,
@@ -140,12 +146,6 @@ data class GetMarketProductResponseDataProduct (
 
     @Json(name = "submittedByUserId")
     val submittedByUserId: kotlin.String? = null,
-
-    @Json(name = "approvedByUserId")
-    val approvedByUserId: kotlin.String? = null,
-
-    @Json(name = "approvedAt")
-    val approvedAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "rejectionReason")
     val rejectionReason: kotlin.String? = null,

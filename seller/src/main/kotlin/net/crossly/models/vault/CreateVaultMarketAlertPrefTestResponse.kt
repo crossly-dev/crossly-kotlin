@@ -48,20 +48,26 @@ data class CreateVaultMarketAlertPrefTestResponse (
     /**
      * 
      *
-     * Values: PRICE,AUCTION,FILL,ACCOUNT,MARGIN_CALL,ADL,P2P_LOAN,MARKET_OPEN,RECEIPT_TOKEN,SET_GOAL,FOLLOW
+     * Values: ACCOUNT,PRICE,FILL,AUCTION,PREDICTION,OPTION_EXPIRY,MARGIN_CALL,ADL,P2P_LOAN,MARKET_OPEN,RECEIPT_TOKEN,SET_GOAL,FOLLOW,SHARE_OFFERING,SHARE_VOTE,OPTION_SETTLEMENT,PREDICTION_ODDS
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "price") PRICE("price"),
-        @Json(name = "auction") AUCTION("auction"),
-        @Json(name = "fill") FILL("fill"),
         @Json(name = "account") ACCOUNT("account"),
+        @Json(name = "price") PRICE("price"),
+        @Json(name = "fill") FILL("fill"),
+        @Json(name = "auction") AUCTION("auction"),
+        @Json(name = "prediction") PREDICTION("prediction"),
+        @Json(name = "option_expiry") OPTION_EXPIRY("option_expiry"),
         @Json(name = "margin_call") MARGIN_CALL("margin_call"),
         @Json(name = "adl") ADL("adl"),
         @Json(name = "p2p_loan") P2P_LOAN("p2p_loan"),
         @Json(name = "market_open") MARKET_OPEN("market_open"),
         @Json(name = "receipt_token") RECEIPT_TOKEN("receipt_token"),
         @Json(name = "set_goal") SET_GOAL("set_goal"),
-        @Json(name = "follow") FOLLOW("follow");
+        @Json(name = "follow") FOLLOW("follow"),
+        @Json(name = "share_offering") SHARE_OFFERING("share_offering"),
+        @Json(name = "share_vote") SHARE_VOTE("share_vote"),
+        @Json(name = "option_settlement") OPTION_SETTLEMENT("option_settlement"),
+        @Json(name = "prediction_odds") PREDICTION_ODDS("prediction_odds");
     }
 }
 

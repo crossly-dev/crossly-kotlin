@@ -21,7 +21,7 @@
 package net.crossly.models.vault
 
 import net.crossly.models.vault.CreateVaultMarketPartnerBatchResponseCreated
-import net.crossly.models.vault.CreateVaultMarketPartnerBatchResponseLabel
+import net.crossly.models.common.LabelUrlTrackingCode
 
 import com.squareup.moshi.Json
 
@@ -47,7 +47,7 @@ data class CreateVaultMarketPartnerBatchResponse (
     val created: kotlin.collections.List<CreateVaultMarketPartnerBatchResponseCreated>,
 
     @Json(name = "label")
-    val label: CreateVaultMarketPartnerBatchResponseLabel? = null,
+    val label: LabelUrlTrackingCode? = null,
 
     @Json(name = "labelError")
     val labelError: kotlin.String? = null

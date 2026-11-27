@@ -26,6 +26,9 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param requiresAction 
+ * @param paymentId 
+ * @param clientSecret 
  * @param paidThrough 
  * @param status 
  * @param paidCents 
@@ -33,27 +36,36 @@ import com.squareup.moshi.Json
 
 data class CreateSpatialPropertyDeedMaintenanceResponseData (
 
+    @Json(name = "requiresAction")
+    val requiresAction: kotlin.Boolean? = null,
+
+    @Json(name = "paymentId")
+    val paymentId: kotlin.String? = null,
+
+    @Json(name = "clientSecret")
+    val clientSecret: kotlin.String? = null,
+
     @Json(name = "paidThrough")
-    val paidThrough: kotlin.String,
+    val paidThrough: kotlin.String? = null,
 
     @Json(name = "status")
-    val status: CreateSpatialPropertyDeedMaintenanceResponseData.Status,
+    val status: CreateSpatialPropertyDeedMaintenanceResponseData.Status? = null,
 
     @Json(name = "paidCents")
-    val paidCents: java.math.BigDecimal
+    val paidCents: java.math.BigDecimal? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: ACTIVE,FORECLOSED,GRACE,DELINQUENT
+     * Values: ACTIVE,GRACE,DELINQUENT,FORECLOSED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "active") ACTIVE("active"),
-        @Json(name = "foreclosed") FORECLOSED("foreclosed"),
         @Json(name = "grace") GRACE("grace"),
-        @Json(name = "delinquent") DELINQUENT("delinquent");
+        @Json(name = "delinquent") DELINQUENT("delinquent"),
+        @Json(name = "foreclosed") FORECLOSED("foreclosed");
     }
 }
 

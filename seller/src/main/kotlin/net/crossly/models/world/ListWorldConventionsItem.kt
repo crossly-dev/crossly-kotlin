@@ -34,10 +34,14 @@ import com.squareup.moshi.Json
  * @param entryModel 
  * @param tableCount 
  * @param exhibitorCount How many stands are taken. A count, never a roster — see the docblock.
+ * @param tiered A full-page convention (a rented hall, booth tiers; spec WD4): sellers book a tier on its booth page.
+ * @param doorsOpenAt When the doors open for visitors: the start (or when the host takes it live, if sooner).
  * @param categorySlug 
  * @param entryFeeCents 
  * @param revenueShareBps 
  * @param publicSlug The room it is held in, so a card can link straight into it.
+ * @param yourDoorsOpenAt For a signed-in viewer (doors.ts): when THEIR doors open (earlier with live_early_entry), and whether they are.
+ * @param doorsOpen 
  */
 
 data class ListWorldConventionsItem (
@@ -67,6 +71,14 @@ data class ListWorldConventionsItem (
     @Json(name = "exhibitorCount")
     val exhibitorCount: java.math.BigDecimal,
 
+    /* A full-page convention (a rented hall, booth tiers; spec WD4): sellers book a tier on its booth page. */
+    @Json(name = "tiered")
+    val tiered: kotlin.Boolean,
+
+    /* When the doors open for visitors: the start (or when the host takes it live, if sooner). */
+    @Json(name = "doorsOpenAt")
+    val doorsOpenAt: java.time.OffsetDateTime,
+
     @Json(name = "categorySlug")
     val categorySlug: kotlin.String? = null,
 
@@ -78,7 +90,14 @@ data class ListWorldConventionsItem (
 
     /* The room it is held in, so a card can link straight into it. */
     @Json(name = "publicSlug")
-    val publicSlug: kotlin.String? = null
+    val publicSlug: kotlin.String? = null,
+
+    /* For a signed-in viewer (doors.ts): when THEIR doors open (earlier with live_early_entry), and whether they are. */
+    @Json(name = "yourDoorsOpenAt")
+    val yourDoorsOpenAt: kotlin.String? = null,
+
+    @Json(name = "doorsOpen")
+    val doorsOpen: kotlin.Boolean? = null
 
 )
 

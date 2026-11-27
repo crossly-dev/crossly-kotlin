@@ -47,12 +47,12 @@ data class GetVaultMarketHomeUnitResponseHome (
     /**
      * 
      *
-     * Values: OPEN,LOCKED,FRIENDS
+     * Values: OPEN,FRIENDS,LOCKED
      */
     enum class Privacy(val value: kotlin.String) {
         @Json(name = "open") OPEN("open"),
-        @Json(name = "locked") LOCKED("locked"),
-        @Json(name = "friends") FRIENDS("friends");
+        @Json(name = "friends") FRIENDS("friends"),
+        @Json(name = "locked") LOCKED("locked");
     }
 }
 

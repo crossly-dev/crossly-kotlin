@@ -28,9 +28,9 @@ import com.squareup.moshi.Json
  *
  * @param orders 
  * @param sales 
- * @param hallLoans 
  * @param leaderboard 
  * @param deposits 
+ * @param hallLoans 
  */
 
 data class GetVaultMarketFollowSharingResponseSharing (
@@ -41,14 +41,14 @@ data class GetVaultMarketFollowSharingResponseSharing (
     @Json(name = "sales")
     val sales: kotlin.Boolean,
 
-    @Json(name = "hallLoans")
-    val hallLoans: kotlin.Boolean,
-
     @Json(name = "leaderboard")
     val leaderboard: kotlin.Boolean,
 
     @Json(name = "deposits")
-    val deposits: kotlin.Boolean
+    val deposits: kotlin.Boolean,
+
+    @Json(name = "hallLoans")
+    val hallLoans: kotlin.Boolean
 
 )
 

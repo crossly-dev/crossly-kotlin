@@ -20,6 +20,7 @@
 
 package net.crossly.buyer.models.catalog
 
+import net.crossly.buyer.models.catalog.CreateBuyerCatalogListingRentalResponseDataQuote
 
 import com.squareup.moshi.Json
 
@@ -29,6 +30,7 @@ import com.squareup.moshi.Json
  * @param rentalId 
  * @param totalCents 
  * @param needsApproval 
+ * @param quote 
  * @param clientSecret 
  */
 
@@ -42,6 +44,9 @@ data class CreateBuyerCatalogListingRentalResponseData (
 
     @Json(name = "needsApproval")
     val needsApproval: kotlin.Boolean,
+
+    @Json(name = "quote")
+    val quote: CreateBuyerCatalogListingRentalResponseDataQuote,
 
     @Json(name = "clientSecret")
     val clientSecret: kotlin.String? = null

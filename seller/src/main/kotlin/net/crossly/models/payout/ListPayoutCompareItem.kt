@@ -82,11 +82,11 @@ data class ListPayoutCompareItem (
     /**
      * 
      *
-     * Values: NONE,UNKNOWN,QUOTED,PLATFORM_LABEL,BUYER_PAID
+     * Values: UNKNOWN,NONE,QUOTED,PLATFORM_LABEL,BUYER_PAID
      */
     enum class ShippingSource(val value: kotlin.String) {
-        @Json(name = "none") NONE("none"),
         @Json(name = "unknown") UNKNOWN("unknown"),
+        @Json(name = "none") NONE("none"),
         @Json(name = "quoted") QUOTED("quoted"),
         @Json(name = "platform_label") PLATFORM_LABEL("platform_label"),
         @Json(name = "buyer_paid") BUYER_PAID("buyer_paid");

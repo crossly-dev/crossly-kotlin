@@ -39,12 +39,12 @@ data class UpdateWorldConventionStatusResponseData (
     /**
      * 
      *
-     * Values: LIVE,OPEN,CANCELLED,ENDED
+     * Values: LIVE,CANCELLED,OPEN,ENDED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "live") LIVE("live"),
-        @Json(name = "open") OPEN("open"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "open") OPEN("open"),
         @Json(name = "ended") ENDED("ended");
     }
 }

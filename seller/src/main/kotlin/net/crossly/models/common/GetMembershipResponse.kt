@@ -20,6 +20,7 @@
 
 package net.crossly.models.common
 
+import net.crossly.models.common.GetMembershipResponseBenefits
 
 import com.squareup.moshi.Json
 
@@ -30,6 +31,7 @@ import com.squareup.moshi.Json
  * @param tier 
  * @param startedAt 
  * @param endsAt 
+ * @param benefits 
  */
 
 data class GetMembershipResponse (
@@ -44,18 +46,21 @@ data class GetMembershipResponse (
     val startedAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "endsAt")
-    val endsAt: java.time.OffsetDateTime? = null
+    val endsAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "benefits")
+    val benefits: GetMembershipResponseBenefits? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: CLASSIC,PRO
+     * Values: PRO,CLASSIC
      */
     enum class Tier(val value: kotlin.String) {
-        @Json(name = "classic") CLASSIC("classic"),
-        @Json(name = "pro") PRO("pro");
+        @Json(name = "pro") PRO("pro"),
+        @Json(name = "classic") CLASSIC("classic");
     }
 }
 

@@ -57,11 +57,11 @@ data class ListVaultReceiptTokenWalletsItem (
     /**
      * 
      *
-     * Values: ALLOWED,REVOKED,NOT_ALLOWED
+     * Values: REVOKED,ALLOWED,NOT_ALLOWED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "allowed") ALLOWED("allowed"),
         @Json(name = "revoked") REVOKED("revoked"),
+        @Json(name = "allowed") ALLOWED("allowed"),
         @Json(name = "not_allowed") NOT_ALLOWED("not_allowed");
     }
 }

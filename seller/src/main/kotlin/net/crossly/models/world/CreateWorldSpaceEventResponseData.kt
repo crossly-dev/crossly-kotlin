@@ -35,9 +35,9 @@ import com.squareup.moshi.Json
  * @param spaceId 
  * @param clubOnly 
  * @param cancelledAt 
- * @param remindedAt 
  * @param createdBy 
  * @param about 
+ * @param remindedAt 
  */
 
 data class CreateWorldSpaceEventResponseData (
@@ -69,14 +69,14 @@ data class CreateWorldSpaceEventResponseData (
     @Json(name = "cancelledAt")
     val cancelledAt: java.time.OffsetDateTime? = null,
 
-    @Json(name = "remindedAt")
-    val remindedAt: java.time.OffsetDateTime? = null,
-
     @Json(name = "createdBy")
     val createdBy: kotlin.String? = null,
 
     @Json(name = "about")
-    val about: kotlin.String? = null
+    val about: kotlin.String? = null,
+
+    @Json(name = "remindedAt")
+    val remindedAt: java.time.OffsetDateTime? = null
 
 )
 

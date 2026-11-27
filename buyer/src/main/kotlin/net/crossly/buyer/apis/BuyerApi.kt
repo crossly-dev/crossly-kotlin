@@ -24,11 +24,16 @@ import java.io.IOException
 
 import net.crossly.buyer.models.common.BuyerBoardResponse
 import net.crossly.buyer.models.common.BuyerCartResponse
+import net.crossly.buyer.models.common.BuyerCompanyResponse
+import net.crossly.buyer.models.common.BuyerHomeResponse
 import net.crossly.buyer.models.common.BuyerLayawayResponse
 import net.crossly.buyer.models.common.BuyerRegistryResponse
+import net.crossly.buyer.models.common.BuyerRentalResponse
 import net.crossly.buyer.models.common.BuyerResponse
 import net.crossly.buyer.models.common.BuyerResponse2
 import net.crossly.buyer.models.common.BuyerResponse3
+import net.crossly.buyer.models.common.BuyerWholesaleOrderSheetResponse
+import net.crossly.buyer.models.common.BuyerWholesaleQuoteResponse
 import net.crossly.buyer.models.activity.CreateBuyerActivityRequest
 import net.crossly.buyer.models.activity.CreateBuyerActivityResponse
 import net.crossly.buyer.models.auction.CreateBuyerAuctionBidRequest
@@ -48,7 +53,9 @@ import net.crossly.buyer.models.cases.CreateBuyerCaseRespondRequest
 import net.crossly.buyer.models.catalog.CreateBuyerCatalogListingRentalQuoteResponse
 import net.crossly.buyer.models.catalog.CreateBuyerCatalogListingRentalResponse
 import net.crossly.buyer.models.catalog.CreateBuyerCatalogListingVideoRequestResponse
+import net.crossly.buyer.models.common.CreateBuyerCompanyApprovalResponse
 import net.crossly.buyer.models.common.CreateBuyerConversationJoinResponse
+import net.crossly.buyer.models.event.CreateBuyerEventRsvpResponse
 import net.crossly.buyer.models.feedback.CreateBuyerFeedbackRequest
 import net.crossly.buyer.models.feedback.CreateBuyerFeedbackResponse
 import net.crossly.buyer.models.common.CreateBuyerFollowingSellerSeenRequest
@@ -73,19 +80,25 @@ import net.crossly.buyer.models.order.CreateBuyerOrderTipResponse
 import net.crossly.buyer.models.pack.CreateBuyerPackOpenResponse
 import net.crossly.buyer.models.pack.CreateBuyerPackOpeningSellBackResponse
 import net.crossly.buyer.models.common.CreateBuyerProtectionPlanCancelResponse
-import net.crossly.buyer.models.purchase.CreateBuyerPurchaseDownloadResponse
 import net.crossly.buyer.models.registry.CreateBuyerRegistryGiftThankedResponse
 import net.crossly.buyer.models.registry.CreateBuyerRegistryResponse
-import net.crossly.buyer.models.rental.CreateBuyerRentalArrivalPhotoResponse
+import net.crossly.buyer.models.rental.CreateBuyerRentalBuyoutResponse
+import net.crossly.buyer.models.rental.CreateBuyerRentalExtensionPayResponse
+import net.crossly.buyer.models.rental.CreateBuyerRentalExtensionResponse
 import net.crossly.buyer.models.rental.CreateBuyerRentalIdentityStartResponse
 import net.crossly.buyer.models.seller.CreateBuyerSellerClubJoinResponse
 import net.crossly.buyer.models.seller.CreateBuyerSellerReportRequest
-import net.crossly.buyer.models.seller.CreateBuyerSellerReportResponse
+import net.crossly.buyer.models.common.CreateBuyerStoreReportResponse
 import net.crossly.buyer.models.together.CreateBuyerTogetherResponse
 import net.crossly.buyer.models.total.CreateBuyerTotalRequestRequest
 import net.crossly.buyer.models.total.CreateBuyerTotalRequestResponse
 import net.crossly.buyer.models.vault.CreateBuyerVaultListResponse
 import net.crossly.buyer.models.vault.CreateBuyerVaultWithdrawResponse
+import net.crossly.buyer.models.wholesale.CreateBuyerWholesaleCatalogApplyResponse
+import net.crossly.buyer.models.wholesale.CreateBuyerWholesaleFreightRequestResponse
+import net.crossly.buyer.models.wholesale.CreateBuyerWholesaleInvoicePayLinkResponse
+import net.crossly.buyer.models.wholesale.CreateBuyerWholesaleQuoteAcceptResponse
+import net.crossly.buyer.models.wholesale.CreateBuyerWholesaleUploadValidateResponse
 import net.crossly.buyer.models.wishlist.CreateBuyerWishlistInviteResponse
 import net.crossly.buyer.models.wishlist.CreateBuyerWishlistItemRequest
 import net.crossly.buyer.models.wishlist.CreateBuyerWishlistJoinResponse
@@ -94,6 +107,7 @@ import net.crossly.buyer.models.wishlist.CreateBuyerWishlistResponse
 import net.crossly.buyer.models.wishlist.CreateBuyerWishlistShareRequest
 import net.crossly.buyer.models.wishlist.CreateBuyerWishlistShareResponse
 import net.crossly.buyer.models.common.DeleteBuyerTryOnResponse
+import net.crossly.buyer.models.wholesale.DeleteBuyerWholesaleOrderSheetResponse
 import net.crossly.buyer.models.wishlist.DeleteBuyerWishlistItemResponse
 import net.crossly.buyer.models.common.Error
 import net.crossly.buyer.models.auction.GetBuyerAuctionMeResponse
@@ -106,9 +120,12 @@ import net.crossly.buyer.models.catalog.GetBuyerCatalogListingRentalResponse
 import net.crossly.buyer.models.common.GetBuyerCheckoutUsdcResponse
 import net.crossly.buyer.models.collection.GetBuyerCollectionOfferResponse
 import net.crossly.buyer.models.collection.GetBuyerCollectionSetResponse
+import net.crossly.buyer.models.creation.GetBuyerCreationResponse
 import net.crossly.buyer.models.common.GetBuyerCreatorResponse
+import net.crossly.buyer.models.event.GetBuyerEventResponse
 import net.crossly.buyer.models.common.GetBuyerFitVocabularyResponse
 import net.crossly.buyer.models.gift.GetBuyerGiftFinderOptionResponse
+import net.crossly.buyer.models.home.GetBuyerHomePlaceableResponse
 import net.crossly.buyer.models.common.GetBuyerImpactResponse
 import net.crossly.buyer.models.listing.GetBuyerListingAudioSummaryResponse
 import net.crossly.buyer.models.listing.GetBuyerListingBoughtTogetherResponse
@@ -128,7 +145,7 @@ import net.crossly.buyer.models.order.GetBuyerOrderPriceProtectionResponse
 import net.crossly.buyer.models.pack.GetBuyerPackFairnessResponse
 import net.crossly.buyer.models.pack.GetBuyerPackResponse
 import net.crossly.buyer.models.common.GetBuyerPartyResponse
-import net.crossly.buyer.models.common.GetBuyerPassportResponse
+import net.crossly.buyer.models.passport.GetBuyerPassportResponse
 import net.crossly.buyer.models.common.GetBuyerPreferenceResponse
 import net.crossly.buyer.models.common.GetBuyerPriceGuideResponse
 import net.crossly.buyer.models.common.GetBuyerProfileResponse
@@ -137,13 +154,35 @@ import net.crossly.buyer.models.purchase.GetBuyerPurchaseLiveMomentResponse
 import net.crossly.buyer.models.purchase.GetBuyerPurchaseReturnResponse
 import net.crossly.buyer.models.purchase.GetBuyerPurchaseStoryResponse
 import net.crossly.buyer.models.rental.GetBuyerRentalEligibilityResponse
+import net.crossly.buyer.models.rental.GetBuyerRentalResponse
 import net.crossly.buyer.models.seller.GetBuyerSellerClubResponse
+import net.crossly.buyer.models.seller.GetBuyerSellerLoyaltyResponse
 import net.crossly.buyer.models.seller.GetBuyerSellerTrustResponse
 import net.crossly.buyer.models.together.GetBuyerTogetherResponse
 import net.crossly.buyer.models.vault.GetBuyerVaultMarketHistoryResponse
 import net.crossly.buyer.models.vault.GetBuyerVaultMarketIndexResponse
 import net.crossly.buyer.models.vault.GetBuyerVaultMarketInstantExitResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketOptionAnalyticResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketOptionChainResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketOptionIvResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketOptionPositionResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketOptionRiskResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketPredictionBoardResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketPredictionEventResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketPredictionLeaderboardResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketPredictionMarketHistoryResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketPredictionMarketResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketShareBasketResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketShareResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketShareSeryHistoryResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketShareSeryPerkResponse
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketShareSeryResponse
 import net.crossly.buyer.models.vault.GetBuyerVaultMarketWorthResponse
+import net.crossly.buyer.models.wholesale.GetBuyerWholesaleCartResponse
+import net.crossly.buyer.models.wholesale.GetBuyerWholesaleCatalogApplyResponse
+import net.crossly.buyer.models.wholesale.GetBuyerWholesaleDropResponse
+import net.crossly.buyer.models.wholesale.GetBuyerWholesaleInvoicePayQuoteResponse
+import net.crossly.buyer.models.wholesale.GetBuyerWholesaleReorderResponse
 import net.crossly.buyer.models.activity.ListBuyerActivityResponse
 import net.crossly.buyer.models.auction.ListBuyerAuctionBidsResponse
 import net.crossly.buyer.models.auction.ListBuyerAuctionsResponse
@@ -153,6 +192,8 @@ import net.crossly.buyer.models.cases.ListBuyerCasesResponse
 import net.crossly.buyer.models.common.ListBuyerCashbackResponse
 import net.crossly.buyer.models.catalog.ListBuyerCatalogListingVideosResponse
 import net.crossly.buyer.models.common.ListBuyerClubsResponse
+import net.crossly.buyer.models.creation.ListBuyerCreationReviewableResponse
+import net.crossly.buyer.models.event.ListBuyerEventsResponse
 import net.crossly.buyer.models.feedback.ListBuyerFeedbackPendingResponse
 import net.crossly.buyer.models.feedback.ListBuyerFeedbackResponse
 import net.crossly.buyer.models.common.ListBuyerFollowingSellersResponse
@@ -160,6 +201,8 @@ import net.crossly.buyer.models.gift.ListBuyerGiftCardCreditResponse
 import net.crossly.buyer.models.gift.ListBuyerGiftCardsResponse
 import net.crossly.buyer.models.gift.ListBuyerGiftFinderResponse
 import net.crossly.buyer.models.gift.ListBuyerGiftSentResponse
+import net.crossly.buyer.models.home.ListBuyerHomeBuildersResponse
+import net.crossly.buyer.models.home.ListBuyerHomeBuildingResponse
 import net.crossly.buyer.models.common.ListBuyerHotspotsResponse
 import net.crossly.buyer.models.common.ListBuyerHuntsResponse
 import net.crossly.buyer.models.common.ListBuyerLayawaysResponse
@@ -167,11 +210,13 @@ import net.crossly.buyer.models.listing.ListBuyerListingQuickQuestionsResponse
 import net.crossly.buyer.models.listing.ListBuyerListingSellerReviewsResponse
 import net.crossly.buyer.models.live.ListBuyerLiveShipmentsResponse
 import net.crossly.buyer.models.live.ListBuyerLiveStreamLineupResponse
+import net.crossly.buyer.models.common.ListBuyerLoyaltyResponse
 import net.crossly.buyer.models.offer.ListBuyerOffersResponse
 import net.crossly.buyer.models.order.ListBuyerOrdersResponse
 import net.crossly.buyer.models.pack.ListBuyerPackOpeningsResponse
 import net.crossly.buyer.models.pack.ListBuyerPacksResponse
 import net.crossly.buyer.models.common.ListBuyerPartiesResponse
+import net.crossly.buyer.models.common.ListBuyerPaymentMethodsResponse
 import net.crossly.buyer.models.common.ListBuyerProtectionPlansResponse
 import net.crossly.buyer.models.common.ListBuyerRegistriesResponse
 import net.crossly.buyer.models.registry.ListBuyerRegistryGiftsResponse
@@ -179,6 +224,7 @@ import net.crossly.buyer.models.registry.ListBuyerRegistrySearchResponse
 import net.crossly.buyer.models.rental.ListBuyerRentalsResponse
 import net.crossly.buyer.models.common.ListBuyerSizeMemoryPromptsResponse
 import net.crossly.buyer.models.common.ListBuyerSizeMemorySizesResponse
+import net.crossly.buyer.models.common.ListBuyerStoreListingsResponse
 import net.crossly.buyer.models.common.ListBuyerSubscriptionsResponse
 import net.crossly.buyer.models.together.ListBuyerTogetherResponse
 import net.crossly.buyer.models.total.ListBuyerTotalRequestsResponse
@@ -186,15 +232,34 @@ import net.crossly.buyer.models.common.ListBuyerTryOnsResponse
 import net.crossly.buyer.models.vault.ListBuyerVaultMarketHoldingsResponse
 import net.crossly.buyer.models.vault.ListBuyerVaultMarketIndexesResponse
 import net.crossly.buyer.models.vault.ListBuyerVaultMarketInstantExitResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketOptionCombosResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketOptionNoticesResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketOptionSeriesResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketOptionStrategiesResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketPredictionCommentsResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketPredictionMarketsResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketPredictionPositionsResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketShareAutoInvestResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketShareBasketsResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketShareDropsResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketShareGiftsResponse
+import net.crossly.buyer.models.vault.ListBuyerVaultMarketShareSeriesResponse
 import net.crossly.buyer.models.vault.ListBuyerVaultMarketWatchlistResponse
 import net.crossly.buyer.models.vault.ListBuyerVaultResponse
 import net.crossly.buyer.models.common.ListBuyerVideoRequestsResponse
+import net.crossly.buyer.models.common.ListBuyerWalletPerksResponse
+import net.crossly.buyer.models.wholesale.ListBuyerWholesaleDropsResponse
+import net.crossly.buyer.models.wholesale.ListBuyerWholesalePrebooksResponse
 import net.crossly.buyer.models.wishlist.ListBuyerWishlistItemsResponse
 import net.crossly.buyer.models.wishlist.ListBuyerWishlistMembersResponse
 import net.crossly.buyer.models.wishlist.ListBuyerWishlistsResponse
 import net.crossly.buyer.models.collection.UpdateBuyerCollectionSetLeaderboardResponse
+import net.crossly.buyer.models.creation.UpdateBuyerCreationReviewRequest
+import net.crossly.buyer.models.creation.UpdateBuyerCreationReviewResponse
 import net.crossly.buyer.models.feedback.UpdateBuyerFeedbackRequest
+import net.crossly.buyer.models.common.UpdateBuyerPaymentMethodDefaultResponse
 import net.crossly.buyer.models.registry.UpdateBuyerRegistryItemResponse
+import net.crossly.buyer.models.wholesale.UpdateBuyerWholesaleCartPoResponse
 import net.crossly.buyer.models.wishlist.UpdateBuyerWishlistRequest
 import net.crossly.buyer.models.wishlist.UpdateBuyerWishlistResponse
 
@@ -1708,6 +1773,277 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Create a buyer company: name, taxId?, website?. You become its owner; a user is in at most one company.
+    * 
+    * @return BuyerCompanyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerCompany() : BuyerCompanyResponse {
+        val localVarResponse = createBuyerCompanyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerCompanyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Create a buyer company: name, taxId?, website?. You become its owner; a user is in at most one company.
+    * 
+    * @return ApiResponse<BuyerCompanyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerCompanyWithHttpInfo() : ApiResponse<BuyerCompanyResponse?> {
+        val localVariableConfig = createBuyerCompanyRequestConfig()
+
+        return request<Unit, BuyerCompanyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerCompany
+    *
+    * @return RequestConfig
+    */
+    fun createBuyerCompanyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/company",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ask for approval of a trade order above your limit: sellerUserId, amountCents, note?, poReference?. Good for 7 days, used once at checkout.
+    * 
+    * @return CreateBuyerCompanyApprovalResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerCompanyApproval() : CreateBuyerCompanyApprovalResponse {
+        val localVarResponse = createBuyerCompanyApprovalWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerCompanyApprovalResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ask for approval of a trade order above your limit: sellerUserId, amountCents, note?, poReference?. Good for 7 days, used once at checkout.
+    * 
+    * @return ApiResponse<CreateBuyerCompanyApprovalResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerCompanyApprovalWithHttpInfo() : ApiResponse<CreateBuyerCompanyApprovalResponse?> {
+        val localVariableConfig = createBuyerCompanyApprovalRequestConfig()
+
+        return request<Unit, CreateBuyerCompanyApprovalResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerCompanyApproval
+    *
+    * @return RequestConfig
+    */
+    fun createBuyerCompanyApprovalRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/company/approvals",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Approve or decline a pending request (owner, accounts payable): decision approved | declined, note?.
+    * 
+    * @param id  
+    * @return CreateBuyerCompanyApprovalResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerCompanyApprovalDecide(id: kotlin.String) : CreateBuyerCompanyApprovalResponse {
+        val localVarResponse = createBuyerCompanyApprovalDecideWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerCompanyApprovalResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Approve or decline a pending request (owner, accounts payable): decision approved | declined, note?.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateBuyerCompanyApprovalResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerCompanyApprovalDecideWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBuyerCompanyApprovalResponse?> {
+        val localVariableConfig = createBuyerCompanyApprovalDecideRequestConfig(id = id)
+
+        return request<Unit, CreateBuyerCompanyApprovalResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerCompanyApprovalDecide
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createBuyerCompanyApprovalDecideRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/company/approvals/{id}/decide".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Invite a teammate by email (owner): role owner | buyer | accounts_payable | viewer, approvalLimitCents for a buyer (orders above it need an approval).
+    * 
+    * @return BuyerCompanyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerCompanyMember() : BuyerCompanyResponse {
+        val localVarResponse = createBuyerCompanyMemberWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerCompanyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Invite a teammate by email (owner): role owner | buyer | accounts_payable | viewer, approvalLimitCents for a buyer (orders above it need an approval).
+    * 
+    * @return ApiResponse<BuyerCompanyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerCompanyMemberWithHttpInfo() : ApiResponse<BuyerCompanyResponse?> {
+        val localVariableConfig = createBuyerCompanyMemberRequestConfig()
+
+        return request<Unit, BuyerCompanyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerCompanyMember
+    *
+    * @return RequestConfig
+    */
+    fun createBuyerCompanyMemberRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/company/members",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Invite a friend into a chat with a seller: a single-use link (7 days) that makes whoever opens it a guest who can read and post. Only the thread’s buyer can invite; at most 5 guests.
     * 
     * @param id  
@@ -1841,6 +2177,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/buyer/conversations/join/{token}".replace("{"+"token"+"}", "$token"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * RSVP to an event: going (counts against its capacity) or interested.
+    * 
+    * @param slug  
+    * @return CreateBuyerEventRsvpResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerEventRsvp(slug: kotlin.String) : CreateBuyerEventRsvpResponse {
+        val localVarResponse = createBuyerEventRsvpWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerEventRsvpResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * RSVP to an event: going (counts against its capacity) or interested.
+    * 
+    * @param slug  
+    * @return ApiResponse<CreateBuyerEventRsvpResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerEventRsvpWithHttpInfo(slug: kotlin.String) : ApiResponse<CreateBuyerEventRsvpResponse?> {
+        val localVariableConfig = createBuyerEventRsvpRequestConfig(slug = slug)
+
+        return request<Unit, CreateBuyerEventRsvpResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerEventRsvp
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun createBuyerEventRsvpRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/events/{slug}/rsvp".replace("{"+"slug"+"}", "$slug"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -2199,7 +2605,7 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Join a group buy: a hold at the starting price, captured at the price the group reaches. Checked against this key’s spending controls; send an Idempotency-Key.
+    * Join a group buy with a quantity (up to its per-buyer max): a hold (or, for pay-now pools, a charge refunded the difference) at the starting price, settled at the price the group reaches. &#x60;linkToken&#x60; opens a link-only pool. Checked against this key’s spending controls; send an Idempotency-Key.
     * 
     * @param id  
     * @return CreateBuyerGroupBuyJoinResponse
@@ -2230,7 +2636,7 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Join a group buy: a hold at the starting price, captured at the price the group reaches. Checked against this key’s spending controls; send an Idempotency-Key.
+    * Join a group buy with a quantity (up to its per-buyer max): a hold (or, for pay-now pools, a charge refunded the difference) at the starting price, settled at the price the group reaches. &#x60;linkToken&#x60; opens a link-only pool. Checked against this key’s spending controls; send an Idempotency-Key.
     * 
     * @param id  
     * @return ApiResponse<CreateBuyerGroupBuyJoinResponse?>
@@ -3666,7 +4072,7 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Claim a passport as the item’s current owner (the buyer of its latest sale) — shown as “in its owner’s hands” until it sells again.
+    * Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
     * 
     * @param code  
     * @return GetBuyerPassportResponse
@@ -3697,7 +4103,7 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Claim a passport as the item’s current owner (the buyer of its latest sale) — shown as “in its owner’s hands” until it sells again.
+    * Claim a passport as the item’s current owner — the buyer of its latest Crossly sale, or (after a sale on another marketplace) with the transfer code from the card in the box — shown as “in its owner’s hands” until it sells again.
     * 
     * @param code  
     * @return ApiResponse<GetBuyerPassportResponse?>
@@ -3799,76 +4205,6 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/buyer/protection-plans/{id}/cancel".replace("{"+"id"+"}", "$id"),
-            query = localVariableQuery,
-            headers = localVariableHeaders,
-            body = localVariableBody
-        )
-    }
-
-    /**
-    * A ten-minute link to a digital purchase’s file; each call uses one of its downloads.
-    * 
-    * @param id  
-    * @return CreateBuyerPurchaseDownloadResponse
-    * @throws IllegalStateException If the request is not correctly configured
-    * @throws IOException Rethrows the OkHttp execute method exception
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createBuyerPurchaseDownload(id: kotlin.String) : CreateBuyerPurchaseDownloadResponse {
-        val localVarResponse = createBuyerPurchaseDownloadWithHttpInfo(id = id)
-
-        return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerPurchaseDownloadResponse
-            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
-            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
-            ResponseType.ClientError -> {
-                val localVarError = localVarResponse as ClientError<*>
-                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-            ResponseType.ServerError -> {
-                val localVarError = localVarResponse as ServerError<*>
-                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-        }
-    }
-
-    /**
-    * A ten-minute link to a digital purchase’s file; each call uses one of its downloads.
-    * 
-    * @param id  
-    * @return ApiResponse<CreateBuyerPurchaseDownloadResponse?>
-    * @throws IllegalStateException If the request is not correctly configured
-    * @throws IOException Rethrows the OkHttp execute method exception
-    */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class)
-    fun createBuyerPurchaseDownloadWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBuyerPurchaseDownloadResponse?> {
-        val localVariableConfig = createBuyerPurchaseDownloadRequestConfig(id = id)
-
-        return request<Unit, CreateBuyerPurchaseDownloadResponse>(
-            localVariableConfig
-        )
-    }
-
-    /**
-    * To obtain the request config of the operation createBuyerPurchaseDownload
-    *
-    * @param id  
-    * @return RequestConfig
-    */
-    fun createBuyerPurchaseDownloadRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
-        val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
-        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        localVariableHeaders["Accept"] = "application/json"
-
-        return RequestConfig(
-            method = RequestMethod.POST,
-            path = "/v1/buyer/purchases/{id}/download".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -4159,7 +4495,7 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
     * 
     * @param id  
-    * @return CreateBuyerRentalArrivalPhotoResponse
+    * @return BuyerRentalResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -4168,11 +4504,11 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createBuyerRentalArrivalPhoto(id: kotlin.String) : CreateBuyerRentalArrivalPhotoResponse {
+    fun createBuyerRentalArrivalPhoto(id: kotlin.String) : BuyerRentalResponse {
         val localVarResponse = createBuyerRentalArrivalPhotoWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerRentalArrivalPhotoResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerRentalResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -4190,16 +4526,16 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Photograph a rental on arrival (URLs you uploaded): your side of the condition record.
     * 
     * @param id  
-    * @return ApiResponse<CreateBuyerRentalArrivalPhotoResponse?>
+    * @return ApiResponse<BuyerRentalResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createBuyerRentalArrivalPhotoWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBuyerRentalArrivalPhotoResponse?> {
+    fun createBuyerRentalArrivalPhotoWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerRentalResponse?> {
         val localVariableConfig = createBuyerRentalArrivalPhotoRequestConfig(id = id)
 
-        return request<Unit, CreateBuyerRentalArrivalPhotoResponse>(
+        return request<Unit, BuyerRentalResponse>(
             localVariableConfig
         )
     }
@@ -4219,6 +4555,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/buyer/rentals/{id}/arrival-photos".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Buy the item you are renting: the price less the rent-to-own credit → clientSecret.
+    * 
+    * @param id  
+    * @return CreateBuyerRentalBuyoutResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerRentalBuyout(id: kotlin.String) : CreateBuyerRentalBuyoutResponse {
+        val localVarResponse = createBuyerRentalBuyoutWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerRentalBuyoutResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Buy the item you are renting: the price less the rent-to-own credit → clientSecret.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateBuyerRentalBuyoutResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerRentalBuyoutWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBuyerRentalBuyoutResponse?> {
+        val localVariableConfig = createBuyerRentalBuyoutRequestConfig(id = id)
+
+        return request<Unit, CreateBuyerRentalBuyoutResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerRentalBuyout
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createBuyerRentalBuyoutRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/rentals/{id}/buyout".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -4366,6 +4772,219 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Confirm your rental arrived.
+    * 
+    * @param id  
+    * @return BuyerRentalResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerRentalDelivered(id: kotlin.String) : BuyerRentalResponse {
+        val localVarResponse = createBuyerRentalDeliveredWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerRentalResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Confirm your rental arrived.
+    * 
+    * @param id  
+    * @return ApiResponse<BuyerRentalResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerRentalDeliveredWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerRentalResponse?> {
+        val localVariableConfig = createBuyerRentalDeliveredRequestConfig(id = id)
+
+        return request<Unit, BuyerRentalResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerRentalDelivered
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createBuyerRentalDeliveredRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/rentals/{id}/delivered".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
+    * 
+    * @param id  
+    * @return CreateBuyerRentalExtensionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerRentalExtension(id: kotlin.String) : CreateBuyerRentalExtensionResponse {
+        val localVarResponse = createBuyerRentalExtensionWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerRentalExtensionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ask for more days. Auto-approved extensions return a clientSecret to pay with Stripe.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateBuyerRentalExtensionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerRentalExtensionWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBuyerRentalExtensionResponse?> {
+        val localVariableConfig = createBuyerRentalExtensionRequestConfig(id = id)
+
+        return request<Unit, CreateBuyerRentalExtensionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerRentalExtension
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createBuyerRentalExtensionRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/rentals/{id}/extensions".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pay for an extension the seller approved → clientSecret.
+    * 
+    * @param id  
+    * @param extensionId  
+    * @return CreateBuyerRentalExtensionPayResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerRentalExtensionPay(id: kotlin.String, extensionId: kotlin.String) : CreateBuyerRentalExtensionPayResponse {
+        val localVarResponse = createBuyerRentalExtensionPayWithHttpInfo(id = id, extensionId = extensionId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerRentalExtensionPayResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pay for an extension the seller approved → clientSecret.
+    * 
+    * @param id  
+    * @param extensionId  
+    * @return ApiResponse<CreateBuyerRentalExtensionPayResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerRentalExtensionPayWithHttpInfo(id: kotlin.String, extensionId: kotlin.String) : ApiResponse<CreateBuyerRentalExtensionPayResponse?> {
+        val localVariableConfig = createBuyerRentalExtensionPayRequestConfig(id = id, extensionId = extensionId)
+
+        return request<Unit, CreateBuyerRentalExtensionPayResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerRentalExtensionPay
+    *
+    * @param id  
+    * @param extensionId  
+    * @return RequestConfig
+    */
+    fun createBuyerRentalExtensionPayRequestConfig(id: kotlin.String, extensionId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/rentals/{id}/extensions/{extensionId}/pay".replace("{"+"id"+"}", "$id").replace("{"+"extensionId"+"}", "$extensionId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Start the ID check renting needs (Stripe Identity: photo ID + selfie). Open &#x60;url&#x60; (hosted) or use &#x60;clientSecret&#x60; with Stripe.js.
     * 
     * @return CreateBuyerRentalIdentityStartResponse
@@ -4426,6 +5045,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/buyer/rentals/identity/start",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Say you sent your rental back (optionally with photos).
+    * 
+    * @param id  
+    * @return BuyerRentalResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerRentalReturnShipped(id: kotlin.String) : BuyerRentalResponse {
+        val localVarResponse = createBuyerRentalReturnShippedWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerRentalResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Say you sent your rental back (optionally with photos).
+    * 
+    * @param id  
+    * @return ApiResponse<BuyerRentalResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerRentalReturnShippedWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerRentalResponse?> {
+        val localVariableConfig = createBuyerRentalReturnShippedRequestConfig(id = id)
+
+        return request<Unit, BuyerRentalResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerRentalReturnShipped
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createBuyerRentalReturnShippedRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/rentals/{id}/return-shipped".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -4643,11 +5332,10 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Report a seller to Crossly’s trust team.
-    * A second report while your first is still under review updates that report instead of filing another. &#x60;purchaseId&#x60; is attached only if it is your order from this seller.
-    * @param username The seller’s shop handle. 
-    * @param createBuyerSellerReportRequest  
-    * @return CreateBuyerSellerReportResponse
+    * Join a seller’s loyalty club. Invite-only clubs take only invited buyers. Your tier and its perks are granted at once.
+    * 
+    * @param sellerUserId  
+    * @return GetBuyerSellerLoyaltyResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -4656,11 +5344,82 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createBuyerSellerReport(username: kotlin.String, createBuyerSellerReportRequest: CreateBuyerSellerReportRequest) : CreateBuyerSellerReportResponse {
+    fun createBuyerSellerLoyaltyJoin(sellerUserId: kotlin.String) : GetBuyerSellerLoyaltyResponse {
+        val localVarResponse = createBuyerSellerLoyaltyJoinWithHttpInfo(sellerUserId = sellerUserId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerSellerLoyaltyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Join a seller’s loyalty club. Invite-only clubs take only invited buyers. Your tier and its perks are granted at once.
+    * 
+    * @param sellerUserId  
+    * @return ApiResponse<GetBuyerSellerLoyaltyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerSellerLoyaltyJoinWithHttpInfo(sellerUserId: kotlin.String) : ApiResponse<GetBuyerSellerLoyaltyResponse?> {
+        val localVariableConfig = createBuyerSellerLoyaltyJoinRequestConfig(sellerUserId = sellerUserId)
+
+        return request<Unit, GetBuyerSellerLoyaltyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerSellerLoyaltyJoin
+    *
+    * @param sellerUserId  
+    * @return RequestConfig
+    */
+    fun createBuyerSellerLoyaltyJoinRequestConfig(sellerUserId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/sellers/{sellerUserId}/loyalty/join".replace("{"+"sellerUserId"+"}", "$sellerUserId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Report a seller to Crossly’s trust team.
+    * A second report while your first is still under review updates that report instead of filing another. &#x60;purchaseId&#x60; is attached only if it is your order from this seller.
+    * @param username The seller’s shop handle. 
+    * @param createBuyerSellerReportRequest  
+    * @return CreateBuyerStoreReportResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerSellerReport(username: kotlin.String, createBuyerSellerReportRequest: CreateBuyerSellerReportRequest) : CreateBuyerStoreReportResponse {
         val localVarResponse = createBuyerSellerReportWithHttpInfo(username = username, createBuyerSellerReportRequest = createBuyerSellerReportRequest)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerSellerReportResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerStoreReportResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -4679,16 +5438,16 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * A second report while your first is still under review updates that report instead of filing another. &#x60;purchaseId&#x60; is attached only if it is your order from this seller.
     * @param username The seller’s shop handle. 
     * @param createBuyerSellerReportRequest  
-    * @return ApiResponse<CreateBuyerSellerReportResponse?>
+    * @return ApiResponse<CreateBuyerStoreReportResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createBuyerSellerReportWithHttpInfo(username: kotlin.String, createBuyerSellerReportRequest: CreateBuyerSellerReportRequest) : ApiResponse<CreateBuyerSellerReportResponse?> {
+    fun createBuyerSellerReportWithHttpInfo(username: kotlin.String, createBuyerSellerReportRequest: CreateBuyerSellerReportRequest) : ApiResponse<CreateBuyerStoreReportResponse?> {
         val localVariableConfig = createBuyerSellerReportRequestConfig(username = username, createBuyerSellerReportRequest = createBuyerSellerReportRequest)
 
-        return request<CreateBuyerSellerReportRequest, CreateBuyerSellerReportResponse>(
+        return request<CreateBuyerSellerReportRequest, CreateBuyerStoreReportResponse>(
             localVariableConfig
         )
     }
@@ -4780,6 +5539,80 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/buyer/splits/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Report a store to Crossly’s trust team.
+    * Files against whoever runs the store. A second report while your first is still under review updates that report instead of filing another. &#x60;purchaseId&#x60; is attached only if it is your order from this seller.
+    * @param slug The store’s slug (its /shop/s/&lt;slug&gt; address). 
+    * @param createBuyerSellerReportRequest  
+    * @return CreateBuyerStoreReportResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerStoreReport(slug: kotlin.String, createBuyerSellerReportRequest: CreateBuyerSellerReportRequest) : CreateBuyerStoreReportResponse {
+        val localVarResponse = createBuyerStoreReportWithHttpInfo(slug = slug, createBuyerSellerReportRequest = createBuyerSellerReportRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerStoreReportResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Report a store to Crossly’s trust team.
+    * Files against whoever runs the store. A second report while your first is still under review updates that report instead of filing another. &#x60;purchaseId&#x60; is attached only if it is your order from this seller.
+    * @param slug The store’s slug (its /shop/s/&lt;slug&gt; address). 
+    * @param createBuyerSellerReportRequest  
+    * @return ApiResponse<CreateBuyerStoreReportResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerStoreReportWithHttpInfo(slug: kotlin.String, createBuyerSellerReportRequest: CreateBuyerSellerReportRequest) : ApiResponse<CreateBuyerStoreReportResponse?> {
+        val localVariableConfig = createBuyerStoreReportRequestConfig(slug = slug, createBuyerSellerReportRequest = createBuyerSellerReportRequest)
+
+        return request<CreateBuyerSellerReportRequest, CreateBuyerStoreReportResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerStoreReport
+    *
+    * @param slug The store’s slug (its /shop/s/&lt;slug&gt; address). 
+    * @param createBuyerSellerReportRequest  
+    * @return RequestConfig
+    */
+    fun createBuyerStoreReportRequestConfig(slug: kotlin.String, createBuyerSellerReportRequest: CreateBuyerSellerReportRequest) : RequestConfig<CreateBuyerSellerReportRequest> {
+        val localVariableBody = createBuyerSellerReportRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/stores/{slug}/report".replace("{"+"slug"+"}", "$slug"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -5481,6 +6314,557 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/buyer/vault/{id}/withdraw".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Apply to a store&#39;s wholesale catalog: { message?, answers [{ id, value }], resaleCertUrl?, resaleCertState?, taxId?, businessInfo? }. The seller&#39;s requirements are enforced (400 trade_apply_requirements names the first one missing); the seller reviews the request.
+    * 
+    * @param storeSlug  
+    * @param catalogSlug  
+    * @return CreateBuyerWholesaleCatalogApplyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerWholesaleCatalogApply(storeSlug: kotlin.String, catalogSlug: kotlin.String) : CreateBuyerWholesaleCatalogApplyResponse {
+        val localVarResponse = createBuyerWholesaleCatalogApplyWithHttpInfo(storeSlug = storeSlug, catalogSlug = catalogSlug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerWholesaleCatalogApplyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Apply to a store&#39;s wholesale catalog: { message?, answers [{ id, value }], resaleCertUrl?, resaleCertState?, taxId?, businessInfo? }. The seller&#39;s requirements are enforced (400 trade_apply_requirements names the first one missing); the seller reviews the request.
+    * 
+    * @param storeSlug  
+    * @param catalogSlug  
+    * @return ApiResponse<CreateBuyerWholesaleCatalogApplyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerWholesaleCatalogApplyWithHttpInfo(storeSlug: kotlin.String, catalogSlug: kotlin.String) : ApiResponse<CreateBuyerWholesaleCatalogApplyResponse?> {
+        val localVariableConfig = createBuyerWholesaleCatalogApplyRequestConfig(storeSlug = storeSlug, catalogSlug = catalogSlug)
+
+        return request<Unit, CreateBuyerWholesaleCatalogApplyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerWholesaleCatalogApply
+    *
+    * @param storeSlug  
+    * @param catalogSlug  
+    * @return RequestConfig
+    */
+    fun createBuyerWholesaleCatalogApplyRequestConfig(storeSlug: kotlin.String, catalogSlug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/wholesale/catalogs/{storeSlug}/{catalogSlug}/apply".replace("{"+"storeSlug"+"}", "$storeSlug").replace("{"+"catalogSlug"+"}", "$catalogSlug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ask a seller to quote freight for their lines in your cart (an order over their pallet threshold): { sellerUserId, weightLbs?, shipTo? { postalCode, country, city?, region?, liftgate?, dock? }, note? }. One open request per seller.
+    * 
+    * @return CreateBuyerWholesaleFreightRequestResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerWholesaleFreightRequest() : CreateBuyerWholesaleFreightRequestResponse {
+        val localVarResponse = createBuyerWholesaleFreightRequestWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerWholesaleFreightRequestResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ask a seller to quote freight for their lines in your cart (an order over their pallet threshold): { sellerUserId, weightLbs?, shipTo? { postalCode, country, city?, region?, liftgate?, dock? }, note? }. One open request per seller.
+    * 
+    * @return ApiResponse<CreateBuyerWholesaleFreightRequestResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerWholesaleFreightRequestWithHttpInfo() : ApiResponse<CreateBuyerWholesaleFreightRequestResponse?> {
+        val localVariableConfig = createBuyerWholesaleFreightRequestRequestConfig()
+
+        return request<Unit, CreateBuyerWholesaleFreightRequestResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerWholesaleFreightRequest
+    *
+    * @return RequestConfig
+    */
+    fun createBuyerWholesaleFreightRequestRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/wholesale/freight-requests",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A hosted payment page for an on-account invoice: amountCents? (part of the balance, at least $1), method? card | ach. Nothing is charged until the buyer completes the page.
+    * 
+    * @param id  
+    * @return CreateBuyerWholesaleInvoicePayLinkResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerWholesaleInvoicePayLink(id: kotlin.String) : CreateBuyerWholesaleInvoicePayLinkResponse {
+        val localVarResponse = createBuyerWholesaleInvoicePayLinkWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerWholesaleInvoicePayLinkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A hosted payment page for an on-account invoice: amountCents? (part of the balance, at least $1), method? card | ach. Nothing is charged until the buyer completes the page.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateBuyerWholesaleInvoicePayLinkResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerWholesaleInvoicePayLinkWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBuyerWholesaleInvoicePayLinkResponse?> {
+        val localVariableConfig = createBuyerWholesaleInvoicePayLinkRequestConfig(id = id)
+
+        return request<Unit, CreateBuyerWholesaleInvoicePayLinkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerWholesaleInvoicePayLink
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createBuyerWholesaleInvoicePayLinkRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/wholesale/invoices/{id}/pay-link".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Save an order sheet: name, lines [{ platformListingId, listingVariantId?, catalogId?, quantity }] from one seller, optional catalogId, poReference, note.
+    * 
+    * @return BuyerWholesaleOrderSheetResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerWholesaleOrderSheet() : BuyerWholesaleOrderSheetResponse {
+        val localVarResponse = createBuyerWholesaleOrderSheetWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerWholesaleOrderSheetResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Save an order sheet: name, lines [{ platformListingId, listingVariantId?, catalogId?, quantity }] from one seller, optional catalogId, poReference, note.
+    * 
+    * @return ApiResponse<BuyerWholesaleOrderSheetResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerWholesaleOrderSheetWithHttpInfo() : ApiResponse<BuyerWholesaleOrderSheetResponse?> {
+        val localVariableConfig = createBuyerWholesaleOrderSheetRequestConfig()
+
+        return request<Unit, BuyerWholesaleOrderSheetResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerWholesaleOrderSheet
+    *
+    * @return RequestConfig
+    */
+    fun createBuyerWholesaleOrderSheetRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/wholesale/order-sheets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ask one seller for a quote: items [{ platformListingId, listingVariantId?, quantity, targetUnitPriceCents? }] (one seller per quote), optional catalogId, note, poReference.
+    * 
+    * @return BuyerWholesaleQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerWholesaleQuote() : BuyerWholesaleQuoteResponse {
+        val localVarResponse = createBuyerWholesaleQuoteWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerWholesaleQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ask one seller for a quote: items [{ platformListingId, listingVariantId?, quantity, targetUnitPriceCents? }] (one seller per quote), optional catalogId, note, poReference.
+    * 
+    * @return ApiResponse<BuyerWholesaleQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerWholesaleQuoteWithHttpInfo() : ApiResponse<BuyerWholesaleQuoteResponse?> {
+        val localVariableConfig = createBuyerWholesaleQuoteRequestConfig()
+
+        return request<Unit, BuyerWholesaleQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerWholesaleQuote
+    *
+    * @return RequestConfig
+    */
+    fun createBuyerWholesaleQuoteRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/wholesale/quotes",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Accept an answered quote: its priced items go into your cart at the quoted quantities, locked at the quoted prices until the quote expires (changing a line&#39;s quantity drops the lock). Paying happens at checkout on Crossly.
+    * 
+    * @param id  
+    * @return CreateBuyerWholesaleQuoteAcceptResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerWholesaleQuoteAccept(id: kotlin.String) : CreateBuyerWholesaleQuoteAcceptResponse {
+        val localVarResponse = createBuyerWholesaleQuoteAcceptWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerWholesaleQuoteAcceptResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Accept an answered quote: its priced items go into your cart at the quoted quantities, locked at the quoted prices until the quote expires (changing a line&#39;s quantity drops the lock). Paying happens at checkout on Crossly.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateBuyerWholesaleQuoteAcceptResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerWholesaleQuoteAcceptWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBuyerWholesaleQuoteAcceptResponse?> {
+        val localVariableConfig = createBuyerWholesaleQuoteAcceptRequestConfig(id = id)
+
+        return request<Unit, CreateBuyerWholesaleQuoteAcceptResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerWholesaleQuoteAccept
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createBuyerWholesaleQuoteAcceptRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/wholesale/quotes/{id}/accept".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Withdraw a quote request that is still requested or answered.
+    * 
+    * @param id  
+    * @return BuyerWholesaleQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerWholesaleQuoteWithdraw(id: kotlin.String) : BuyerWholesaleQuoteResponse {
+        val localVarResponse = createBuyerWholesaleQuoteWithdrawWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerWholesaleQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Withdraw a quote request that is still requested or answered.
+    * 
+    * @param id  
+    * @return ApiResponse<BuyerWholesaleQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerWholesaleQuoteWithdrawWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerWholesaleQuoteResponse?> {
+        val localVariableConfig = createBuyerWholesaleQuoteWithdrawRequestConfig(id = id)
+
+        return request<Unit, BuyerWholesaleQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerWholesaleQuoteWithdraw
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createBuyerWholesaleQuoteWithdrawRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/wholesale/quotes/{id}/withdraw".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Validate a CSV / PO against one catalog: rows [{ line, sku, quantity }] are matched by SKU (item or option SKU, or listing slug), merged per item and priced today; unmatched rows come back by line.
+    * 
+    * @return CreateBuyerWholesaleUploadValidateResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createBuyerWholesaleUploadValidate() : CreateBuyerWholesaleUploadValidateResponse {
+        val localVarResponse = createBuyerWholesaleUploadValidateWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBuyerWholesaleUploadValidateResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Validate a CSV / PO against one catalog: rows [{ line, sku, quantity }] are matched by SKU (item or option SKU, or listing slug), merged per item and priced today; unmatched rows come back by line.
+    * 
+    * @return ApiResponse<CreateBuyerWholesaleUploadValidateResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createBuyerWholesaleUploadValidateWithHttpInfo() : ApiResponse<CreateBuyerWholesaleUploadValidateResponse?> {
+        val localVariableConfig = createBuyerWholesaleUploadValidateRequestConfig()
+
+        return request<Unit, CreateBuyerWholesaleUploadValidateResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createBuyerWholesaleUploadValidate
+    *
+    * @return RequestConfig
+    */
+    fun createBuyerWholesaleUploadValidateRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/buyer/wholesale/upload/validate",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -6201,6 +7585,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Remove a member or cancel an invite (owner), or leave the company (your own member id).
+    * 
+    * @param id  
+    * @return BuyerCompanyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteBuyerCompanyMember(id: kotlin.String) : BuyerCompanyResponse {
+        val localVarResponse = deleteBuyerCompanyMemberWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerCompanyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Remove a member or cancel an invite (owner), or leave the company (your own member id).
+    * 
+    * @param id  
+    * @return ApiResponse<BuyerCompanyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteBuyerCompanyMemberWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerCompanyResponse?> {
+        val localVariableConfig = deleteBuyerCompanyMemberRequestConfig(id = id)
+
+        return request<Unit, BuyerCompanyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteBuyerCompanyMember
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteBuyerCompanyMemberRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/buyer/company/members/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Remove a guest (the thread’s buyer), or leave (a guest, with your own user id).
     * 
     * @param id  
@@ -6274,6 +7728,160 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+     * enum for parameter format
+     */
+     enum class Format_deleteBuyerCreationReview(val value: kotlin.String) {
+         @Json(name = "wearable") WEARABLE("wearable"),
+         @Json(name = "decor") DECOR("decor"),
+         @Json(name = "interactive") INTERACTIVE("interactive"),
+         @Json(name = "card") CARD("card"),
+         ;
+     }
+
+    /**
+    * Remove your review of a creation (its vote leaves the rating with it).
+    * 
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @return BuyerResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteBuyerCreationReview(format: Format_deleteBuyerCreationReview, id: kotlin.String) : BuyerResponse {
+        val localVarResponse = deleteBuyerCreationReviewWithHttpInfo(format = format, id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Remove your review of a creation (its vote leaves the rating with it).
+    * 
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @return ApiResponse<BuyerResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteBuyerCreationReviewWithHttpInfo(format: Format_deleteBuyerCreationReview, id: kotlin.String) : ApiResponse<BuyerResponse?> {
+        val localVariableConfig = deleteBuyerCreationReviewRequestConfig(format = format, id = id)
+
+        return request<Unit, BuyerResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteBuyerCreationReview
+    *
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @return RequestConfig
+    */
+    fun deleteBuyerCreationReviewRequestConfig(format: Format_deleteBuyerCreationReview, id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/buyer/creations/{format}/{id}/review".replace("{"+"format"+"}", "$format").replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take back your RSVP.
+    * 
+    * @param slug  
+    * @return BuyerResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteBuyerEventRsvp(slug: kotlin.String) : BuyerResponse {
+        val localVarResponse = deleteBuyerEventRsvpWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take back your RSVP.
+    * 
+    * @param slug  
+    * @return ApiResponse<BuyerResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteBuyerEventRsvpWithHttpInfo(slug: kotlin.String) : ApiResponse<BuyerResponse?> {
+        val localVariableConfig = deleteBuyerEventRsvpRequestConfig(slug = slug)
+
+        return request<Unit, BuyerResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteBuyerEventRsvp
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun deleteBuyerEventRsvpRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/buyer/events/{slug}/rsvp".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Delete a reference garment.
     * 
     * @param id  
@@ -6337,6 +7945,74 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.DELETE,
             path = "/v1/buyer/fit/refs/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Hide a line from your home’s guestbook.
+    * 
+    * @param id  
+    * @return void
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteBuyerHomeGuestbook(id: kotlin.String) : Unit {
+        val localVarResponse = deleteBuyerHomeGuestbookWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> Unit
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Hide a line from your home’s guestbook.
+    * 
+    * @param id  
+    * @return ApiResponse<Unit?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteBuyerHomeGuestbookWithHttpInfo(id: kotlin.String) : ApiResponse<Unit?> {
+        val localVariableConfig = deleteBuyerHomeGuestbookRequestConfig(id = id)
+
+        return request<Unit, Unit>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteBuyerHomeGuestbook
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteBuyerHomeGuestbookRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/buyer/home/guestbook/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -6831,6 +8507,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Leave a seller’s loyalty club.
+    * 
+    * @param sellerUserId  
+    * @return BuyerResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteBuyerSellerLoyaltyJoin(sellerUserId: kotlin.String) : BuyerResponse {
+        val localVarResponse = deleteBuyerSellerLoyaltyJoinWithHttpInfo(sellerUserId = sellerUserId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Leave a seller’s loyalty club.
+    * 
+    * @param sellerUserId  
+    * @return ApiResponse<BuyerResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteBuyerSellerLoyaltyJoinWithHttpInfo(sellerUserId: kotlin.String) : ApiResponse<BuyerResponse?> {
+        val localVariableConfig = deleteBuyerSellerLoyaltyJoinRequestConfig(sellerUserId = sellerUserId)
+
+        return request<Unit, BuyerResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteBuyerSellerLoyaltyJoin
+    *
+    * @param sellerUserId  
+    * @return RequestConfig
+    */
+    fun deleteBuyerSellerLoyaltyJoinRequestConfig(sellerUserId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/buyer/sellers/{sellerUserId}/loyalty/join".replace("{"+"sellerUserId"+"}", "$sellerUserId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Take an item you added off a room’s board.
     * 
     * @param code  
@@ -7037,6 +8783,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.DELETE,
             path = "/v1/buyer/try-ons/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Delete an order sheet.
+    * 
+    * @param id  
+    * @return DeleteBuyerWholesaleOrderSheetResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteBuyerWholesaleOrderSheet(id: kotlin.String) : DeleteBuyerWholesaleOrderSheetResponse {
+        val localVarResponse = deleteBuyerWholesaleOrderSheetWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteBuyerWholesaleOrderSheetResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Delete an order sheet.
+    * 
+    * @param id  
+    * @return ApiResponse<DeleteBuyerWholesaleOrderSheetResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteBuyerWholesaleOrderSheetWithHttpInfo(id: kotlin.String) : ApiResponse<DeleteBuyerWholesaleOrderSheetResponse?> {
+        val localVariableConfig = deleteBuyerWholesaleOrderSheetRequestConfig(id = id)
+
+        return request<Unit, DeleteBuyerWholesaleOrderSheetResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteBuyerWholesaleOrderSheet
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteBuyerWholesaleOrderSheetRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/buyer/wholesale/order-sheets/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -8100,6 +9916,157 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Your buyer company (members, roles, approval limits, shared addresses), or null when you are in none.
+    * 
+    * @return BuyerCompanyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerCompany() : BuyerCompanyResponse {
+        val localVarResponse = getBuyerCompanyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerCompanyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your buyer company (members, roles, approval limits, shared addresses), or null when you are in none.
+    * 
+    * @return ApiResponse<BuyerCompanyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerCompanyWithHttpInfo() : ApiResponse<BuyerCompanyResponse?> {
+        val localVariableConfig = getBuyerCompanyRequestConfig()
+
+        return request<Unit, BuyerCompanyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerCompany
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerCompanyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/company",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter format
+     */
+     enum class Format_getBuyerCreation(val value: kotlin.String) {
+         @Json(name = "wearable") WEARABLE("wearable"),
+         @Json(name = "decor") DECOR("decor"),
+         @Json(name = "interactive") INTERACTIVE("interactive"),
+         @Json(name = "card") CARD("card"),
+         ;
+     }
+
+    /**
+    * A live creation&#39;s public page: its rating breakdown, recent reviews and whether you can review it.
+    * 
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @return GetBuyerCreationResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerCreation(format: Format_getBuyerCreation, id: kotlin.String) : GetBuyerCreationResponse {
+        val localVarResponse = getBuyerCreationWithHttpInfo(format = format, id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerCreationResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A live creation&#39;s public page: its rating breakdown, recent reviews and whether you can review it.
+    * 
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @return ApiResponse<GetBuyerCreationResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerCreationWithHttpInfo(format: Format_getBuyerCreation, id: kotlin.String) : ApiResponse<GetBuyerCreationResponse?> {
+        val localVariableConfig = getBuyerCreationRequestConfig(format = format, id = id)
+
+        return request<Unit, GetBuyerCreationResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerCreation
+    *
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @return RequestConfig
+    */
+    fun getBuyerCreationRequestConfig(format: Format_getBuyerCreation, id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/creations/{format}/{id}".replace("{"+"format"+"}", "$format").replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * A creator storefront: profile, affiliate code, and shelves of live picks.
     * 
     * @param handle  
@@ -8163,6 +10130,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/creators/{handle}".replace("{"+"handle"+"}", "$handle"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP.
+    * 
+    * @param slug  
+    * @return GetBuyerEventResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerEvent(slug: kotlin.String) : GetBuyerEventResponse {
+        val localVarResponse = getBuyerEventWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerEventResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A seller event: schedule, location, host, linked listings, live show, promo code, RSVP counts and your own RSVP.
+    * 
+    * @param slug  
+    * @return ApiResponse<GetBuyerEventResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerEventWithHttpInfo(slug: kotlin.String) : ApiResponse<GetBuyerEventResponse?> {
+        val localVariableConfig = getBuyerEventRequestConfig(slug = slug)
+
+        return request<Unit, GetBuyerEventResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerEvent
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun getBuyerEventRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/events/{slug}".replace("{"+"slug"+"}", "$slug"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -8297,6 +10334,140 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/gift-finder/options",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your home in Crossly World (made on first read).
+    * 
+    * @return BuyerHomeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerHome() : BuyerHomeResponse {
+        val localVarResponse = getBuyerHomeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerHomeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your home in Crossly World (made on first read).
+    * 
+    * @return ApiResponse<BuyerHomeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerHomeWithHttpInfo() : ApiResponse<BuyerHomeResponse?> {
+        val localVariableConfig = getBuyerHomeRequestConfig()
+
+        return request<Unit, BuyerHomeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerHome
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerHomeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/home",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What you could place in your home: your items and delivered furniture.
+    * 
+    * @return GetBuyerHomePlaceableResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerHomePlaceable() : GetBuyerHomePlaceableResponse {
+        val localVarResponse = getBuyerHomePlaceableWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerHomePlaceableResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What you could place in your home: your items and delivered furniture.
+    * 
+    * @return ApiResponse<GetBuyerHomePlaceableResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerHomePlaceableWithHttpInfo() : ApiResponse<GetBuyerHomePlaceableResponse?> {
+        val localVariableConfig = getBuyerHomePlaceableRequestConfig()
+
+        return request<Unit, GetBuyerHomePlaceableResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerHomePlaceable
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerHomePlaceableRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/home/placeable",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -9706,7 +11877,7 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * What a product passport tag opens: the item, whether it was authenticated, how many owners on Crossly and since when — never who or for how much.
+    * What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid&#x3D;, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
     * 
     * @param code  
     * @return GetBuyerPassportResponse
@@ -9737,7 +11908,7 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * What a product passport tag opens: the item, whether it was authenticated, how many owners on Crossly and since when — never who or for how much.
+    * What a product passport tag opens: the item, the verify verdict (registered, tag bound, tag matches with ?uid&#x3D;, authenticated, graded, in its owner’s hands), how many owners and since when — never who or for how much.
     * 
     * @param code  
     * @return ApiResponse<GetBuyerPassportResponse?>
@@ -10397,6 +12568,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * One of your rentals: timeline, payments, the return label, extension and buy-out terms.
+    * 
+    * @param id  
+    * @return GetBuyerRentalResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerRental(id: kotlin.String) : GetBuyerRentalResponse {
+        val localVarResponse = getBuyerRentalWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerRentalResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One of your rentals: timeline, payments, the return label, extension and buy-out terms.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerRentalResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerRentalWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerRentalResponse?> {
+        val localVariableConfig = getBuyerRentalRequestConfig(id = id)
+
+        return request<Unit, GetBuyerRentalResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerRental
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerRentalRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/rentals/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Can you rent right now: ID-verified (a photo ID and a matching selfie, once), the verified name rentals ship to, and your standing (one rental at a time until your first comes back; none after one that never did).
     * 
     * @return GetBuyerRentalEligibilityResponse
@@ -10527,6 +12768,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/sellers/{sellerUserId}/club".replace("{"+"sellerUserId"+"}", "$sellerUserId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A seller’s loyalty club with its typed perks per tier, its join mode (automatic, opt-in, invite-only) and your standing. null when they run none.
+    * 
+    * @param sellerUserId  
+    * @return GetBuyerSellerLoyaltyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerSellerLoyalty(sellerUserId: kotlin.String) : GetBuyerSellerLoyaltyResponse {
+        val localVarResponse = getBuyerSellerLoyaltyWithHttpInfo(sellerUserId = sellerUserId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerSellerLoyaltyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A seller’s loyalty club with its typed perks per tier, its join mode (automatic, opt-in, invite-only) and your standing. null when they run none.
+    * 
+    * @param sellerUserId  
+    * @return ApiResponse<GetBuyerSellerLoyaltyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerSellerLoyaltyWithHttpInfo(sellerUserId: kotlin.String) : ApiResponse<GetBuyerSellerLoyaltyResponse?> {
+        val localVariableConfig = getBuyerSellerLoyaltyRequestConfig(sellerUserId = sellerUserId)
+
+        return request<Unit, GetBuyerSellerLoyaltyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerSellerLoyalty
+    *
+    * @param sellerUserId  
+    * @return RequestConfig
+    */
+    fun getBuyerSellerLoyaltyRequestConfig(sellerUserId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/sellers/{sellerUserId}/loyalty".replace("{"+"sellerUserId"+"}", "$sellerUserId"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -10881,6 +13192,1041 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Options analytics on an underlying: vol surface and smile, IV rank and percentile, open interest and volume by strike and expiry, put/call ratios, expected move and historical vol. Derived, display only. Read only.
+    * 
+    * @param underlying  
+    * @return GetBuyerVaultMarketOptionAnalyticResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketOptionAnalytic(underlying: kotlin.String) : GetBuyerVaultMarketOptionAnalyticResponse {
+        val localVarResponse = getBuyerVaultMarketOptionAnalyticWithHttpInfo(underlying = underlying)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketOptionAnalyticResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Options analytics on an underlying: vol surface and smile, IV rank and percentile, open interest and volume by strike and expiry, put/call ratios, expected move and historical vol. Derived, display only. Read only.
+    * 
+    * @param underlying  
+    * @return ApiResponse<GetBuyerVaultMarketOptionAnalyticResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketOptionAnalyticWithHttpInfo(underlying: kotlin.String) : ApiResponse<GetBuyerVaultMarketOptionAnalyticResponse?> {
+        val localVariableConfig = getBuyerVaultMarketOptionAnalyticRequestConfig(underlying = underlying)
+
+        return request<Unit, GetBuyerVaultMarketOptionAnalyticResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketOptionAnalytic
+    *
+    * @param underlying  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketOptionAnalyticRequestConfig(underlying: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/analytics/{underlying}".replace("{"+"underlying"+"}", "$underlying"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The option chain for an underlying (index slug or book key): expiries, and for one expiry each strike’s call and put with bid / ask, last, open interest, theoretical price, implied vol (display only) and Greeks. Prices are cents per contract.
+    * 
+    * @param underlying  
+    * @return GetBuyerVaultMarketOptionChainResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketOptionChain(underlying: kotlin.String) : GetBuyerVaultMarketOptionChainResponse {
+        val localVarResponse = getBuyerVaultMarketOptionChainWithHttpInfo(underlying = underlying)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketOptionChainResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The option chain for an underlying (index slug or book key): expiries, and for one expiry each strike’s call and put with bid / ask, last, open interest, theoretical price, implied vol (display only) and Greeks. Prices are cents per contract.
+    * 
+    * @param underlying  
+    * @return ApiResponse<GetBuyerVaultMarketOptionChainResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketOptionChainWithHttpInfo(underlying: kotlin.String) : ApiResponse<GetBuyerVaultMarketOptionChainResponse?> {
+        val localVariableConfig = getBuyerVaultMarketOptionChainRequestConfig(underlying = underlying)
+
+        return request<Unit, GetBuyerVaultMarketOptionChainResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketOptionChain
+    *
+    * @param underlying  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketOptionChainRequestConfig(underlying: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/chain/{underlying}".replace("{"+"underlying"+"}", "$underlying"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The at-the-money implied vol on an underlying’s nearest expiry, for display: derived from the options book, quality C, never a mark.
+    * 
+    * @param underlying  
+    * @return GetBuyerVaultMarketOptionIvResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketOptionIv(underlying: kotlin.String) : GetBuyerVaultMarketOptionIvResponse {
+        val localVarResponse = getBuyerVaultMarketOptionIvWithHttpInfo(underlying = underlying)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketOptionIvResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The at-the-money implied vol on an underlying’s nearest expiry, for display: derived from the options book, quality C, never a mark.
+    * 
+    * @param underlying  
+    * @return ApiResponse<GetBuyerVaultMarketOptionIvResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketOptionIvWithHttpInfo(underlying: kotlin.String) : ApiResponse<GetBuyerVaultMarketOptionIvResponse?> {
+        val localVariableConfig = getBuyerVaultMarketOptionIvRequestConfig(underlying = underlying)
+
+        return request<Unit, GetBuyerVaultMarketOptionIvResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketOptionIv
+    *
+    * @param underlying  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketOptionIvRequestConfig(underlying: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/iv/{underlying}".replace("{"+"underlying"+"}", "$underlying"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your fractional options positions with their marks, P&amp;L and Greeks (open by default; &#x60;status&#x60; all for closed and settled too). Read only.
+    * 
+    * @return GetBuyerVaultMarketOptionPositionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketOptionPosition() : GetBuyerVaultMarketOptionPositionResponse {
+        val localVarResponse = getBuyerVaultMarketOptionPositionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketOptionPositionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your fractional options positions with their marks, P&amp;L and Greeks (open by default; &#x60;status&#x60; all for closed and settled too). Read only.
+    * 
+    * @return ApiResponse<GetBuyerVaultMarketOptionPositionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketOptionPositionWithHttpInfo() : ApiResponse<GetBuyerVaultMarketOptionPositionResponse?> {
+        val localVariableConfig = getBuyerVaultMarketOptionPositionRequestConfig()
+
+        return request<Unit, GetBuyerVaultMarketOptionPositionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketOptionPosition
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketOptionPositionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/positions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your options portfolio Greeks, a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;) and the beta-weighted delta against an index. Read only.
+    * 
+    * @return GetBuyerVaultMarketOptionRiskResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketOptionRisk() : GetBuyerVaultMarketOptionRiskResponse {
+        val localVarResponse = getBuyerVaultMarketOptionRiskWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketOptionRiskResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options portfolio Greeks, a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;) and the beta-weighted delta against an index. Read only.
+    * 
+    * @return ApiResponse<GetBuyerVaultMarketOptionRiskResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketOptionRiskWithHttpInfo() : ApiResponse<GetBuyerVaultMarketOptionRiskResponse?> {
+        val localVariableConfig = getBuyerVaultMarketOptionRiskRequestConfig()
+
+        return request<Unit, GetBuyerVaultMarketOptionRiskResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketOptionRisk
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketOptionRiskRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/risk",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The busiest open prediction markets and their odds (the Trading Floor board). Anonymous.
+    * 
+    * @return GetBuyerVaultMarketPredictionBoardResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketPredictionBoard() : GetBuyerVaultMarketPredictionBoardResponse {
+        val localVarResponse = getBuyerVaultMarketPredictionBoardWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketPredictionBoardResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The busiest open prediction markets and their odds (the Trading Floor board). Anonymous.
+    * 
+    * @return ApiResponse<GetBuyerVaultMarketPredictionBoardResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketPredictionBoardWithHttpInfo() : ApiResponse<GetBuyerVaultMarketPredictionBoardResponse?> {
+        val localVariableConfig = getBuyerVaultMarketPredictionBoardRequestConfig()
+
+        return request<Unit, GetBuyerVaultMarketPredictionBoardResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketPredictionBoard
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketPredictionBoardRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/predictions/board",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One expiry’s markets with your holdings in each and their real worst and best case across them.
+    * 
+    * @param id  
+    * @return GetBuyerVaultMarketPredictionEventResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketPredictionEvent(id: kotlin.String) : GetBuyerVaultMarketPredictionEventResponse {
+        val localVarResponse = getBuyerVaultMarketPredictionEventWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketPredictionEventResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One expiry’s markets with your holdings in each and their real worst and best case across them.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerVaultMarketPredictionEventResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketPredictionEventWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerVaultMarketPredictionEventResponse?> {
+        val localVariableConfig = getBuyerVaultMarketPredictionEventRequestConfig(id = id)
+
+        return request<Unit, GetBuyerVaultMarketPredictionEventResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketPredictionEvent
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketPredictionEventRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/predictions/events/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Opt-in forecaster leaderboards (&#x60;period&#x60; week | month | all; &#x60;metric&#x60; pnl | accuracy | brier; &#x60;venue&#x60; live | paper).
+    * 
+    * @return GetBuyerVaultMarketPredictionLeaderboardResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketPredictionLeaderboard() : GetBuyerVaultMarketPredictionLeaderboardResponse {
+        val localVarResponse = getBuyerVaultMarketPredictionLeaderboardWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketPredictionLeaderboardResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Opt-in forecaster leaderboards (&#x60;period&#x60; week | month | all; &#x60;metric&#x60; pnl | accuracy | brier; &#x60;venue&#x60; live | paper).
+    * 
+    * @return ApiResponse<GetBuyerVaultMarketPredictionLeaderboardResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketPredictionLeaderboardWithHttpInfo() : ApiResponse<GetBuyerVaultMarketPredictionLeaderboardResponse?> {
+        val localVariableConfig = getBuyerVaultMarketPredictionLeaderboardRequestConfig()
+
+        return request<Unit, GetBuyerVaultMarketPredictionLeaderboardResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketPredictionLeaderboard
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketPredictionLeaderboardRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/predictions/leaderboard",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One prediction market: terms, the Yes ladder (live and practice), recent trades, settlement history and the series rules with their hash.
+    * 
+    * @param id  
+    * @return GetBuyerVaultMarketPredictionMarketResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketPredictionMarket(id: kotlin.String) : GetBuyerVaultMarketPredictionMarketResponse {
+        val localVarResponse = getBuyerVaultMarketPredictionMarketWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketPredictionMarketResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One prediction market: terms, the Yes ladder (live and practice), recent trades, settlement history and the series rules with their hash.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerVaultMarketPredictionMarketResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketPredictionMarketWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerVaultMarketPredictionMarketResponse?> {
+        val localVariableConfig = getBuyerVaultMarketPredictionMarketRequestConfig(id = id)
+
+        return request<Unit, GetBuyerVaultMarketPredictionMarketResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketPredictionMarket
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketPredictionMarketRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/predictions/markets/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A prediction market’s probability over time (display only, never a mark), candles on the Yes price, volume and open interest (&#x60;range&#x60; 1d, 1w, 1m, all; &#x60;venue&#x60; live or paper).
+    * 
+    * @param id  
+    * @return GetBuyerVaultMarketPredictionMarketHistoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketPredictionMarketHistory(id: kotlin.String) : GetBuyerVaultMarketPredictionMarketHistoryResponse {
+        val localVarResponse = getBuyerVaultMarketPredictionMarketHistoryWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketPredictionMarketHistoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A prediction market’s probability over time (display only, never a mark), candles on the Yes price, volume and open interest (&#x60;range&#x60; 1d, 1w, 1m, all; &#x60;venue&#x60; live or paper).
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerVaultMarketPredictionMarketHistoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketPredictionMarketHistoryWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerVaultMarketPredictionMarketHistoryResponse?> {
+        val localVariableConfig = getBuyerVaultMarketPredictionMarketHistoryRequestConfig(id = id)
+
+        return request<Unit, GetBuyerVaultMarketPredictionMarketHistoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketPredictionMarketHistory
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketPredictionMarketHistoryRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/predictions/markets/{id}/history".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your Vault Shares: shares and percent of each item, cost, implied value at the last share price (display only, never a mark), subscriptions and payouts.
+    * 
+    * @return GetBuyerVaultMarketShareResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketShare() : GetBuyerVaultMarketShareResponse {
+        val localVarResponse = getBuyerVaultMarketShareWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketShareResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your Vault Shares: shares and percent of each item, cost, implied value at the last share price (display only, never a mark), subscriptions and payouts.
+    * 
+    * @return ApiResponse<GetBuyerVaultMarketShareResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketShareWithHttpInfo() : ApiResponse<GetBuyerVaultMarketShareResponse?> {
+        val localVariableConfig = getBuyerVaultMarketShareRequestConfig()
+
+        return request<Unit, GetBuyerVaultMarketShareResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketShare
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketShareRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One theme basket: its series, weights and prices, and your holdings against them.
+    * 
+    * @param id  
+    * @return GetBuyerVaultMarketShareBasketResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketShareBasket(id: kotlin.String) : GetBuyerVaultMarketShareBasketResponse {
+        val localVarResponse = getBuyerVaultMarketShareBasketWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketShareBasketResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One theme basket: its series, weights and prices, and your holdings against them.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerVaultMarketShareBasketResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketShareBasketWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerVaultMarketShareBasketResponse?> {
+        val localVariableConfig = getBuyerVaultMarketShareBasketRequestConfig(id = id)
+
+        return request<Unit, GetBuyerVaultMarketShareBasketResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketShareBasket
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketShareBasketRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/baskets/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One Vault Shares series: the offering, the share book, the latest fills, holders as percentages (nobody named) and buyouts.
+    * 
+    * @param id  
+    * @return GetBuyerVaultMarketShareSeryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketShareSery(id: kotlin.String) : GetBuyerVaultMarketShareSeryResponse {
+        val localVarResponse = getBuyerVaultMarketShareSeryWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketShareSeryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One Vault Shares series: the offering, the share book, the latest fills, holders as percentages (nobody named) and buyouts.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerVaultMarketShareSeryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketShareSeryWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerVaultMarketShareSeryResponse?> {
+        val localVariableConfig = getBuyerVaultMarketShareSeryRequestConfig(id = id)
+
+        return request<Unit, GetBuyerVaultMarketShareSeryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketShareSery
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketShareSeryRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/series/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A Vault Shares series’ full price history (candles), the offering price and the appraisal history. Display only, never a mark.
+    * 
+    * @param id  
+    * @return GetBuyerVaultMarketShareSeryHistoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketShareSeryHistory(id: kotlin.String) : GetBuyerVaultMarketShareSeryHistoryResponse {
+        val localVarResponse = getBuyerVaultMarketShareSeryHistoryWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketShareSeryHistoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A Vault Shares series’ full price history (candles), the offering price and the appraisal history. Display only, never a mark.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerVaultMarketShareSeryHistoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketShareSeryHistoryWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerVaultMarketShareSeryHistoryResponse?> {
+        val localVariableConfig = getBuyerVaultMarketShareSeryHistoryRequestConfig(id = id)
+
+        return request<Unit, GetBuyerVaultMarketShareSeryHistoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketShareSeryHistory
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketShareSeryHistoryRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/series/{id}/history".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your holder perks on a series: badge, visit links, viewing days and your bookings.
+    * 
+    * @param id  
+    * @return GetBuyerVaultMarketShareSeryPerkResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerVaultMarketShareSeryPerk(id: kotlin.String) : GetBuyerVaultMarketShareSeryPerkResponse {
+        val localVarResponse = getBuyerVaultMarketShareSeryPerkWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerVaultMarketShareSeryPerkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your holder perks on a series: badge, visit links, viewing days and your bookings.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerVaultMarketShareSeryPerkResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerVaultMarketShareSeryPerkWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerVaultMarketShareSeryPerkResponse?> {
+        val localVariableConfig = getBuyerVaultMarketShareSeryPerkRequestConfig(id = id)
+
+        return request<Unit, GetBuyerVaultMarketShareSeryPerkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerVaultMarketShareSeryPerk
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerVaultMarketShareSeryPerkRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/series/{id}/perks".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * What your vault is worth now: value at the market prices (marks come only from trades) split into reliable and indicative marks, cost and P&amp;L, today’s change, and an estimate of what the units free to sell would fetch from the bids resting on the book now. Read only.
     * 
     * @return GetBuyerVaultMarketWorthResponse
@@ -10941,6 +14287,496 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/vault-markets/worth",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your cart grouped per seller: trade terms, the order-minimum progress, every rule the cart breaks (the messages checkout would refuse with), PO reference, quote-locked lines, and the checkout methods, deposit and freight threshold for each group.
+    * 
+    * @return GetBuyerWholesaleCartResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerWholesaleCart() : GetBuyerWholesaleCartResponse {
+        val localVarResponse = getBuyerWholesaleCartWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerWholesaleCartResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your cart grouped per seller: trade terms, the order-minimum progress, every rule the cart breaks (the messages checkout would refuse with), PO reference, quote-locked lines, and the checkout methods, deposit and freight threshold for each group.
+    * 
+    * @return ApiResponse<GetBuyerWholesaleCartResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerWholesaleCartWithHttpInfo() : ApiResponse<GetBuyerWholesaleCartResponse?> {
+        val localVariableConfig = getBuyerWholesaleCartRequestConfig()
+
+        return request<Unit, GetBuyerWholesaleCartResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerWholesaleCart
+    *
+    * @return RequestConfig
+    */
+    fun getBuyerWholesaleCartRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/cart",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The application form for a store&#39;s wholesale catalog: the seller&#39;s requirements (resale certificate and accepted states, tax id, their custom questions) and your business info pre-filled. applicable&#x3D;false for a catalog you cannot apply to.
+    * 
+    * @param storeSlug  
+    * @param catalogSlug  
+    * @return GetBuyerWholesaleCatalogApplyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerWholesaleCatalogApply(storeSlug: kotlin.String, catalogSlug: kotlin.String) : GetBuyerWholesaleCatalogApplyResponse {
+        val localVarResponse = getBuyerWholesaleCatalogApplyWithHttpInfo(storeSlug = storeSlug, catalogSlug = catalogSlug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerWholesaleCatalogApplyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The application form for a store&#39;s wholesale catalog: the seller&#39;s requirements (resale certificate and accepted states, tax id, their custom questions) and your business info pre-filled. applicable&#x3D;false for a catalog you cannot apply to.
+    * 
+    * @param storeSlug  
+    * @param catalogSlug  
+    * @return ApiResponse<GetBuyerWholesaleCatalogApplyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerWholesaleCatalogApplyWithHttpInfo(storeSlug: kotlin.String, catalogSlug: kotlin.String) : ApiResponse<GetBuyerWholesaleCatalogApplyResponse?> {
+        val localVariableConfig = getBuyerWholesaleCatalogApplyRequestConfig(storeSlug = storeSlug, catalogSlug = catalogSlug)
+
+        return request<Unit, GetBuyerWholesaleCatalogApplyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerWholesaleCatalogApply
+    *
+    * @param storeSlug  
+    * @param catalogSlug  
+    * @return RequestConfig
+    */
+    fun getBuyerWholesaleCatalogApplyRequestConfig(storeSlug: kotlin.String, catalogSlug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/catalogs/{storeSlug}/{catalogSlug}/apply".replace("{"+"storeSlug"+"}", "$storeSlug").replace("{"+"catalogSlug"+"}", "$catalogSlug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One trade drop open to you: its listings once live (add one to your cart to reserve or buy it), and your reservations in it. 404 for a drop not open to you.
+    * 
+    * @param id  
+    * @return GetBuyerWholesaleDropResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerWholesaleDrop(id: kotlin.String) : GetBuyerWholesaleDropResponse {
+        val localVarResponse = getBuyerWholesaleDropWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerWholesaleDropResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One trade drop open to you: its listings once live (add one to your cart to reserve or buy it), and your reservations in it. 404 for a drop not open to you.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerWholesaleDropResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerWholesaleDropWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerWholesaleDropResponse?> {
+        val localVariableConfig = getBuyerWholesaleDropRequestConfig(id = id)
+
+        return request<Unit, GetBuyerWholesaleDropResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerWholesaleDrop
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerWholesaleDropRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/drops/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What paying an on-account invoice costs now: balance due, the early-pay discount if still open, the minimum part payment and the methods (card, ach).
+    * 
+    * @param id  
+    * @return GetBuyerWholesaleInvoicePayQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerWholesaleInvoicePayQuote(id: kotlin.String) : GetBuyerWholesaleInvoicePayQuoteResponse {
+        val localVarResponse = getBuyerWholesaleInvoicePayQuoteWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerWholesaleInvoicePayQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What paying an on-account invoice costs now: balance due, the early-pay discount if still open, the minimum part payment and the methods (card, ach).
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerWholesaleInvoicePayQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerWholesaleInvoicePayQuoteWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerWholesaleInvoicePayQuoteResponse?> {
+        val localVariableConfig = getBuyerWholesaleInvoicePayQuoteRequestConfig(id = id)
+
+        return request<Unit, GetBuyerWholesaleInvoicePayQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerWholesaleInvoicePayQuote
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerWholesaleInvoicePayQuoteRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/invoices/{id}/pay-quote".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One order sheet priced TODAY at its quantities, with stock, trade terms and flags (unavailable, out_of_stock, short_stock, price_hidden, needs_option).
+    * 
+    * @param id  
+    * @return BuyerWholesaleOrderSheetResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerWholesaleOrderSheet(id: kotlin.String) : BuyerWholesaleOrderSheetResponse {
+        val localVarResponse = getBuyerWholesaleOrderSheetWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerWholesaleOrderSheetResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One order sheet priced TODAY at its quantities, with stock, trade terms and flags (unavailable, out_of_stock, short_stock, price_hidden, needs_option).
+    * 
+    * @param id  
+    * @return ApiResponse<BuyerWholesaleOrderSheetResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerWholesaleOrderSheetWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerWholesaleOrderSheetResponse?> {
+        val localVariableConfig = getBuyerWholesaleOrderSheetRequestConfig(id = id)
+
+        return request<Unit, BuyerWholesaleOrderSheetResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerWholesaleOrderSheet
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerWholesaleOrderSheetRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/order-sheets/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One of your quotes with its items, the seller&#39;s prices and expiry.
+    * 
+    * @param id  
+    * @return BuyerWholesaleQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerWholesaleQuote(id: kotlin.String) : BuyerWholesaleQuoteResponse {
+        val localVarResponse = getBuyerWholesaleQuoteWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerWholesaleQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One of your quotes with its items, the seller&#39;s prices and expiry.
+    * 
+    * @param id  
+    * @return ApiResponse<BuyerWholesaleQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerWholesaleQuoteWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerWholesaleQuoteResponse?> {
+        val localVariableConfig = getBuyerWholesaleQuoteRequestConfig(id = id)
+
+        return request<Unit, BuyerWholesaleQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerWholesaleQuote
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerWholesaleQuoteRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/quotes/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Buy again: a past wholesale order (purchase or order id) as order-sheet lines at the same quantities, priced today, out-of-stock flagged.
+    * 
+    * @param id  
+    * @return GetBuyerWholesaleReorderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBuyerWholesaleReorder(id: kotlin.String) : GetBuyerWholesaleReorderResponse {
+        val localVarResponse = getBuyerWholesaleReorderWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerWholesaleReorderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Buy again: a past wholesale order (purchase or order id) as order-sheet lines at the same quantities, priced today, out-of-stock flagged.
+    * 
+    * @param id  
+    * @return ApiResponse<GetBuyerWholesaleReorderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBuyerWholesaleReorderWithHttpInfo(id: kotlin.String) : ApiResponse<GetBuyerWholesaleReorderResponse?> {
+        val localVariableConfig = getBuyerWholesaleReorderRequestConfig(id = id)
+
+        return request<Unit, GetBuyerWholesaleReorderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBuyerWholesaleReorder
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getBuyerWholesaleReorderRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/reorder/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -11893,6 +15729,73 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Spend approval requests (owners and accounts payable see all; others their own). ?status&#x3D;pending|approved|declined|used|expired.
+    * 
+    * @return BuyerResponse3
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerCompanyApprovals() : BuyerResponse3 {
+        val localVarResponse = listBuyerCompanyApprovalsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse3
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Spend approval requests (owners and accounts payable see all; others their own). ?status&#x3D;pending|approved|declined|used|expired.
+    * 
+    * @return ApiResponse<BuyerResponse3?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerCompanyApprovalsWithHttpInfo() : ApiResponse<BuyerResponse3?> {
+        val localVariableConfig = listBuyerCompanyApprovalsRequestConfig()
+
+        return request<Unit, BuyerResponse3>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerCompanyApprovals
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerCompanyApprovalsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/company/approvals",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Your ship-together orders: parcels at the hub, and the one box out.
     * 
     * @return BuyerResponse3
@@ -12023,6 +15926,148 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/conversations/{id}/guests".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Creations you bought (decor, wearables, interactive objects, cards from packs) and your review of each.
+    * 
+    * @param purchaseRef Only the creation this purchase bought. (optional)
+    * @return ListBuyerCreationReviewableResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerCreationReviewable(purchaseRef: kotlin.String?) : ListBuyerCreationReviewableResponse {
+        val localVarResponse = listBuyerCreationReviewableWithHttpInfo(purchaseRef = purchaseRef)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerCreationReviewableResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Creations you bought (decor, wearables, interactive objects, cards from packs) and your review of each.
+    * 
+    * @param purchaseRef Only the creation this purchase bought. (optional)
+    * @return ApiResponse<ListBuyerCreationReviewableResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerCreationReviewableWithHttpInfo(purchaseRef: kotlin.String?) : ApiResponse<ListBuyerCreationReviewableResponse?> {
+        val localVariableConfig = listBuyerCreationReviewableRequestConfig(purchaseRef = purchaseRef)
+
+        return request<Unit, ListBuyerCreationReviewableResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerCreationReviewable
+    *
+    * @param purchaseRef Only the creation this purchase bought. (optional)
+    * @return RequestConfig
+    */
+    fun listBuyerCreationReviewableRequestConfig(purchaseRef: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (purchaseRef != null) {
+                    put("purchaseRef", listOf(purchaseRef.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/creations/reviewable",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Upcoming and live seller events across Crossly, soonest first.
+    * 
+    * @return ListBuyerEventsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerEvents() : ListBuyerEventsResponse {
+        val localVarResponse = listBuyerEventsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerEventsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Upcoming and live seller events across Crossly, soonest first.
+    * 
+    * @return ApiResponse<ListBuyerEventsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerEventsWithHttpInfo() : ApiResponse<ListBuyerEventsResponse?> {
+        val localVariableConfig = listBuyerEventsRequestConfig()
+
+        return request<Unit, ListBuyerEventsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerEvents
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerEventsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/events",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -12559,6 +16604,140 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/gifts/sent",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your co-builders: friends who may arrange your home with you.
+    * 
+    * @return ListBuyerHomeBuildersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerHomeBuilders() : ListBuyerHomeBuildersResponse {
+        val localVarResponse = listBuyerHomeBuildersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerHomeBuildersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your co-builders: friends who may arrange your home with you.
+    * 
+    * @return ApiResponse<ListBuyerHomeBuildersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerHomeBuildersWithHttpInfo() : ApiResponse<ListBuyerHomeBuildersResponse?> {
+        val localVariableConfig = listBuyerHomeBuildersRequestConfig()
+
+        return request<Unit, ListBuyerHomeBuildersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerHomeBuilders
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerHomeBuildersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/home/builders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The homes you co-build, to visit and arrange.
+    * 
+    * @return ListBuyerHomeBuildingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerHomeBuilding() : ListBuyerHomeBuildingResponse {
+        val localVarResponse = listBuyerHomeBuildingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerHomeBuildingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The homes you co-build, to visit and arrange.
+    * 
+    * @return ApiResponse<ListBuyerHomeBuildingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerHomeBuildingWithHttpInfo() : ApiResponse<ListBuyerHomeBuildingResponse?> {
+        val localVariableConfig = listBuyerHomeBuildingRequestConfig()
+
+        return request<Unit, ListBuyerHomeBuildingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerHomeBuilding
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerHomeBuildingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/homes/building",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -13104,6 +17283,73 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/live-streams/{id}/lineup".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history.
+    * 
+    * @return ListBuyerLoyaltyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerLoyalty() : ListBuyerLoyaltyResponse {
+        val localVarResponse = listBuyerLoyaltyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerLoyaltyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your loyalty clubs: the tier you hold, progress and how to reach the next tier, the typed perks you hold now, and your history.
+    * 
+    * @return ApiResponse<ListBuyerLoyaltyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerLoyaltyWithHttpInfo() : ApiResponse<ListBuyerLoyaltyResponse?> {
+        val localVariableConfig = listBuyerLoyaltyRequestConfig()
+
+        return request<Unit, ListBuyerLoyaltyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerLoyalty
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerLoyaltyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/loyalty",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -13674,6 +17920,73 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/parties/{slug}/listings".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your saved cards, the default first.
+    * Brand, last 4, expiry and whether it is your default. The &#x60;id&#x60; is what checkout and auction bids take as &#x60;paymentMethodId&#x60;.
+    * @return ListBuyerPaymentMethodsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerPaymentMethods() : ListBuyerPaymentMethodsResponse {
+        val localVarResponse = listBuyerPaymentMethodsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerPaymentMethodsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your saved cards, the default first.
+    * Brand, last 4, expiry and whether it is your default. The &#x60;id&#x60; is what checkout and auction bids take as &#x60;paymentMethodId&#x60;.
+    * @return ApiResponse<ListBuyerPaymentMethodsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerPaymentMethodsWithHttpInfo() : ApiResponse<ListBuyerPaymentMethodsResponse?> {
+        val localVariableConfig = listBuyerPaymentMethodsRequestConfig()
+
+        return request<Unit, ListBuyerPaymentMethodsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerPaymentMethods
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerPaymentMethodsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/payment-methods",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -14287,6 +18600,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * A store&#39;s live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
+    * 
+    * @param slug  
+    * @return ListBuyerStoreListingsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerStoreListings(slug: kotlin.String) : ListBuyerStoreListingsResponse {
+        val localVarResponse = listBuyerStoreListingsWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerStoreListingsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A store&#39;s live listings, filtered by tag, category, text and program chips (f: on_sale, discount_eligible, code_eligible, group_buy_active, rentable, wholesale_available…; all must hold), sorted; each card carries its program badges.
+    * 
+    * @param slug  
+    * @return ApiResponse<ListBuyerStoreListingsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerStoreListingsWithHttpInfo(slug: kotlin.String) : ApiResponse<ListBuyerStoreListingsResponse?> {
+        val localVariableConfig = listBuyerStoreListingsRequestConfig(slug = slug)
+
+        return request<Unit, ListBuyerStoreListingsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerStoreListings
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun listBuyerStoreListingsRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/stores/{slug}/listings".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Your subscribe &amp; save standing orders.
     * 
     * @return ListBuyerSubscriptionsResponse
@@ -14823,6 +19206,810 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Your options strategies (working by default) with their legs, net price per unit and fills. Read only.
+    * 
+    * @return ListBuyerVaultMarketOptionCombosResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketOptionCombos() : ListBuyerVaultMarketOptionCombosResponse {
+        val localVarResponse = listBuyerVaultMarketOptionCombosWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketOptionCombosResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options strategies (working by default) with their legs, net price per unit and fills. Read only.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketOptionCombosResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketOptionCombosWithHttpInfo() : ApiResponse<ListBuyerVaultMarketOptionCombosResponse?> {
+        val localVariableConfig = listBuyerVaultMarketOptionCombosRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketOptionCombosResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketOptionCombos
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketOptionCombosRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/combos",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your options notices: expiry warnings, auto-closes, exercises, assignments, expiries worthless and rolls. Read only.
+    * 
+    * @return ListBuyerVaultMarketOptionNoticesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketOptionNotices() : ListBuyerVaultMarketOptionNoticesResponse {
+        val localVarResponse = listBuyerVaultMarketOptionNoticesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketOptionNoticesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options notices: expiry warnings, auto-closes, exercises, assignments, expiries worthless and rolls. Read only.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketOptionNoticesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketOptionNoticesWithHttpInfo() : ApiResponse<ListBuyerVaultMarketOptionNoticesResponse?> {
+        val localVariableConfig = listBuyerVaultMarketOptionNoticesRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketOptionNoticesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketOptionNotices
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketOptionNoticesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/notices",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Fractional options series on Crossly prices (indexes, and tier A item keys with 90 days of reliable marks): underlying, status and eligibility. Read only.
+    * 
+    * @return ListBuyerVaultMarketOptionSeriesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketOptionSeries() : ListBuyerVaultMarketOptionSeriesResponse {
+        val localVarResponse = listBuyerVaultMarketOptionSeriesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketOptionSeriesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Fractional options series on Crossly prices (indexes, and tier A item keys with 90 days of reliable marks): underlying, status and eligibility. Read only.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketOptionSeriesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketOptionSeriesWithHttpInfo() : ApiResponse<ListBuyerVaultMarketOptionSeriesResponse?> {
+        val localVariableConfig = listBuyerVaultMarketOptionSeriesRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketOptionSeriesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketOptionSeries
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketOptionSeriesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/series",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The options strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar) and what each does. Read only.
+    * 
+    * @return ListBuyerVaultMarketOptionStrategiesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketOptionStrategies() : ListBuyerVaultMarketOptionStrategiesResponse {
+        val localVarResponse = listBuyerVaultMarketOptionStrategiesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketOptionStrategiesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The options strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar) and what each does. Read only.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketOptionStrategiesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketOptionStrategiesWithHttpInfo() : ApiResponse<ListBuyerVaultMarketOptionStrategiesResponse?> {
+        val localVariableConfig = listBuyerVaultMarketOptionStrategiesRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketOptionStrategiesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketOptionStrategies
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketOptionStrategiesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/options/strategies",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A prediction market’s (or series’) discussion thread. Read only.
+    * 
+    * @return ListBuyerVaultMarketPredictionCommentsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketPredictionComments() : ListBuyerVaultMarketPredictionCommentsResponse {
+        val localVarResponse = listBuyerVaultMarketPredictionCommentsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketPredictionCommentsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A prediction market’s (or series’) discussion thread. Read only.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketPredictionCommentsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketPredictionCommentsWithHttpInfo() : ApiResponse<ListBuyerVaultMarketPredictionCommentsResponse?> {
+        val localVariableConfig = listBuyerVaultMarketPredictionCommentsRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketPredictionCommentsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketPredictionComments
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketPredictionCommentsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/predictions/comments",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * \&quot;Will it hit?\&quot; prediction markets on Crossly prices (filter by book key, index slug, kind, status, expiry or text): strike, expiry, best Yes bid and ask, last price and the probability (the market&#39;s own price, display only).
+    * 
+    * @return ListBuyerVaultMarketPredictionMarketsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketPredictionMarkets() : ListBuyerVaultMarketPredictionMarketsResponse {
+        val localVarResponse = listBuyerVaultMarketPredictionMarketsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketPredictionMarketsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * \&quot;Will it hit?\&quot; prediction markets on Crossly prices (filter by book key, index slug, kind, status, expiry or text): strike, expiry, best Yes bid and ask, last price and the probability (the market&#39;s own price, display only).
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketPredictionMarketsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketPredictionMarketsWithHttpInfo() : ApiResponse<ListBuyerVaultMarketPredictionMarketsResponse?> {
+        val localVariableConfig = listBuyerVaultMarketPredictionMarketsRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketPredictionMarketsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketPredictionMarkets
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketPredictionMarketsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/predictions/markets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your prediction positions (practice and live): side, contracts, cost, value at the last price, payout or refund once settled.
+    * 
+    * @return ListBuyerVaultMarketPredictionPositionsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketPredictionPositions() : ListBuyerVaultMarketPredictionPositionsResponse {
+        val localVarResponse = listBuyerVaultMarketPredictionPositionsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketPredictionPositionsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your prediction positions (practice and live): side, contracts, cost, value at the last price, payout or refund once settled.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketPredictionPositionsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketPredictionPositionsWithHttpInfo() : ApiResponse<ListBuyerVaultMarketPredictionPositionsResponse?> {
+        val localVariableConfig = listBuyerVaultMarketPredictionPositionsRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketPredictionPositionsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketPredictionPositions
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketPredictionPositionsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/predictions/positions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your recurring Vault Shares auto-invest plans.
+    * 
+    * @return ListBuyerVaultMarketShareAutoInvestResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketShareAutoInvest() : ListBuyerVaultMarketShareAutoInvestResponse {
+        val localVarResponse = listBuyerVaultMarketShareAutoInvestWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketShareAutoInvestResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your recurring Vault Shares auto-invest plans.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketShareAutoInvestResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketShareAutoInvestWithHttpInfo() : ApiResponse<ListBuyerVaultMarketShareAutoInvestResponse?> {
+        val localVariableConfig = listBuyerVaultMarketShareAutoInvestRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketShareAutoInvestResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketShareAutoInvest
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketShareAutoInvestRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/auto-invest",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Theme baskets: model portfolios of Vault Shares series you would own directly, never a fund.
+    * 
+    * @return ListBuyerVaultMarketShareBasketsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketShareBaskets() : ListBuyerVaultMarketShareBasketsResponse {
+        val localVarResponse = listBuyerVaultMarketShareBasketsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketShareBasketsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Theme baskets: model portfolios of Vault Shares series you would own directly, never a fund.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketShareBasketsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketShareBasketsWithHttpInfo() : ApiResponse<ListBuyerVaultMarketShareBasketsResponse?> {
+        val localVariableConfig = listBuyerVaultMarketShareBasketsRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketShareBasketsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketShareBaskets
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketShareBasketsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/baskets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Upcoming and open Vault Shares drops: phase, countdown, allocation (first come, pro-rata or lottery), your Crossly One early-access time (never a better price).
+    * 
+    * @return ListBuyerVaultMarketShareDropsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketShareDrops() : ListBuyerVaultMarketShareDropsResponse {
+        val localVarResponse = listBuyerVaultMarketShareDropsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketShareDropsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Upcoming and open Vault Shares drops: phase, countdown, allocation (first come, pro-rata or lottery), your Crossly One early-access time (never a better price).
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketShareDropsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketShareDropsWithHttpInfo() : ApiResponse<ListBuyerVaultMarketShareDropsResponse?> {
+        val localVariableConfig = listBuyerVaultMarketShareDropsRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketShareDropsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketShareDrops
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketShareDropsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/drops",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Vault Shares gifts you sent or were offered.
+    * 
+    * @return ListBuyerVaultMarketShareGiftsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketShareGifts() : ListBuyerVaultMarketShareGiftsResponse {
+        val localVarResponse = listBuyerVaultMarketShareGiftsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketShareGiftsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Vault Shares gifts you sent or were offered.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketShareGiftsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketShareGiftsWithHttpInfo() : ApiResponse<ListBuyerVaultMarketShareGiftsResponse?> {
+        val localVariableConfig = listBuyerVaultMarketShareGiftsRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketShareGiftsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketShareGifts
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketShareGiftsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/gifts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Vault Shares series: open offerings first, then trading. Terms, progress, last share price and implied item value, and your holding.
+    * 
+    * @return ListBuyerVaultMarketShareSeriesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerVaultMarketShareSeries() : ListBuyerVaultMarketShareSeriesResponse {
+        val localVarResponse = listBuyerVaultMarketShareSeriesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerVaultMarketShareSeriesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Vault Shares series: open offerings first, then trading. Terms, progress, last share price and implied item value, and your holding.
+    * 
+    * @return ApiResponse<ListBuyerVaultMarketShareSeriesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerVaultMarketShareSeriesWithHttpInfo() : ApiResponse<ListBuyerVaultMarketShareSeriesResponse?> {
+        val localVariableConfig = listBuyerVaultMarketShareSeriesRequestConfig()
+
+        return request<Unit, ListBuyerVaultMarketShareSeriesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerVaultMarketShareSeries
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerVaultMarketShareSeriesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/vault-markets/shares/series",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * The book keys you watch, with mark and its quality, 24 h and 7 d change, and the last 30 daily marks.
     * 
     * @return ListBuyerVaultMarketWatchlistResponse
@@ -14950,6 +20137,609 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/buyer/video-requests",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The perks your wallets unlock: each Collection holders deal (a shop’s percent off for holders of a collection) and creator shop perk on a collection a linked wallet or your Crossly wallet holds, best first. Checkout applies the best one; perks never stack with each other.
+    * 
+    * @return ListBuyerWalletPerksResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWalletPerks() : ListBuyerWalletPerksResponse {
+        val localVarResponse = listBuyerWalletPerksWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerWalletPerksResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The perks your wallets unlock: each Collection holders deal (a shop’s percent off for holders of a collection) and creator shop perk on a collection a linked wallet or your Crossly wallet holds, best first. Checkout applies the best one; perks never stack with each other.
+    * 
+    * @return ApiResponse<ListBuyerWalletPerksResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWalletPerksWithHttpInfo() : ApiResponse<ListBuyerWalletPerksResponse?> {
+        val localVariableConfig = listBuyerWalletPerksRequestConfig()
+
+        return request<Unit, ListBuyerWalletPerksResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWalletPerks
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWalletPerksRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wallet/perks",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Upcoming and live trade drops open to you: drops sellers release only to their approved trade buyers or to a catalog audience. kind prebook &#x3D; reserve quantity now with a deposit (depositBps) at checkout; the balance is invoiced when the seller releases the stock.
+    * 
+    * @return ListBuyerWholesaleDropsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWholesaleDrops() : ListBuyerWholesaleDropsResponse {
+        val localVarResponse = listBuyerWholesaleDropsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerWholesaleDropsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Upcoming and live trade drops open to you: drops sellers release only to their approved trade buyers or to a catalog audience. kind prebook &#x3D; reserve quantity now with a deposit (depositBps) at checkout; the balance is invoiced when the seller releases the stock.
+    * 
+    * @return ApiResponse<ListBuyerWholesaleDropsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWholesaleDropsWithHttpInfo() : ApiResponse<ListBuyerWholesaleDropsResponse?> {
+        val localVariableConfig = listBuyerWholesaleDropsRequestConfig()
+
+        return request<Unit, ListBuyerWholesaleDropsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWholesaleDrops
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWholesaleDropsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/drops",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your freight (LTL) quote requests to sellers, with the seller&#39;s figure in cents once quoted.
+    * 
+    * @return BuyerResponse3
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWholesaleFreightRequests() : BuyerResponse3 {
+        val localVarResponse = listBuyerWholesaleFreightRequestsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse3
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your freight (LTL) quote requests to sellers, with the seller&#39;s figure in cents once quoted.
+    * 
+    * @return ApiResponse<BuyerResponse3?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWholesaleFreightRequestsWithHttpInfo() : ApiResponse<BuyerResponse3?> {
+        val localVariableConfig = listBuyerWholesaleFreightRequestsRequestConfig()
+
+        return request<Unit, BuyerResponse3>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWholesaleFreightRequests
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWholesaleFreightRequestsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/freight-requests",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your saved wholesale order sheets (one seller each), newest first.
+    * 
+    * @return BuyerResponse3
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWholesaleOrderSheets() : BuyerResponse3 {
+        val localVarResponse = listBuyerWholesaleOrderSheetsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse3
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your saved wholesale order sheets (one seller each), newest first.
+    * 
+    * @return ApiResponse<BuyerResponse3?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWholesaleOrderSheetsWithHttpInfo() : ApiResponse<BuyerResponse3?> {
+        val localVariableConfig = listBuyerWholesaleOrderSheetsRequestConfig()
+
+        return request<Unit, BuyerResponse3>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWholesaleOrderSheets
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWholesaleOrderSheetsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/order-sheets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your past wholesale orders (trade-priced or on account), newest first — the starting point for reorder.
+    * 
+    * @return BuyerResponse3
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWholesaleOrders() : BuyerResponse3 {
+        val localVarResponse = listBuyerWholesaleOrdersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse3
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your past wholesale orders (trade-priced or on account), newest first — the starting point for reorder.
+    * 
+    * @return ApiResponse<BuyerResponse3?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWholesaleOrdersWithHttpInfo() : ApiResponse<BuyerResponse3?> {
+        val localVariableConfig = listBuyerWholesaleOrdersRequestConfig()
+
+        return request<Unit, BuyerResponse3>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWholesaleOrders
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWholesaleOrdersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your pre-books: the drop, item, quantity, deposit paid, balance, status (awaiting_release, invoiced, paid, cancelled, failed) and the balance invoice once the seller released the stock.
+    * 
+    * @return ListBuyerWholesalePrebooksResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWholesalePrebooks() : ListBuyerWholesalePrebooksResponse {
+        val localVarResponse = listBuyerWholesalePrebooksWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerWholesalePrebooksResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your pre-books: the drop, item, quantity, deposit paid, balance, status (awaiting_release, invoiced, paid, cancelled, failed) and the balance invoice once the seller released the stock.
+    * 
+    * @return ApiResponse<ListBuyerWholesalePrebooksResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWholesalePrebooksWithHttpInfo() : ApiResponse<ListBuyerWholesalePrebooksResponse?> {
+        val localVariableConfig = listBuyerWholesalePrebooksRequestConfig()
+
+        return request<Unit, ListBuyerWholesalePrebooksResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWholesalePrebooks
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWholesalePrebooksRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/prebooks",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your requests for a quote (RFQ) to wholesale sellers. ?status&#x3D;open|all|requested|answered|accepted|declined|withdrawn|expired. An answered or accepted quote past expiresAt reads expired.
+    * 
+    * @return BuyerResponse3
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWholesaleQuotes() : BuyerResponse3 {
+        val localVarResponse = listBuyerWholesaleQuotesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse3
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your requests for a quote (RFQ) to wholesale sellers. ?status&#x3D;open|all|requested|answered|accepted|declined|withdrawn|expired. An answered or accepted quote past expiresAt reads expired.
+    * 
+    * @return ApiResponse<BuyerResponse3?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWholesaleQuotesWithHttpInfo() : ApiResponse<BuyerResponse3?> {
+        val localVariableConfig = listBuyerWholesaleQuotesRequestConfig()
+
+        return request<Unit, BuyerResponse3>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWholesaleQuotes
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWholesaleQuotesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/quotes",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your open trade balances per seller in aging buckets (current, 1-30, 31-60, 61-90, 90+ days past due), with the invoices behind them.
+    * 
+    * @return BuyerResponse3
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWholesaleStatement() : BuyerResponse3 {
+        val localVarResponse = listBuyerWholesaleStatementWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse3
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your open trade balances per seller in aging buckets (current, 1-30, 31-60, 61-90, 90+ days past due), with the invoices behind them.
+    * 
+    * @return ApiResponse<BuyerResponse3?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWholesaleStatementWithHttpInfo() : ApiResponse<BuyerResponse3?> {
+        val localVariableConfig = listBuyerWholesaleStatementRequestConfig()
+
+        return request<Unit, BuyerResponse3>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWholesaleStatement
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWholesaleStatementRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/statement",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The sellers you trade with: catalogs you can open, your terms (net days, credit limit, discount), customer groups, and what you owe each.
+    * 
+    * @return BuyerResponse3
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listBuyerWholesaleSuppliers() : BuyerResponse3 {
+        val localVarResponse = listBuyerWholesaleSuppliersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerResponse3
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The sellers you trade with: catalogs you can open, your terms (net days, credit limit, discount), customer groups, and what you owe each.
+    * 
+    * @return ApiResponse<BuyerResponse3?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listBuyerWholesaleSuppliersWithHttpInfo() : ApiResponse<BuyerResponse3?> {
+        val localVariableConfig = listBuyerWholesaleSuppliersRequestConfig()
+
+        return request<Unit, BuyerResponse3>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listBuyerWholesaleSuppliers
+    *
+    * @return RequestConfig
+    */
+    fun listBuyerWholesaleSuppliersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/buyer/wholesale/suppliers",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -15371,6 +21161,298 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Rename the company or change its tax id / website (owner).
+    * 
+    * @return BuyerCompanyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerCompany() : BuyerCompanyResponse {
+        val localVarResponse = updateBuyerCompanyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerCompanyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Rename the company or change its tax id / website (owner).
+    * 
+    * @return ApiResponse<BuyerCompanyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerCompanyWithHttpInfo() : ApiResponse<BuyerCompanyResponse?> {
+        val localVariableConfig = updateBuyerCompanyRequestConfig()
+
+        return request<Unit, BuyerCompanyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerCompany
+    *
+    * @return RequestConfig
+    */
+    fun updateBuyerCompanyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/buyer/company",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Replace the shared address book (owner): addresses [{ id, label, name, line1, line2?, city, region, postalCode, country, phone?, isDefault? }], at most 20.
+    * 
+    * @return BuyerCompanyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerCompanyAddress() : BuyerCompanyResponse {
+        val localVarResponse = updateBuyerCompanyAddressWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerCompanyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Replace the shared address book (owner): addresses [{ id, label, name, line1, line2?, city, region, postalCode, country, phone?, isDefault? }], at most 20.
+    * 
+    * @return ApiResponse<BuyerCompanyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerCompanyAddressWithHttpInfo() : ApiResponse<BuyerCompanyResponse?> {
+        val localVariableConfig = updateBuyerCompanyAddressRequestConfig()
+
+        return request<Unit, BuyerCompanyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerCompanyAddress
+    *
+    * @return RequestConfig
+    */
+    fun updateBuyerCompanyAddressRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/buyer/company/addresses",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Change a member&#39;s role or approval limit (owner). The last owner stays an owner.
+    * 
+    * @param id  
+    * @return BuyerCompanyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerCompanyMember(id: kotlin.String) : BuyerCompanyResponse {
+        val localVarResponse = updateBuyerCompanyMemberWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerCompanyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Change a member&#39;s role or approval limit (owner). The last owner stays an owner.
+    * 
+    * @param id  
+    * @return ApiResponse<BuyerCompanyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerCompanyMemberWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerCompanyResponse?> {
+        val localVariableConfig = updateBuyerCompanyMemberRequestConfig(id = id)
+
+        return request<Unit, BuyerCompanyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerCompanyMember
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateBuyerCompanyMemberRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/buyer/company/members/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter format
+     */
+     enum class Format_updateBuyerCreationReview(val value: kotlin.String) {
+         @Json(name = "wearable") WEARABLE("wearable"),
+         @Json(name = "decor") DECOR("decor"),
+         @Json(name = "interactive") INTERACTIVE("interactive"),
+         @Json(name = "card") CARD("card"),
+         ;
+     }
+
+    /**
+    * Review a creation you bought (or change your review): 1-5 stars and an optional comment.
+    * Only a buyer of it may review it (a bought copy, or a pack that held the card). One review per creation; a second call replaces it. The comment is moderated.
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @param updateBuyerCreationReviewRequest  
+    * @return UpdateBuyerCreationReviewResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerCreationReview(format: Format_updateBuyerCreationReview, id: kotlin.String, updateBuyerCreationReviewRequest: UpdateBuyerCreationReviewRequest) : UpdateBuyerCreationReviewResponse {
+        val localVarResponse = updateBuyerCreationReviewWithHttpInfo(format = format, id = id, updateBuyerCreationReviewRequest = updateBuyerCreationReviewRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateBuyerCreationReviewResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Review a creation you bought (or change your review): 1-5 stars and an optional comment.
+    * Only a buyer of it may review it (a bought copy, or a pack that held the card). One review per creation; a second call replaces it. The comment is moderated.
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @param updateBuyerCreationReviewRequest  
+    * @return ApiResponse<UpdateBuyerCreationReviewResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerCreationReviewWithHttpInfo(format: Format_updateBuyerCreationReview, id: kotlin.String, updateBuyerCreationReviewRequest: UpdateBuyerCreationReviewRequest) : ApiResponse<UpdateBuyerCreationReviewResponse?> {
+        val localVariableConfig = updateBuyerCreationReviewRequestConfig(format = format, id = id, updateBuyerCreationReviewRequest = updateBuyerCreationReviewRequest)
+
+        return request<UpdateBuyerCreationReviewRequest, UpdateBuyerCreationReviewResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerCreationReview
+    *
+    * @param format The creation format. 
+    * @param id The creation id (a card is &lt;setId&gt;.&lt;slug&gt;). 
+    * @param updateBuyerCreationReviewRequest  
+    * @return RequestConfig
+    */
+    fun updateBuyerCreationReviewRequestConfig(format: Format_updateBuyerCreationReview, id: kotlin.String, updateBuyerCreationReviewRequest: UpdateBuyerCreationReviewRequest) : RequestConfig<UpdateBuyerCreationReviewRequest> {
+        val localVariableBody = updateBuyerCreationReviewRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/buyer/creations/{format}/{id}/review".replace("{"+"format"+"}", "$format").replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Revise feedback you left, within 60 days.
     * Replaces the stars and comment; detailed ratings you omit stay as they were.
     * @param id The id. 
@@ -15445,6 +21527,207 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
+    * 
+    * @return BuyerHomeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerHome() : BuyerHomeResponse {
+        val localVarResponse = updateBuyerHomeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerHomeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Who may walk in (privacy), the lighting (theme), wallpaper/floor/mood decor and whether visitors see your vault wall values.
+    * 
+    * @return ApiResponse<BuyerHomeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerHomeWithHttpInfo() : ApiResponse<BuyerHomeResponse?> {
+        val localVariableConfig = updateBuyerHomeRequestConfig()
+
+        return request<Unit, BuyerHomeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerHome
+    *
+    * @return RequestConfig
+    */
+    fun updateBuyerHomeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/buyer/home",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Set your co-builders (friends only, at most 4).
+    * 
+    * @return ListBuyerHomeBuildersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerHomeBuilder() : ListBuyerHomeBuildersResponse {
+        val localVarResponse = updateBuyerHomeBuilderWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListBuyerHomeBuildersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set your co-builders (friends only, at most 4).
+    * 
+    * @return ApiResponse<ListBuyerHomeBuildersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerHomeBuilderWithHttpInfo() : ApiResponse<ListBuyerHomeBuildersResponse?> {
+        val localVariableConfig = updateBuyerHomeBuilderRequestConfig()
+
+        return request<Unit, ListBuyerHomeBuildersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerHomeBuilder
+    *
+    * @return RequestConfig
+    */
+    fun updateBuyerHomeBuilderRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/buyer/home/builders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Arrange your home: the whole layout, checked against what you own.
+    * 
+    * @return BuyerHomeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerHomeLayout() : BuyerHomeResponse {
+        val localVarResponse = updateBuyerHomeLayoutWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerHomeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Arrange your home: the whole layout, checked against what you own.
+    * 
+    * @return ApiResponse<BuyerHomeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerHomeLayoutWithHttpInfo() : ApiResponse<BuyerHomeResponse?> {
+        val localVariableConfig = updateBuyerHomeLayoutRequestConfig()
+
+        return request<Unit, BuyerHomeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerHomeLayout
+    *
+    * @return RequestConfig
+    */
+    fun updateBuyerHomeLayoutRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/buyer/home/layout",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Pause, resume or stop a hunt.
     * 
     * @param id  
@@ -15508,6 +21791,76 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.PATCH,
             path = "/v1/buyer/hunts/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Make one of your saved cards the default.
+    * The default is the card express checkout offers first. Only your own saved card: any other id is a 404.
+    * @param id  
+    * @return UpdateBuyerPaymentMethodDefaultResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerPaymentMethodDefault(id: kotlin.String) : UpdateBuyerPaymentMethodDefaultResponse {
+        val localVarResponse = updateBuyerPaymentMethodDefaultWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateBuyerPaymentMethodDefaultResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Make one of your saved cards the default.
+    * The default is the card express checkout offers first. Only your own saved card: any other id is a 404.
+    * @param id  
+    * @return ApiResponse<UpdateBuyerPaymentMethodDefaultResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerPaymentMethodDefaultWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateBuyerPaymentMethodDefaultResponse?> {
+        val localVariableConfig = updateBuyerPaymentMethodDefaultRequestConfig(id = id)
+
+        return request<Unit, UpdateBuyerPaymentMethodDefaultResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerPaymentMethodDefault
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateBuyerPaymentMethodDefaultRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/buyer/payment-methods/{id}/default".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -15791,6 +22144,143 @@ class BuyerApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.PATCH,
             path = "/v1/buyer/subscriptions/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Set the PO reference for one seller&#39;s group of your cart: { sellerUserId, poReference } (empty clears it).
+    * 
+    * @return UpdateBuyerWholesaleCartPoResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerWholesaleCartPo() : UpdateBuyerWholesaleCartPoResponse {
+        val localVarResponse = updateBuyerWholesaleCartPoWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateBuyerWholesaleCartPoResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set the PO reference for one seller&#39;s group of your cart: { sellerUserId, poReference } (empty clears it).
+    * 
+    * @return ApiResponse<UpdateBuyerWholesaleCartPoResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerWholesaleCartPoWithHttpInfo() : ApiResponse<UpdateBuyerWholesaleCartPoResponse?> {
+        val localVariableConfig = updateBuyerWholesaleCartPoRequestConfig()
+
+        return request<Unit, UpdateBuyerWholesaleCartPoResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerWholesaleCartPo
+    *
+    * @return RequestConfig
+    */
+    fun updateBuyerWholesaleCartPoRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/buyer/wholesale/cart/po",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Rename an order sheet, change its PO reference or note, or replace its lines.
+    * 
+    * @param id  
+    * @return BuyerWholesaleOrderSheetResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBuyerWholesaleOrderSheet(id: kotlin.String) : BuyerWholesaleOrderSheetResponse {
+        val localVarResponse = updateBuyerWholesaleOrderSheetWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as BuyerWholesaleOrderSheetResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Rename an order sheet, change its PO reference or note, or replace its lines.
+    * 
+    * @param id  
+    * @return ApiResponse<BuyerWholesaleOrderSheetResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBuyerWholesaleOrderSheetWithHttpInfo(id: kotlin.String) : ApiResponse<BuyerWholesaleOrderSheetResponse?> {
+        val localVariableConfig = updateBuyerWholesaleOrderSheetRequestConfig(id = id)
+
+        return request<Unit, BuyerWholesaleOrderSheetResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBuyerWholesaleOrderSheet
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateBuyerWholesaleOrderSheetRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/buyer/wholesale/order-sheets/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

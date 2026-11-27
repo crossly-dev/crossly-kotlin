@@ -31,14 +31,14 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param updatedAt 
- * @param quantity 
  * @param status 
+ * @param quantity 
  * @param currency 
  * @param kind 
+ * @param marketplace 
  * @param chain 
  * @param contract 
  * @param orderHash 
- * @param marketplace 
  * @param maker 
  * @param priceWei 
  * @param startTime 
@@ -48,14 +48,15 @@ import com.squareup.moshi.Json
  * @param inventoryItemId 
  * @param bundle 
  * @param lastCheckedAt 
+ * @param storefrontId 
+ * @param tokenId 
  * @param externalUrl 
  * @param walletId 
- * @param tokenId 
- * @param collectionName 
  * @param endPriceWei 
  * @param statusReason 
  * @param itemName 
  * @param itemImage 
+ * @param collectionName 
  * @param taker 
  * @param filledTx 
  * @param filledAt 
@@ -74,17 +75,20 @@ data class CreateWeb3OrderResponseOrder (
     @Json(name = "updatedAt")
     val updatedAt: java.time.OffsetDateTime,
 
-    @Json(name = "quantity")
-    val quantity: java.math.BigDecimal,
-
     @Json(name = "status")
     val status: CreateWeb3OrderResponseOrder.Status,
+
+    @Json(name = "quantity")
+    val quantity: java.math.BigDecimal,
 
     @Json(name = "currency")
     val currency: kotlin.String,
 
     @Json(name = "kind")
     val kind: CreateWeb3OrderResponseOrder.Kind,
+
+    @Json(name = "marketplace")
+    val marketplace: kotlin.String,
 
     @Json(name = "chain")
     val chain: kotlin.String,
@@ -94,9 +98,6 @@ data class CreateWeb3OrderResponseOrder (
 
     @Json(name = "orderHash")
     val orderHash: kotlin.String,
-
-    @Json(name = "marketplace")
-    val marketplace: kotlin.String,
 
     @Json(name = "maker")
     val maker: kotlin.String,
@@ -125,17 +126,17 @@ data class CreateWeb3OrderResponseOrder (
     @Json(name = "lastCheckedAt")
     val lastCheckedAt: java.time.OffsetDateTime? = null,
 
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
+
+    @Json(name = "tokenId")
+    val tokenId: kotlin.String? = null,
+
     @Json(name = "externalUrl")
     val externalUrl: kotlin.String? = null,
 
     @Json(name = "walletId")
     val walletId: kotlin.String? = null,
-
-    @Json(name = "tokenId")
-    val tokenId: kotlin.String? = null,
-
-    @Json(name = "collectionName")
-    val collectionName: kotlin.String? = null,
 
     @Json(name = "endPriceWei")
     val endPriceWei: kotlin.String? = null,
@@ -148,6 +149,9 @@ data class CreateWeb3OrderResponseOrder (
 
     @Json(name = "itemImage")
     val itemImage: kotlin.String? = null,
+
+    @Json(name = "collectionName")
+    val collectionName: kotlin.String? = null,
 
     @Json(name = "taker")
     val taker: kotlin.String? = null,
@@ -169,25 +173,25 @@ data class CreateWeb3OrderResponseOrder (
     /**
      * 
      *
-     * Values: OPEN,FILLED,CANCELLED,EXPIRED,INVALID
+     * Values: CANCELLED,OPEN,EXPIRED,FILLED,INVALID
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "open") OPEN("open"),
-        @Json(name = "filled") FILLED("filled"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "open") OPEN("open"),
         @Json(name = "expired") EXPIRED("expired"),
+        @Json(name = "filled") FILLED("filled"),
         @Json(name = "invalid") INVALID("invalid");
     }
     /**
      * 
      *
-     * Values: BUNDLE,LISTING,PRIVATE_LISTING,OFFER,COLLECTION_OFFER,TRAIT_OFFER
+     * Values: BUNDLE,OFFER,LISTING,PRIVATE_LISTING,COLLECTION_OFFER,TRAIT_OFFER
      */
     enum class Kind(val value: kotlin.String) {
         @Json(name = "bundle") BUNDLE("bundle"),
+        @Json(name = "offer") OFFER("offer"),
         @Json(name = "listing") LISTING("listing"),
         @Json(name = "private_listing") PRIVATE_LISTING("private_listing"),
-        @Json(name = "offer") OFFER("offer"),
         @Json(name = "collection_offer") COLLECTION_OFFER("collection_offer"),
         @Json(name = "trait_offer") TRAIT_OFFER("trait_offer");
     }

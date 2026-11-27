@@ -43,16 +43,36 @@ import com.squareup.moshi.Json
  * @param conditionPhotosOut 
  * @param conditionPhotosIn 
  * @param depositRefundedCents 
+ * @param unit 
+ * @param fulfilment 
+ * @param cleaningFeeCents 
+ * @param damageWaiver 
+ * @param damageWaiverCents 
+ * @param lateFeeCents 
+ * @param rentRefundedCents 
+ * @param charges 
+ * @param conditionPhotosReturn 
  * @param shippedAt 
  * @param returnedAt 
  * @param closedAt 
  * @param shipTo 
+ * @param platformListingId 
+ * @param payoutTiming 
+ * @param payoutReleasedAt 
+ * @param orderId 
+ * @param crosslyFeeCents 
  * @param slug 
  * @param outboundTracking 
  * @param returnTracking 
  * @param labelUrl 
  * @param claimNote 
  * @param approvalDueAt 
+ * @param buyoutCents 
+ * @param approvedAt 
+ * @param deliveredAt 
+ * @param returnShippedAt 
+ * @param inspectedAt 
+ * @param boughtOutAt 
  */
 
 data class ListBuyerRentalsItem (
@@ -108,6 +128,33 @@ data class ListBuyerRentalsItem (
     @Json(name = "depositRefundedCents")
     val depositRefundedCents: java.math.BigDecimal,
 
+    @Json(name = "unit")
+    val unit: java.math.BigDecimal,
+
+    @Json(name = "fulfilment")
+    val fulfilment: kotlin.String,
+
+    @Json(name = "cleaningFeeCents")
+    val cleaningFeeCents: java.math.BigDecimal,
+
+    @Json(name = "damageWaiver")
+    val damageWaiver: kotlin.Boolean,
+
+    @Json(name = "damageWaiverCents")
+    val damageWaiverCents: java.math.BigDecimal,
+
+    @Json(name = "lateFeeCents")
+    val lateFeeCents: java.math.BigDecimal,
+
+    @Json(name = "rentRefundedCents")
+    val rentRefundedCents: java.math.BigDecimal,
+
+    @Json(name = "charges")
+    val charges: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
+    @Json(name = "conditionPhotosReturn")
+    val conditionPhotosReturn: kotlin.collections.List<kotlin.String>,
+
     @Json(name = "shippedAt")
     val shippedAt: kotlin.String? = null,
 
@@ -119,6 +166,21 @@ data class ListBuyerRentalsItem (
 
     @Json(name = "shipTo")
     val shipTo: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @Json(name = "platformListingId")
+    val platformListingId: kotlin.String? = null,
+
+    @Json(name = "payoutTiming")
+    val payoutTiming: kotlin.String? = null,
+
+    @Json(name = "payoutReleasedAt")
+    val payoutReleasedAt: kotlin.String? = null,
+
+    @Json(name = "orderId")
+    val orderId: kotlin.String? = null,
+
+    @Json(name = "crosslyFeeCents")
+    val crosslyFeeCents: java.math.BigDecimal? = null,
 
     @Json(name = "slug")
     val slug: kotlin.String? = null,
@@ -136,7 +198,25 @@ data class ListBuyerRentalsItem (
     val claimNote: kotlin.String? = null,
 
     @Json(name = "approvalDueAt")
-    val approvalDueAt: kotlin.String? = null
+    val approvalDueAt: kotlin.String? = null,
+
+    @Json(name = "buyoutCents")
+    val buyoutCents: java.math.BigDecimal? = null,
+
+    @Json(name = "approvedAt")
+    val approvedAt: kotlin.String? = null,
+
+    @Json(name = "deliveredAt")
+    val deliveredAt: kotlin.String? = null,
+
+    @Json(name = "returnShippedAt")
+    val returnShippedAt: kotlin.String? = null,
+
+    @Json(name = "inspectedAt")
+    val inspectedAt: kotlin.String? = null,
+
+    @Json(name = "boughtOutAt")
+    val boughtOutAt: kotlin.String? = null
 
 )
 

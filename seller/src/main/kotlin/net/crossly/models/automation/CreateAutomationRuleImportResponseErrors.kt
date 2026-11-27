@@ -36,7 +36,7 @@ data class CreateAutomationRuleImportResponseErrors (
     val name: kotlin.String,
 
     @Json(name = "errors")
-    val errors: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>
+    val errors: kotlin.collections.List<kotlin.Any>
 
 )
 

@@ -30,13 +30,13 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param name 
- * @param endsAt 
  * @param code 
+ * @param name 
+ * @param isHost 
+ * @param endsAt 
  * @param members 
  * @param items 
  * @param messages 
- * @param isHost 
  */
 
 data class GetBuyerTogetherResponseData (
@@ -44,14 +44,17 @@ data class GetBuyerTogetherResponseData (
     @Json(name = "id")
     val id: kotlin.String,
 
+    @Json(name = "code")
+    val code: kotlin.String,
+
     @Json(name = "name")
     val name: kotlin.String,
 
+    @Json(name = "isHost")
+    val isHost: kotlin.Boolean,
+
     @Json(name = "endsAt")
     val endsAt: kotlin.String,
-
-    @Json(name = "code")
-    val code: kotlin.String,
 
     @Json(name = "members")
     val members: kotlin.collections.List<GetBuyerTogetherResponseDataMembers>,
@@ -60,10 +63,7 @@ data class GetBuyerTogetherResponseData (
     val items: kotlin.collections.List<GetBuyerTogetherResponseDataItems>,
 
     @Json(name = "messages")
-    val messages: kotlin.collections.List<GetBuyerTogetherResponseDataMessages>,
-
-    @Json(name = "isHost")
-    val isHost: kotlin.Boolean
+    val messages: kotlin.collections.List<GetBuyerTogetherResponseDataMessages>
 
 )
 

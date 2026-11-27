@@ -79,12 +79,12 @@ data class ListWeb3ActivityItem (
     /**
      * 
      *
-     * Values: LISTING,OFFER,SALE,CANCEL
+     * Values: SALE,OFFER,LISTING,CANCEL
      */
     enum class Event(val value: kotlin.String) {
-        @Json(name = "listing") LISTING("listing"),
-        @Json(name = "offer") OFFER("offer"),
         @Json(name = "sale") SALE("sale"),
+        @Json(name = "offer") OFFER("offer"),
+        @Json(name = "listing") LISTING("listing"),
         @Json(name = "cancel") CANCEL("cancel");
     }
 }

@@ -22,15 +22,21 @@ package net.crossly.apis
 
 import java.io.IOException
 
-import net.crossly.models.grading.CreateGradingSubmissionResultResponse
 import net.crossly.models.grading.CreateGradingVerifyCertResponse
+import net.crossly.models.vault.CreateVaultMarketGradingOrderPayResponse
+import net.crossly.models.vault.CreateVaultMarketGradingOrderResponse
 import net.crossly.models.common.Error
+import net.crossly.models.grading.GetGradingPriceBookResponse
 import net.crossly.models.grading.GetGradingWorthResponse
+import net.crossly.models.vault.GetVaultMarketGradingOrderResponse
 import net.crossly.models.common.IdResponse
 import net.crossly.models.grading.ListGradingRateCardResponse
 import net.crossly.models.grading.ListGradingRunsResponse
 import net.crossly.models.grading.ListGradingSubmissionsResponse
+import net.crossly.models.vault.ListVaultMarketGradingCandidatesResponse
+import net.crossly.models.vault.ListVaultMarketGradingOrdersResponse
 import net.crossly.models.common.OkResponse
+import net.crossly.models.common.StatusResponse
 
 import com.squareup.moshi.Json
 
@@ -53,73 +59,6 @@ class GradingApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         val defaultBasePath: String by lazy {
             System.getProperties().getProperty(ApiClient.baseUrlKey, "https://crossly.net/api")
         }
-    }
-
-    /**
-    * Track a card you sent on your own grader account (Direct). Crossly takes no money; it verifies the cert when it comes back.
-    * 
-    * @return IdResponse
-    * @throws IllegalStateException If the request is not correctly configured
-    * @throws IOException Rethrows the OkHttp execute method exception
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createGradingDirect() : IdResponse {
-        val localVarResponse = createGradingDirectWithHttpInfo()
-
-        return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as IdResponse
-            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
-            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
-            ResponseType.ClientError -> {
-                val localVarError = localVarResponse as ClientError<*>
-                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-            ResponseType.ServerError -> {
-                val localVarError = localVarResponse as ServerError<*>
-                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-        }
-    }
-
-    /**
-    * Track a card you sent on your own grader account (Direct). Crossly takes no money; it verifies the cert when it comes back.
-    * 
-    * @return ApiResponse<IdResponse?>
-    * @throws IllegalStateException If the request is not correctly configured
-    * @throws IOException Rethrows the OkHttp execute method exception
-    */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class)
-    fun createGradingDirectWithHttpInfo() : ApiResponse<IdResponse?> {
-        val localVariableConfig = createGradingDirectRequestConfig()
-
-        return request<Unit, IdResponse>(
-            localVariableConfig
-        )
-    }
-
-    /**
-    * To obtain the request config of the operation createGradingDirect
-    *
-    * @return RequestConfig
-    */
-    fun createGradingDirectRequestConfig() : RequestConfig<Unit> {
-        val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
-        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        localVariableHeaders["Accept"] = "application/json"
-
-        return RequestConfig(
-            method = RequestMethod.POST,
-            path = "/v1/grading/direct",
-            query = localVariableQuery,
-            headers = localVariableHeaders,
-            body = localVariableBody
-        )
     }
 
     /**
@@ -256,76 +195,6 @@ class GradingApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/grading/submissions/{id}/cancel".replace("{"+"id"+"}", "$id"),
-            query = localVariableQuery,
-            headers = localVariableHeaders,
-            body = localVariableBody
-        )
-    }
-
-    /**
-    * Direct only: enter the grade that came back. Writes it to the item and its listings, verified when the cert agrees.
-    * 
-    * @param id  
-    * @return CreateGradingSubmissionResultResponse
-    * @throws IllegalStateException If the request is not correctly configured
-    * @throws IOException Rethrows the OkHttp execute method exception
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createGradingSubmissionResult(id: kotlin.String) : CreateGradingSubmissionResultResponse {
-        val localVarResponse = createGradingSubmissionResultWithHttpInfo(id = id)
-
-        return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateGradingSubmissionResultResponse
-            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
-            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
-            ResponseType.ClientError -> {
-                val localVarError = localVarResponse as ClientError<*>
-                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-            ResponseType.ServerError -> {
-                val localVarError = localVarResponse as ServerError<*>
-                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-        }
-    }
-
-    /**
-    * Direct only: enter the grade that came back. Writes it to the item and its listings, verified when the cert agrees.
-    * 
-    * @param id  
-    * @return ApiResponse<CreateGradingSubmissionResultResponse?>
-    * @throws IllegalStateException If the request is not correctly configured
-    * @throws IOException Rethrows the OkHttp execute method exception
-    */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class)
-    fun createGradingSubmissionResultWithHttpInfo(id: kotlin.String) : ApiResponse<CreateGradingSubmissionResultResponse?> {
-        val localVariableConfig = createGradingSubmissionResultRequestConfig(id = id)
-
-        return request<Unit, CreateGradingSubmissionResultResponse>(
-            localVariableConfig
-        )
-    }
-
-    /**
-    * To obtain the request config of the operation createGradingSubmissionResult
-    *
-    * @param id  
-    * @return RequestConfig
-    */
-    fun createGradingSubmissionResultRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
-        val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
-        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        localVariableHeaders["Accept"] = "application/json"
-
-        return RequestConfig(
-            method = RequestMethod.POST,
-            path = "/v1/grading/submissions/{id}/result".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -470,6 +339,350 @@ class GradingApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
+    * 
+    * @return CreateVaultMarketGradingOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketGradingOrder() : CreateVaultMarketGradingOrderResponse {
+        val localVarResponse = createVaultMarketGradingOrderWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketGradingOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
+    * 
+    * @return ApiResponse<CreateVaultMarketGradingOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketGradingOrderWithHttpInfo() : ApiResponse<CreateVaultMarketGradingOrderResponse?> {
+        val localVariableConfig = createVaultMarketGradingOrderRequestConfig()
+
+        return request<Unit, CreateVaultMarketGradingOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketGradingOrder
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketGradingOrderRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/grading/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel a draft submission; its vault units go back on their shelf. A paid submission cannot be cancelled here.
+    * 
+    * @param id  
+    * @return StatusResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketGradingOrderCancel(id: kotlin.String) : StatusResponse {
+        val localVarResponse = createVaultMarketGradingOrderCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as StatusResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel a draft submission; its vault units go back on their shelf. A paid submission cannot be cancelled here.
+    * 
+    * @param id  
+    * @return ApiResponse<StatusResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketGradingOrderCancelWithHttpInfo(id: kotlin.String) : ApiResponse<StatusResponse?> {
+        val localVariableConfig = createVaultMarketGradingOrderCancelRequestConfig(id = id)
+
+        return request<Unit, StatusResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketGradingOrderCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketGradingOrderCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/grading/orders/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
+    * 
+    * @param id  
+    * @return CreateVaultMarketGradingOrderPayResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketGradingOrderPay(id: kotlin.String) : CreateVaultMarketGradingOrderPayResponse {
+        val localVarResponse = createVaultMarketGradingOrderPayWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketGradingOrderPayResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketGradingOrderPayResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketGradingOrderPayWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketGradingOrderPayResponse?> {
+        val localVariableConfig = createVaultMarketGradingOrderPayRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketGradingOrderPayResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketGradingOrderPay
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketGradingOrderPayRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/grading/orders/{id}/pay".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
+    * 
+    * @param id  
+    * @return StatusResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketGradingOrderPayConfirm(id: kotlin.String) : StatusResponse {
+        val localVarResponse = createVaultMarketGradingOrderPayConfirmWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as StatusResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
+    * 
+    * @param id  
+    * @return ApiResponse<StatusResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketGradingOrderPayConfirmWithHttpInfo(id: kotlin.String) : ApiResponse<StatusResponse?> {
+        val localVariableConfig = createVaultMarketGradingOrderPayConfirmRequestConfig(id = id)
+
+        return request<Unit, StatusResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketGradingOrderPayConfirm
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketGradingOrderPayConfirmRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/grading/orders/{id}/pay/confirm".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The grading price book: every grader, its services (per-card price, minimum cards, max declared value, turnaround) and add-ons, plus Crossly handling. The same data the dashboard prices from.
+    * 
+    * @return GetGradingPriceBookResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getGradingPriceBook() : GetGradingPriceBookResponse {
+        val localVarResponse = getGradingPriceBookWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetGradingPriceBookResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The grading price book: every grader, its services (per-card price, minimum cards, max declared value, turnaround) and add-ons, plus Crossly handling. The same data the dashboard prices from.
+    * 
+    * @return ApiResponse<GetGradingPriceBookResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getGradingPriceBookWithHttpInfo() : ApiResponse<GetGradingPriceBookResponse?> {
+        val localVariableConfig = getGradingPriceBookRequestConfig()
+
+        return request<Unit, GetGradingPriceBookResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getGradingPriceBook
+    *
+    * @return RequestConfig
+    */
+    fun getGradingPriceBookRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/grading/price-book",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Worth grading? Raw value vs what each grade is worth at each grader, against the cost. Never predicts the grade.
     * 
     * @param inventoryItemId  
@@ -533,6 +746,76 @@ class GradingApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/grading/worth/{inventoryItemId}".replace("{"+"inventoryItemId"+"}", "$inventoryItemId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One grading submission: its timeline, every card with its grade, cert number and photos, the costs and the tracking.
+    * 
+    * @param id  
+    * @return GetVaultMarketGradingOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketGradingOrder(id: kotlin.String) : GetVaultMarketGradingOrderResponse {
+        val localVarResponse = getVaultMarketGradingOrderWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketGradingOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One grading submission: its timeline, every card with its grade, cert number and photos, the costs and the tracking.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketGradingOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketGradingOrderWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketGradingOrderResponse?> {
+        val localVariableConfig = getVaultMarketGradingOrderRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketGradingOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketGradingOrder
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketGradingOrderRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/grading/orders/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -753,6 +1036,140 @@ class GradingApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/grading/submissions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
+    * 
+    * @return ListVaultMarketGradingCandidatesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketGradingCandidates() : ListVaultMarketGradingCandidatesResponse {
+        val localVarResponse = listVaultMarketGradingCandidatesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketGradingCandidatesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
+    * 
+    * @return ApiResponse<ListVaultMarketGradingCandidatesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketGradingCandidatesWithHttpInfo() : ApiResponse<ListVaultMarketGradingCandidatesResponse?> {
+        val localVariableConfig = listVaultMarketGradingCandidatesRequestConfig()
+
+        return request<Unit, ListVaultMarketGradingCandidatesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketGradingCandidates
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketGradingCandidatesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/grading/candidates",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
+    * 
+    * @return ListVaultMarketGradingOrdersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketGradingOrders() : ListVaultMarketGradingOrdersResponse {
+        val localVarResponse = listVaultMarketGradingOrdersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketGradingOrdersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
+    * 
+    * @return ApiResponse<ListVaultMarketGradingOrdersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketGradingOrdersWithHttpInfo() : ApiResponse<ListVaultMarketGradingOrdersResponse?> {
+        val localVariableConfig = listVaultMarketGradingOrdersRequestConfig()
+
+        return request<Unit, ListVaultMarketGradingOrdersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketGradingOrders
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketGradingOrdersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/grading/orders",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

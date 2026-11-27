@@ -35,6 +35,7 @@ import com.squareup.moshi.Json
  * @param lendEnabled 
  * @param lendWhenIdle 
  * @param createdAt 
+ * @param storefrontId 
  * @param inventoryItemId 
  * @param batchId 
  * @param partnerId 
@@ -75,6 +76,9 @@ data class ListVaultMarketSupplyDepositsItem (
 
     @Json(name = "createdAt")
     val createdAt: kotlin.String,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
 
     @Json(name = "inventoryItemId")
     val inventoryItemId: kotlin.String? = null,
@@ -120,16 +124,16 @@ data class ListVaultMarketSupplyDepositsItem (
     /**
      * 
      *
-     * Values: STORED,LISTED,INBOUND,CANCELLED,SOLD_ON_BOOK,CHANNEL_SOLD,SHIPPED
+     * Values: STORED,CANCELLED,LISTED,SHIPPED,INBOUND,SOLD_ON_BOOK,CHANNEL_SOLD
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "stored") STORED("stored"),
-        @Json(name = "listed") LISTED("listed"),
-        @Json(name = "inbound") INBOUND("inbound"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "listed") LISTED("listed"),
+        @Json(name = "shipped") SHIPPED("shipped"),
+        @Json(name = "inbound") INBOUND("inbound"),
         @Json(name = "sold_on_book") SOLD_ON_BOOK("sold_on_book"),
-        @Json(name = "channel_sold") CHANNEL_SOLD("channel_sold"),
-        @Json(name = "shipped") SHIPPED("shipped");
+        @Json(name = "channel_sold") CHANNEL_SOLD("channel_sold");
     }
 }
 

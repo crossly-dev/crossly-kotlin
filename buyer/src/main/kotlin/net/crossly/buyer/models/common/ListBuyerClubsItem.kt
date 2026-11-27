@@ -28,8 +28,8 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param name 
  * @param sellerUserId 
+ * @param name 
  * @param tiers 
  * @param sellerName 
  * @param description 
@@ -39,11 +39,11 @@ import com.squareup.moshi.Json
 
 data class ListBuyerClubsItem (
 
-    @Json(name = "name")
-    val name: kotlin.String,
-
     @Json(name = "sellerUserId")
     val sellerUserId: kotlin.String,
+
+    @Json(name = "name")
+    val name: kotlin.String,
 
     @Json(name = "tiers")
     val tiers: kotlin.collections.List<CreateBuyerSellerClubJoinResponseDataTiers>,

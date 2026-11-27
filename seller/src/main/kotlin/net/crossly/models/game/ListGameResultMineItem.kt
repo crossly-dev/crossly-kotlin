@@ -68,14 +68,15 @@ data class ListGameResultMineItem (
     /**
      * 
      *
-     * Values: PRICE_GUESS,PRICE_GUESS_SOLO,HUNT,SPEED_TRADE,BREAK_HOST
+     * Values: PRICE_GUESS,PRICE_GUESS_SOLO,HUNT,SPEED_TRADE,BREAK_HOST,PACK_BREAK
      */
     enum class Game(val value: kotlin.String) {
         @Json(name = "price_guess") PRICE_GUESS("price_guess"),
         @Json(name = "price_guess_solo") PRICE_GUESS_SOLO("price_guess_solo"),
         @Json(name = "hunt") HUNT("hunt"),
         @Json(name = "speed_trade") SPEED_TRADE("speed_trade"),
-        @Json(name = "break_host") BREAK_HOST("break_host");
+        @Json(name = "break_host") BREAK_HOST("break_host"),
+        @Json(name = "pack_break") PACK_BREAK("pack_break");
     }
 }
 

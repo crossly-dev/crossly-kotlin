@@ -39,11 +39,11 @@ data class CreateWeb3SolanaOfferConfirmResponse (
     /**
      * 
      *
-     * Values: FILLED,CANCELLED
+     * Values: CANCELLED,FILLED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "filled") FILLED("filled"),
-        @Json(name = "cancelled") CANCELLED("cancelled");
+        @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "filled") FILLED("filled");
     }
 }
 

@@ -28,8 +28,8 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param semver 
- * @param designVersion 
  * @param state 
+ * @param designVersion 
  */
 
 data class CreateWorldGamePackageResponseDataVersion (
@@ -40,11 +40,11 @@ data class CreateWorldGamePackageResponseDataVersion (
     @Json(name = "semver")
     val semver: kotlin.String,
 
-    @Json(name = "designVersion")
-    val designVersion: java.math.BigDecimal,
-
     @Json(name = "state")
-    val state: kotlin.String
+    val state: kotlin.String,
+
+    @Json(name = "designVersion")
+    val designVersion: java.math.BigDecimal? = null
 
 )
 

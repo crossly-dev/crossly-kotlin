@@ -20,7 +20,7 @@
 
 package net.crossly.models.inbox
 
-import net.crossly.models.inbox.GetInboxResponseMessages
+import net.crossly.models.inbox.CreateInboxSendOfferResponseMessage
 
 import com.squareup.moshi.Json
 
@@ -28,32 +28,47 @@ import com.squareup.moshi.Json
  * 
  *
  * @param messages 
+ * @param canSendOffer 
  * @param id 
  * @param createdAt 
  * @param userId 
- * @param status 
  * @param platform 
  * @param accountSlot 
+ * @param status 
+ * @param labels 
  * @param platformConversationId 
  * @param isRead 
  * @param isHidden 
  * @param hasOffer 
+ * @param isStarred 
  * @param listingId 
+ * @param itemTitle 
+ * @param itemThumbnail 
+ * @param itemUrl 
+ * @param crosslyListingSlug 
+ * @param itemPrice 
+ * @param itemCurrency 
+ * @param source 
  * @param inventoryItemId 
  * @param platformListingId 
  * @param buyerUsername 
- * @param subject 
  * @param buyerPlatformId 
+ * @param buyerAvatarUrl 
+ * @param subject 
  * @param offerAmount 
  * @param offerStatus 
  * @param platformConversationUrl 
  * @param lastMessageAt 
+ * @param supersededAt 
  */
 
 data class GetInboxResponse (
 
     @Json(name = "messages")
-    val messages: kotlin.collections.List<GetInboxResponseMessages>,
+    val messages: kotlin.collections.List<CreateInboxSendOfferResponseMessage>,
+
+    @Json(name = "canSendOffer")
+    val canSendOffer: kotlin.Boolean,
 
     @Json(name = "id")
     val id: kotlin.String,
@@ -64,14 +79,17 @@ data class GetInboxResponse (
     @Json(name = "userId")
     val userId: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "platform")
     val platform: kotlin.String,
 
     @Json(name = "accountSlot")
     val accountSlot: java.math.BigDecimal,
+
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    @Json(name = "labels")
+    val labels: kotlin.collections.List<kotlin.String>,
 
     @Json(name = "platformConversationId")
     val platformConversationId: kotlin.String,
@@ -85,8 +103,32 @@ data class GetInboxResponse (
     @Json(name = "hasOffer")
     val hasOffer: kotlin.Boolean,
 
+    @Json(name = "isStarred")
+    val isStarred: kotlin.Boolean,
+
     @Json(name = "listingId")
     val listingId: kotlin.String? = null,
+
+    @Json(name = "itemTitle")
+    val itemTitle: kotlin.String? = null,
+
+    @Json(name = "itemThumbnail")
+    val itemThumbnail: kotlin.String? = null,
+
+    @Json(name = "itemUrl")
+    val itemUrl: kotlin.String? = null,
+
+    @Json(name = "crosslyListingSlug")
+    val crosslyListingSlug: kotlin.String? = null,
+
+    @Json(name = "itemPrice")
+    val itemPrice: java.math.BigDecimal? = null,
+
+    @Json(name = "itemCurrency")
+    val itemCurrency: kotlin.String? = null,
+
+    @Json(name = "source")
+    val source: kotlin.String? = null,
 
     @Json(name = "inventoryItemId")
     val inventoryItemId: kotlin.String? = null,
@@ -97,11 +139,14 @@ data class GetInboxResponse (
     @Json(name = "buyerUsername")
     val buyerUsername: kotlin.String? = null,
 
-    @Json(name = "subject")
-    val subject: kotlin.String? = null,
-
     @Json(name = "buyerPlatformId")
     val buyerPlatformId: kotlin.String? = null,
+
+    @Json(name = "buyerAvatarUrl")
+    val buyerAvatarUrl: kotlin.String? = null,
+
+    @Json(name = "subject")
+    val subject: kotlin.String? = null,
 
     @Json(name = "offerAmount")
     val offerAmount: kotlin.String? = null,
@@ -113,7 +158,10 @@ data class GetInboxResponse (
     val platformConversationUrl: kotlin.String? = null,
 
     @Json(name = "lastMessageAt")
-    val lastMessageAt: java.time.OffsetDateTime? = null
+    val lastMessageAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "supersededAt")
+    val supersededAt: java.time.OffsetDateTime? = null
 
 )
 

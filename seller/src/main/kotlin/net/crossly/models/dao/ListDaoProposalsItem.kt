@@ -37,6 +37,7 @@ import com.squareup.moshi.Json
  * @param powerAbstain 
  * @param quorumBps 
  * @param passThresholdBps 
+ * @param proposalKind 
  * @param createdAt 
  * @param beneficiaryNote 
  * @param requestedBaseUnits 
@@ -45,6 +46,7 @@ import com.squareup.moshi.Json
  * @param talliedAt 
  * @param vetoedReason 
  * @param charityGoalId 
+ * @param params 
  */
 
 data class ListDaoProposalsItem (
@@ -82,6 +84,9 @@ data class ListDaoProposalsItem (
     @Json(name = "passThresholdBps")
     val passThresholdBps: java.math.BigDecimal,
 
+    @Json(name = "proposalKind")
+    val proposalKind: kotlin.String,
+
     @Json(name = "createdAt")
     val createdAt: kotlin.String,
 
@@ -104,7 +109,10 @@ data class ListDaoProposalsItem (
     val vetoedReason: kotlin.String? = null,
 
     @Json(name = "charityGoalId")
-    val charityGoalId: kotlin.String? = null
+    val charityGoalId: kotlin.String? = null,
+
+    @Json(name = "params")
+    val params: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 )
 

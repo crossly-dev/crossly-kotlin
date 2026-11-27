@@ -48,11 +48,11 @@ data class GetOrderEvidenceResponseDataSealAssessment (
     /**
      * 
      *
-     * Values: OPENED,UNKNOWN,INTACT,SUSPECT
+     * Values: UNKNOWN,OPENED,INTACT,SUSPECT
      */
     enum class Verdict(val value: kotlin.String) {
-        @Json(name = "opened") OPENED("opened"),
         @Json(name = "unknown") UNKNOWN("unknown"),
+        @Json(name = "opened") OPENED("opened"),
         @Json(name = "intact") INTACT("intact"),
         @Json(name = "suspect") SUSPECT("suspect");
     }

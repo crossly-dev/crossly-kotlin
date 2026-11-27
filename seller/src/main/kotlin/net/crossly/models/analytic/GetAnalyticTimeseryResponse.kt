@@ -28,6 +28,7 @@ import com.squareup.moshi.Json
  * 
  *
  * @param days 
+ * @param granularity 
  * @param series 
  */
 
@@ -36,8 +37,23 @@ data class GetAnalyticTimeseryResponse (
     @Json(name = "days")
     val days: java.math.BigDecimal,
 
+    @Json(name = "granularity")
+    val granularity: GetAnalyticTimeseryResponse.Granularity,
+
     @Json(name = "series")
     val series: kotlin.collections.List<GetAnalyticTimeseryResponseSeries>
 
-)
+) {
+
+    /**
+     * 
+     *
+     * Values: DAY,WEEK,MONTH
+     */
+    enum class Granularity(val value: kotlin.String) {
+        @Json(name = "day") DAY("day"),
+        @Json(name = "week") WEEK("week"),
+        @Json(name = "month") MONTH("month");
+    }
+}
 

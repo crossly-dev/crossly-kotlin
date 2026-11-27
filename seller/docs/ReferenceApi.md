@@ -9,10 +9,12 @@ Method | HTTP request | Description
 [**getDepartment**](ReferenceApi.md#getDepartment) | **GET** /v1/departments | Search the eBay-sourced \&quot;Department\&quot; item-specific values.
 [**getGender**](ReferenceApi.md#getGender) | **GET** /v1/genders | Search the eBay-sourced \&quot;Gender\&quot; item-specific values.
 [**getPattern**](ReferenceApi.md#getPattern) | **GET** /v1/patterns | Search the eBay-sourced \&quot;Pattern\&quot; item-specific values.
+[**getReferencePostal**](ReferenceApi.md#getReferencePostal) | **GET** /v1/reference/postal/{country}/{code} | Look up a postal code: canonical shape, state and US metro areas.
 [**getSizeSystem**](ReferenceApi.md#getSizeSystem) | **GET** /v1/size-systems | Search the Poshmark + Vestiaire size-system union (US/UK/EU/AU/FR/KR).
 [**getStyle**](ReferenceApi.md#getStyle) | **GET** /v1/styles | Search the eBay-sourced \&quot;Style\&quot; item-specific values.
 [**getType**](ReferenceApi.md#getType) | **GET** /v1/types | Search the eBay-sourced \&quot;Type\&quot; item-specific values.
 [**listReferenceCountries**](ReferenceApi.md#listReferenceCountries) | **GET** /v1/reference/countries | Every country with its delivery-address rules.
+[**listReferenceMetros**](ReferenceApi.md#listReferenceMetros) | **GET** /v1/reference/metros | Search US metro areas (CSA / CBSA) for location rules.
 
 
 <a name="getBrand"></a>
@@ -230,6 +232,57 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getReferencePostal"></a>
+# **getReferencePostal**
+> GetReferencePostalResponse getReferencePostal(country, code)
+
+Look up a postal code: canonical shape, state and US metro areas.
+
+Every country gets its canonical shape and &#x60;valid&#x60;. A US ZIP (territories normalize to country US with &#x60;territory&#x60;) also gets state, county FIPS and CBSA/CSA. &#x60;metroStatus&#x60; is known (the ZIP is mapped), unmapped (a ZIP with no metro mapping: it matches no metro rule) or no_zip.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = ReferenceApi()
+val country : kotlin.String = country_example // kotlin.String | 
+val code : kotlin.String = code_example // kotlin.String | 
+try {
+    val result : GetReferencePostalResponse = apiInstance.getReferencePostal(country, code)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling ReferenceApi#getReferencePostal")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling ReferenceApi#getReferencePostal")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **country** | **kotlin.String**|  |
+ **code** | **kotlin.String**|  |
+
+### Return type
+
+**GetReferencePostalResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getSizeSystem"></a>
 # **getSizeSystem**
 > GetSizeSystemResponse getSizeSystem()
@@ -392,6 +445,57 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListReferenceCountriesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listReferenceMetros"></a>
+# **listReferenceMetros**
+> ListReferenceMetrosResponse listReferenceMetros(q, limit)
+
+Search US metro areas (CSA / CBSA) for location rules.
+
+Combined Statistical Areas first, then Core-Based Statistical Areas, matched on title (or an exact code); at most 20. &#x60;q&#x60; needs 2+ characters. &#x60;meta.datasetAvailable&#x60; is false when the census dataset is not loaded, in which case no metro rule can match.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = ReferenceApi()
+val q : kotlin.String = q_example // kotlin.String | 
+val limit : kotlin.Int = 56 // kotlin.Int | 
+try {
+    val result : ListReferenceMetrosResponse = apiInstance.listReferenceMetros(q, limit)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling ReferenceApi#listReferenceMetros")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling ReferenceApi#listReferenceMetros")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **q** | **kotlin.String**|  |
+ **limit** | **kotlin.Int**|  | [optional] [default to 20]
+
+### Return type
+
+**ListReferenceMetrosResponse**
 
 ### Authorization
 

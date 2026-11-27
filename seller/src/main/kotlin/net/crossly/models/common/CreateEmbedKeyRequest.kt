@@ -28,7 +28,7 @@ import com.squareup.moshi.Json
  *
  * @param name Which site this is for, e.g. \"my Squarespace shop\".
  * @param allowedOrigins Origins permitted to use this key, e.g. [\"https://shop.example.com\"]. LEAVE EMPTY to allow any origin — necessary when embedding on a platform whose domain you do not control, and the reason this is not locked by default.
- * @param environment 
+ * @param environment Omit for this server's own: live on crossly.net, test on sandbox.crossly.net. The other one is refused.
  */
 
 data class CreateEmbedKeyRequest (
@@ -41,13 +41,14 @@ data class CreateEmbedKeyRequest (
     @Json(name = "allowedOrigins")
     val allowedOrigins: kotlin.collections.List<kotlin.String>? = null,
 
+    /* Omit for this server's own: live on crossly.net, test on sandbox.crossly.net. The other one is refused. */
     @Json(name = "environment")
-    val environment: CreateEmbedKeyRequest.Environment? = Environment.LIVE
+    val environment: CreateEmbedKeyRequest.Environment? = null
 
 ) {
 
     /**
-     * 
+     * Omit for this server's own: live on crossly.net, test on sandbox.crossly.net. The other one is refused.
      *
      * Values: LIVE,TEST
      */

@@ -27,7 +27,6 @@ import com.squareup.moshi.Json
  * 
  *
  * @param url 
- * @param correlationId 
  * @param oneShot 
  * @param status 
  * @param requestUrl 
@@ -38,9 +37,6 @@ data class GetOauthInitResponse (
 
     @Json(name = "url")
     val url: kotlin.String? = null,
-
-    @Json(name = "correlationId")
-    val correlationId: kotlin.String? = null,
 
     @Json(name = "oneShot")
     val oneShot: kotlin.Boolean? = null,

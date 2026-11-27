@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.ListVaultMarketFollowCopyWatchAlertsItemBy
 
 import com.squareup.moshi.Json
 
@@ -27,6 +28,7 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
+ * @param by 
  * @param side 
  * @param quantity 
  * @param bookKey 
@@ -45,6 +47,9 @@ data class ListVaultMarketFollowCopyWatchAlertsItem (
 
     @Json(name = "id")
     val id: kotlin.String,
+
+    @Json(name = "by")
+    val by: ListVaultMarketFollowCopyWatchAlertsItemBy,
 
     @Json(name = "side")
     val side: ListVaultMarketFollowCopyWatchAlertsItem.Side,

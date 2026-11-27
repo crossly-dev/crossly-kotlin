@@ -20,12 +20,12 @@
 
 package net.crossly.models.world
 
+import net.crossly.models.world.GetWorldExperiencePlaceCollabOpResponseDataFramesBy
 import net.crossly.models.world.ListWorldPlaceTradeTablesItemCash
 import net.crossly.models.world.ListWorldPlaceTradeTablesItemLine
 import net.crossly.models.world.ListWorldPlaceTradeTablesItemMat
 import net.crossly.models.world.ListWorldPlaceTradeTablesItemShook
 import net.crossly.models.world.ListWorldPlaceTradeTablesItemTotals
-import net.crossly.models.world.ListWorldPlaceTradeTablesItemVisitor
 import net.crossly.models.common.UserIdName
 
 import com.squareup.moshi.Json
@@ -89,7 +89,7 @@ data class ListWorldPlaceTradeTablesItem (
     val version: java.math.BigDecimal,
 
     @Json(name = "visitor")
-    val visitor: ListWorldPlaceTradeTablesItemVisitor? = null,
+    val visitor: GetWorldExperiencePlaceCollabOpResponseDataFramesBy? = null,
 
     @Json(name = "you")
     val you: ListWorldPlaceTradeTablesItem.You? = null,
@@ -102,12 +102,12 @@ data class ListWorldPlaceTradeTablesItem (
     /**
      * open: dealing at the mat · done: shaken, a trade exists · closed: the seller left.
      *
-     * Values: OPEN,DONE,CLOSED
+     * Values: OPEN,CLOSED,DONE
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "open") OPEN("open"),
-        @Json(name = "done") DONE("done"),
-        @Json(name = "closed") CLOSED("closed");
+        @Json(name = "closed") CLOSED("closed"),
+        @Json(name = "done") DONE("done");
     }
     /**
      * 

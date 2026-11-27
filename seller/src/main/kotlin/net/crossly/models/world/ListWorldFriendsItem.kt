@@ -20,7 +20,7 @@
 
 package net.crossly.models.world
 
-import net.crossly.models.common.NameSlug
+import net.crossly.models.common.NameSlug2
 
 import com.squareup.moshi.Json
 
@@ -42,7 +42,7 @@ data class ListWorldFriendsItem (
     val displayName: kotlin.String? = null,
 
     @Json(name = "room")
-    val room: NameSlug? = null,
+    val room: NameSlug2? = null,
 
     @Json(name = "homeSlug")
     val homeSlug: kotlin.String? = null

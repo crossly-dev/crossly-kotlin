@@ -20,6 +20,7 @@
 
 package net.crossly.models.main
 
+import net.crossly.models.main.GetMainStageResponseHouse
 import net.crossly.models.main.GetMainStageResponseLive
 import net.crossly.models.main.GetMainStageResponseStream
 import net.crossly.models.main.GetMainStageResponseUpcoming
@@ -34,6 +35,7 @@ import com.squareup.moshi.Json
  * @param capacity 
  * @param here People on the stage right now, across copies.
  * @param upcoming 
+ * @param house 
  * @param live 
  * @param stream 
  */
@@ -55,6 +57,9 @@ data class GetMainStageResponse (
 
     @Json(name = "upcoming")
     val upcoming: kotlin.collections.List<GetMainStageResponseUpcoming>,
+
+    @Json(name = "house")
+    val house: GetMainStageResponseHouse,
 
     @Json(name = "live")
     val live: GetMainStageResponseLive? = null,

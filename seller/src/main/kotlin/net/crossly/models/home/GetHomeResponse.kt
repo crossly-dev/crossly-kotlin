@@ -25,6 +25,7 @@ import net.crossly.models.home.GetHomeResponseGiftShelf
 import net.crossly.models.home.GetHomeResponseGuestbook
 import net.crossly.models.home.GetHomeResponseLayout
 import net.crossly.models.home.GetHomeResponsePinCase
+import net.crossly.models.home.GetHomeResponsePullsShelf
 import net.crossly.models.home.GetHomeResponseRoom
 import net.crossly.models.home.GetHomeResponseSetWall
 import net.crossly.models.home.GetHomeResponseVaultWall
@@ -49,6 +50,7 @@ import com.squareup.moshi.Json
  * @param here People in the home right now, every copy together.
  * @param updatedAt 
  * @param giftShelf 
+ * @param pullsShelf 
  * @param pinCase The owner's earned pins, rarest first, when a pin case stands here (pin-case.ts).
  * @param vaultWall 
  * @param setWall 
@@ -100,6 +102,9 @@ data class GetHomeResponse (
     @Json(name = "giftShelf")
     val giftShelf: GetHomeResponseGiftShelf? = null,
 
+    @Json(name = "pullsShelf")
+    val pullsShelf: GetHomeResponsePullsShelf? = null,
+
     /* The owner's earned pins, rarest first, when a pin case stands here (pin-case.ts). */
     @Json(name = "pinCase")
     val pinCase: kotlin.collections.List<GetHomeResponsePinCase>? = null,
@@ -115,24 +120,24 @@ data class GetHomeResponse (
     /**
      * 
      *
-     * Values: OPEN,LOCKED,FRIENDS
+     * Values: OPEN,FRIENDS,LOCKED
      */
     enum class Privacy(val value: kotlin.String) {
         @Json(name = "open") OPEN("open"),
-        @Json(name = "locked") LOCKED("locked"),
-        @Json(name = "friends") FRIENDS("friends");
+        @Json(name = "friends") FRIENDS("friends"),
+        @Json(name = "locked") LOCKED("locked");
     }
     /**
      * 
      *
-     * Values: STORYBOOK,STUDIO,NOIR,DAYLIGHT,VITRINE
+     * Values: STUDIO,NOIR,DAYLIGHT,VITRINE,STORYBOOK
      */
     enum class Theme(val value: kotlin.String) {
-        @Json(name = "storybook") STORYBOOK("storybook"),
         @Json(name = "studio") STUDIO("studio"),
         @Json(name = "noir") NOIR("noir"),
         @Json(name = "daylight") DAYLIGHT("daylight"),
-        @Json(name = "vitrine") VITRINE("vitrine");
+        @Json(name = "vitrine") VITRINE("vitrine"),
+        @Json(name = "storybook") STORYBOOK("storybook");
     }
 }
 

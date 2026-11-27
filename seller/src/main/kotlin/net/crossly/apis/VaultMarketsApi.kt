@@ -30,6 +30,8 @@ import net.crossly.models.vault.CreateVaultMarketAgentWatchResponse
 import net.crossly.models.vault.CreateVaultMarketAlertPrefTestResponse
 import net.crossly.models.vault.CreateVaultMarketAuctionLotBidResponse
 import net.crossly.models.vault.CreateVaultMarketAuctionLotResponse
+import net.crossly.models.vault.CreateVaultMarketAutoBuyPauseResponse
+import net.crossly.models.vault.CreateVaultMarketAutoBuyResumeResponse
 import net.crossly.models.vault.CreateVaultMarketBlockAllocateResponse
 import net.crossly.models.vault.CreateVaultMarketCollectionWorthWatchResponse
 import net.crossly.models.vault.CreateVaultMarketCreatorAttributionResponse
@@ -71,6 +73,22 @@ import net.crossly.models.vault.CreateVaultMarketLongResponse
 import net.crossly.models.vault.CreateVaultMarketMmLpResponse
 import net.crossly.models.vault.CreateVaultMarketMmMassCancelResponse
 import net.crossly.models.vault.CreateVaultMarketOpeningWaitlistResponse
+import net.crossly.models.vault.CreateVaultMarketOptionComboResponse
+import net.crossly.models.vault.CreateVaultMarketOptionComboRfqAcceptResponse
+import net.crossly.models.vault.CreateVaultMarketOptionComboRfqResponse
+import net.crossly.models.vault.CreateVaultMarketOptionCoveredCallReleaseResponse
+import net.crossly.models.vault.CreateVaultMarketOptionCoveredCallResponse
+import net.crossly.models.vault.CreateVaultMarketOptionMmHeartbeatResponse
+import net.crossly.models.vault.CreateVaultMarketOptionMmQuoteResponse
+import net.crossly.models.vault.CreateVaultMarketOptionOrderCancelResponse
+import net.crossly.models.vault.CreateVaultMarketOptionOrderResponse
+import net.crossly.models.vault.CreateVaultMarketOptionPracticeComboResponse
+import net.crossly.models.vault.CreateVaultMarketOptionPracticeOrderResponse
+import net.crossly.models.vault.CreateVaultMarketOptionQuoteResponse
+import net.crossly.models.vault.CreateVaultMarketOptionRfqAcceptResponse
+import net.crossly.models.vault.CreateVaultMarketOptionRfqRespondResponse
+import net.crossly.models.vault.CreateVaultMarketOptionRollResponse
+import net.crossly.models.vault.CreateVaultMarketOptionStrategyPreviewResponse
 import net.crossly.models.vault.CreateVaultMarketPaperMissionMarkCheckResponse
 import net.crossly.models.vault.CreateVaultMarketPaperOrderCancelResponse
 import net.crossly.models.vault.CreateVaultMarketPaperOrderResponse
@@ -84,18 +102,48 @@ import net.crossly.models.vault.CreateVaultMarketPortfolioMarginLeaveResponse
 import net.crossly.models.vault.CreateVaultMarketPortfolioMarginWhatIfResponse
 import net.crossly.models.vault.CreateVaultMarketPositionCloseResponse
 import net.crossly.models.vault.CreateVaultMarketPositionCollateralResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionAccountResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionAlertResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionCardResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionComboRfqQuoteResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionComboRfqResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionCommentReportResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionCommentResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionConversionResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionForecastResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionForecasterFollowResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionMakerQuoteResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionOrderAmendResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionOrderBatchCancelResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionOrderBatchResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionOrderResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionPaperResetResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionPositionCloseAllResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionProposalCheckResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionSettlementDisputeResponse
+import net.crossly.models.vault.CreateVaultMarketPredictionTermResponse
 import net.crossly.models.vault.CreateVaultMarketPriceWidgetPreviewResponse
 import net.crossly.models.vault.CreateVaultMarketProBracketResponse
 import net.crossly.models.vault.CreateVaultMarketProOcoResponse
 import net.crossly.models.vault.CreateVaultMarketProOrderCancelAllResponse
 import net.crossly.models.vault.CreateVaultMarketProOrderResponse
-import net.crossly.models.vault.CreateVaultMarketProQuoteHeartbeatResponse
 import net.crossly.models.vault.CreateVaultMarketProQuoteResponse
 import net.crossly.models.vault.CreateVaultMarketProTrailingStopResponse
 import net.crossly.models.vault.CreateVaultMarketProfileFollowResponse
 import net.crossly.models.vault.CreateVaultMarketRfqAcceptResponse
 import net.crossly.models.vault.CreateVaultMarketRfqRespondResponse
 import net.crossly.models.vault.CreateVaultMarketRfqResponse
+import net.crossly.models.vault.CreateVaultMarketShareAutoInvestRunResponse
+import net.crossly.models.vault.CreateVaultMarketShareBasketBuyResponse
+import net.crossly.models.vault.CreateVaultMarketShareBuyoutFundResponse
+import net.crossly.models.vault.CreateVaultMarketSharePaperSeryOrderResponse
+import net.crossly.models.vault.CreateVaultMarketShareRoomHideResponse
+import net.crossly.models.vault.CreateVaultMarketShareSeryRecombineResponse
+import net.crossly.models.vault.CreateVaultMarketShareSeryRoomResponse
+import net.crossly.models.vault.CreateVaultMarketShareSeryWatchResponse
+import net.crossly.models.vault.CreateVaultMarketShareViewingBookResponse
+import net.crossly.models.vault.CreateVaultMarketShareViewingBookingCancelResponse
+import net.crossly.models.vault.CreateVaultMarketSupplySendInResponse
 import net.crossly.models.vault.CreateVaultMarketSupplySendResponse
 import net.crossly.models.vault.CreateVaultMarketTodClaimObjectResponse
 import net.crossly.models.vault.CreateVaultMarketTodMyClaimDocumentResponse
@@ -108,6 +156,7 @@ import net.crossly.models.vault.CreateVaultReceiptTokenExportResponse
 import net.crossly.models.vault.CreateVaultReceiptTokenRedeemConfirmResponse
 import net.crossly.models.vault.CreateVaultReceiptTokenRedeemResponse
 import net.crossly.models.vault.CreateVaultReceiptTokenWalletAllowResponse
+import net.crossly.models.vault.DeleteVaultMarketAutoBuyResponse
 import net.crossly.models.vault.DeleteVaultMarketFollowCopyWatchResponse
 import net.crossly.models.vault.DeleteVaultMarketOpeningWaitlistResponse
 import net.crossly.models.vault.DeleteVaultMarketPriceWidgetResponse
@@ -123,6 +172,7 @@ import net.crossly.models.vault.GetVaultMarketAdvanceQuoteResponse
 import net.crossly.models.vault.GetVaultMarketAlertPrefResponse
 import net.crossly.models.vault.GetVaultMarketAuctionLotResponse
 import net.crossly.models.vault.GetVaultMarketAuctionMineResponse
+import net.crossly.models.vault.GetVaultMarketAutoBuyResponse
 import net.crossly.models.vault.GetVaultMarketBullionForResponse
 import net.crossly.models.vault.GetVaultMarketBullionKeyResponse
 import net.crossly.models.vault.GetVaultMarketBullionPegPreviewResponse
@@ -157,6 +207,8 @@ import net.crossly.models.vault.GetVaultMarketGradingSignalResponse
 import net.crossly.models.vault.GetVaultMarketHallLoanResponse
 import net.crossly.models.vault.GetVaultMarketHealthResponse
 import net.crossly.models.vault.GetVaultMarketHealthWhatIfResponse
+import net.crossly.models.vault.GetVaultMarketHoldingInventoryItemResponse
+import net.crossly.models.vault.GetVaultMarketHoldingWithdrawQuoteResponse
 import net.crossly.models.vault.GetVaultMarketHomeUnitResponse
 import net.crossly.models.vault.GetVaultMarketIndexCalendarResponse
 import net.crossly.models.vault.GetVaultMarketIndexFeedFundingResponse
@@ -167,6 +219,7 @@ import net.crossly.models.vault.GetVaultMarketIndexLicenceUsageResponse
 import net.crossly.models.vault.GetVaultMarketIndexMethodologyResponse
 import net.crossly.models.vault.GetVaultMarketIndexResponse
 import net.crossly.models.vault.GetVaultMarketInstantExitResponse
+import net.crossly.models.vault.GetVaultMarketItemLocationResponse
 import net.crossly.models.vault.GetVaultMarketJointByIdResponse
 import net.crossly.models.vault.GetVaultMarketJointResponse
 import net.crossly.models.vault.GetVaultMarketKeyStatResponse
@@ -187,6 +240,23 @@ import net.crossly.models.vault.GetVaultMarketMmMmpResponse
 import net.crossly.models.vault.GetVaultMarketMmResponse
 import net.crossly.models.vault.GetVaultMarketModeResponse
 import net.crossly.models.vault.GetVaultMarketNavResponse
+import net.crossly.models.vault.GetVaultMarketOptionAnalyticResponse
+import net.crossly.models.vault.GetVaultMarketOptionAutoCloseResponse
+import net.crossly.models.vault.GetVaultMarketOptionChainResponse
+import net.crossly.models.vault.GetVaultMarketOptionComboBookResponse
+import net.crossly.models.vault.GetVaultMarketOptionComboRfqResponse
+import net.crossly.models.vault.GetVaultMarketOptionContractBookResponse
+import net.crossly.models.vault.GetVaultMarketOptionContractResponse
+import net.crossly.models.vault.GetVaultMarketOptionContractSettlementResponse
+import net.crossly.models.vault.GetVaultMarketOptionHedgeResponse
+import net.crossly.models.vault.GetVaultMarketOptionIvResponse
+import net.crossly.models.vault.GetVaultMarketOptionMarginResponse
+import net.crossly.models.vault.GetVaultMarketOptionPayoffResponse
+import net.crossly.models.vault.GetVaultMarketOptionPositionResponse
+import net.crossly.models.vault.GetVaultMarketOptionPracticeResponse
+import net.crossly.models.vault.GetVaultMarketOptionResponse
+import net.crossly.models.vault.GetVaultMarketOptionRfqResponse
+import net.crossly.models.vault.GetVaultMarketOptionRiskResponse
 import net.crossly.models.vault.GetVaultMarketOracleBySlugResponse
 import net.crossly.models.vault.GetVaultMarketOracleResponse
 import net.crossly.models.vault.GetVaultMarketOrderHandlingResponse
@@ -202,6 +272,25 @@ import net.crossly.models.vault.GetVaultMarketPortfolioMarginResponse
 import net.crossly.models.vault.GetVaultMarketPortfolioResponse
 import net.crossly.models.vault.GetVaultMarketPositionExitResponse
 import net.crossly.models.vault.GetVaultMarketPositionResponse
+import net.crossly.models.vault.GetVaultMarketPredictionAccountResponse
+import net.crossly.models.vault.GetVaultMarketPredictionBoardResponse
+import net.crossly.models.vault.GetVaultMarketPredictionDailyPriceResponse
+import net.crossly.models.vault.GetVaultMarketPredictionEventResponse
+import net.crossly.models.vault.GetVaultMarketPredictionForecasterByIdResponse
+import net.crossly.models.vault.GetVaultMarketPredictionForecasterResponse
+import net.crossly.models.vault.GetVaultMarketPredictionLeaderboardResponse
+import net.crossly.models.vault.GetVaultMarketPredictionLimitResponse
+import net.crossly.models.vault.GetVaultMarketPredictionMarketForecastResponse
+import net.crossly.models.vault.GetVaultMarketPredictionMarketHistoryResponse
+import net.crossly.models.vault.GetVaultMarketPredictionMarketResponse
+import net.crossly.models.vault.GetVaultMarketPredictionMarketTradeResponse
+import net.crossly.models.vault.GetVaultMarketPredictionMissionResponse
+import net.crossly.models.vault.GetVaultMarketPredictionPaperResponse
+import net.crossly.models.vault.GetVaultMarketPredictionQuoteResponse
+import net.crossly.models.vault.GetVaultMarketPredictionResponse
+import net.crossly.models.vault.GetVaultMarketPredictionRulebookResponse
+import net.crossly.models.vault.GetVaultMarketPredictionVenueResponse
+import net.crossly.models.vault.GetVaultMarketPredictionWillItHitResponse
 import net.crossly.models.vault.GetVaultMarketPressResponse
 import net.crossly.models.vault.GetVaultMarketProDepthResponse
 import net.crossly.models.vault.GetVaultMarketProOrderResponse
@@ -219,13 +308,30 @@ import net.crossly.models.vault.GetVaultMarketRiskReportResponse
 import net.crossly.models.vault.GetVaultMarketRiskStatResponse
 import net.crossly.models.vault.GetVaultMarketSetGoalBasketPlanResponse
 import net.crossly.models.vault.GetVaultMarketSetGoalResponse
+import net.crossly.models.vault.GetVaultMarketSettingResponse
+import net.crossly.models.vault.GetVaultMarketShareBasketResponse
+import net.crossly.models.vault.GetVaultMarketShareInvestorResponse
+import net.crossly.models.vault.GetVaultMarketShareMeResponse
+import net.crossly.models.vault.GetVaultMarketSharePaperResponse
+import net.crossly.models.vault.GetVaultMarketSharePaperSeryBookResponse
+import net.crossly.models.vault.GetVaultMarketSharePreviewResponse
+import net.crossly.models.vault.GetVaultMarketShareResponse
+import net.crossly.models.vault.GetVaultMarketShareSeryBookResponse
+import net.crossly.models.vault.GetVaultMarketShareSeryHistoryResponse
+import net.crossly.models.vault.GetVaultMarketShareSeryPerkResponse
+import net.crossly.models.vault.GetVaultMarketShareSeryResponse
+import net.crossly.models.vault.GetVaultMarketShareSeryRoomResponse
 import net.crossly.models.vault.GetVaultMarketStatementByMonthResponse
 import net.crossly.models.vault.GetVaultMarketStatementResponse
 import net.crossly.models.vault.GetVaultMarketSupplyBatchResponse
 import net.crossly.models.vault.GetVaultMarketSupplyResponse
 import net.crossly.models.vault.GetVaultMarketSupplyRoundUpResponse
+import net.crossly.models.vault.GetVaultMarketSupplyShipmentResponse
 import net.crossly.models.vault.GetVaultMarketTaxLossSuggestionResponse
+import net.crossly.models.vault.GetVaultMarketTaxOptionResponse
+import net.crossly.models.vault.GetVaultMarketTaxPredictionResponse
 import net.crossly.models.vault.GetVaultMarketTaxResponse
+import net.crossly.models.vault.GetVaultMarketTaxShareResponse
 import net.crossly.models.vault.GetVaultMarketTcaByOrderIdResponse
 import net.crossly.models.vault.GetVaultMarketTcaResponse
 import net.crossly.models.vault.GetVaultMarketTodMyClaimResponse
@@ -242,6 +348,7 @@ import net.crossly.models.vault.GetVaultMarketVaultSuggestionItemResponse
 import net.crossly.models.vault.GetVaultMarketWidgetIndexResponse
 import net.crossly.models.vault.GetVaultMarketWidgetMarkResponse
 import net.crossly.models.vault.GetVaultMarketWidgetSummaryResponse
+import net.crossly.models.vault.GetVaultMarketWorldFloorBoardResponse
 import net.crossly.models.vault.GetVaultMarketWorldFloorResponse
 import net.crossly.models.vault.GetVaultMarketWorldLoungeResponse
 import net.crossly.models.vault.GetVaultMarketWorldPlaceVaultGateResponse
@@ -250,6 +357,7 @@ import net.crossly.models.vault.GetVaultMarketWorthVaultResponse
 import net.crossly.models.vault.GetVaultReceiptResponse
 import net.crossly.models.vault.GetVaultReceiptTokenByMintResponse
 import net.crossly.models.vault.GetVaultReceiptTokenResponse
+import net.crossly.models.common.IdResponse
 import net.crossly.models.common.IdStatusResponse
 import net.crossly.models.vault.ListVaultMarketAccountsResponse
 import net.crossly.models.vault.ListVaultMarketAdlEventsResponse
@@ -295,6 +403,7 @@ import net.crossly.models.vault.ListVaultMarketGradeToVaultItem
 import net.crossly.models.vault.ListVaultMarketGradeToVaultResponse
 import net.crossly.models.vault.ListVaultMarketGradingResponse
 import net.crossly.models.vault.ListVaultMarketHallLendersResponse
+import net.crossly.models.vault.ListVaultMarketHoldingsResponse
 import net.crossly.models.vault.ListVaultMarketIndexCommitteeMinutesResponse
 import net.crossly.models.vault.ListVaultMarketIndexComplaintsResponse
 import net.crossly.models.vault.ListVaultMarketIndexConsultationsItem
@@ -321,6 +430,19 @@ import net.crossly.models.vault.ListVaultMarketNavHistoryResponse
 import net.crossly.models.vault.ListVaultMarketOffersResponse
 import net.crossly.models.vault.ListVaultMarketOpeningItem
 import net.crossly.models.vault.ListVaultMarketOpeningResponse
+import net.crossly.models.vault.ListVaultMarketOptionComboRfqResponse
+import net.crossly.models.vault.ListVaultMarketOptionCombosItem
+import net.crossly.models.vault.ListVaultMarketOptionCombosResponse
+import net.crossly.models.vault.ListVaultMarketOptionContractDailyResponse
+import net.crossly.models.vault.ListVaultMarketOptionMmQuotesResponse
+import net.crossly.models.vault.ListVaultMarketOptionNoticesResponse
+import net.crossly.models.vault.ListVaultMarketOptionOrdersResponse
+import net.crossly.models.vault.ListVaultMarketOptionPracticeFillsResponse
+import net.crossly.models.vault.ListVaultMarketOptionPracticeOrdersItem
+import net.crossly.models.vault.ListVaultMarketOptionPracticeOrdersResponse
+import net.crossly.models.vault.ListVaultMarketOptionRfqResponse
+import net.crossly.models.vault.ListVaultMarketOptionSeriesResponse
+import net.crossly.models.vault.ListVaultMarketOptionStrategiesResponse
 import net.crossly.models.vault.ListVaultMarketOracleHistoryResponse
 import net.crossly.models.vault.ListVaultMarketP2pLoansResponse
 import net.crossly.models.vault.ListVaultMarketP2pOffersItem
@@ -331,12 +453,30 @@ import net.crossly.models.vault.ListVaultMarketPaperLeaderboardResponse
 import net.crossly.models.vault.ListVaultMarketPaperMissionsResponse
 import net.crossly.models.vault.ListVaultMarketPaperOrdersResponse
 import net.crossly.models.vault.ListVaultMarketPartnerAccrualsResponse
+import net.crossly.models.vault.ListVaultMarketPartnerFinderResponse
 import net.crossly.models.vault.ListVaultMarketPoolStakesResponse
 import net.crossly.models.vault.ListVaultMarketPortfolioMarginHistoryResponse
 import net.crossly.models.vault.ListVaultMarketPositionUnitsResponse
 import net.crossly.models.vault.ListVaultMarketPositionsResponse
 import net.crossly.models.vault.ListVaultMarketPositionsRiskItem
 import net.crossly.models.vault.ListVaultMarketPositionsRiskResponse
+import net.crossly.models.vault.ListVaultMarketPredictionAlertsResponse
+import net.crossly.models.vault.ListVaultMarketPredictionComboRfqsItem
+import net.crossly.models.vault.ListVaultMarketPredictionComboRfqsResponse
+import net.crossly.models.vault.ListVaultMarketPredictionCombosItem
+import net.crossly.models.vault.ListVaultMarketPredictionCombosResponse
+import net.crossly.models.vault.ListVaultMarketPredictionCommentsResponse
+import net.crossly.models.vault.ListVaultMarketPredictionConversionsResponse
+import net.crossly.models.vault.ListVaultMarketPredictionFollowingResponse
+import net.crossly.models.vault.ListVaultMarketPredictionForecastsResponse
+import net.crossly.models.vault.ListVaultMarketPredictionMakersItem
+import net.crossly.models.vault.ListVaultMarketPredictionMakersResponse
+import net.crossly.models.vault.ListVaultMarketPredictionMarketsResponse
+import net.crossly.models.vault.ListVaultMarketPredictionOrdersResponse
+import net.crossly.models.vault.ListVaultMarketPredictionPositionsResponse
+import net.crossly.models.vault.ListVaultMarketPredictionProposalListedResponse
+import net.crossly.models.vault.ListVaultMarketPredictionProposalsItem
+import net.crossly.models.vault.ListVaultMarketPredictionProposalsResponse
 import net.crossly.models.vault.ListVaultMarketPriceWidgetsItem
 import net.crossly.models.vault.ListVaultMarketPriceWidgetsResponse
 import net.crossly.models.vault.ListVaultMarketProCandlesResponse
@@ -358,10 +498,30 @@ import net.crossly.models.vault.ListVaultMarketSetGoalBasketsItem
 import net.crossly.models.vault.ListVaultMarketSetGoalBasketsResponse
 import net.crossly.models.vault.ListVaultMarketSetGoalSetsResponse
 import net.crossly.models.vault.ListVaultMarketSetGoalsResponse
+import net.crossly.models.vault.ListVaultMarketShareAutoInvestItem
+import net.crossly.models.vault.ListVaultMarketShareAutoInvestResponse
+import net.crossly.models.vault.ListVaultMarketShareAutoInvestRunsResponse
+import net.crossly.models.vault.ListVaultMarketShareBasketsResponse
 import net.crossly.models.vault.ListVaultMarketShareCardsItem
 import net.crossly.models.vault.ListVaultMarketShareCardsResponse
+import net.crossly.models.vault.ListVaultMarketShareDropsResponse
+import net.crossly.models.vault.ListVaultMarketShareGiftsItem
+import net.crossly.models.vault.ListVaultMarketShareGiftsResponse
+import net.crossly.models.vault.ListVaultMarketShareOrdersItem
+import net.crossly.models.vault.ListVaultMarketShareOrdersResponse
+import net.crossly.models.vault.ListVaultMarketShareSeriesItem
+import net.crossly.models.vault.ListVaultMarketShareSeriesResponse
+import net.crossly.models.vault.ListVaultMarketShareSeryAppraisalsResponse
+import net.crossly.models.vault.ListVaultMarketShareSeryTapeResponse
+import net.crossly.models.vault.ListVaultMarketShareSeryUpdatesResponse
+import net.crossly.models.vault.ListVaultMarketShareSubscriptionsItem
+import net.crossly.models.vault.ListVaultMarketShareSubscriptionsResponse
+import net.crossly.models.vault.ListVaultMarketShareWorldResponse
+import net.crossly.models.vault.ListVaultMarketSupplyDeclaredValuesResponse
 import net.crossly.models.vault.ListVaultMarketSupplyDepositsResponse
+import net.crossly.models.vault.ListVaultMarketSupplyEligibilityResponse
 import net.crossly.models.vault.ListVaultMarketSupplyInvitesResponse
+import net.crossly.models.vault.ListVaultMarketSupplyShipmentsResponse
 import net.crossly.models.vault.ListVaultMarketValuationStatementsResponse
 import net.crossly.models.vault.ListVaultMarketVaultSuggestionsResponse
 import net.crossly.models.vault.ListVaultMarketWatchlistResponse
@@ -376,9 +536,11 @@ import net.crossly.models.vault.ListVaultUnitListResponse
 import net.crossly.models.common.OkResponse
 import net.crossly.models.common.StatusResponse
 import net.crossly.models.common.TermsVersionResponse
+import net.crossly.models.vault.UpdateVaultMarketAutoBuyResponse
 import net.crossly.models.vault.UpdateVaultMarketHomeUnitResponse
 import net.crossly.models.vault.UpdateVaultMarketOfferAlertResponse
 import net.crossly.models.vault.UpdateVaultMarketPaperLeaderboardResponse
+import net.crossly.models.vault.UpdateVaultMarketPartnerMeResponse
 import net.crossly.models.vault.UpdateVaultMarketPositionExitResponse
 import net.crossly.models.vault.UpdateVaultMarketSupplyDepositResponse
 import net.crossly.models.vault.UpdateVaultMarketTodBeneficiaryResponse
@@ -1221,6 +1383,140 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/vault-markets/auctions/lots/{id}/withdraw".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pause Auto-buy with payouts: the budget and want list stay; no payouts are counted and nothing is bought.
+    * 
+    * @return CreateVaultMarketAutoBuyPauseResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketAutoBuyPause() : CreateVaultMarketAutoBuyPauseResponse {
+        val localVarResponse = createVaultMarketAutoBuyPauseWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketAutoBuyPauseResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pause Auto-buy with payouts: the budget and want list stay; no payouts are counted and nothing is bought.
+    * 
+    * @return ApiResponse<CreateVaultMarketAutoBuyPauseResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketAutoBuyPauseWithHttpInfo() : ApiResponse<CreateVaultMarketAutoBuyPauseResponse?> {
+        val localVariableConfig = createVaultMarketAutoBuyPauseRequestConfig()
+
+        return request<Unit, CreateVaultMarketAutoBuyPauseResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketAutoBuyPause
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketAutoBuyPauseRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/auto-buy/pause",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Resume Auto-buy with payouts: payouts released from now on count.
+    * 
+    * @return CreateVaultMarketAutoBuyResumeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketAutoBuyResume() : CreateVaultMarketAutoBuyResumeResponse {
+        val localVarResponse = createVaultMarketAutoBuyResumeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketAutoBuyResumeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Resume Auto-buy with payouts: payouts released from now on count.
+    * 
+    * @return ApiResponse<CreateVaultMarketAutoBuyResumeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketAutoBuyResumeWithHttpInfo() : ApiResponse<CreateVaultMarketAutoBuyResumeResponse?> {
+        val localVariableConfig = createVaultMarketAutoBuyResumeRequestConfig()
+
+        return request<Unit, CreateVaultMarketAutoBuyResumeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketAutoBuyResume
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketAutoBuyResumeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/auto-buy/resume",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -6543,6 +6839,1784 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs&#39; own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+    * 
+    * @return CreateVaultMarketOptionComboResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionCombo() : CreateVaultMarketOptionComboResponse {
+        val localVarResponse = createVaultMarketOptionComboWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionComboResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs&#39; own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionComboResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionComboWithHttpInfo() : ApiResponse<CreateVaultMarketOptionComboResponse?> {
+        val localVariableConfig = createVaultMarketOptionComboRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionComboResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionCombo
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionComboRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/combos",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel a working strategy.
+    * 
+    * @param id  
+    * @return ListVaultMarketOptionCombosItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionComboCancel(id: kotlin.String) : ListVaultMarketOptionCombosItem {
+        val localVarResponse = createVaultMarketOptionComboCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionCombosItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel a working strategy.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketOptionCombosItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionComboCancelWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketOptionCombosItem?> {
+        val localVariableConfig = createVaultMarketOptionComboCancelRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketOptionCombosItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionComboCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionComboCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/combos/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ask makers for a firm net price on a whole strategy (legs, quantity, an optional limit that is never shown). Crossly venue only.
+    * 
+    * @return CreateVaultMarketOptionComboRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionComboRfq() : CreateVaultMarketOptionComboRfqResponse {
+        val localVarResponse = createVaultMarketOptionComboRfqWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionComboRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ask makers for a firm net price on a whole strategy (legs, quantity, an optional limit that is never shown). Crossly venue only.
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionComboRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionComboRfqWithHttpInfo() : ApiResponse<CreateVaultMarketOptionComboRfqResponse?> {
+        val localVariableConfig = createVaultMarketOptionComboRfqRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionComboRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionComboRfq
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionComboRfqRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/combos/rfq",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take a live, firm answer: both strategies go through the normal path (margin, pre-trade risk), every leg at once.
+    * 
+    * @param id  
+    * @return CreateVaultMarketOptionComboRfqAcceptResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionComboRfqAccept(id: kotlin.String) : CreateVaultMarketOptionComboRfqAcceptResponse {
+        val localVarResponse = createVaultMarketOptionComboRfqAcceptWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionComboRfqAcceptResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take a live, firm answer: both strategies go through the normal path (margin, pre-trade risk), every leg at once.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketOptionComboRfqAcceptResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionComboRfqAcceptWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketOptionComboRfqAcceptResponse?> {
+        val localVariableConfig = createVaultMarketOptionComboRfqAcceptRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketOptionComboRfqAcceptResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionComboRfqAccept
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionComboRfqAcceptRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/combos/rfq/{id}/accept".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel your open strategy quote request.
+    * 
+    * @param id  
+    * @return IdStatusResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionComboRfqCancel(id: kotlin.String) : IdStatusResponse {
+        val localVarResponse = createVaultMarketOptionComboRfqCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as IdStatusResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel your open strategy quote request.
+    * 
+    * @param id  
+    * @return ApiResponse<IdStatusResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionComboRfqCancelWithHttpInfo(id: kotlin.String) : ApiResponse<IdStatusResponse?> {
+        val localVariableConfig = createVaultMarketOptionComboRfqCancelRequestConfig(id = id)
+
+        return request<Unit, IdStatusResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionComboRfqCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionComboRfqCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/combos/rfq/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Answer a strategy quote request with a firm net price per unit in the canonical terms, good for 60 seconds; a new answer replaces your last.
+    * 
+    * @param id  
+    * @return CreateVaultMarketOptionRfqRespondResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionComboRfqRespond(id: kotlin.String) : CreateVaultMarketOptionRfqRespondResponse {
+        val localVarResponse = createVaultMarketOptionComboRfqRespondWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionRfqRespondResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Answer a strategy quote request with a firm net price per unit in the canonical terms, good for 60 seconds; a new answer replaces your last.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketOptionRfqRespondResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionComboRfqRespondWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketOptionRfqRespondResponse?> {
+        val localVariableConfig = createVaultMarketOptionComboRfqRespondRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketOptionRfqRespondResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionComboRfqRespond
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionComboRfqRespondRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/combos/rfq/{id}/respond".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Withdraw your live answer to a strategy quote request.
+    * 
+    * @param id  
+    * @return IdStatusResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionComboRfqResponseWithdraw(id: kotlin.String) : IdStatusResponse {
+        val localVarResponse = createVaultMarketOptionComboRfqResponseWithdrawWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as IdStatusResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Withdraw your live answer to a strategy quote request.
+    * 
+    * @param id  
+    * @return ApiResponse<IdStatusResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionComboRfqResponseWithdrawWithHttpInfo(id: kotlin.String) : ApiResponse<IdStatusResponse?> {
+        val localVariableConfig = createVaultMarketOptionComboRfqResponseWithdrawRequestConfig(id = id)
+
+        return request<Unit, IdStatusResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionComboRfqResponseWithdraw
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionComboRfqResponseWithdrawRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/combos/rfq/responses/{id}/withdraw".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Write a covered call: lock a stored vault unit (&#x60;vaultItemId&#x60;) as collateral and sell up to one call on its own key (&#x60;contractId&#x60;, &#x60;quantity&#x60; &lt;&#x3D; 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+    * 
+    * @return CreateVaultMarketOptionCoveredCallResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionCoveredCall() : CreateVaultMarketOptionCoveredCallResponse {
+        val localVarResponse = createVaultMarketOptionCoveredCallWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionCoveredCallResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Write a covered call: lock a stored vault unit (&#x60;vaultItemId&#x60;) as collateral and sell up to one call on its own key (&#x60;contractId&#x60;, &#x60;quantity&#x60; &lt;&#x3D; 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionCoveredCallResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionCoveredCallWithHttpInfo() : ApiResponse<CreateVaultMarketOptionCoveredCallResponse?> {
+        val localVariableConfig = createVaultMarketOptionCoveredCallRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionCoveredCallResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionCoveredCall
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionCoveredCallRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/covered-calls",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Free a covered call&#39;s vault unit once the call it covers is closed (or covered by other units).
+    * 
+    * @param id  
+    * @return CreateVaultMarketOptionCoveredCallReleaseResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionCoveredCallRelease(id: kotlin.String) : CreateVaultMarketOptionCoveredCallReleaseResponse {
+        val localVarResponse = createVaultMarketOptionCoveredCallReleaseWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionCoveredCallReleaseResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Free a covered call&#39;s vault unit once the call it covers is closed (or covered by other units).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketOptionCoveredCallReleaseResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionCoveredCallReleaseWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketOptionCoveredCallReleaseResponse?> {
+        val localVariableConfig = createVaultMarketOptionCoveredCallReleaseRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketOptionCoveredCallReleaseResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionCoveredCallRelease
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionCoveredCallReleaseRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/covered-calls/{id}/release".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Keep your option quotes alive (cancel-on-disconnect pulls them after 30 s without a heartbeat).
+    * 
+    * @return CreateVaultMarketOptionMmHeartbeatResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionMmHeartbeat() : CreateVaultMarketOptionMmHeartbeatResponse {
+        val localVarResponse = createVaultMarketOptionMmHeartbeatWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionMmHeartbeatResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Keep your option quotes alive (cancel-on-disconnect pulls them after 30 s without a heartbeat).
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionMmHeartbeatResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionMmHeartbeatWithHttpInfo() : ApiResponse<CreateVaultMarketOptionMmHeartbeatResponse?> {
+        val localVariableConfig = createVaultMarketOptionMmHeartbeatRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionMmHeartbeatResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionMmHeartbeat
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionMmHeartbeatRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/mm/heartbeat",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Set (replace) a two-sided quote on an option contract: &#x60;bid&#x60; and / or &#x60;ask&#x60; each { priceCents, quantity in contracts }, posted as post-only GTC orders on the Crossly venue. Market-maker protection counts their fills; a quote inside 20% of its mid earns liquidity rewards (CBX).
+    * 
+    * @return CreateVaultMarketOptionMmQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionMmQuote() : CreateVaultMarketOptionMmQuoteResponse {
+        val localVarResponse = createVaultMarketOptionMmQuoteWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionMmQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set (replace) a two-sided quote on an option contract: &#x60;bid&#x60; and / or &#x60;ask&#x60; each { priceCents, quantity in contracts }, posted as post-only GTC orders on the Crossly venue. Market-maker protection counts their fills; a quote inside 20% of its mid earns liquidity rewards (CBX).
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionMmQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionMmQuoteWithHttpInfo() : ApiResponse<CreateVaultMarketOptionMmQuoteResponse?> {
+        val localVariableConfig = createVaultMarketOptionMmQuoteRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionMmQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionMmQuote
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionMmQuoteRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/mm/quotes",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pull your option quotes on one contract (&#x60;contractId&#x60;) or all of them.
+    * 
+    * @return DeleteVaultMarketProQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionMmQuotePull() : DeleteVaultMarketProQuoteResponse {
+        val localVarResponse = createVaultMarketOptionMmQuotePullWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteVaultMarketProQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pull your option quotes on one contract (&#x60;contractId&#x60;) or all of them.
+    * 
+    * @return ApiResponse<DeleteVaultMarketProQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionMmQuotePullWithHttpInfo() : ApiResponse<DeleteVaultMarketProQuoteResponse?> {
+        val localVariableConfig = createVaultMarketOptionMmQuotePullRequestConfig()
+
+        return request<Unit, DeleteVaultMarketProQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionMmQuotePull
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionMmQuotePullRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/mm/quotes/pull",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Place an options order: &#x60;contractId&#x60;, &#x60;side&#x60;, &#x60;quantity&#x60; in contracts (three decimals), a &#x60;priceCents&#x60; or an &#x60;iv&#x60; (&#x60;quoteMode&#x60;), &#x60;tif&#x60; gtc / gtd (with &#x60;expiresAt&#x60;) / ioc, &#x60;postOnly&#x60;. Idempotent on &#x60;clientOrderId&#x60;. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its &#x60;termsVersion&#x60;). &#x60;subaccountId&#x60; trades for a firm sub-account you may trade.
+    * 
+    * @return CreateVaultMarketOptionOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionOrder() : CreateVaultMarketOptionOrderResponse {
+        val localVarResponse = createVaultMarketOptionOrderWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Place an options order: &#x60;contractId&#x60;, &#x60;side&#x60;, &#x60;quantity&#x60; in contracts (three decimals), a &#x60;priceCents&#x60; or an &#x60;iv&#x60; (&#x60;quoteMode&#x60;), &#x60;tif&#x60; gtc / gtd (with &#x60;expiresAt&#x60;) / ioc, &#x60;postOnly&#x60;. Idempotent on &#x60;clientOrderId&#x60;. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its &#x60;termsVersion&#x60;). &#x60;subaccountId&#x60; trades for a firm sub-account you may trade.
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionOrderWithHttpInfo() : ApiResponse<CreateVaultMarketOptionOrderResponse?> {
+        val localVariableConfig = createVaultMarketOptionOrderRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionOrder
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionOrderRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel a working options order (on the partner venue it is cancelled there first). A liquidation order cannot be cancelled.
+    * 
+    * @param id  
+    * @return CreateVaultMarketOptionOrderCancelResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionOrderCancel(id: kotlin.String) : CreateVaultMarketOptionOrderCancelResponse {
+        val localVarResponse = createVaultMarketOptionOrderCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionOrderCancelResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel a working options order (on the partner venue it is cancelled there first). A liquidation order cannot be cancelled.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketOptionOrderCancelResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionOrderCancelWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketOptionOrderCancelResponse?> {
+        val localVariableConfig = createVaultMarketOptionOrderCancelRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketOptionOrderCancelResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionOrderCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionOrderCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/orders/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A practice strategy (play money): the same ticket as a real one, filled at the practice maker&#39;s quotes when the net is inside the limit.
+    * 
+    * @return CreateVaultMarketOptionPracticeComboResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionPracticeCombo() : CreateVaultMarketOptionPracticeComboResponse {
+        val localVarResponse = createVaultMarketOptionPracticeComboWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionPracticeComboResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A practice strategy (play money): the same ticket as a real one, filled at the practice maker&#39;s quotes when the net is inside the limit.
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionPracticeComboResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionPracticeComboWithHttpInfo() : ApiResponse<CreateVaultMarketOptionPracticeComboResponse?> {
+        val localVariableConfig = createVaultMarketOptionPracticeComboRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionPracticeComboResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionPracticeCombo
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionPracticeComboRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/practice/combos",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Place a practice options order (the same ticket as a real one; fills against the practice maker at the reference vol). Play money only.
+    * 
+    * @return CreateVaultMarketOptionPracticeOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionPracticeOrder() : CreateVaultMarketOptionPracticeOrderResponse {
+        val localVarResponse = createVaultMarketOptionPracticeOrderWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionPracticeOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Place a practice options order (the same ticket as a real one; fills against the practice maker at the reference vol). Play money only.
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionPracticeOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionPracticeOrderWithHttpInfo() : ApiResponse<CreateVaultMarketOptionPracticeOrderResponse?> {
+        val localVariableConfig = createVaultMarketOptionPracticeOrderRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionPracticeOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionPracticeOrder
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionPracticeOrderRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/practice/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel a working practice options order.
+    * 
+    * @param id  
+    * @return ListVaultMarketOptionPracticeOrdersItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionPracticeOrderCancel(id: kotlin.String) : ListVaultMarketOptionPracticeOrdersItem {
+        val localVarResponse = createVaultMarketOptionPracticeOrderCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionPracticeOrdersItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel a working practice options order.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketOptionPracticeOrdersItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionPracticeOrderCancelWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketOptionPracticeOrdersItem?> {
+        val localVariableConfig = createVaultMarketOptionPracticeOrderCancelRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketOptionPracticeOrdersItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionPracticeOrderCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionPracticeOrderCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/practice/orders/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Start the options practice account again with $10,000: positions and working orders are cleared.
+    * 
+    * @return GetVaultMarketOptionPracticeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionPracticeReset() : GetVaultMarketOptionPracticeResponse {
+        val localVarResponse = createVaultMarketOptionPracticeResetWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionPracticeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Start the options practice account again with $10,000: positions and working orders are cleared.
+    * 
+    * @return ApiResponse<GetVaultMarketOptionPracticeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionPracticeResetWithHttpInfo() : ApiResponse<GetVaultMarketOptionPracticeResponse?> {
+        val localVariableConfig = createVaultMarketOptionPracticeResetRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionPracticeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionPracticeReset
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionPracticeResetRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/practice/reset",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Price a ticket without placing it: give a price per contract or an implied vol (&#x60;quoteMode&#x60;), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+    * 
+    * @return CreateVaultMarketOptionQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionQuote() : CreateVaultMarketOptionQuoteResponse {
+        val localVarResponse = createVaultMarketOptionQuoteWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Price a ticket without placing it: give a price per contract or an implied vol (&#x60;quoteMode&#x60;), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionQuoteWithHttpInfo() : ApiResponse<CreateVaultMarketOptionQuoteResponse?> {
+        val localVariableConfig = createVaultMarketOptionQuoteRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionQuote
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionQuoteRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/quote",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ask for a quote on an option contract: &#x60;side&#x60;, &#x60;quantity&#x60; in contracts, an optional &#x60;limitCents&#x60; (never shown). Makers quoting the series, the underlying&#39;s DMM and LPs and approved dealers are told anonymously; answers are firm for 60 s.
+    * 
+    * @return CreateVaultMarketRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionRfq() : CreateVaultMarketRfqResponse {
+        val localVarResponse = createVaultMarketOptionRfqWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ask for a quote on an option contract: &#x60;side&#x60;, &#x60;quantity&#x60; in contracts, an optional &#x60;limitCents&#x60; (never shown). Makers quoting the series, the underlying&#39;s DMM and LPs and approved dealers are told anonymously; answers are firm for 60 s.
+    * 
+    * @return ApiResponse<CreateVaultMarketRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionRfqWithHttpInfo() : ApiResponse<CreateVaultMarketRfqResponse?> {
+        val localVariableConfig = createVaultMarketOptionRfqRequestConfig()
+
+        return request<Unit, CreateVaultMarketRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionRfq
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionRfqRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/rfq",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take a live answer (&#x60;responseId&#x60;) to your option quote request: it trades through the options book at that price or better, with margin and self-trade prevention.
+    * 
+    * @param id  
+    * @return CreateVaultMarketOptionRfqAcceptResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionRfqAccept(id: kotlin.String) : CreateVaultMarketOptionRfqAcceptResponse {
+        val localVarResponse = createVaultMarketOptionRfqAcceptWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionRfqAcceptResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take a live answer (&#x60;responseId&#x60;) to your option quote request: it trades through the options book at that price or better, with margin and self-trade prevention.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketOptionRfqAcceptResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionRfqAcceptWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketOptionRfqAcceptResponse?> {
+        val localVariableConfig = createVaultMarketOptionRfqAcceptRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketOptionRfqAcceptResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionRfqAccept
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionRfqAcceptRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/rfq/{id}/accept".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel your open option quote request.
+    * 
+    * @param id  
+    * @return IdStatusResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionRfqCancel(id: kotlin.String) : IdStatusResponse {
+        val localVarResponse = createVaultMarketOptionRfqCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as IdStatusResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel your open option quote request.
+    * 
+    * @param id  
+    * @return ApiResponse<IdStatusResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionRfqCancelWithHttpInfo(id: kotlin.String) : ApiResponse<IdStatusResponse?> {
+        val localVariableConfig = createVaultMarketOptionRfqCancelRequestConfig(id = id)
+
+        return request<Unit, IdStatusResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionRfqCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionRfqCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/rfq/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Answer an option quote request with a firm price per contract for its full size (good for 60 s; a new answer replaces your last).
+    * 
+    * @param id  
+    * @return CreateVaultMarketOptionRfqRespondResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionRfqRespond(id: kotlin.String) : CreateVaultMarketOptionRfqRespondResponse {
+        val localVarResponse = createVaultMarketOptionRfqRespondWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionRfqRespondResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Answer an option quote request with a firm price per contract for its full size (good for 60 s; a new answer replaces your last).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketOptionRfqRespondResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionRfqRespondWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketOptionRfqRespondResponse?> {
+        val localVariableConfig = createVaultMarketOptionRfqRespondRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketOptionRfqRespondResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionRfqRespond
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionRfqRespondRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/rfq/{id}/respond".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Withdraw your live answer to an option quote request.
+    * 
+    * @param id  
+    * @return IdStatusResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionRfqResponseWithdraw(id: kotlin.String) : IdStatusResponse {
+        val localVarResponse = createVaultMarketOptionRfqResponseWithdrawWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as IdStatusResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Withdraw your live answer to an option quote request.
+    * 
+    * @param id  
+    * @return ApiResponse<IdStatusResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionRfqResponseWithdrawWithHttpInfo(id: kotlin.String) : ApiResponse<IdStatusResponse?> {
+        val localVariableConfig = createVaultMarketOptionRfqResponseWithdrawRequestConfig(id = id)
+
+        return request<Unit, IdStatusResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionRfqResponseWithdraw
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionRfqResponseWithdrawRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/rfq/responses/{id}/withdraw".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. &#x60;practice&#x60; rolls a practice position.
+    * 
+    * @return CreateVaultMarketOptionRollResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionRoll() : CreateVaultMarketOptionRollResponse {
+        val localVarResponse = createVaultMarketOptionRollWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionRollResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. &#x60;practice&#x60; rolls a practice position.
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionRollResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionRollWithHttpInfo() : ApiResponse<CreateVaultMarketOptionRollResponse?> {
+        val localVariableConfig = createVaultMarketOptionRollRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionRollResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionRoll
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionRollRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/roll",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Preview a strategy before placing it: by template (underlying, kind, direction, strikes, expiries) or by legs. Returns each leg at its bid / ask, the net per unit (+ debit, - credit), the payoff at the first expiry, max profit and max loss (null &#x3D; unbounded), breakevens, net Greeks, and the scenario margin of the whole strategy next to its legs margined one by one.
+    * 
+    * @return CreateVaultMarketOptionStrategyPreviewResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketOptionStrategyPreview() : CreateVaultMarketOptionStrategyPreviewResponse {
+        val localVarResponse = createVaultMarketOptionStrategyPreviewWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionStrategyPreviewResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Preview a strategy before placing it: by template (underlying, kind, direction, strikes, expiries) or by legs. Returns each leg at its bid / ask, the net per unit (+ debit, - credit), the payoff at the first expiry, max profit and max loss (null &#x3D; unbounded), breakevens, net Greeks, and the scenario margin of the whole strategy next to its legs margined one by one.
+    * 
+    * @return ApiResponse<CreateVaultMarketOptionStrategyPreviewResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketOptionStrategyPreviewWithHttpInfo() : ApiResponse<CreateVaultMarketOptionStrategyPreviewResponse?> {
+        val localVariableConfig = createVaultMarketOptionStrategyPreviewRequestConfig()
+
+        return request<Unit, CreateVaultMarketOptionStrategyPreviewResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketOptionStrategyPreview
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketOptionStrategyPreviewRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/options/strategies/preview",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Lender: call the loan (once it is a day old). A refinancing auction runs for about 30 hours, the rate a new lender gets climbing to the ceiling; repaid or refinanced, you are paid in full; neither by the end, the unit moves to your vault.
     * 
     * @param id  
@@ -8193,6 +10267,1909 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Open your account at the live prediction venue (the partner DCM, or your own segregated account at the settlement bank). Returns &#x60;{ venue, status, opened }&#x60;.
+    * 
+    * @return CreateVaultMarketPredictionAccountResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionAccount() : CreateVaultMarketPredictionAccountResponse {
+        val localVarResponse = createVaultMarketPredictionAccountWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionAccountResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Open your account at the live prediction venue (the partner DCM, or your own segregated account at the settlement bank). Returns &#x60;{ venue, status, opened }&#x60;.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionAccountResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionAccountWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionAccountResponse?> {
+        val localVariableConfig = createVaultMarketPredictionAccountRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionAccountResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionAccount
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionAccountRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/account",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Tell me when a market&#39;s probability crosses a level: &#x60;{ marketId, levelPercent, direction }&#x60;. Returns the alert.
+    * 
+    * @return CreateVaultMarketPredictionAlertResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionAlert() : CreateVaultMarketPredictionAlertResponse {
+        val localVarResponse = createVaultMarketPredictionAlertWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionAlertResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Tell me when a market&#39;s probability crosses a level: &#x60;{ marketId, levelPercent, direction }&#x60;. Returns the alert.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionAlertResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionAlertWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionAlertResponse?> {
+        val localVariableConfig = createVaultMarketPredictionAlertRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionAlertResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionAlert
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionAlertRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/alerts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Make an \&quot;I called it\&quot; share card for a position of yours that settled in your favour (&#x60;showAmounts&#x60; to include what you paid and won). Returns the card with its public URL.
+    * 
+    * @return CreateVaultMarketPredictionCardResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionCard() : CreateVaultMarketPredictionCardResponse {
+        val localVarResponse = createVaultMarketPredictionCardWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionCardResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Make an \&quot;I called it\&quot; share card for a position of yours that settled in your favour (&#x60;showAmounts&#x60; to include what you paid and won). Returns the card with its public URL.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionCardResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionCardWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionCardResponse?> {
+        val localVariableConfig = createVaultMarketPredictionCardRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionCardResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionCard
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionCardRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/cards",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ask makers for a price on a combo: 2 to 6 legs (a market and a side each) on different underlyings, a size, and an optional limit makers never see. Pays $1 a contract if every leg comes true. &#x60;venue&#x60; paper or live.
+    * 
+    * @return CreateVaultMarketPredictionComboRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionComboRfq() : CreateVaultMarketPredictionComboRfqResponse {
+        val localVarResponse = createVaultMarketPredictionComboRfqWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionComboRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ask makers for a price on a combo: 2 to 6 legs (a market and a side each) on different underlyings, a size, and an optional limit makers never see. Pays $1 a contract if every leg comes true. &#x60;venue&#x60; paper or live.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionComboRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionComboRfqWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionComboRfqResponse?> {
+        val localVariableConfig = createVaultMarketPredictionComboRfqRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionComboRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionComboRfq
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionComboRfqRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/combos/rfqs",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take one live, firm answer to your combo request (&#x60;quoteId&#x60;): both stakes are locked and the combo opens. Returns the combo.
+    * 
+    * @param id  
+    * @return ListVaultMarketPredictionCombosItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionComboRfqAccept(id: kotlin.String) : ListVaultMarketPredictionCombosItem {
+        val localVarResponse = createVaultMarketPredictionComboRfqAcceptWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionCombosItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take one live, firm answer to your combo request (&#x60;quoteId&#x60;): both stakes are locked and the combo opens. Returns the combo.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketPredictionCombosItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionComboRfqAcceptWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketPredictionCombosItem?> {
+        val localVariableConfig = createVaultMarketPredictionComboRfqAcceptRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketPredictionCombosItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionComboRfqAccept
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionComboRfqAcceptRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/combos/rfqs/{id}/accept".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Withdraw your combo request; its answers are withdrawn too.
+    * 
+    * @param id  
+    * @return ListVaultMarketPredictionComboRfqsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionComboRfqCancel(id: kotlin.String) : ListVaultMarketPredictionComboRfqsItem {
+        val localVarResponse = createVaultMarketPredictionComboRfqCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionComboRfqsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Withdraw your combo request; its answers are withdrawn too.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketPredictionComboRfqsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionComboRfqCancelWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketPredictionComboRfqsItem?> {
+        val localVariableConfig = createVaultMarketPredictionComboRfqCancelRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketPredictionComboRfqsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionComboRfqCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionComboRfqCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/combos/rfqs/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Answer a combo request with a firm price a contract for the full size (good for 30 seconds; a new answer replaces yours). Real money needs an active prediction maker programme or approved dealer status.
+    * 
+    * @param id  
+    * @return CreateVaultMarketPredictionComboRfqQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionComboRfqQuote(id: kotlin.String) : CreateVaultMarketPredictionComboRfqQuoteResponse {
+        val localVarResponse = createVaultMarketPredictionComboRfqQuoteWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionComboRfqQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Answer a combo request with a firm price a contract for the full size (good for 30 seconds; a new answer replaces yours). Real money needs an active prediction maker programme or approved dealer status.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketPredictionComboRfqQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionComboRfqQuoteWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketPredictionComboRfqQuoteResponse?> {
+        val localVariableConfig = createVaultMarketPredictionComboRfqQuoteRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketPredictionComboRfqQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionComboRfqQuote
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionComboRfqQuoteRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/combos/rfqs/{id}/quotes".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Comment on a market or a series, or reply to a comment (&#x60;parentId&#x60;). Moderated like every comment on Crossly.
+    * 
+    * @return CreateVaultMarketPredictionCommentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionComment() : CreateVaultMarketPredictionCommentResponse {
+        val localVarResponse = createVaultMarketPredictionCommentWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionCommentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Comment on a market or a series, or reply to a comment (&#x60;parentId&#x60;). Moderated like every comment on Crossly.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionCommentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionCommentWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionCommentResponse?> {
+        val localVariableConfig = createVaultMarketPredictionCommentRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionCommentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionComment
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionCommentRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/comments",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Report a comment with a reason; enough reports hide it until ops look.
+    * 
+    * @param id  
+    * @return CreateVaultMarketPredictionCommentReportResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionCommentReport(id: kotlin.String) : CreateVaultMarketPredictionCommentReportResponse {
+        val localVarResponse = createVaultMarketPredictionCommentReportWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionCommentReportResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Report a comment with a reason; enough reports hide it until ops look.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketPredictionCommentReportResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionCommentReportWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketPredictionCommentReportResponse?> {
+        val localVariableConfig = createVaultMarketPredictionCommentReportRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketPredictionCommentReportResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionCommentReport
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionCommentReportRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/comments/{id}/report".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Split ($1 a set buys one Yes in every bucket of an expiry), merge (one Yes in every bucket gives back $1 a set before settlement) or convert (No in one bucket becomes Yes in every other) on a full bucket set. &#x60;venue&#x60; paper or live. Returns the conversion and the event after it.
+    * 
+    * @return CreateVaultMarketPredictionConversionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionConversion() : CreateVaultMarketPredictionConversionResponse {
+        val localVarResponse = createVaultMarketPredictionConversionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionConversionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Split ($1 a set buys one Yes in every bucket of an expiry), merge (one Yes in every bucket gives back $1 a set before settlement) or convert (No in one bucket becomes Yes in every other) on a full bucket set. &#x60;venue&#x60; paper or live. Returns the conversion and the event after it.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionConversionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionConversionWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionConversionResponse?> {
+        val localVariableConfig = createVaultMarketPredictionConversionRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionConversionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionConversion
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionConversionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/conversions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Forecast a market: &#x60;probabilityPercent&#x60; 0 to 100. The one standing when trading closes is scored (Brier).
+    * 
+    * @return CreateVaultMarketPredictionForecastResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionForecast() : CreateVaultMarketPredictionForecastResponse {
+        val localVarResponse = createVaultMarketPredictionForecastWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionForecastResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Forecast a market: &#x60;probabilityPercent&#x60; 0 to 100. The one standing when trading closes is scored (Brier).
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionForecastResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionForecastWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionForecastResponse?> {
+        val localVariableConfig = createVaultMarketPredictionForecastRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionForecastResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionForecast
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionForecastRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/forecasts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Follow a public forecaster: you are told when they open a position or forecast (copy-watch only; nothing is ever traded for you).
+    * 
+    * @param id  
+    * @return CreateVaultMarketPredictionForecasterFollowResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionForecasterFollow(id: kotlin.String) : CreateVaultMarketPredictionForecasterFollowResponse {
+        val localVarResponse = createVaultMarketPredictionForecasterFollowWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionForecasterFollowResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Follow a public forecaster: you are told when they open a position or forecast (copy-watch only; nothing is ever traded for you).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketPredictionForecasterFollowResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionForecasterFollowWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketPredictionForecasterFollowResponse?> {
+        val localVariableConfig = createVaultMarketPredictionForecasterFollowRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketPredictionForecasterFollowResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionForecasterFollow
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionForecasterFollowRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/forecasters/{id}/follow".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Apply to make markets in prediction ladders (one series, or all with &#x60;seriesId&#x60; null). Needs the ID check; ops approve. Returns the application.
+    * 
+    * @return ListVaultMarketPredictionMakersItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionMaker() : ListVaultMarketPredictionMakersItem {
+        val localVarResponse = createVaultMarketPredictionMakerWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionMakersItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Apply to make markets in prediction ladders (one series, or all with &#x60;seriesId&#x60; null). Needs the ID check; ops approve. Returns the application.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionMakersItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionMakerWithHttpInfo() : ApiResponse<ListVaultMarketPredictionMakersItem?> {
+        val localVariableConfig = createVaultMarketPredictionMakerRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionMakersItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionMaker
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionMakerRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/makers",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Mass quote: replace your resting maker quotes on up to 50 markets with one Yes bid and one Yes ask each (post-only; an ask rests as a No bid at 100 minus it). Live quotes need an active maker programme. Returns what rests.
+    * 
+    * @return CreateVaultMarketPredictionMakerQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionMakerQuote() : CreateVaultMarketPredictionMakerQuoteResponse {
+        val localVarResponse = createVaultMarketPredictionMakerQuoteWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionMakerQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Mass quote: replace your resting maker quotes on up to 50 markets with one Yes bid and one Yes ask each (post-only; an ask rests as a No bid at 100 minus it). Live quotes need an active maker programme. Returns what rests.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionMakerQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionMakerQuoteWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionMakerQuoteResponse?> {
+        val localVariableConfig = createVaultMarketPredictionMakerQuoteRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionMakerQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionMakerQuote
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionMakerQuoteRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/makers/quotes",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Place a prediction order: buy_yes, sell_yes, buy_no or sell_no; limit (priceCents 1-99 in the action&#39;s own terms) or market (IOC 10 cents through the best price); GTC, GTD (expiresAt) or IOC; post-only. Sells only what you hold. &#x60;venue&#x60; paper (practice) or live (503 until a venue is registered). Returns the order with its fills.
+    * 
+    * @return CreateVaultMarketPredictionOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionOrder() : CreateVaultMarketPredictionOrderResponse {
+        val localVarResponse = createVaultMarketPredictionOrderWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Place a prediction order: buy_yes, sell_yes, buy_no or sell_no; limit (priceCents 1-99 in the action&#39;s own terms) or market (IOC 10 cents through the best price); GTC, GTD (expiresAt) or IOC; post-only. Sells only what you hold. &#x60;venue&#x60; paper (practice) or live (503 until a venue is registered). Returns the order with its fills.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionOrderWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionOrderResponse?> {
+        val localVariableConfig = createVaultMarketPredictionOrderRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionOrder
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionOrderRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Amend a resting order&#39;s price (in its own terms) and/or whole size. It keeps its place in the queue only when the size goes down at the same price; otherwise it is re-queued and may trade at once. Returns the order with &#x60;keptPriority&#x60;.
+    * 
+    * @param id  
+    * @return CreateVaultMarketPredictionOrderAmendResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionOrderAmend(id: kotlin.String) : CreateVaultMarketPredictionOrderAmendResponse {
+        val localVarResponse = createVaultMarketPredictionOrderAmendWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionOrderAmendResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Amend a resting order&#39;s price (in its own terms) and/or whole size. It keeps its place in the queue only when the size goes down at the same price; otherwise it is re-queued and may trade at once. Returns the order with &#x60;keptPriority&#x60;.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketPredictionOrderAmendResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionOrderAmendWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketPredictionOrderAmendResponse?> {
+        val localVariableConfig = createVaultMarketPredictionOrderAmendRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketPredictionOrderAmendResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionOrderAmend
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionOrderAmendRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/orders/{id}/amend".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Place up to 20 orders in one call; each answers on its own (&#x60;results[]&#x60;), one refused never stops the rest.
+    * 
+    * @return CreateVaultMarketPredictionOrderBatchResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionOrderBatch() : CreateVaultMarketPredictionOrderBatchResponse {
+        val localVarResponse = createVaultMarketPredictionOrderBatchWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionOrderBatchResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Place up to 20 orders in one call; each answers on its own (&#x60;results[]&#x60;), one refused never stops the rest.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionOrderBatchResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionOrderBatchWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionOrderBatchResponse?> {
+        val localVariableConfig = createVaultMarketPredictionOrderBatchRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionOrderBatchResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionOrderBatch
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionOrderBatchRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/orders/batch",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel up to 20 orders in one call; each answers on its own.
+    * 
+    * @return CreateVaultMarketPredictionOrderBatchCancelResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionOrderBatchCancel() : CreateVaultMarketPredictionOrderBatchCancelResponse {
+        val localVarResponse = createVaultMarketPredictionOrderBatchCancelWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionOrderBatchCancelResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel up to 20 orders in one call; each answers on its own.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionOrderBatchCancelResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionOrderBatchCancelWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionOrderBatchCancelResponse?> {
+        val localVariableConfig = createVaultMarketPredictionOrderBatchCancelRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionOrderBatchCancelResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionOrderBatchCancel
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionOrderBatchCancelRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/orders/batch-cancel",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel a working prediction order; the money (or practice money) it locked comes back. Returns the order.
+    * 
+    * @param id  
+    * @return CreateVaultMarketPredictionOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionOrderCancel(id: kotlin.String) : CreateVaultMarketPredictionOrderResponse {
+        val localVarResponse = createVaultMarketPredictionOrderCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel a working prediction order; the money (or practice money) it locked comes back. Returns the order.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketPredictionOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionOrderCancelWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketPredictionOrderResponse?> {
+        val localVariableConfig = createVaultMarketPredictionOrderCancelRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketPredictionOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionOrderCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionOrderCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/orders/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel every working prediction order you have, or only those on one market (&#x60;marketId&#x60;). Returns &#x60;{ cancelled }&#x60;.
+    * 
+    * @return CreateVaultMarketProOrderCancelAllResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionOrderCancelAll() : CreateVaultMarketProOrderCancelAllResponse {
+        val localVarResponse = createVaultMarketPredictionOrderCancelAllWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketProOrderCancelAllResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel every working prediction order you have, or only those on one market (&#x60;marketId&#x60;). Returns &#x60;{ cancelled }&#x60;.
+    * 
+    * @return ApiResponse<CreateVaultMarketProOrderCancelAllResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionOrderCancelAllWithHttpInfo() : ApiResponse<CreateVaultMarketProOrderCancelAllResponse?> {
+        val localVariableConfig = createVaultMarketPredictionOrderCancelAllRequestConfig()
+
+        return request<Unit, CreateVaultMarketProOrderCancelAllResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionOrderCancelAll
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionOrderCancelAllRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/orders/cancel-all",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Reset your practice prediction account to $1,000 of play money: working practice orders cancelled, practice positions cleared. Once a day.
+    * 
+    * @return CreateVaultMarketPredictionPaperResetResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionPaperReset() : CreateVaultMarketPredictionPaperResetResponse {
+        val localVarResponse = createVaultMarketPredictionPaperResetWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionPaperResetResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Reset your practice prediction account to $1,000 of play money: working practice orders cancelled, practice positions cleared. Once a day.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionPaperResetResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionPaperResetWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionPaperResetResponse?> {
+        val localVariableConfig = createVaultMarketPredictionPaperResetRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionPaperResetResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionPaperReset
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionPaperResetRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/paper/reset",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Close a position: your resting sells on the market are cancelled and everything you hold is sold now (market, 10-cent band) or at &#x60;priceCents&#x60;. Returns the sell order.
+    * 
+    * @return CreateVaultMarketPredictionOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionPositionClose() : CreateVaultMarketPredictionOrderResponse {
+        val localVarResponse = createVaultMarketPredictionPositionCloseWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Close a position: your resting sells on the market are cancelled and everything you hold is sold now (market, 10-cent band) or at &#x60;priceCents&#x60;. Returns the sell order.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionPositionCloseWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionOrderResponse?> {
+        val localVariableConfig = createVaultMarketPredictionPositionCloseRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionPositionClose
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionPositionCloseRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/positions/close",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Sell all: close every open position on a venue, or only one event&#39;s (&#x60;eventId&#x60;). Each answers on its own.
+    * 
+    * @return CreateVaultMarketPredictionPositionCloseAllResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionPositionCloseAll() : CreateVaultMarketPredictionPositionCloseAllResponse {
+        val localVarResponse = createVaultMarketPredictionPositionCloseAllWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionPositionCloseAllResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Sell all: close every open position on a venue, or only one event&#39;s (&#x60;eventId&#x60;). Each answers on its own.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionPositionCloseAllResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionPositionCloseAllWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionPositionCloseAllResponse?> {
+        val localVariableConfig = createVaultMarketPredictionPositionCloseAllRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionPositionCloseAllResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionPositionCloseAll
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionPositionCloseAllRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/positions/close-all",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Propose a market: an index slug or a book key, a shape (close at or above / at or below, between, touch), its strike(s) and an expiry. Ops review it; once listed you earn the creator share of Crossly&#39;s take on its fees.
+    * 
+    * @return ListVaultMarketPredictionProposalsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionProposal() : ListVaultMarketPredictionProposalsItem {
+        val localVarResponse = createVaultMarketPredictionProposalWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionProposalsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Propose a market: an index slug or a book key, a shape (close at or above / at or below, between, touch), its strike(s) and an expiry. Ops review it; once listed you earn the creator share of Crossly&#39;s take on its fees.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionProposalsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionProposalWithHttpInfo() : ApiResponse<ListVaultMarketPredictionProposalsItem?> {
+        val localVariableConfig = createVaultMarketPredictionProposalRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionProposalsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionProposal
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionProposalRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/proposals",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Check a market proposal without sending it: whether the underlying may carry markets (a built-in index or a tier A key), and what is wrong with the strike or expiry.
+    * 
+    * @return CreateVaultMarketPredictionProposalCheckResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionProposalCheck() : CreateVaultMarketPredictionProposalCheckResponse {
+        val localVarResponse = createVaultMarketPredictionProposalCheckWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionProposalCheckResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Check a market proposal without sending it: whether the underlying may carry markets (a built-in index or a tier A key), and what is wrong with the strike or expiry.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionProposalCheckResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionProposalCheckWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionProposalCheckResponse?> {
+        val localVariableConfig = createVaultMarketPredictionProposalCheckRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionProposalCheckResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionProposalCheck
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionProposalCheckRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/proposals/check",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Withdraw a proposal still waiting for review.
+    * 
+    * @param id  
+    * @return ListVaultMarketPredictionProposalsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionProposalWithdraw(id: kotlin.String) : ListVaultMarketPredictionProposalsItem {
+        val localVarResponse = createVaultMarketPredictionProposalWithdrawWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionProposalsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Withdraw a proposal still waiting for review.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketPredictionProposalsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionProposalWithdrawWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketPredictionProposalsItem?> {
+        val localVariableConfig = createVaultMarketPredictionProposalWithdrawRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketPredictionProposalsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionProposalWithdraw
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionProposalWithdrawRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/proposals/{id}/withdraw".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Dispute a settlement inside its 24-hour review window (you must hold a position in the market). Payout waits for the venue&#39;s decision. Returns &#x60;{ settlementId, status }&#x60;.
+    * 
+    * @param id  
+    * @return CreateVaultMarketPredictionSettlementDisputeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionSettlementDispute(id: kotlin.String) : CreateVaultMarketPredictionSettlementDisputeResponse {
+        val localVarResponse = createVaultMarketPredictionSettlementDisputeWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionSettlementDisputeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Dispute a settlement inside its 24-hour review window (you must hold a position in the market). Payout waits for the venue&#39;s decision. Returns &#x60;{ settlementId, status }&#x60;.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketPredictionSettlementDisputeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionSettlementDisputeWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketPredictionSettlementDisputeResponse?> {
+        val localVariableConfig = createVaultMarketPredictionSettlementDisputeRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketPredictionSettlementDisputeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionSettlementDispute
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionSettlementDisputeRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/settlements/{id}/dispute".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Accept the current prediction-market contract terms (PREDICTION_TERMS_VERSION), needed for every real-money order. Returns &#x60;{ termsVersion, venue }&#x60;.
+    * 
+    * @return CreateVaultMarketPredictionTermResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketPredictionTerm() : CreateVaultMarketPredictionTermResponse {
+        val localVarResponse = createVaultMarketPredictionTermWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionTermResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Accept the current prediction-market contract terms (PREDICTION_TERMS_VERSION), needed for every real-money order. Returns &#x60;{ termsVersion, venue }&#x60;.
+    * 
+    * @return ApiResponse<CreateVaultMarketPredictionTermResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketPredictionTermWithHttpInfo() : ApiResponse<CreateVaultMarketPredictionTermResponse?> {
+        val localVariableConfig = createVaultMarketPredictionTermRequestConfig()
+
+        return request<Unit, CreateVaultMarketPredictionTermResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketPredictionTerm
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketPredictionTermRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/predictions/terms",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Make a price widget for one vault market (&#x60;kind&#x60; mark + &#x60;bookKey&#x60;) or one public index (&#x60;kind&#x60; index + &#x60;indexSlug&#x60;): range, layout (compact or chart), theme (auto, light, dark), optionally your own affiliate code for the link back and the sites allowed to show it (empty &#x3D; any). Returns the widget with its snippets.
     * 
     * @return ListVaultMarketPriceWidgetsItem
@@ -8874,7 +12851,7 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     /**
     * Keep your quotes alive (cancel-on-disconnect). Returns &#x60;{ quotes, at }&#x60;.
     * 
-    * @return CreateVaultMarketProQuoteHeartbeatResponse
+    * @return CreateVaultMarketOptionMmHeartbeatResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -8883,11 +12860,11 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createVaultMarketProQuoteHeartbeat() : CreateVaultMarketProQuoteHeartbeatResponse {
+    fun createVaultMarketProQuoteHeartbeat() : CreateVaultMarketOptionMmHeartbeatResponse {
         val localVarResponse = createVaultMarketProQuoteHeartbeatWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketProQuoteHeartbeatResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketOptionMmHeartbeatResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -8904,16 +12881,16 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     /**
     * Keep your quotes alive (cancel-on-disconnect). Returns &#x60;{ quotes, at }&#x60;.
     * 
-    * @return ApiResponse<CreateVaultMarketProQuoteHeartbeatResponse?>
+    * @return ApiResponse<CreateVaultMarketOptionMmHeartbeatResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createVaultMarketProQuoteHeartbeatWithHttpInfo() : ApiResponse<CreateVaultMarketProQuoteHeartbeatResponse?> {
+    fun createVaultMarketProQuoteHeartbeatWithHttpInfo() : ApiResponse<CreateVaultMarketOptionMmHeartbeatResponse?> {
         val localVariableConfig = createVaultMarketProQuoteHeartbeatRequestConfig()
 
-        return request<Unit, CreateVaultMarketProQuoteHeartbeatResponse>(
+        return request<Unit, CreateVaultMarketOptionMmHeartbeatResponse>(
             localVariableConfig
         )
     }
@@ -9697,6 +13674,493 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Start auto-invest: &#x60;amountCents&#x60; ($5-$10,000) &#x60;every&#x60; week or month into &#x60;seriesIds&#x60; (equal weights) or &#x60;targets&#x60; (seriesId + weightBps summing to 10,000) or a &#x60;basketId&#x60; (with &#x60;rebalance&#x60; to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to &#x60;maxPremiumBps&#x60; over the indicative value. &#x60;practice&#x60; runs it on paper.
+    * 
+    * @return ListVaultMarketShareAutoInvestItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareAutoInvest() : ListVaultMarketShareAutoInvestItem {
+        val localVarResponse = createVaultMarketShareAutoInvestWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareAutoInvestItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Start auto-invest: &#x60;amountCents&#x60; ($5-$10,000) &#x60;every&#x60; week or month into &#x60;seriesIds&#x60; (equal weights) or &#x60;targets&#x60; (seriesId + weightBps summing to 10,000) or a &#x60;basketId&#x60; (with &#x60;rebalance&#x60; to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to &#x60;maxPremiumBps&#x60; over the indicative value. &#x60;practice&#x60; runs it on paper.
+    * 
+    * @return ApiResponse<ListVaultMarketShareAutoInvestItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareAutoInvestWithHttpInfo() : ApiResponse<ListVaultMarketShareAutoInvestItem?> {
+        val localVariableConfig = createVaultMarketShareAutoInvestRequestConfig()
+
+        return request<Unit, ListVaultMarketShareAutoInvestItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareAutoInvest
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareAutoInvestRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/auto-invest",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Run a plan now (once a minute at most); the schedule does not move.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareAutoInvestRunResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareAutoInvestRun(id: kotlin.String) : CreateVaultMarketShareAutoInvestRunResponse {
+        val localVarResponse = createVaultMarketShareAutoInvestRunWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareAutoInvestRunResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Run a plan now (once a minute at most); the schedule does not move.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareAutoInvestRunResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareAutoInvestRunWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareAutoInvestRunResponse?> {
+        val localVariableConfig = createVaultMarketShareAutoInvestRunRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareAutoInvestRunResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareAutoInvestRun
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareAutoInvestRunRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/auto-invest/{id}/run".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Change a plan (amount, cadence, series or weights, cap, rebalance) or set its &#x60;status&#x60; active, paused or cancelled.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareAutoInvestItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareAutoInvestUpdate(id: kotlin.String) : ListVaultMarketShareAutoInvestItem {
+        val localVarResponse = createVaultMarketShareAutoInvestUpdateWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareAutoInvestItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Change a plan (amount, cadence, series or weights, cap, rebalance) or set its &#x60;status&#x60; active, paused or cancelled.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareAutoInvestItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareAutoInvestUpdateWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareAutoInvestItem?> {
+        val localVariableConfig = createVaultMarketShareAutoInvestUpdateRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareAutoInvestItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareAutoInvestUpdate
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareAutoInvestUpdateRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/auto-invest/{id}/update".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Buy a basket once: &#x60;amountCents&#x60; split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to &#x60;maxPremiumBps&#x60;). &#x60;practice&#x60; buys on paper.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareBasketBuyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareBasketBuy(id: kotlin.String) : CreateVaultMarketShareBasketBuyResponse {
+        val localVarResponse = createVaultMarketShareBasketBuyWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareBasketBuyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Buy a basket once: &#x60;amountCents&#x60; split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to &#x60;maxPremiumBps&#x60;). &#x60;practice&#x60; buys on paper.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareBasketBuyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareBasketBuyWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareBasketBuyResponse?> {
+        val localVariableConfig = createVaultMarketShareBasketBuyRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareBasketBuyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareBasketBuy
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareBasketBuyRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/baskets/{id}/buy".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your whole-unit bid reached the reserve: fund the price through your investor account within 72 hours to buy the item from its holders (no vote).
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareBuyoutFundResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareBuyoutFund(id: kotlin.String) : CreateVaultMarketShareBuyoutFundResponse {
+        val localVarResponse = createVaultMarketShareBuyoutFundWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareBuyoutFundResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your whole-unit bid reached the reserve: fund the price through your investor account within 72 hours to buy the item from its holders (no vote).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareBuyoutFundResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareBuyoutFundWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareBuyoutFundResponse?> {
+        val localVariableConfig = createVaultMarketShareBuyoutFundRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareBuyoutFundResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareBuyoutFund
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareBuyoutFundRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/buyouts/{id}/fund".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Vote &#x60;yes&#x60; or &#x60;no&#x60; on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareBuyoutFundResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareBuyoutVote(id: kotlin.String) : CreateVaultMarketShareBuyoutFundResponse {
+        val localVarResponse = createVaultMarketShareBuyoutVoteWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareBuyoutFundResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Vote &#x60;yes&#x60; or &#x60;no&#x60; on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareBuyoutFundResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareBuyoutVoteWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareBuyoutFundResponse?> {
+        val localVariableConfig = createVaultMarketShareBuyoutVoteRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareBuyoutFundResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareBuyoutVote
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareBuyoutVoteRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/buyouts/{id}/vote".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Withdraw your buyout bid before its vote opens; the escrow is refunded.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareBuyoutFundResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareBuyoutWithdraw(id: kotlin.String) : CreateVaultMarketShareBuyoutFundResponse {
+        val localVarResponse = createVaultMarketShareBuyoutWithdrawWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareBuyoutFundResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Withdraw your buyout bid before its vote opens; the escrow is refunded.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareBuyoutFundResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareBuyoutWithdrawWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareBuyoutFundResponse?> {
+        val localVariableConfig = createVaultMarketShareBuyoutWithdrawRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareBuyoutFundResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareBuyoutWithdraw
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareBuyoutWithdrawRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/buyouts/{id}/withdraw".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Make a verified share card of a position, a vault unit, a public index or your portfolio (&#x60;kind&#x60;, &#x60;refId&#x60;). The % on it is the price move since your real fill; amounts stay hidden unless &#x60;showAmounts&#x60;.
     * 
     * @return ListVaultMarketShareCardsItem
@@ -9757,6 +14221,1677 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/vault-markets/share-cards",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Accept a share gift. Needs your own verified Vault Shares investor account; the venue then moves the shares to you on the register.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareGiftsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareGiftAccept(id: kotlin.String) : ListVaultMarketShareGiftsItem {
+        val localVarResponse = createVaultMarketShareGiftAcceptWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareGiftsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Accept a share gift. Needs your own verified Vault Shares investor account; the venue then moves the shares to you on the register.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareGiftsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareGiftAcceptWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareGiftsItem?> {
+        val localVariableConfig = createVaultMarketShareGiftAcceptRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareGiftsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareGiftAccept
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareGiftAcceptRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/gifts/{id}/accept".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel a gift you offered, before it is accepted: the shares are free again.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareGiftsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareGiftCancel(id: kotlin.String) : ListVaultMarketShareGiftsItem {
+        val localVarResponse = createVaultMarketShareGiftCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareGiftsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel a gift you offered, before it is accepted: the shares are free again.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareGiftsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareGiftCancelWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareGiftsItem?> {
+        val localVariableConfig = createVaultMarketShareGiftCancelRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareGiftsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareGiftCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareGiftCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/gifts/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Decline a share gift offered to you.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareGiftsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareGiftDecline(id: kotlin.String) : ListVaultMarketShareGiftsItem {
+        val localVarResponse = createVaultMarketShareGiftDeclineWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareGiftsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Decline a share gift offered to you.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareGiftsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareGiftDeclineWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareGiftsItem?> {
+        val localVariableConfig = createVaultMarketShareGiftDeclineRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareGiftsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareGiftDecline
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareGiftDeclineRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/gifts/{id}/decline".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Open or update your investor account at the venue: accept the current investor terms (&#x60;acceptTerms&#x60;), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+    * 
+    * @return GetVaultMarketShareInvestorResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareInvestor() : GetVaultMarketShareInvestorResponse {
+        val localVarResponse = createVaultMarketShareInvestorWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareInvestorResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Open or update your investor account at the venue: accept the current investor terms (&#x60;acceptTerms&#x60;), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+    * 
+    * @return ApiResponse<GetVaultMarketShareInvestorResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareInvestorWithHttpInfo() : ApiResponse<GetVaultMarketShareInvestorResponse?> {
+        val localVariableConfig = createVaultMarketShareInvestorRequestConfig()
+
+        return request<Unit, GetVaultMarketShareInvestorResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareInvestor
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareInvestorRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/investor",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel one of your open share-book orders.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareOrdersItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareOrderCancel(id: kotlin.String) : ListVaultMarketShareOrdersItem {
+        val localVarResponse = createVaultMarketShareOrderCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareOrdersItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel one of your open share-book orders.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareOrdersItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareOrderCancelWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareOrdersItem?> {
+        val localVariableConfig = createVaultMarketShareOrderCancelRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareOrdersItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareOrderCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareOrderCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/orders/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel an open practice order.
+    * 
+    * @param id  
+    * @return CreateVaultMarketSharePaperSeryOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketSharePaperOrderCancel(id: kotlin.String) : CreateVaultMarketSharePaperSeryOrderResponse {
+        val localVarResponse = createVaultMarketSharePaperOrderCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketSharePaperSeryOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel an open practice order.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketSharePaperSeryOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketSharePaperOrderCancelWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketSharePaperSeryOrderResponse?> {
+        val localVariableConfig = createVaultMarketSharePaperOrderCancelRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketSharePaperSeryOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketSharePaperOrderCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketSharePaperOrderCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/paper/orders/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Start the practice account over with fresh play money (once a day).
+    * 
+    * @return GetVaultMarketSharePaperResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketSharePaperReset() : GetVaultMarketSharePaperResponse {
+        val localVarResponse = createVaultMarketSharePaperResetWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketSharePaperResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Start the practice account over with fresh play money (once a day).
+    * 
+    * @return ApiResponse<GetVaultMarketSharePaperResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketSharePaperResetWithHttpInfo() : ApiResponse<GetVaultMarketSharePaperResponse?> {
+        val localVariableConfig = createVaultMarketSharePaperResetRequestConfig()
+
+        return request<Unit, GetVaultMarketSharePaperResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketSharePaperReset
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketSharePaperResetRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/paper/reset",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Place a practice order (play money) with the same rules as the real share book.
+    * 
+    * @param id  
+    * @return CreateVaultMarketSharePaperSeryOrderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketSharePaperSeryOrder(id: kotlin.String) : CreateVaultMarketSharePaperSeryOrderResponse {
+        val localVarResponse = createVaultMarketSharePaperSeryOrderWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketSharePaperSeryOrderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Place a practice order (play money) with the same rules as the real share book.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketSharePaperSeryOrderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketSharePaperSeryOrderWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketSharePaperSeryOrderResponse?> {
+        val localVariableConfig = createVaultMarketSharePaperSeryOrderRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketSharePaperSeryOrderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketSharePaperSeryOrder
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketSharePaperSeryOrderRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/paper/series/{id}/orders".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Subscribe with play money to a practice series’ offering.
+    * 
+    * @param id  
+    * @return GetVaultMarketSharePaperResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketSharePaperSerySubscribe(id: kotlin.String) : GetVaultMarketSharePaperResponse {
+        val localVarResponse = createVaultMarketSharePaperSerySubscribeWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketSharePaperResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Subscribe with play money to a practice series’ offering.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketSharePaperResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketSharePaperSerySubscribeWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketSharePaperResponse?> {
+        val localVariableConfig = createVaultMarketSharePaperSerySubscribeRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketSharePaperResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketSharePaperSerySubscribe
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketSharePaperSerySubscribeRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/paper/series/{id}/subscribe".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take down one of your own holder-room posts (&#x60;reason&#x60;).
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareRoomHideResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareRoomHide(id: kotlin.String) : CreateVaultMarketShareRoomHideResponse {
+        val localVarResponse = createVaultMarketShareRoomHideWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareRoomHideResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take down one of your own holder-room posts (&#x60;reason&#x60;).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareRoomHideResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareRoomHideWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareRoomHideResponse?> {
+        val localVariableConfig = createVaultMarketShareRoomHideRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareRoomHideResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareRoomHide
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareRoomHideRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/room/{id}/hide".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Propose a Vault Shares series for one of your units (&#x60;vaultItemId&#x60;), keeping &#x60;retainedShares&#x60; (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass &#x60;requestId&#x60; to make a retry safe.
+    * 
+    * @return ListVaultMarketShareSeriesItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSery() : ListVaultMarketShareSeriesItem {
+        val localVarResponse = createVaultMarketShareSeryWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSeriesItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Propose a Vault Shares series for one of your units (&#x60;vaultItemId&#x60;), keeping &#x60;retainedShares&#x60; (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass &#x60;requestId&#x60; to make a retry safe.
+    * 
+    * @return ApiResponse<ListVaultMarketShareSeriesItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryWithHttpInfo() : ApiResponse<ListVaultMarketShareSeriesItem?> {
+        val localVariableConfig = createVaultMarketShareSeryRequestConfig()
+
+        return request<Unit, ListVaultMarketShareSeriesItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSery
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Bid for the whole item (&#x60;offerCents&#x60;, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareBuyoutFundResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryBuyout(id: kotlin.String) : CreateVaultMarketShareBuyoutFundResponse {
+        val localVarResponse = createVaultMarketShareSeryBuyoutWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareBuyoutFundResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Bid for the whole item (&#x60;offerCents&#x60;, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareBuyoutFundResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryBuyoutWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareBuyoutFundResponse?> {
+        val localVariableConfig = createVaultMarketShareSeryBuyoutRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareBuyoutFundResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryBuyout
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryBuyoutRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/buyouts".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Give whole &#x60;shares&#x60; of a series to someone (&#x60;to&#x60;: their @handle, email or user id), with an optional &#x60;message&#x60;. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareGiftsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryGift(id: kotlin.String) : ListVaultMarketShareGiftsItem {
+        val localVarResponse = createVaultMarketShareSeryGiftWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareGiftsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Give whole &#x60;shares&#x60; of a series to someone (&#x60;to&#x60;: their @handle, email or user id), with an optional &#x60;message&#x60;. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareGiftsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryGiftWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareGiftsItem?> {
+        val localVariableConfig = createVaultMarketShareSeryGiftRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareGiftsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryGift
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryGiftRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/gifts".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Place an order on a series’ share book: &#x60;side&#x60;, &#x60;type&#x60; limit or market (immediate-or-cancel inside a 10% band), &#x60;tif&#x60; gtc / gtd (&#x60;expiresAt&#x60;) / ioc, whole &#x60;shares&#x60; or a buy’s &#x60;amountCents&#x60; (turned into whole shares at the most it could pay), integer &#x60;limitCents&#x60; a share, &#x60;postOnly&#x60;. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass &#x60;requestId&#x60; to make a retry safe.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareOrdersItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryOrder(id: kotlin.String) : ListVaultMarketShareOrdersItem {
+        val localVarResponse = createVaultMarketShareSeryOrderWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareOrdersItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Place an order on a series’ share book: &#x60;side&#x60;, &#x60;type&#x60; limit or market (immediate-or-cancel inside a 10% band), &#x60;tif&#x60; gtc / gtd (&#x60;expiresAt&#x60;) / ioc, whole &#x60;shares&#x60; or a buy’s &#x60;amountCents&#x60; (turned into whole shares at the most it could pay), integer &#x60;limitCents&#x60; a share, &#x60;postOnly&#x60;. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass &#x60;requestId&#x60; to make a retry safe.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareOrdersItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryOrderWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareOrdersItem?> {
+        val localVariableConfig = createVaultMarketShareSeryOrderRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareOrdersItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryOrder
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryOrderRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/orders".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * You hold every share: take the item back whole. With &#x60;withdraw&#x60;, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareSeryRecombineResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryRecombine(id: kotlin.String) : CreateVaultMarketShareSeryRecombineResponse {
+        val localVarResponse = createVaultMarketShareSeryRecombineWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareSeryRecombineResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * You hold every share: take the item back whole. With &#x60;withdraw&#x60;, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareSeryRecombineResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryRecombineWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareSeryRecombineResponse?> {
+        val localVariableConfig = createVaultMarketShareSeryRecombineRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareSeryRecombineResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryRecombine
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryRecombineRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/recombine".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Post in the holder room (shareholders only), up to 1,000 characters.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareSeryRoomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryRoom(id: kotlin.String) : CreateVaultMarketShareSeryRoomResponse {
+        val localVarResponse = createVaultMarketShareSeryRoomWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareSeryRoomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Post in the holder room (shareholders only), up to 1,000 characters.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareSeryRoomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryRoomWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareSeryRoomResponse?> {
+        val localVariableConfig = createVaultMarketShareSeryRoomRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareSeryRoomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryRoom
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryRoomRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/room".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Subscribe for whole &#x60;shares&#x60; in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass &#x60;jointVaultId&#x60;. Pass &#x60;requestId&#x60; to make a retry safe.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareSubscriptionsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSerySubscribe(id: kotlin.String) : ListVaultMarketShareSubscriptionsItem {
+        val localVarResponse = createVaultMarketShareSerySubscribeWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSubscriptionsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Subscribe for whole &#x60;shares&#x60; in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass &#x60;jointVaultId&#x60;. Pass &#x60;requestId&#x60; to make a retry safe.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareSubscriptionsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSerySubscribeWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareSubscriptionsItem?> {
+        val localVariableConfig = createVaultMarketShareSerySubscribeRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareSubscriptionsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSerySubscribe
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSerySubscribeRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/subscribe".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Stop being told about a drop (&#x60;kind&#x60; notify) or leave its waitlist (&#x60;kind&#x60; waitlist).
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareSeryWatchResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryUnwatch(id: kotlin.String) : CreateVaultMarketShareSeryWatchResponse {
+        val localVarResponse = createVaultMarketShareSeryUnwatchWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareSeryWatchResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Stop being told about a drop (&#x60;kind&#x60; notify) or leave its waitlist (&#x60;kind&#x60; waitlist).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareSeryWatchResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryUnwatchWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareSeryWatchResponse?> {
+        val localVariableConfig = createVaultMarketShareSeryUnwatchRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareSeryWatchResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryUnwatch
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryUnwatchRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/unwatch".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Post an update on your own item’s series (you are its originator): &#x60;kind&#x60; story, provenance, condition, appraisal, exhibition or event, a &#x60;title&#x60;, a &#x60;body&#x60;, an optional https &#x60;mediaUrl&#x60;, &#x60;holdersOnly&#x60;. Holders are told.
+    * 
+    * @param id  
+    * @return IdResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryUpdate(id: kotlin.String) : IdResponse {
+        val localVarResponse = createVaultMarketShareSeryUpdateWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as IdResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Post an update on your own item’s series (you are its originator): &#x60;kind&#x60; story, provenance, condition, appraisal, exhibition or event, a &#x60;title&#x60;, a &#x60;body&#x60;, an optional https &#x60;mediaUrl&#x60;, &#x60;holdersOnly&#x60;. Holders are told.
+    * 
+    * @param id  
+    * @return ApiResponse<IdResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryUpdateWithHttpInfo(id: kotlin.String) : ApiResponse<IdResponse?> {
+        val localVariableConfig = createVaultMarketShareSeryUpdateRequestConfig(id = id)
+
+        return request<Unit, IdResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryUpdate
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryUpdateRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/updates".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ask to be told about a drop (&#x60;kind&#x60; notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (&#x60;kind&#x60; waitlist, with the &#x60;shares&#x60; you want).
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareSeryWatchResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryWatch(id: kotlin.String) : CreateVaultMarketShareSeryWatchResponse {
+        val localVarResponse = createVaultMarketShareSeryWatchWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareSeryWatchResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ask to be told about a drop (&#x60;kind&#x60; notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (&#x60;kind&#x60; waitlist, with the &#x60;shares&#x60; you want).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareSeryWatchResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryWatchWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareSeryWatchResponse?> {
+        val localVariableConfig = createVaultMarketShareSeryWatchRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareSeryWatchResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryWatch
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryWatchRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/watch".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Withdraw your own proposal before its offering opens.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareSeriesItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSeryWithdrawProposal(id: kotlin.String) : ListVaultMarketShareSeriesItem {
+        val localVarResponse = createVaultMarketShareSeryWithdrawProposalWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSeriesItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Withdraw your own proposal before its offering opens.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareSeriesItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSeryWithdrawProposalWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareSeriesItem?> {
+        val localVariableConfig = createVaultMarketShareSeryWithdrawProposalRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareSeriesItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSeryWithdrawProposal
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSeryWithdrawProposalRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/series/{id}/withdraw-proposal".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel an escrowed subscription while its offering is still open: the escrow is refunded.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareSubscriptionsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareSubscriptionCancel(id: kotlin.String) : ListVaultMarketShareSubscriptionsItem {
+        val localVarResponse = createVaultMarketShareSubscriptionCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSubscriptionsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel an escrowed subscription while its offering is still open: the escrow is refunded.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareSubscriptionsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareSubscriptionCancelWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareSubscriptionsItem?> {
+        val localVariableConfig = createVaultMarketShareSubscriptionCancelRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareSubscriptionsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareSubscriptionCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareSubscriptionCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/subscriptions/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Book a place on a viewing day (shareholders only), with up to the day’s &#x60;guests&#x60;. Bookings close a day before; booking again changes your guests.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareViewingBookResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareViewingBook(id: kotlin.String) : CreateVaultMarketShareViewingBookResponse {
+        val localVarResponse = createVaultMarketShareViewingBookWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareViewingBookResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Book a place on a viewing day (shareholders only), with up to the day’s &#x60;guests&#x60;. Bookings close a day before; booking again changes your guests.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareViewingBookResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareViewingBookWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareViewingBookResponse?> {
+        val localVariableConfig = createVaultMarketShareViewingBookRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareViewingBookResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareViewingBook
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareViewingBookRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/viewings/{id}/book".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel your viewing-day booking.
+    * 
+    * @param id  
+    * @return CreateVaultMarketShareViewingBookingCancelResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketShareViewingBookingCancel(id: kotlin.String) : CreateVaultMarketShareViewingBookingCancelResponse {
+        val localVarResponse = createVaultMarketShareViewingBookingCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketShareViewingBookingCancelResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel your viewing-day booking.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketShareViewingBookingCancelResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketShareViewingBookingCancelWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketShareViewingBookingCancelResponse?> {
+        val localVariableConfig = createVaultMarketShareViewingBookingCancelRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketShareViewingBookingCancelResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketShareViewingBookingCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createVaultMarketShareViewingBookingCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/shares/viewing-bookings/{id}/cancel".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -10031,6 +16166,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/vault-markets/supply/send",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Send inventory items to the vault: &#x60;method: label&#x60; (one box on a prepaid label) or &#x60;dropoff&#x60; at a partner (&#x60;partnerId&#x60;, from the finder; you get a counter code). Each item can carry its declared value; &#x60;insured&#x60; insures the box for it.
+    * 
+    * @return CreateVaultMarketSupplySendInResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createVaultMarketSupplySendIn() : CreateVaultMarketSupplySendInResponse {
+        val localVarResponse = createVaultMarketSupplySendInWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketSupplySendInResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Send inventory items to the vault: &#x60;method: label&#x60; (one box on a prepaid label) or &#x60;dropoff&#x60; at a partner (&#x60;partnerId&#x60;, from the finder; you get a counter code). Each item can carry its declared value; &#x60;insured&#x60; insures the box for it.
+    * 
+    * @return ApiResponse<CreateVaultMarketSupplySendInResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createVaultMarketSupplySendInWithHttpInfo() : ApiResponse<CreateVaultMarketSupplySendInResponse?> {
+        val localVariableConfig = createVaultMarketSupplySendInRequestConfig()
+
+        return request<Unit, CreateVaultMarketSupplySendInResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createVaultMarketSupplySendIn
+    *
+    * @return RequestConfig
+    */
+    fun createVaultMarketSupplySendInRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/vault-markets/supply/send-in",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -11344,6 +17546,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Stop Auto-buy with payouts. The history stays.
+    * 
+    * @return DeleteVaultMarketAutoBuyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteVaultMarketAutoBuy() : DeleteVaultMarketAutoBuyResponse {
+        val localVarResponse = deleteVaultMarketAutoBuyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteVaultMarketAutoBuyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Stop Auto-buy with payouts. The history stays.
+    * 
+    * @return ApiResponse<DeleteVaultMarketAutoBuyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteVaultMarketAutoBuyWithHttpInfo() : ApiResponse<DeleteVaultMarketAutoBuyResponse?> {
+        val localVariableConfig = deleteVaultMarketAutoBuyRequestConfig()
+
+        return request<Unit, DeleteVaultMarketAutoBuyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteVaultMarketAutoBuy
+    *
+    * @return RequestConfig
+    */
+    fun deleteVaultMarketAutoBuyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/vault-markets/auto-buy",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Stop a family-wide quote: every leg order comes off the book; what filled stays filled.
     * 
     * @param id  
@@ -11897,6 +18166,286 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.DELETE,
             path = "/v1/vault-markets/opening/{slug}/waitlist".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Remove a probability alert. Returns &#x60;{ ok }&#x60;.
+    * 
+    * @param id  
+    * @return OkResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteVaultMarketPredictionAlert(id: kotlin.String) : OkResponse {
+        val localVarResponse = deleteVaultMarketPredictionAlertWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as OkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Remove a probability alert. Returns &#x60;{ ok }&#x60;.
+    * 
+    * @param id  
+    * @return ApiResponse<OkResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteVaultMarketPredictionAlertWithHttpInfo(id: kotlin.String) : ApiResponse<OkResponse?> {
+        val localVariableConfig = deleteVaultMarketPredictionAlertRequestConfig(id = id)
+
+        return request<Unit, OkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteVaultMarketPredictionAlert
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteVaultMarketPredictionAlertRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/vault-markets/predictions/alerts/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take an \&quot;I called it\&quot; card down; its link stops working. Returns &#x60;{ ok }&#x60;.
+    * 
+    * @param id  
+    * @return OkResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteVaultMarketPredictionCard(id: kotlin.String) : OkResponse {
+        val localVarResponse = deleteVaultMarketPredictionCardWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as OkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take an \&quot;I called it\&quot; card down; its link stops working. Returns &#x60;{ ok }&#x60;.
+    * 
+    * @param id  
+    * @return ApiResponse<OkResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteVaultMarketPredictionCardWithHttpInfo(id: kotlin.String) : ApiResponse<OkResponse?> {
+        val localVariableConfig = deleteVaultMarketPredictionCardRequestConfig(id = id)
+
+        return request<Unit, OkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteVaultMarketPredictionCard
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteVaultMarketPredictionCardRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/vault-markets/predictions/cards/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Delete your comment.
+    * 
+    * @param id  
+    * @return OkResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteVaultMarketPredictionComment(id: kotlin.String) : OkResponse {
+        val localVarResponse = deleteVaultMarketPredictionCommentWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as OkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Delete your comment.
+    * 
+    * @param id  
+    * @return ApiResponse<OkResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteVaultMarketPredictionCommentWithHttpInfo(id: kotlin.String) : ApiResponse<OkResponse?> {
+        val localVariableConfig = deleteVaultMarketPredictionCommentRequestConfig(id = id)
+
+        return request<Unit, OkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteVaultMarketPredictionComment
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteVaultMarketPredictionCommentRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/vault-markets/predictions/comments/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Stop following a forecaster.
+    * 
+    * @param id  
+    * @return CreateVaultMarketPredictionForecasterFollowResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteVaultMarketPredictionForecasterFollow(id: kotlin.String) : CreateVaultMarketPredictionForecasterFollowResponse {
+        val localVarResponse = deleteVaultMarketPredictionForecasterFollowWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionForecasterFollowResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Stop following a forecaster.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketPredictionForecasterFollowResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteVaultMarketPredictionForecasterFollowWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketPredictionForecasterFollowResponse?> {
+        val localVariableConfig = deleteVaultMarketPredictionForecasterFollowRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketPredictionForecasterFollowResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteVaultMarketPredictionForecasterFollow
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteVaultMarketPredictionForecasterFollowRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/vault-markets/predictions/forecasters/{id}/follow".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -13270,6 +19819,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/auctions/mine",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Auto-buy with payouts: the share of each payout set aside as a vault buying budget, the budget, your want list with max prices, the purchase history and whether it is paused. &#x60;autoBuy&#x60; is null when it is not set up.
+    * 
+    * @return GetVaultMarketAutoBuyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketAutoBuy() : GetVaultMarketAutoBuyResponse {
+        val localVarResponse = getVaultMarketAutoBuyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketAutoBuyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Auto-buy with payouts: the share of each payout set aside as a vault buying budget, the budget, your want list with max prices, the purchase history and whether it is paused. &#x60;autoBuy&#x60; is null when it is not set up.
+    * 
+    * @return ApiResponse<GetVaultMarketAutoBuyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketAutoBuyWithHttpInfo() : ApiResponse<GetVaultMarketAutoBuyResponse?> {
+        val localVariableConfig = getVaultMarketAutoBuyRequestConfig()
+
+        return request<Unit, GetVaultMarketAutoBuyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketAutoBuy
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketAutoBuyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/auto-buy",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -15875,6 +22491,146 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * The inventory item a vault unit of yours came from (null for a unit bought on the book).
+    * 
+    * @param id  
+    * @return GetVaultMarketHoldingInventoryItemResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketHoldingInventoryItem(id: kotlin.String) : GetVaultMarketHoldingInventoryItemResponse {
+        val localVarResponse = getVaultMarketHoldingInventoryItemWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketHoldingInventoryItemResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The inventory item a vault unit of yours came from (null for a unit bought on the book).
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketHoldingInventoryItemResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketHoldingInventoryItemWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketHoldingInventoryItemResponse?> {
+        val localVariableConfig = getVaultMarketHoldingInventoryItemRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketHoldingInventoryItemResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketHoldingInventoryItem
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketHoldingInventoryItemRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/holdings/{id}/inventory-item".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What shipping one unit you own home would charge now, for &#x60;standard&#x60; and &#x60;expedited&#x60;: shipping, the storage it owes and the early-withdrawal fee (within 90 days of arriving), and the total. Read-only; ship it home with POST /api/v1/buyer/vault/:id/withdraw.
+    * 
+    * @param id  
+    * @return GetVaultMarketHoldingWithdrawQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketHoldingWithdrawQuote(id: kotlin.String) : GetVaultMarketHoldingWithdrawQuoteResponse {
+        val localVarResponse = getVaultMarketHoldingWithdrawQuoteWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketHoldingWithdrawQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What shipping one unit you own home would charge now, for &#x60;standard&#x60; and &#x60;expedited&#x60;: shipping, the storage it owes and the early-withdrawal fee (within 90 days of arriving), and the total. Read-only; ship it home with POST /api/v1/buyer/vault/:id/withdraw.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketHoldingWithdrawQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketHoldingWithdrawQuoteWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketHoldingWithdrawQuoteResponse?> {
+        val localVariableConfig = getVaultMarketHoldingWithdrawQuoteRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketHoldingWithdrawQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketHoldingWithdrawQuote
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketHoldingWithdrawQuoteRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/holdings/{id}/withdraw-quote".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * \&quot;Show my vault\&quot;: the vault units you hold, the ones standing in your Crossly World home first. Each: vaultItemId, title, grade, imageUrl, bookKey (its market), inHome, visitors (visitors to your home see it). Also your home (slug, privacy, path), max units one home shows, shown, visitorsSee and a note on who sees what. Your home is made on first read. No prices.
     * 
     * @return GetVaultMarketHomeUnitResponse
@@ -16623,6 +23379,76 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/instant-exit",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Where one inventory item&#39;s units are: in your own stock (warehouse) and in the vault per location, each vault unit&#39;s status (in transit, received, authenticated, graded, listed, shipped out), its Sell from first choice and whether it can be sent to the vault now (with the reason when not).
+    * 
+    * @param inventoryItemId  
+    * @return GetVaultMarketItemLocationResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketItemLocation(inventoryItemId: kotlin.String) : GetVaultMarketItemLocationResponse {
+        val localVarResponse = getVaultMarketItemLocationWithHttpInfo(inventoryItemId = inventoryItemId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketItemLocationResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Where one inventory item&#39;s units are: in your own stock (warehouse) and in the vault per location, each vault unit&#39;s status (in transit, received, authenticated, graded, listed, shipped out), its Sell from first choice and whether it can be sent to the vault now (with the reason when not).
+    * 
+    * @param inventoryItemId  
+    * @return ApiResponse<GetVaultMarketItemLocationResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketItemLocationWithHttpInfo(inventoryItemId: kotlin.String) : ApiResponse<GetVaultMarketItemLocationResponse?> {
+        val localVariableConfig = getVaultMarketItemLocationRequestConfig(inventoryItemId = inventoryItemId)
+
+        return request<Unit, GetVaultMarketItemLocationResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketItemLocation
+    *
+    * @param inventoryItemId  
+    * @return RequestConfig
+    */
+    fun getVaultMarketItemLocationRequestConfig(inventoryItemId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/items/{inventoryItemId}/location".replace("{"+"inventoryItemId"+"}", "$inventoryItemId"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -18134,6 +24960,1169 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Fractional options: the venue mode (self &#x3D; Crossly is the venue and clearing house, partner &#x3D; routed to the index DCM, paper &#x3D; practice only) with the env each mode still needs, the active series and the rule book in force.
+    * 
+    * @return GetVaultMarketOptionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOption() : GetVaultMarketOptionResponse {
+        val localVarResponse = getVaultMarketOptionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Fractional options: the venue mode (self &#x3D; Crossly is the venue and clearing house, partner &#x3D; routed to the index DCM, paper &#x3D; practice only) with the env each mode still needs, the active series and the rule book in force.
+    * 
+    * @return ApiResponse<GetVaultMarketOptionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionWithHttpInfo() : ApiResponse<GetVaultMarketOptionResponse?> {
+        val localVariableConfig = getVaultMarketOptionRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOption
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Options analytics on an underlying: the vol surface (expiry x moneyness) and one expiry&#39;s smile (&#x60;expiry&#x60;), IV rank and percentile against the series&#39; own year, open interest and volume by strike and expiry, put/call ratios, the expected move to each expiry, and the historical vol of the underlying&#39;s own published series. Every implied vol is derived and display only.
+    * 
+    * @param underlying  
+    * @return GetVaultMarketOptionAnalyticResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionAnalytic(underlying: kotlin.String) : GetVaultMarketOptionAnalyticResponse {
+        val localVarResponse = getVaultMarketOptionAnalyticWithHttpInfo(underlying = underlying)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionAnalyticResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Options analytics on an underlying: the vol surface (expiry x moneyness) and one expiry&#39;s smile (&#x60;expiry&#x60;), IV rank and percentile against the series&#39; own year, open interest and volume by strike and expiry, put/call ratios, the expected move to each expiry, and the historical vol of the underlying&#39;s own published series. Every implied vol is derived and display only.
+    * 
+    * @param underlying  
+    * @return ApiResponse<GetVaultMarketOptionAnalyticResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionAnalyticWithHttpInfo(underlying: kotlin.String) : ApiResponse<GetVaultMarketOptionAnalyticResponse?> {
+        val localVariableConfig = getVaultMarketOptionAnalyticRequestConfig(underlying = underlying)
+
+        return request<Unit, GetVaultMarketOptionAnalyticResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionAnalytic
+    *
+    * @param underlying  
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionAnalyticRequestConfig(underlying: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/analytics/{underlying}".replace("{"+"underlying"+"}", "$underlying"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your auto-close rule: close positions (or only in-the-money ones) a set time before expiry with a marketable limit.
+    * 
+    * @return GetVaultMarketOptionAutoCloseResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionAutoClose() : GetVaultMarketOptionAutoCloseResponse {
+        val localVarResponse = getVaultMarketOptionAutoCloseWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionAutoCloseResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your auto-close rule: close positions (or only in-the-money ones) a set time before expiry with a marketable limit.
+    * 
+    * @return ApiResponse<GetVaultMarketOptionAutoCloseResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionAutoCloseWithHttpInfo() : ApiResponse<GetVaultMarketOptionAutoCloseResponse?> {
+        val localVariableConfig = getVaultMarketOptionAutoCloseRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionAutoCloseResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionAutoClose
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionAutoCloseRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/auto-close",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The option chain for an underlying (index slug or book key): its expiries, and for one expiry (&#x60;expiry&#x60;, default the nearest) each strike&#39;s call and put with best bid / ask, last, open interest, the theoretical price at the reference vol, the implied vol of the mid (display only, never a mark) and the Greeks. Prices are cents per contract.
+    * 
+    * @param underlying  
+    * @return GetVaultMarketOptionChainResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionChain(underlying: kotlin.String) : GetVaultMarketOptionChainResponse {
+        val localVarResponse = getVaultMarketOptionChainWithHttpInfo(underlying = underlying)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionChainResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The option chain for an underlying (index slug or book key): its expiries, and for one expiry (&#x60;expiry&#x60;, default the nearest) each strike&#39;s call and put with best bid / ask, last, open interest, the theoretical price at the reference vol, the implied vol of the mid (display only, never a mark) and the Greeks. Prices are cents per contract.
+    * 
+    * @param underlying  
+    * @return ApiResponse<GetVaultMarketOptionChainResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionChainWithHttpInfo(underlying: kotlin.String) : ApiResponse<GetVaultMarketOptionChainResponse?> {
+        val localVariableConfig = getVaultMarketOptionChainRequestConfig(underlying = underlying)
+
+        return request<Unit, GetVaultMarketOptionChainResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionChain
+    *
+    * @param underlying  
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionChainRequestConfig(underlying: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/chain/{underlying}".replace("{"+"underlying"+"}", "$underlying"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One strategy&#39;s combo book by its canonical key (&#x60;key&#x60;, from the preview or an order): bids and asks by net price and recent strategy trades.
+    * 
+    * @return GetVaultMarketOptionComboBookResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionComboBook() : GetVaultMarketOptionComboBookResponse {
+        val localVarResponse = getVaultMarketOptionComboBookWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionComboBookResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One strategy&#39;s combo book by its canonical key (&#x60;key&#x60;, from the preview or an order): bids and asks by net price and recent strategy trades.
+    * 
+    * @return ApiResponse<GetVaultMarketOptionComboBookResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionComboBookWithHttpInfo() : ApiResponse<GetVaultMarketOptionComboBookResponse?> {
+        val localVariableConfig = getVaultMarketOptionComboBookRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionComboBookResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionComboBook
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionComboBookRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/combos/book",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One strategy quote request and its answers (all of them to the requester, your own to a responder).
+    * 
+    * @param id  
+    * @return GetVaultMarketOptionComboRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionComboRfq(id: kotlin.String) : GetVaultMarketOptionComboRfqResponse {
+        val localVarResponse = getVaultMarketOptionComboRfqWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionComboRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One strategy quote request and its answers (all of them to the requester, your own to a responder).
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketOptionComboRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionComboRfqWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketOptionComboRfqResponse?> {
+        val localVariableConfig = getVaultMarketOptionComboRfqRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketOptionComboRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionComboRfq
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionComboRfqRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/combos/rfq/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One option contract: its terms, the self-venue book and tape, its published daily settlement prices and, once settled, its settlement (value, source, flagged, and the hash chained to the previous settlement).
+    * 
+    * @param id  
+    * @return GetVaultMarketOptionContractResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionContract(id: kotlin.String) : GetVaultMarketOptionContractResponse {
+        val localVarResponse = getVaultMarketOptionContractWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionContractResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One option contract: its terms, the self-venue book and tape, its published daily settlement prices and, once settled, its settlement (value, source, flagged, and the hash chained to the previous settlement).
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketOptionContractResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionContractWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketOptionContractResponse?> {
+        val localVariableConfig = getVaultMarketOptionContractRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketOptionContractResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionContract
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionContractRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/contracts/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A contract&#39;s order book on the Crossly venue (&#x60;levels&#x60;, default 20): bids and asks by price with milli-contract sizes, and the last 50 prints.
+    * 
+    * @param id  
+    * @return GetVaultMarketOptionContractBookResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionContractBook(id: kotlin.String) : GetVaultMarketOptionContractBookResponse {
+        val localVarResponse = getVaultMarketOptionContractBookWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionContractBookResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A contract&#39;s order book on the Crossly venue (&#x60;levels&#x60;, default 20): bids and asks by price with milli-contract sizes, and the last 50 prints.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketOptionContractBookResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionContractBookWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketOptionContractBookResponse?> {
+        val localVariableConfig = getVaultMarketOptionContractBookRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketOptionContractBookResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionContractBook
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionContractBookRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/contracts/{id}/book".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A settled contract&#39;s settlement: the value (cents per unit of the underlying), its source (the index&#39;s frozen 7-day TWAP, the item&#39;s expiry-day A/B mark, or the last reliable value, flagged), and the hash chained to the previous settlement. Null until it settles.
+    * 
+    * @param id  
+    * @return GetVaultMarketOptionContractSettlementResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionContractSettlement(id: kotlin.String) : GetVaultMarketOptionContractSettlementResponse {
+        val localVarResponse = getVaultMarketOptionContractSettlementWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionContractSettlementResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A settled contract&#39;s settlement: the value (cents per unit of the underlying), its source (the index&#39;s frozen 7-day TWAP, the item&#39;s expiry-day A/B mark, or the last reliable value, flagged), and the hash chained to the previous settlement. Null until it settles.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketOptionContractSettlementResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionContractSettlementWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketOptionContractSettlementResponse?> {
+        val localVariableConfig = getVaultMarketOptionContractSettlementRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketOptionContractSettlementResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionContractSettlement
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionContractSettlementRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/contracts/{id}/settlement".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your hedges: long puts protecting vault units you hold (protective puts) and the vault units locked as collateral for calls you wrote (covered calls).
+    * 
+    * @return GetVaultMarketOptionHedgeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionHedge() : GetVaultMarketOptionHedgeResponse {
+        val localVarResponse = getVaultMarketOptionHedgeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionHedgeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your hedges: long puts protecting vault units you hold (protective puts) and the vault units locked as collateral for calls you wrote (covered calls).
+    * 
+    * @return ApiResponse<GetVaultMarketOptionHedgeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionHedgeWithHttpInfo() : ApiResponse<GetVaultMarketOptionHedgeResponse?> {
+        val localVariableConfig = getVaultMarketOptionHedgeRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionHedgeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionHedge
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionHedgeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/hedges",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The at-the-money implied volatility of the nearest expiry on an underlying, for display on its page: derived from the options book, quality C, never written as a mark.
+    * 
+    * @param underlying  
+    * @return GetVaultMarketOptionIvResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionIv(underlying: kotlin.String) : GetVaultMarketOptionIvResponse {
+        val localVarResponse = getVaultMarketOptionIvWithHttpInfo(underlying = underlying)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionIvResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The at-the-money implied volatility of the nearest expiry on an underlying, for display on its page: derived from the options book, quality C, never written as a mark.
+    * 
+    * @param underlying  
+    * @return ApiResponse<GetVaultMarketOptionIvResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionIvWithHttpInfo(underlying: kotlin.String) : ApiResponse<GetVaultMarketOptionIvResponse?> {
+        val localVariableConfig = getVaultMarketOptionIvRequestConfig(underlying = underlying)
+
+        return request<Unit, GetVaultMarketOptionIvResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionIv
+    *
+    * @param underlying  
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionIvRequestConfig(underlying: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/iv/{underlying}".replace("{"+"underlying"+"}", "$underlying"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your options margin: the scenario requirement (worst loss over a +/-40% price x +/-50% vol grid, with offsets from vault units and positions you hold), initial margin, equity and state (ok / call / liquidate) per underlying. Authoritative on the Crossly venue; on the partner venue the partner&#39;s figure decides and this is an estimate.
+    * 
+    * @return GetVaultMarketOptionMarginResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionMargin() : GetVaultMarketOptionMarginResponse {
+        val localVarResponse = getVaultMarketOptionMarginWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionMarginResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options margin: the scenario requirement (worst loss over a +/-40% price x +/-50% vol grid, with offsets from vault units and positions you hold), initial margin, equity and state (ok / call / liquidate) per underlying. Authoritative on the Crossly venue; on the partner venue the partner&#39;s figure decides and this is an estimate.
+    * 
+    * @return ApiResponse<GetVaultMarketOptionMarginResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionMarginWithHttpInfo() : ApiResponse<GetVaultMarketOptionMarginResponse?> {
+        val localVariableConfig = getVaultMarketOptionMarginRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionMarginResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionMargin
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionMarginRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/margin",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your whole options position on one &#x60;underlying&#x60; at expiry: the P&amp;L curve over 50%..150% of spot, breakevens, and the maximum gain and loss (null when unbounded).
+    * 
+    * @return GetVaultMarketOptionPayoffResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionPayoff() : GetVaultMarketOptionPayoffResponse {
+        val localVarResponse = getVaultMarketOptionPayoffWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionPayoffResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your whole options position on one &#x60;underlying&#x60; at expiry: the P&amp;L curve over 50%..150% of spot, breakevens, and the maximum gain and loss (null when unbounded).
+    * 
+    * @return ApiResponse<GetVaultMarketOptionPayoffResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionPayoffWithHttpInfo() : ApiResponse<GetVaultMarketOptionPayoffResponse?> {
+        val localVariableConfig = getVaultMarketOptionPayoffRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionPayoffResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionPayoff
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionPayoffRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/payoff",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your options positions: signed milli-contracts, average open price, the price it is settled to (Crossly venue), the theoretical mark, unrealised and realised P&amp;L in cents, the Greeks for your size, the protective-put flag and your auto-deleveraging queue lights. &#x60;status&#x60; open (default) / all, &#x60;subaccountId&#x60;.
+    * 
+    * @return GetVaultMarketOptionPositionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionPosition() : GetVaultMarketOptionPositionResponse {
+        val localVarResponse = getVaultMarketOptionPositionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionPositionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options positions: signed milli-contracts, average open price, the price it is settled to (Crossly venue), the theoretical mark, unrealised and realised P&amp;L in cents, the Greeks for your size, the protective-put flag and your auto-deleveraging queue lights. &#x60;status&#x60; open (default) / all, &#x60;subaccountId&#x60;.
+    * 
+    * @return ApiResponse<GetVaultMarketOptionPositionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionPositionWithHttpInfo() : ApiResponse<GetVaultMarketOptionPositionResponse?> {
+        val localVariableConfig = getVaultMarketOptionPositionRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionPositionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionPosition
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionPositionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/positions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your options practice account (play money only, $10,000 to start): cash, positions at the practice maker&#39;s price, equity and P&amp;L.
+    * 
+    * @return GetVaultMarketOptionPracticeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionPractice() : GetVaultMarketOptionPracticeResponse {
+        val localVarResponse = getVaultMarketOptionPracticeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionPracticeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options practice account (play money only, $10,000 to start): cash, positions at the practice maker&#39;s price, equity and P&amp;L.
+    * 
+    * @return ApiResponse<GetVaultMarketOptionPracticeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionPracticeWithHttpInfo() : ApiResponse<GetVaultMarketOptionPracticeResponse?> {
+        val localVariableConfig = getVaultMarketOptionPracticeRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionPracticeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionPractice
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionPracticeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/practice",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One option quote request: yours with every answer, or one you were sent with your own answer.
+    * 
+    * @param id  
+    * @return GetVaultMarketOptionRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionRfq(id: kotlin.String) : GetVaultMarketOptionRfqResponse {
+        val localVarResponse = getVaultMarketOptionRfqWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One option quote request: yours with every answer, or one you were sent with your own answer.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketOptionRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionRfqWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketOptionRfqResponse?> {
+        val localVariableConfig = getVaultMarketOptionRfqRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketOptionRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionRfq
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionRfqRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/rfq/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your options portfolio&#39;s Greeks (per underlying and total, with dollar delta and 1% gamma), a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;), a price x vol P&amp;L grid, and the beta-weighted delta against an index (&#x60;betaIndex&#x60;, default the deepest). &#x60;book&#x60; live (default) or practice.
+    * 
+    * @return GetVaultMarketOptionRiskResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketOptionRisk() : GetVaultMarketOptionRiskResponse {
+        val localVarResponse = getVaultMarketOptionRiskWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionRiskResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options portfolio&#39;s Greeks (per underlying and total, with dollar delta and 1% gamma), a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;), a price x vol P&amp;L grid, and the beta-weighted delta against an index (&#x60;betaIndex&#x60;, default the deepest). &#x60;book&#x60; live (default) or practice.
+    * 
+    * @return ApiResponse<GetVaultMarketOptionRiskResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketOptionRiskWithHttpInfo() : ApiResponse<GetVaultMarketOptionRiskResponse?> {
+        val localVariableConfig = getVaultMarketOptionRiskRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionRiskResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketOptionRisk
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketOptionRiskRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/risk",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Crossly as an oracle publisher (needs CROSSLY_ORACLE_PUBLISHER_KEY + CROSSLY_ORACLE_NETWORK): the network (pyth or switchboard), the ed25519 key every value is signed with, each published index feed with its latest attempt, and 24 h counts of published, skipped and failed. Only built-in indexes priced from A/B marks are published; Crossly never reads its own feed back.
     * 
     * @return GetVaultMarketOracleResponse
@@ -18609,7 +26598,7 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
-    * Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, totals and batches.
+    * Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, finder profile, totals and batches; and whether your one-time ID check is done.
     * 
     * @return GetVaultMarketPartnerMeResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -18639,7 +26628,7 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
-    * Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, totals and batches.
+    * Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, finder profile, totals and batches; and whether your one-time ID check is done.
     * 
     * @return ApiResponse<GetVaultMarketPartnerMeResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -19220,6 +27209,1641 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/positions/{id}/risk".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The prediction markets home: the busiest and soonest-expiring \&quot;Will it hit?\&quot; markets with their probability (each market&#39;s own price, display only), the underlyings with markets, which venue is live, and how many positions you hold.
+    * 
+    * @return GetVaultMarketPredictionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPrediction() : GetVaultMarketPredictionResponse {
+        val localVarResponse = getVaultMarketPredictionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The prediction markets home: the busiest and soonest-expiring \&quot;Will it hit?\&quot; markets with their probability (each market&#39;s own price, display only), the underlyings with markets, which venue is live, and how many positions you hold.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionWithHttpInfo() : ApiResponse<GetVaultMarketPredictionResponse?> {
+        val localVariableConfig = getVaultMarketPredictionRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPrediction
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your prediction-market account: the live venue, your account there and the terms you accepted, whether you may trade real money (region, age, self-exclusion) and why not, your self-set limits, and the practice account line.
+    * 
+    * @return GetVaultMarketPredictionAccountResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionAccount() : GetVaultMarketPredictionAccountResponse {
+        val localVarResponse = getVaultMarketPredictionAccountWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionAccountResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your prediction-market account: the live venue, your account there and the terms you accepted, whether you may trade real money (region, age, self-exclusion) and why not, your self-set limits, and the practice account line.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionAccountResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionAccountWithHttpInfo() : ApiResponse<GetVaultMarketPredictionAccountResponse?> {
+        val localVariableConfig = getVaultMarketPredictionAccountRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionAccountResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionAccount
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionAccountRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/account",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The prediction board the Trading Floor and the Market Open plank show: the busiest open markets and their odds. Anonymous: never who holds what.
+    * 
+    * @return GetVaultMarketPredictionBoardResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionBoard() : GetVaultMarketPredictionBoardResponse {
+        val localVarResponse = getVaultMarketPredictionBoardWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionBoardResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The prediction board the Trading Floor and the Market Open plank show: the busiest open markets and their odds. Anonymous: never who holds what.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionBoardResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionBoardWithHttpInfo() : ApiResponse<GetVaultMarketPredictionBoardResponse?> {
+        val localVariableConfig = getVaultMarketPredictionBoardRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionBoardResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionBoard
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionBoardRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/board",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One of your combos.
+    * 
+    * @param id  
+    * @return ListVaultMarketPredictionCombosItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionCombo(id: kotlin.String) : ListVaultMarketPredictionCombosItem {
+        val localVarResponse = getVaultMarketPredictionComboWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionCombosItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One of your combos.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketPredictionCombosItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionComboWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketPredictionCombosItem?> {
+        val localVariableConfig = getVaultMarketPredictionComboRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketPredictionCombosItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionCombo
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionComboRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/combos/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One combo request: its legs and size, and the answers you can see (all of them if you asked; yours if you quoted).
+    * 
+    * @param id  
+    * @return ListVaultMarketPredictionComboRfqsItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionComboRfq(id: kotlin.String) : ListVaultMarketPredictionComboRfqsItem {
+        val localVarResponse = getVaultMarketPredictionComboRfqWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionComboRfqsItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One combo request: its legs and size, and the answers you can see (all of them if you asked; yours if you quoted).
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketPredictionComboRfqsItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionComboRfqWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketPredictionComboRfqsItem?> {
+        val localVariableConfig = getVaultMarketPredictionComboRfqRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketPredictionComboRfqsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionComboRfq
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionComboRfqRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/combos/rfqs/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The published daily settlement price of every listed market for a day (default yesterday): the last hour&#39;s volume-weighted Yes price, else the book mid, else the prior day&#39;s, with volume and open interest.
+    * 
+    * @return GetVaultMarketPredictionDailyPriceResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionDailyPrice() : GetVaultMarketPredictionDailyPriceResponse {
+        val localVarResponse = getVaultMarketPredictionDailyPriceWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionDailyPriceResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The published daily settlement price of every listed market for a day (default yesterday): the last hour&#39;s volume-weighted Yes price, else the book mid, else the prior day&#39;s, with volume and open interest.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionDailyPriceResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionDailyPriceWithHttpInfo() : ApiResponse<GetVaultMarketPredictionDailyPriceResponse?> {
+        val localVariableConfig = getVaultMarketPredictionDailyPriceRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionDailyPriceResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionDailyPrice
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionDailyPriceRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/daily-prices",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One expiry of a series (an event): its markets, what you hold in each, the real worst and best case of your holdings across them (what your limit counts), and, for a full bucket set, how many sets you could merge. &#x60;venue&#x60; paper or live.
+    * 
+    * @param id  
+    * @return GetVaultMarketPredictionEventResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionEvent(id: kotlin.String) : GetVaultMarketPredictionEventResponse {
+        val localVarResponse = getVaultMarketPredictionEventWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionEventResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One expiry of a series (an event): its markets, what you hold in each, the real worst and best case of your holdings across them (what your limit counts), and, for a full bucket set, how many sets you could merge. &#x60;venue&#x60; paper or live.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketPredictionEventResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionEventWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketPredictionEventResponse?> {
+        val localVariableConfig = getVaultMarketPredictionEventRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketPredictionEventResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionEvent
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionEventRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/events/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your forecaster profile: display name, whether it is public (opt-in) and since when, and your followers.
+    * 
+    * @return GetVaultMarketPredictionForecasterResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionForecaster() : GetVaultMarketPredictionForecasterResponse {
+        val localVarResponse = getVaultMarketPredictionForecasterWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionForecasterResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your forecaster profile: display name, whether it is public (opt-in) and since when, and your followers.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionForecasterResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionForecasterWithHttpInfo() : ApiResponse<GetVaultMarketPredictionForecasterResponse?> {
+        val localVariableConfig = getVaultMarketPredictionForecasterRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionForecasterResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionForecaster
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionForecasterRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/forecaster",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A public forecaster: scores (all time and this month), open sides (never sizes), recent settled calls, followers. 404 when private.
+    * 
+    * @param id  
+    * @return GetVaultMarketPredictionForecasterByIdResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionForecasterById(id: kotlin.String) : GetVaultMarketPredictionForecasterByIdResponse {
+        val localVarResponse = getVaultMarketPredictionForecasterByIdWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionForecasterByIdResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A public forecaster: scores (all time and this month), open sides (never sizes), recent settled calls, followers. 404 when private.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketPredictionForecasterByIdResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionForecasterByIdWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketPredictionForecasterByIdResponse?> {
+        val localVariableConfig = getVaultMarketPredictionForecasterByIdRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketPredictionForecasterByIdResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionForecasterById
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionForecasterByIdRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/forecasters/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Opt-in forecaster leaderboards: &#x60;period&#x60; week, month or all; &#x60;metric&#x60; pnl, accuracy or brier; &#x60;venue&#x60; live or paper (practice has its own board).
+    * 
+    * @return GetVaultMarketPredictionLeaderboardResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionLeaderboard() : GetVaultMarketPredictionLeaderboardResponse {
+        val localVarResponse = getVaultMarketPredictionLeaderboardWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionLeaderboardResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Opt-in forecaster leaderboards: &#x60;period&#x60; week, month or all; &#x60;metric&#x60; pnl, accuracy or brier; &#x60;venue&#x60; live or paper (practice has its own board).
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionLeaderboardResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionLeaderboardWithHttpInfo() : ApiResponse<GetVaultMarketPredictionLeaderboardResponse?> {
+        val localVariableConfig = getVaultMarketPredictionLeaderboardRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionLeaderboardResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionLeaderboard
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionLeaderboardRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/leaderboard",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your self-set prediction limits: daily loss limit, self-exclusion, a raise waiting its 24 hours, and any hold the venue placed.
+    * 
+    * @return GetVaultMarketPredictionLimitResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionLimit() : GetVaultMarketPredictionLimitResponse {
+        val localVarResponse = getVaultMarketPredictionLimitWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionLimitResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your self-set prediction limits: daily loss limit, self-exclusion, a raise waiting its 24 hours, and any hold the venue placed.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionLimitResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionLimitWithHttpInfo() : ApiResponse<GetVaultMarketPredictionLimitResponse?> {
+        val localVariableConfig = getVaultMarketPredictionLimitRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionLimitResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionLimit
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionLimitRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/limits",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One prediction market: its terms, the Yes ladder of the live venue and of the practice book, recent trades, settlement history (outcome, value, hash, review), the series rules text and hash, and your positions in it.
+    * 
+    * @param id  
+    * @return GetVaultMarketPredictionMarketResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionMarket(id: kotlin.String) : GetVaultMarketPredictionMarketResponse {
+        val localVarResponse = getVaultMarketPredictionMarketWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionMarketResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One prediction market: its terms, the Yes ladder of the live venue and of the practice book, recent trades, settlement history (outcome, value, hash, review), the series rules text and hash, and your positions in it.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketPredictionMarketResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionMarketWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketPredictionMarketResponse?> {
+        val localVariableConfig = getVaultMarketPredictionMarketRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketPredictionMarketResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionMarket
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionMarketRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/markets/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * How many people forecast a market and their median probability (no names).
+    * 
+    * @param id  
+    * @return GetVaultMarketPredictionMarketForecastResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionMarketForecast(id: kotlin.String) : GetVaultMarketPredictionMarketForecastResponse {
+        val localVarResponse = getVaultMarketPredictionMarketForecastWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionMarketForecastResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * How many people forecast a market and their median probability (no names).
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketPredictionMarketForecastResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionMarketForecastWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketPredictionMarketForecastResponse?> {
+        val localVariableConfig = getVaultMarketPredictionMarketForecastRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketPredictionMarketForecastResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionMarketForecast
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionMarketForecastRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/markets/{id}/forecasts".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A market&#39;s history: probability points (display only, never a mark), candles on the Yes price, volume and open interest over &#x60;range&#x60; 1d, 1w, 1m or all; &#x60;venue&#x60; live or paper.
+    * 
+    * @param id  
+    * @return GetVaultMarketPredictionMarketHistoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionMarketHistory(id: kotlin.String) : GetVaultMarketPredictionMarketHistoryResponse {
+        val localVarResponse = getVaultMarketPredictionMarketHistoryWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionMarketHistoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A market&#39;s history: probability points (display only, never a mark), candles on the Yes price, volume and open interest over &#x60;range&#x60; 1d, 1w, 1m or all; &#x60;venue&#x60; live or paper.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketPredictionMarketHistoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionMarketHistoryWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketPredictionMarketHistoryResponse?> {
+        val localVariableConfig = getVaultMarketPredictionMarketHistoryRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketPredictionMarketHistoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionMarketHistory
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionMarketHistoryRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/markets/{id}/history".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A server-sent event stream for one prediction market: &#x60;snapshot&#x60; first, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60; as they change.
+    * 
+    * @param id  
+    * @return kotlin.String
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionMarketStream(id: kotlin.String) : kotlin.String {
+        val localVarResponse = getVaultMarketPredictionMarketStreamWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.String
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A server-sent event stream for one prediction market: &#x60;snapshot&#x60; first, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60; as they change.
+    * 
+    * @param id  
+    * @return ApiResponse<kotlin.String?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionMarketStreamWithHttpInfo(id: kotlin.String) : ApiResponse<kotlin.String?> {
+        val localVariableConfig = getVaultMarketPredictionMarketStreamRequestConfig(id = id)
+
+        return request<Unit, kotlin.String>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionMarketStream
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionMarketStreamRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/markets/{id}/stream".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The trade tape, newest first: Yes price, size, which side took, venue. Page with &#x60;before&#x60; (the last &#x60;seq&#x60;).
+    * 
+    * @param id  
+    * @return GetVaultMarketPredictionMarketTradeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionMarketTrade(id: kotlin.String) : GetVaultMarketPredictionMarketTradeResponse {
+        val localVarResponse = getVaultMarketPredictionMarketTradeWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionMarketTradeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The trade tape, newest first: Yes price, size, which side took, venue. Page with &#x60;before&#x60; (the last &#x60;seq&#x60;).
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketPredictionMarketTradeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionMarketTradeWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketPredictionMarketTradeResponse?> {
+        val localVariableConfig = getVaultMarketPredictionMarketTradeRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketPredictionMarketTradeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionMarketTrade
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionMarketTradeRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/markets/{id}/trades".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A server-sent event stream of your own prediction events: &#x60;pm_order&#x60; (placed, filled, amended, cancelled, expired), &#x60;pm_fill&#x60; (your side, price and fee), &#x60;pm_position&#x60;, &#x60;pm_combo&#x60; and &#x60;pm_conversion&#x60;.
+    * 
+    * @return kotlin.String
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionMeStream() : kotlin.String {
+        val localVarResponse = getVaultMarketPredictionMeStreamWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.String
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A server-sent event stream of your own prediction events: &#x60;pm_order&#x60; (placed, filled, amended, cancelled, expired), &#x60;pm_fill&#x60; (your side, price and fee), &#x60;pm_position&#x60;, &#x60;pm_combo&#x60; and &#x60;pm_conversion&#x60;.
+    * 
+    * @return ApiResponse<kotlin.String?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionMeStreamWithHttpInfo() : ApiResponse<kotlin.String?> {
+        val localVariableConfig = getVaultMarketPredictionMeStreamRequestConfig()
+
+        return request<Unit, kotlin.String>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionMeStream
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionMeStreamRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/me/stream",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The two \&quot;Will it hit?\&quot; practice missions (your first call; see one settle), whether the server saw each done, and the pin they lead to. Pins only.
+    * 
+    * @return GetVaultMarketPredictionMissionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionMission() : GetVaultMarketPredictionMissionResponse {
+        val localVarResponse = getVaultMarketPredictionMissionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionMissionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The two \&quot;Will it hit?\&quot; practice missions (your first call; see one settle), whether the server saw each done, and the pin they lead to. Pins only.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionMissionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionMissionWithHttpInfo() : ApiResponse<GetVaultMarketPredictionMissionResponse?> {
+        val localVariableConfig = getVaultMarketPredictionMissionRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionMissionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionMission
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionMissionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/missions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your practice prediction account (play money only, $1,000 to start, never real or convertible): cash, money locked by working orders, positions and working orders.
+    * 
+    * @return GetVaultMarketPredictionPaperResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionPaper() : GetVaultMarketPredictionPaperResponse {
+        val localVarResponse = getVaultMarketPredictionPaperWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionPaperResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your practice prediction account (play money only, $1,000 to start, never real or convertible): cash, money locked by working orders, positions and working orders.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionPaperResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionPaperWithHttpInfo() : ApiResponse<GetVaultMarketPredictionPaperResponse?> {
+        val localVariableConfig = getVaultMarketPredictionPaperRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionPaperResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionPaper
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionPaperRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/paper",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What an order would do now without placing it: contracts fillable inside the limit (a market order uses the 10-cent band), average price, estimated fee (Kalshi&#39;s formula), the money it would lock, and the most it could pay out.
+    * 
+    * @return GetVaultMarketPredictionQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionQuote() : GetVaultMarketPredictionQuoteResponse {
+        val localVarResponse = getVaultMarketPredictionQuoteWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What an order would do now without placing it: contracts fillable inside the limit (a market order uses the 10-cent band), average price, estimated fee (Kalshi&#39;s formula), the money it would lock, and the most it could pay out.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionQuoteWithHttpInfo() : ApiResponse<GetVaultMarketPredictionQuoteResponse?> {
+        val localVariableConfig = getVaultMarketPredictionQuoteRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionQuote
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionQuoteRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/quote",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The prediction venue&#39;s rule book now and every version, each hashed and chained to the one before (&#x60;chainOk&#x60;).
+    * 
+    * @return GetVaultMarketPredictionRulebookResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionRulebook() : GetVaultMarketPredictionRulebookResponse {
+        val localVarResponse = getVaultMarketPredictionRulebookWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionRulebookResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The prediction venue&#39;s rule book now and every version, each hashed and chained to the one before (&#x60;chainOk&#x60;).
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionRulebookResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionRulebookWithHttpInfo() : ApiResponse<GetVaultMarketPredictionRulebookResponse?> {
+        val localVariableConfig = getVaultMarketPredictionRulebookRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionRulebookResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionRulebook
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionRulebookRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/rulebook",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A server-sent event stream for up to 50 markets (&#x60;markets&#x60;&#x3D;id,id): &#x60;ready&#x60;, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60;, each carrying its marketId.
+    * 
+    * @return kotlin.String
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionStream() : kotlin.String {
+        val localVarResponse = getVaultMarketPredictionStreamWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as kotlin.String
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A server-sent event stream for up to 50 markets (&#x60;markets&#x60;&#x3D;id,id): &#x60;ready&#x60;, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60;, each carrying its marketId.
+    * 
+    * @return ApiResponse<kotlin.String?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionStreamWithHttpInfo() : ApiResponse<kotlin.String?> {
+        val localVariableConfig = getVaultMarketPredictionStreamRequestConfig()
+
+        return request<Unit, kotlin.String>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionStream
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionStreamRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/stream",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Which prediction venue is live: self (Crossly as the DCM, money at the segregated settlement bank), partner (a partner DCM) or paper (practice only), who runs the book, where money sits, and the env each real mode still needs.
+    * 
+    * @return GetVaultMarketPredictionVenueResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionVenue() : GetVaultMarketPredictionVenueResponse {
+        val localVarResponse = getVaultMarketPredictionVenueWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionVenueResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Which prediction venue is live: self (Crossly as the DCM, money at the segregated settlement bank), partner (a partner DCM) or paper (practice only), who runs the book, where money sits, and the env each real mode still needs.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionVenueResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionVenueWithHttpInfo() : ApiResponse<GetVaultMarketPredictionVenueResponse?> {
+        val localVariableConfig = getVaultMarketPredictionVenueRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionVenueResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionVenue
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionVenueRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/venue",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The \&quot;Will it hit?\&quot; panel for a key (&#x60;bookKey&#x60;) or an index (&#x60;index&#x60; slug): its open markets grouped by expiry, each with its probability. &#x60;eligible&#x60; is false when nothing is listed on it.
+    * 
+    * @return GetVaultMarketPredictionWillItHitResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketPredictionWillItHit() : GetVaultMarketPredictionWillItHitResponse {
+        val localVarResponse = getVaultMarketPredictionWillItHitWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionWillItHitResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The \&quot;Will it hit?\&quot; panel for a key (&#x60;bookKey&#x60;) or an index (&#x60;index&#x60; slug): its open markets grouped by expiry, each with its probability. &#x60;eligible&#x60; is false when nothing is listed on it.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionWillItHitResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketPredictionWillItHitWithHttpInfo() : ApiResponse<GetVaultMarketPredictionWillItHitResponse?> {
+        val localVariableConfig = getVaultMarketPredictionWillItHitRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionWillItHitResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketPredictionWillItHit
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketPredictionWillItHitRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/will-it-hit",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -20524,6 +30148,210 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Your vault defaults: Sell from first, new-inventory suggestions, the insurance rule and the default grading service.
+    * 
+    * @return GetVaultMarketSettingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketSetting() : GetVaultMarketSettingResponse {
+        val localVarResponse = getVaultMarketSettingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketSettingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your vault defaults: Sell from first, new-inventory suggestions, the insurance rule and the default grading service.
+    * 
+    * @return ApiResponse<GetVaultMarketSettingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketSettingWithHttpInfo() : ApiResponse<GetVaultMarketSettingResponse?> {
+        val localVariableConfig = getVaultMarketSettingRequestConfig()
+
+        return request<Unit, GetVaultMarketSettingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketSetting
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketSettingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/settings",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Vault Shares at a glance: the venue mode in force (self, partner or paper) and the env it still needs, the rules (about $5 a share, 100 to 100,000 shares, originator keeps 0-50%, 3% origination, maker 0 / taker 100 bps, 90-day lockup, buyouts at the mark x 1.10 with a two-thirds vote) and the disclosure.
+    * 
+    * @return GetVaultMarketShareResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShare() : GetVaultMarketShareResponse {
+        val localVarResponse = getVaultMarketShareWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Vault Shares at a glance: the venue mode in force (self, partner or paper) and the env it still needs, the rules (about $5 a share, 100 to 100,000 shares, originator keeps 0-50%, 3% origination, maker 0 / taker 100 bps, 90-day lockup, buyouts at the mark x 1.10 with a two-thirds vote) and the disclosure.
+    * 
+    * @return ApiResponse<GetVaultMarketShareResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareWithHttpInfo() : ApiResponse<GetVaultMarketShareResponse?> {
+        val localVariableConfig = getVaultMarketShareRequestConfig()
+
+        return request<Unit, GetVaultMarketShareResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShare
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One theme basket (id or slug): its series, target and live weights, prices, and your own holdings against the weights.
+    * 
+    * @param id  
+    * @return GetVaultMarketShareBasketResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShareBasket(id: kotlin.String) : GetVaultMarketShareBasketResponse {
+        val localVarResponse = getVaultMarketShareBasketWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareBasketResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One theme basket (id or slug): its series, target and live weights, prices, and your own holdings against the weights.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketShareBasketResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareBasketWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketShareBasketResponse?> {
+        val localVariableConfig = getVaultMarketShareBasketRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketShareBasketResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShareBasket
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareBasketRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/baskets/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * One share card as the public sees it, with its image and link paths.
     * 
     * @param id  
@@ -20587,6 +30415,694 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/share-cards/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your investor account at the venue in force: its status, the investor terms you accepted, and your Reg A+ limit for one offering (10% of the greater of income and net worth unless accredited).
+    * 
+    * @return GetVaultMarketShareInvestorResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShareInvestor() : GetVaultMarketShareInvestorResponse {
+        val localVarResponse = getVaultMarketShareInvestorWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareInvestorResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your investor account at the venue in force: its status, the investor terms you accepted, and your Reg A+ limit for one offering (10% of the greater of income and net worth unless accredited).
+    * 
+    * @return ApiResponse<GetVaultMarketShareInvestorResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareInvestorWithHttpInfo() : ApiResponse<GetVaultMarketShareInvestorResponse?> {
+        val localVariableConfig = getVaultMarketShareInvestorRequestConfig()
+
+        return request<Unit, GetVaultMarketShareInvestorResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShareInvestor
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareInvestorRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/investor",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your Vault Shares: shares and percent of each item, cost, implied value at the last price, your subscriptions and the payouts you were sent.
+    * 
+    * @return GetVaultMarketShareMeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShareMe() : GetVaultMarketShareMeResponse {
+        val localVarResponse = getVaultMarketShareMeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareMeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your Vault Shares: shares and percent of each item, cost, implied value at the last price, your subscriptions and the payouts you were sent.
+    * 
+    * @return ApiResponse<GetVaultMarketShareMeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareMeWithHttpInfo() : ApiResponse<GetVaultMarketShareMeResponse?> {
+        val localVariableConfig = getVaultMarketShareMeRequestConfig()
+
+        return request<Unit, GetVaultMarketShareMeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShareMe
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareMeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/me",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your practice account for Vault Shares (play money only, never real, never convertible): cash, practice holdings, open practice orders, recent practice fills.
+    * 
+    * @return GetVaultMarketSharePaperResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketSharePaper() : GetVaultMarketSharePaperResponse {
+        val localVarResponse = getVaultMarketSharePaperWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketSharePaperResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your practice account for Vault Shares (play money only, never real, never convertible): cash, practice holdings, open practice orders, recent practice fills.
+    * 
+    * @return ApiResponse<GetVaultMarketSharePaperResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketSharePaperWithHttpInfo() : ApiResponse<GetVaultMarketSharePaperResponse?> {
+        val localVariableConfig = getVaultMarketSharePaperRequestConfig()
+
+        return request<Unit, GetVaultMarketSharePaperResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketSharePaper
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketSharePaperRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/paper",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A series’ practice book: practice orders and the house quote 1% either side of the reference price.
+    * 
+    * @param id  
+    * @return GetVaultMarketSharePaperSeryBookResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketSharePaperSeryBook(id: kotlin.String) : GetVaultMarketSharePaperSeryBookResponse {
+        val localVarResponse = getVaultMarketSharePaperSeryBookWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketSharePaperSeryBookResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A series’ practice book: practice orders and the house quote 1% either side of the reference price.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketSharePaperSeryBookResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketSharePaperSeryBookWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketSharePaperSeryBookResponse?> {
+        val localVariableConfig = getVaultMarketSharePaperSeryBookRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketSharePaperSeryBookResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketSharePaperSeryBook
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketSharePaperSeryBookRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/paper/series/{id}/book".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Fractionalize instead: whether one of your vault units can become a Vault Shares series now (stored, tier A or B, reliable mark of $1,000 or more, declared and insured, free) and the offering terms it would get.
+    * 
+    * @return GetVaultMarketSharePreviewResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketSharePreview() : GetVaultMarketSharePreviewResponse {
+        val localVarResponse = getVaultMarketSharePreviewWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketSharePreviewResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Fractionalize instead: whether one of your vault units can become a Vault Shares series now (stored, tier A or B, reliable mark of $1,000 or more, declared and insured, free) and the offering terms it would get.
+    * 
+    * @return ApiResponse<GetVaultMarketSharePreviewResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketSharePreviewWithHttpInfo() : ApiResponse<GetVaultMarketSharePreviewResponse?> {
+        val localVariableConfig = getVaultMarketSharePreviewRequestConfig()
+
+        return request<Unit, GetVaultMarketSharePreviewResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketSharePreview
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketSharePreviewRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/preview",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One series: the offering, the share book depth, the latest fills, holders as share percentages (nobody named), buyouts and your vote, your orders and subscriptions.
+    * 
+    * @param id  
+    * @return GetVaultMarketShareSeryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShareSery(id: kotlin.String) : GetVaultMarketShareSeryResponse {
+        val localVarResponse = getVaultMarketShareSeryWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareSeryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One series: the offering, the share book depth, the latest fills, holders as share percentages (nobody named), buyouts and your vote, your orders and subscriptions.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketShareSeryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareSeryWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketShareSeryResponse?> {
+        val localVariableConfig = getVaultMarketShareSeryRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketShareSeryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShareSery
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareSeryRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A share book’s depth: whole shares per price level (integer cents a share), best first.
+    * 
+    * @param id  
+    * @return GetVaultMarketShareSeryBookResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShareSeryBook(id: kotlin.String) : GetVaultMarketShareSeryBookResponse {
+        val localVarResponse = getVaultMarketShareSeryBookWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareSeryBookResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A share book’s depth: whole shares per price level (integer cents a share), best first.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketShareSeryBookResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareSeryBookWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketShareSeryBookResponse?> {
+        val localVariableConfig = getVaultMarketShareSeryBookRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketShareSeryBookResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShareSeryBook
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareSeryBookRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series/{id}/book".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A series’ full price history: OHLC candles of every share-book fill (&#x60;interval&#x60; 1h, 1d or 1w), the offering price, the change since the offering, and the appraisal history beside it. Share prices are display only, never a mark.
+    * 
+    * @param id  
+    * @return GetVaultMarketShareSeryHistoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShareSeryHistory(id: kotlin.String) : GetVaultMarketShareSeryHistoryResponse {
+        val localVarResponse = getVaultMarketShareSeryHistoryWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareSeryHistoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A series’ full price history: OHLC candles of every share-book fill (&#x60;interval&#x60; 1h, 1d or 1w), the offering price, the change since the offering, and the appraisal history beside it. Share prices are display only, never a mark.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketShareSeryHistoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareSeryHistoryWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketShareSeryHistoryResponse?> {
+        val localVariableConfig = getVaultMarketShareSeryHistoryRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketShareSeryHistoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShareSeryHistory
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareSeryHistoryRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series/{id}/history".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Holder perks on a series: whether you hold it, your holder badge, the links to visit the item in the world vault room and in AR, the viewing days with places left and your bookings.
+    * 
+    * @param id  
+    * @return GetVaultMarketShareSeryPerkResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShareSeryPerk(id: kotlin.String) : GetVaultMarketShareSeryPerkResponse {
+        val localVarResponse = getVaultMarketShareSeryPerkWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareSeryPerkResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Holder perks on a series: whether you hold it, your holder badge, the links to visit the item in the world vault room and in AR, the viewing days with places left and your bookings.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketShareSeryPerkResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareSeryPerkWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketShareSeryPerkResponse?> {
+        val localVariableConfig = getVaultMarketShareSeryPerkRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketShareSeryPerkResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShareSeryPerk
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareSeryPerkRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series/{id}/perks".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The holder room for a series (shareholders only): posts newest first under per-series aliases, never account names. &#x60;before&#x60; pages back.
+    * 
+    * @param id  
+    * @return GetVaultMarketShareSeryRoomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketShareSeryRoom(id: kotlin.String) : GetVaultMarketShareSeryRoomResponse {
+        val localVarResponse = getVaultMarketShareSeryRoomWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketShareSeryRoomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The holder room for a series (shareholders only): posts newest first under per-series aliases, never account names. &#x60;before&#x60; pages back.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketShareSeryRoomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketShareSeryRoomWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketShareSeryRoomResponse?> {
+        val localVariableConfig = getVaultMarketShareSeryRoomRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketShareSeryRoomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketShareSeryRoom
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketShareSeryRoomRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series/{id}/room".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -21008,6 +31524,76 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * One shipment into the vault, with each unit and whether it was received.
+    * 
+    * @param id  
+    * @return GetVaultMarketSupplyShipmentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketSupplyShipment(id: kotlin.String) : GetVaultMarketSupplyShipmentResponse {
+        val localVarResponse = getVaultMarketSupplyShipmentWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketSupplyShipmentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One shipment into the vault, with each unit and whether it was received.
+    * 
+    * @param id  
+    * @return ApiResponse<GetVaultMarketSupplyShipmentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketSupplyShipmentWithHttpInfo(id: kotlin.String) : ApiResponse<GetVaultMarketSupplyShipmentResponse?> {
+        val localVariableConfig = getVaultMarketSupplyShipmentRequestConfig(id = id)
+
+        return request<Unit, GetVaultMarketSupplyShipmentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketSupplyShipment
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getVaultMarketSupplyShipmentRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/supply/shipments/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Your tax year on the vault markets: units bought and sold with cost, proceeds, gain and term; lending fees, staking interest (estimate), market-maker rewards; closed positions. Links to the CSV and PDF.
     * 
     * @return GetVaultMarketTaxResponse
@@ -21209,6 +31795,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Your fractional options tax lots for a calendar year (&#x60;year&#x60;, default this year): FIFO disposals (closed or settled) with proceeds, cost, gain in cents and holding term, each flagged as a possible Section 1256 contract, the totals with the 60/40 split, and the positions open at year end. Real fills only; practice never appears. Not tax advice.
+    * 
+    * @return GetVaultMarketTaxOptionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketTaxOption() : GetVaultMarketTaxOptionResponse {
+        val localVarResponse = getVaultMarketTaxOptionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketTaxOptionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your fractional options tax lots for a calendar year (&#x60;year&#x60;, default this year): FIFO disposals (closed or settled) with proceeds, cost, gain in cents and holding term, each flagged as a possible Section 1256 contract, the totals with the 60/40 split, and the positions open at year end. Real fills only; practice never appears. Not tax advice.
+    * 
+    * @return ApiResponse<GetVaultMarketTaxOptionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketTaxOptionWithHttpInfo() : ApiResponse<GetVaultMarketTaxOptionResponse?> {
+        val localVariableConfig = getVaultMarketTaxOptionRequestConfig()
+
+        return request<Unit, GetVaultMarketTaxOptionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketTaxOption
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketTaxOptionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/tax/options",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * The tax year as a PDF summary.
     * 
     * @return java.io.File
@@ -21269,6 +31922,140 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/tax.pdf",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your prediction-market results for a calendar year (&#x60;year&#x60;), as the venue reports them: each settled or voided real-money position with its venue, cost, fees, payout, refund, closing-trade gains and net in cents, and the totals. Practice never appears. Not tax advice.
+    * 
+    * @return GetVaultMarketTaxPredictionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketTaxPrediction() : GetVaultMarketTaxPredictionResponse {
+        val localVarResponse = getVaultMarketTaxPredictionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketTaxPredictionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your prediction-market results for a calendar year (&#x60;year&#x60;), as the venue reports them: each settled or voided real-money position with its venue, cost, fees, payout, refund, closing-trade gains and net in cents, and the totals. Practice never appears. Not tax advice.
+    * 
+    * @return ApiResponse<GetVaultMarketTaxPredictionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketTaxPredictionWithHttpInfo() : ApiResponse<GetVaultMarketTaxPredictionResponse?> {
+        val localVariableConfig = getVaultMarketTaxPredictionRequestConfig()
+
+        return request<Unit, GetVaultMarketTaxPredictionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketTaxPrediction
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketTaxPredictionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/tax/predictions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your Vault Shares tax lots for a calendar year (&#x60;year&#x60;): disposals (share-book sales, exit payouts) with holding periods, proceeds, cost and gain in cents, the open lots and the totals. The broker-dealer issues the 1099-B; not tax advice.
+    * 
+    * @return GetVaultMarketTaxShareResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketTaxShare() : GetVaultMarketTaxShareResponse {
+        val localVarResponse = getVaultMarketTaxShareWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketTaxShareResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your Vault Shares tax lots for a calendar year (&#x60;year&#x60;): disposals (share-book sales, exit payouts) with holding periods, proceeds, cost and gain in cents, the open lots and the totals. The broker-dealer issues the 1099-B; not tax advice.
+    * 
+    * @return ApiResponse<GetVaultMarketTaxShareResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketTaxShareWithHttpInfo() : ApiResponse<GetVaultMarketTaxShareResponse?> {
+        val localVariableConfig = getVaultMarketTaxShareRequestConfig()
+
+        return request<Unit, GetVaultMarketTaxShareResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketTaxShare
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketTaxShareRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/tax/shares",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -22505,6 +33292,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/world/floor",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The Trading Floor boards for the round-13 products: odds (the probability ladder: the busiest open \&quot;Will it hit?\&quot; markets with probabilityBps, the market’s own price as a probability, display only), heat (option-chain heat: per listed underlying, open interest and the last day’s volume in milli-contracts in strike buckets around the underlying, a 0..1 heat per bucket and the at-the-money implied vol, display only) and shares (Vault Shares tickers: last share price in cents, changeBps from the last fill before today, shares traded today and the implied item value, display only). quality is always C: none of these is ever a mark. It never shows who traded.
+    * 
+    * @return GetVaultMarketWorldFloorBoardResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getVaultMarketWorldFloorBoard() : GetVaultMarketWorldFloorBoardResponse {
+        val localVarResponse = getVaultMarketWorldFloorBoardWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketWorldFloorBoardResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The Trading Floor boards for the round-13 products: odds (the probability ladder: the busiest open \&quot;Will it hit?\&quot; markets with probabilityBps, the market’s own price as a probability, display only), heat (option-chain heat: per listed underlying, open interest and the last day’s volume in milli-contracts in strike buckets around the underlying, a 0..1 heat per bucket and the at-the-money implied vol, display only) and shares (Vault Shares tickers: last share price in cents, changeBps from the last fill before today, shares traded today and the implied item value, display only). quality is always C: none of these is ever a mark. It never shows who traded.
+    * 
+    * @return ApiResponse<GetVaultMarketWorldFloorBoardResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getVaultMarketWorldFloorBoardWithHttpInfo() : ApiResponse<GetVaultMarketWorldFloorBoardResponse?> {
+        val localVariableConfig = getVaultMarketWorldFloorBoardRequestConfig()
+
+        return request<Unit, GetVaultMarketWorldFloorBoardResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getVaultMarketWorldFloorBoard
+    *
+    * @return RequestConfig
+    */
+    fun getVaultMarketWorldFloorBoardRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/world/floor/boards",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -25350,6 +36204,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Everything you own in the Crossly vault, newest activity first: each unit with its status (inbound, stored, listed, withdraw_requested…) and situation (lent, pledged, in_grading…), what it is worth (&#x60;valueCents&#x60; with &#x60;valueSource&#x60; mark | last_sale | declared | none), declared and insured value, storage owed, its open ask, the deposit toggles when you sent it in, and what you may do with it now (&#x60;actions&#x60;). Units sold or shipped home in the last 90 days have &#x60;past: true&#x60;. &#x60;meta&#x60; carries the totals (units, value, declared, insured, storage owed), your recent boxes and their labels, the ship-home prices and the lending gate.
+    * 
+    * @return ListVaultMarketHoldingsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketHoldings() : ListVaultMarketHoldingsResponse {
+        val localVarResponse = listVaultMarketHoldingsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketHoldingsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Everything you own in the Crossly vault, newest activity first: each unit with its status (inbound, stored, listed, withdraw_requested…) and situation (lent, pledged, in_grading…), what it is worth (&#x60;valueCents&#x60; with &#x60;valueSource&#x60; mark | last_sale | declared | none), declared and insured value, storage owed, its open ask, the deposit toggles when you sent it in, and what you may do with it now (&#x60;actions&#x60;). Units sold or shipped home in the last 90 days have &#x60;past: true&#x60;. &#x60;meta&#x60; carries the totals (units, value, declared, insured, storage owed), your recent boxes and their labels, the ship-home prices and the lending gate.
+    * 
+    * @return ApiResponse<ListVaultMarketHoldingsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketHoldingsWithHttpInfo() : ApiResponse<ListVaultMarketHoldingsResponse?> {
+        val localVariableConfig = listVaultMarketHoldingsRequestConfig()
+
+        return request<Unit, ListVaultMarketHoldingsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketHoldings
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketHoldingsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/holdings",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Published Index Committee minutes, newest first: attendees (names and roles), quorum, agenda, minutes and decisions.
     * 
     * @return ListVaultMarketIndexCommitteeMinutesResponse
@@ -26973,6 +37894,947 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Your strategy quote requests, newest first.
+    * 
+    * @return ListVaultMarketOptionComboRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionComboRfq() : ListVaultMarketOptionComboRfqResponse {
+        val localVarResponse = listVaultMarketOptionComboRfqWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionComboRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your strategy quote requests, newest first.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionComboRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionComboRfqWithHttpInfo() : ApiResponse<ListVaultMarketOptionComboRfqResponse?> {
+        val localVariableConfig = listVaultMarketOptionComboRfqRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionComboRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionComboRfq
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionComboRfqRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/combos/rfq",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Open strategy quote requests you may answer (never your own; the requester stays anonymous).
+    * 
+    * @return ListVaultMarketOptionComboRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionComboRfqInbox() : ListVaultMarketOptionComboRfqResponse {
+        val localVarResponse = listVaultMarketOptionComboRfqInboxWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionComboRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Open strategy quote requests you may answer (never your own; the requester stays anonymous).
+    * 
+    * @return ApiResponse<ListVaultMarketOptionComboRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionComboRfqInboxWithHttpInfo() : ApiResponse<ListVaultMarketOptionComboRfqResponse?> {
+        val localVariableConfig = listVaultMarketOptionComboRfqInboxRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionComboRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionComboRfqInbox
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionComboRfqInboxRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/combos/rfq/inbox",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your strategies: &#x60;status&#x60; working (default), done or all, with their legs as you hold them, net per unit, filled size and status.
+    * 
+    * @return ListVaultMarketOptionCombosResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionCombos() : ListVaultMarketOptionCombosResponse {
+        val localVarResponse = listVaultMarketOptionCombosWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionCombosResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your strategies: &#x60;status&#x60; working (default), done or all, with their legs as you hold them, net per unit, filled size and status.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionCombosResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionCombosWithHttpInfo() : ApiResponse<ListVaultMarketOptionCombosResponse?> {
+        val localVariableConfig = listVaultMarketOptionCombosRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionCombosResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionCombos
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionCombosRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/combos",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A contract&#39;s published daily settlement prices, newest first (&#x60;days&#x60;, default 30): the price, how it was set (volume-weighted fills, the mid, or Black-Scholes at the reference vol), its implied vol, the underlying, open interest and volume, and each row&#39;s chain hash.
+    * 
+    * @param id  
+    * @return ListVaultMarketOptionContractDailyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionContractDaily(id: kotlin.String) : ListVaultMarketOptionContractDailyResponse {
+        val localVarResponse = listVaultMarketOptionContractDailyWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionContractDailyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A contract&#39;s published daily settlement prices, newest first (&#x60;days&#x60;, default 30): the price, how it was set (volume-weighted fills, the mid, or Black-Scholes at the reference vol), its implied vol, the underlying, open interest and volume, and each row&#39;s chain hash.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketOptionContractDailyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionContractDailyWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketOptionContractDailyResponse?> {
+        val localVariableConfig = listVaultMarketOptionContractDailyRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketOptionContractDailyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionContractDaily
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionContractDailyRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/contracts/{id}/daily".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your two-sided option quotes: the contract, the bid and ask orders behind them, cancel-on-disconnect and the last heartbeat.
+    * 
+    * @return ListVaultMarketOptionMmQuotesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionMmQuotes() : ListVaultMarketOptionMmQuotesResponse {
+        val localVarResponse = listVaultMarketOptionMmQuotesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionMmQuotesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your two-sided option quotes: the contract, the bid and ask orders behind them, cancel-on-disconnect and the last heartbeat.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionMmQuotesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionMmQuotesWithHttpInfo() : ApiResponse<ListVaultMarketOptionMmQuotesResponse?> {
+        val localVariableConfig = listVaultMarketOptionMmQuotesRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionMmQuotesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionMmQuotes
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionMmQuotesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/mm/quotes",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your options notices, newest first: expiry warnings, auto-closes, exercises (a long settled in the money), assignments (a short settled in the money), expiries worthless and rolls.
+    * 
+    * @return ListVaultMarketOptionNoticesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionNotices() : ListVaultMarketOptionNoticesResponse {
+        val localVarResponse = listVaultMarketOptionNoticesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionNoticesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options notices, newest first: expiry warnings, auto-closes, exercises (a long settled in the money), assignments (a short settled in the money), expiries worthless and rolls.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionNoticesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionNoticesWithHttpInfo() : ApiResponse<ListVaultMarketOptionNoticesResponse?> {
+        val localVariableConfig = listVaultMarketOptionNoticesRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionNoticesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionNotices
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionNoticesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/notices",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your options orders, newest first: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;, &#x60;subaccountId&#x60;.
+    * 
+    * @return ListVaultMarketOptionOrdersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionOrders() : ListVaultMarketOptionOrdersResponse {
+        val localVarResponse = listVaultMarketOptionOrdersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionOrdersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your options orders, newest first: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;, &#x60;subaccountId&#x60;.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionOrdersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionOrdersWithHttpInfo() : ApiResponse<ListVaultMarketOptionOrdersResponse?> {
+        val localVariableConfig = listVaultMarketOptionOrdersRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionOrdersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionOrders
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionOrdersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your practice strategies.
+    * 
+    * @return ListVaultMarketOptionCombosResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionPracticeCombos() : ListVaultMarketOptionCombosResponse {
+        val localVarResponse = listVaultMarketOptionPracticeCombosWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionCombosResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your practice strategies.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionCombosResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionPracticeCombosWithHttpInfo() : ApiResponse<ListVaultMarketOptionCombosResponse?> {
+        val localVariableConfig = listVaultMarketOptionPracticeCombosRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionCombosResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionPracticeCombos
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionPracticeCombosRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/practice/combos",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your practice options fills, newest first (&#x60;limit&#x60;).
+    * 
+    * @return ListVaultMarketOptionPracticeFillsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionPracticeFills() : ListVaultMarketOptionPracticeFillsResponse {
+        val localVarResponse = listVaultMarketOptionPracticeFillsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionPracticeFillsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your practice options fills, newest first (&#x60;limit&#x60;).
+    * 
+    * @return ApiResponse<ListVaultMarketOptionPracticeFillsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionPracticeFillsWithHttpInfo() : ApiResponse<ListVaultMarketOptionPracticeFillsResponse?> {
+        val localVariableConfig = listVaultMarketOptionPracticeFillsRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionPracticeFillsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionPracticeFills
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionPracticeFillsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/practice/fills",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your practice options orders: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;.
+    * 
+    * @return ListVaultMarketOptionPracticeOrdersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionPracticeOrders() : ListVaultMarketOptionPracticeOrdersResponse {
+        val localVarResponse = listVaultMarketOptionPracticeOrdersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionPracticeOrdersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your practice options orders: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionPracticeOrdersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionPracticeOrdersWithHttpInfo() : ApiResponse<ListVaultMarketOptionPracticeOrdersResponse?> {
+        val localVariableConfig = listVaultMarketOptionPracticeOrdersRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionPracticeOrdersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionPracticeOrders
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionPracticeOrdersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/practice/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your option quote requests, newest first.
+    * 
+    * @return ListVaultMarketOptionRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionRfq() : ListVaultMarketOptionRfqResponse {
+        val localVarResponse = listVaultMarketOptionRfqWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your option quote requests, newest first.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionRfqWithHttpInfo() : ApiResponse<ListVaultMarketOptionRfqResponse?> {
+        val localVariableConfig = listVaultMarketOptionRfqRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionRfq
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionRfqRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/rfq",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Open option quote requests you can answer.
+    * 
+    * @return ListVaultMarketOptionRfqResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionRfqInbox() : ListVaultMarketOptionRfqResponse {
+        val localVarResponse = listVaultMarketOptionRfqInboxWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionRfqResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Open option quote requests you can answer.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionRfqResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionRfqInboxWithHttpInfo() : ApiResponse<ListVaultMarketOptionRfqResponse?> {
+        val localVariableConfig = listVaultMarketOptionRfqInboxRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionRfqResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionRfqInbox
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionRfqInboxRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/rfq/inbox",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Every options series: its underlying (a Crossly index, or a tier A item key with 90 days of reliable marks), status and the eligibility snapshot it last passed. &#x60;status&#x60;: active (default) or all.
+    * 
+    * @return ListVaultMarketOptionSeriesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionSeries() : ListVaultMarketOptionSeriesResponse {
+        val localVarResponse = listVaultMarketOptionSeriesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionSeriesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Every options series: its underlying (a Crossly index, or a tier A item key with 90 days of reliable marks), status and the eligibility snapshot it last passed. &#x60;status&#x60;: active (default) or all.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionSeriesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionSeriesWithHttpInfo() : ApiResponse<ListVaultMarketOptionSeriesResponse?> {
+        val localVariableConfig = listVaultMarketOptionSeriesRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionSeriesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionSeries
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionSeriesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/series",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar): how many strikes and expiries each takes, whether it needs calls or puts, and what it does in plain words.
+    * 
+    * @return ListVaultMarketOptionStrategiesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketOptionStrategies() : ListVaultMarketOptionStrategiesResponse {
+        val localVarResponse = listVaultMarketOptionStrategiesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketOptionStrategiesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar): how many strikes and expiries each takes, whether it needs calls or puts, and what it does in plain words.
+    * 
+    * @return ApiResponse<ListVaultMarketOptionStrategiesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketOptionStrategiesWithHttpInfo() : ApiResponse<ListVaultMarketOptionStrategiesResponse?> {
+        val localVariableConfig = listVaultMarketOptionStrategiesRequestConfig()
+
+        return request<Unit, ListVaultMarketOptionStrategiesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketOptionStrategies
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketOptionStrategiesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/options/strategies",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Recent publish attempts for an index over 30 days, newest first: published, skipped (with the reason: too few items priced, stale marks, confidence too wide...) or failed (with the error). Filter with &#x60;status&#x60;, cap with &#x60;limit&#x60; (default 100).
     * 
     * @param slug  
@@ -27713,6 +39575,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Vault drop-off partners near a &#x60;postalCode&#x60;, optionally offering a &#x60;service&#x60;: address, hours and services.
+    * 
+    * @return ListVaultMarketPartnerFinderResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPartnerFinder() : ListVaultMarketPartnerFinderResponse {
+        val localVarResponse = listVaultMarketPartnerFinderWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPartnerFinderResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Vault drop-off partners near a &#x60;postalCode&#x60;, optionally offering a &#x60;service&#x60;: address, hours and services.
+    * 
+    * @return ApiResponse<ListVaultMarketPartnerFinderResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPartnerFinderWithHttpInfo() : ApiResponse<ListVaultMarketPartnerFinderResponse?> {
+        val localVariableConfig = listVaultMarketPartnerFinderRequestConfig()
+
+        return request<Unit, ListVaultMarketPartnerFinderResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPartnerFinder
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPartnerFinderRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/partners/finder",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Your stakes in the market pool and what each redeems for now.
     * 
     * @return ListVaultMarketPoolStakesResponse
@@ -28044,6 +39973,944 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/positions-risk",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your probability alerts: a market, a level (percent) and a direction; each fires once through the alerts hub (kind prediction_odds).
+    * 
+    * @return ListVaultMarketPredictionAlertsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionAlerts() : ListVaultMarketPredictionAlertsResponse {
+        val localVarResponse = listVaultMarketPredictionAlertsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionAlertsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your probability alerts: a market, a level (percent) and a direction; each fires once through the alerts hub (kind prediction_odds).
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionAlertsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionAlertsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionAlertsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionAlertsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionAlertsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionAlerts
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionAlertsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/alerts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your combo requests with every answer they got.
+    * 
+    * @return ListVaultMarketPredictionComboRfqsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionComboMyRfqs() : ListVaultMarketPredictionComboRfqsResponse {
+        val localVarResponse = listVaultMarketPredictionComboMyRfqsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionComboRfqsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your combo requests with every answer they got.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionComboRfqsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionComboMyRfqsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionComboRfqsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionComboMyRfqsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionComboRfqsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionComboMyRfqs
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionComboMyRfqsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/combos/my-rfqs",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Open combo requests makers can answer: legs, size and the legs&#39; own combined price; never who asked. Your own answers are shown on them.
+    * 
+    * @return ListVaultMarketPredictionComboRfqsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionComboRfqs() : ListVaultMarketPredictionComboRfqsResponse {
+        val localVarResponse = listVaultMarketPredictionComboRfqsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionComboRfqsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Open combo requests makers can answer: legs, size and the legs&#39; own combined price; never who asked. Your own answers are shown on them.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionComboRfqsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionComboRfqsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionComboRfqsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionComboRfqsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionComboRfqsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionComboRfqs
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionComboRfqsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/combos/rfqs",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your combos, as buyer or maker: legs and their outcomes, stakes, the pot, any reprice after a voided leg, and how each settled.
+    * 
+    * @return ListVaultMarketPredictionCombosResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionCombos() : ListVaultMarketPredictionCombosResponse {
+        val localVarResponse = listVaultMarketPredictionCombosWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionCombosResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your combos, as buyer or maker: legs and their outcomes, stakes, the pot, any reprice after a voided leg, and how each settled.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionCombosResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionCombosWithHttpInfo() : ApiResponse<ListVaultMarketPredictionCombosResponse?> {
+        val localVariableConfig = listVaultMarketPredictionCombosRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionCombosResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionCombos
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionCombosRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/combos",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A discussion thread on a market (&#x60;marketId&#x60;) or a series (&#x60;seriesId&#x60;): comments newest first with their replies. A commenter&#39;s side shows only when their forecaster profile is public.
+    * 
+    * @return ListVaultMarketPredictionCommentsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionComments() : ListVaultMarketPredictionCommentsResponse {
+        val localVarResponse = listVaultMarketPredictionCommentsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionCommentsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A discussion thread on a market (&#x60;marketId&#x60;) or a series (&#x60;seriesId&#x60;): comments newest first with their replies. A commenter&#39;s side shows only when their forecaster profile is public.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionCommentsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionCommentsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionCommentsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionCommentsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionCommentsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionComments
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionCommentsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/comments",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your bucket-set conversions (split, merge, convert), newest first.
+    * 
+    * @return ListVaultMarketPredictionConversionsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionConversions() : ListVaultMarketPredictionConversionsResponse {
+        val localVarResponse = listVaultMarketPredictionConversionsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionConversionsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your bucket-set conversions (split, merge, convert), newest first.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionConversionsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionConversionsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionConversionsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionConversionsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionConversionsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionConversions
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionConversionsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/conversions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The forecasters you follow.
+    * 
+    * @return ListVaultMarketPredictionFollowingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionFollowing() : ListVaultMarketPredictionFollowingResponse {
+        val localVarResponse = listVaultMarketPredictionFollowingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionFollowingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The forecasters you follow.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionFollowingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionFollowingWithHttpInfo() : ApiResponse<ListVaultMarketPredictionFollowingResponse?> {
+        val localVariableConfig = listVaultMarketPredictionFollowingRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionFollowingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionFollowing
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionFollowingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/following",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your forecasts (a probability you attached to a market, money or not) and how the markets came out.
+    * 
+    * @return ListVaultMarketPredictionForecastsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionForecasts() : ListVaultMarketPredictionForecastsResponse {
+        val localVarResponse = listVaultMarketPredictionForecastsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionForecastsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your forecasts (a probability you attached to a market, money or not) and how the markets came out.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionForecastsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionForecastsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionForecastsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionForecastsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionForecastsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionForecasts
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionForecastsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/forecasts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your prediction maker programme applications and their status (applied, active, suspended, revoked) and rebate.
+    * 
+    * @return ListVaultMarketPredictionMakersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionMakers() : ListVaultMarketPredictionMakersResponse {
+        val localVarResponse = listVaultMarketPredictionMakersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionMakersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your prediction maker programme applications and their status (applied, active, suspended, revoked) and rebate.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionMakersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionMakersWithHttpInfo() : ApiResponse<ListVaultMarketPredictionMakersResponse?> {
+        val localVariableConfig = listVaultMarketPredictionMakersRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionMakersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionMakers
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionMakersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/makers",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Prediction markets, filtered by a book key, an index slug, an underlying kind (index | book_key | category_pair), a status (open | closed | settled | all), an expiry day or text. Each with its strike, expiry, best Yes bid and ask, last price, volume, open interest and probability.
+    * 
+    * @return ListVaultMarketPredictionMarketsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionMarkets() : ListVaultMarketPredictionMarketsResponse {
+        val localVarResponse = listVaultMarketPredictionMarketsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionMarketsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Prediction markets, filtered by a book key, an index slug, an underlying kind (index | book_key | category_pair), a status (open | closed | settled | all), an expiry day or text. Each with its strike, expiry, best Yes bid and ask, last price, volume, open interest and probability.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionMarketsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionMarketsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionMarketsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionMarketsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionMarketsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionMarkets
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionMarketsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/markets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your prediction orders, newest first: working, done or all; practice, live or all.
+    * 
+    * @return ListVaultMarketPredictionOrdersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionOrders() : ListVaultMarketPredictionOrdersResponse {
+        val localVarResponse = listVaultMarketPredictionOrdersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionOrdersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your prediction orders, newest first: working, done or all; practice, live or all.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionOrdersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionOrdersWithHttpInfo() : ApiResponse<ListVaultMarketPredictionOrdersResponse?> {
+        val localVariableConfig = listVaultMarketPredictionOrdersRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionOrdersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionOrders
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionOrdersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your prediction positions (practice, live or all; open, settled or all): side, contracts, cost, value at the last price, fees, realised P&amp;L, payout or refund once settled, and the share card if you made one.
+    * 
+    * @return ListVaultMarketPredictionPositionsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionPositions() : ListVaultMarketPredictionPositionsResponse {
+        val localVarResponse = listVaultMarketPredictionPositionsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionPositionsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your prediction positions (practice, live or all; open, settled or all): side, contracts, cost, value at the last price, fees, realised P&amp;L, payout or refund once settled, and the share card if you made one.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionPositionsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionPositionsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionPositionsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionPositionsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionPositionsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionPositions
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionPositionsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/positions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The markets you proposed that are listed: volume, status and what the creator share has earned you.
+    * 
+    * @return ListVaultMarketPredictionProposalListedResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionProposalListed() : ListVaultMarketPredictionProposalListedResponse {
+        val localVarResponse = listVaultMarketPredictionProposalListedWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionProposalListedResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The markets you proposed that are listed: volume, status and what the creator share has earned you.
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionProposalListedResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionProposalListedWithHttpInfo() : ApiResponse<ListVaultMarketPredictionProposalListedResponse?> {
+        val localVariableConfig = listVaultMarketPredictionProposalListedRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionProposalListedResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionProposalListed
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionProposalListedRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/proposals/listed",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your market proposals and where each stands (pending, listed, rejected, withdrawn).
+    * 
+    * @return ListVaultMarketPredictionProposalsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketPredictionProposals() : ListVaultMarketPredictionProposalsResponse {
+        val localVarResponse = listVaultMarketPredictionProposalsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketPredictionProposalsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your market proposals and where each stands (pending, listed, rejected, withdrawn).
+    * 
+    * @return ApiResponse<ListVaultMarketPredictionProposalsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketPredictionProposalsWithHttpInfo() : ApiResponse<ListVaultMarketPredictionProposalsResponse?> {
+        val localVariableConfig = listVaultMarketPredictionProposalsRequestConfig()
+
+        return request<Unit, ListVaultMarketPredictionProposalsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketPredictionProposals
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketPredictionProposalsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/predictions/proposals",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -29266,6 +42133,210 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Your recurring auto-invest plans: amount, weekly or monthly, the series and weights or the basket, what rolled over (budget too small for a whole share; your money stays at the venue), the next run.
+    * 
+    * @return ListVaultMarketShareAutoInvestResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareAutoInvest() : ListVaultMarketShareAutoInvestResponse {
+        val localVarResponse = listVaultMarketShareAutoInvestWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareAutoInvestResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your recurring auto-invest plans: amount, weekly or monthly, the series and weights or the basket, what rolled over (budget too small for a whole share; your money stays at the venue), the next run.
+    * 
+    * @return ApiResponse<ListVaultMarketShareAutoInvestResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareAutoInvestWithHttpInfo() : ApiResponse<ListVaultMarketShareAutoInvestResponse?> {
+        val localVariableConfig = listVaultMarketShareAutoInvestRequestConfig()
+
+        return request<Unit, ListVaultMarketShareAutoInvestResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareAutoInvest
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareAutoInvestRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/auto-invest",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A plan’s runs, newest first: the budget, what each series bought, what was spent and what rolled over; rebalances too.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareAutoInvestRunsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareAutoInvestRuns(id: kotlin.String) : ListVaultMarketShareAutoInvestRunsResponse {
+        val localVarResponse = listVaultMarketShareAutoInvestRunsWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareAutoInvestRunsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A plan’s runs, newest first: the budget, what each series bought, what was spent and what rolled over; rebalances too.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareAutoInvestRunsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareAutoInvestRunsWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareAutoInvestRunsResponse?> {
+        val localVariableConfig = listVaultMarketShareAutoInvestRunsRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareAutoInvestRunsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareAutoInvestRuns
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareAutoInvestRunsRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/auto-invest/{id}/runs".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Theme baskets: curated model portfolios of Vault Shares series with target weights. You buy and own every share directly in your own name; a basket is never a fund.
+    * 
+    * @return ListVaultMarketShareBasketsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareBaskets() : ListVaultMarketShareBasketsResponse {
+        val localVarResponse = listVaultMarketShareBasketsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareBasketsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Theme baskets: curated model portfolios of Vault Shares series with target weights. You buy and own every share directly in your own name; a basket is never a fund.
+    * 
+    * @return ApiResponse<ListVaultMarketShareBasketsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareBasketsWithHttpInfo() : ApiResponse<ListVaultMarketShareBasketsResponse?> {
+        val localVariableConfig = listVaultMarketShareBasketsRequestConfig()
+
+        return request<Unit, ListVaultMarketShareBasketsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareBaskets
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareBasketsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/baskets",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Your share cards (not taken down), each as the public sees it.
     * 
     * @return ListVaultMarketShareCardsResponse
@@ -29326,6 +42397,685 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/share-cards",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The Vault Shares drops calendar: announced and open offerings, soonest first, each with its phase (announced, early_access, requests, open), the countdown, the allocation (fcfs, pro_rata or lottery with a per-person cap), your Crossly One early-access time (it moves when you may ask, never the price) and whether you asked to be told.
+    * 
+    * @return ListVaultMarketShareDropsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareDrops() : ListVaultMarketShareDropsResponse {
+        val localVarResponse = listVaultMarketShareDropsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareDropsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The Vault Shares drops calendar: announced and open offerings, soonest first, each with its phase (announced, early_access, requests, open), the countdown, the allocation (fcfs, pro_rata or lottery with a per-person cap), your Crossly One early-access time (it moves when you may ask, never the price) and whether you asked to be told.
+    * 
+    * @return ApiResponse<ListVaultMarketShareDropsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareDropsWithHttpInfo() : ApiResponse<ListVaultMarketShareDropsResponse?> {
+        val localVariableConfig = listVaultMarketShareDropsRequestConfig()
+
+        return request<Unit, ListVaultMarketShareDropsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareDrops
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareDropsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/drops",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your share gifts, sent and received, newest first, with where each stands (offered, instructed, settled, declined, cancelled, expired, rejected).
+    * 
+    * @return ListVaultMarketShareGiftsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareGifts() : ListVaultMarketShareGiftsResponse {
+        val localVarResponse = listVaultMarketShareGiftsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareGiftsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your share gifts, sent and received, newest first, with where each stands (offered, instructed, settled, declined, cancelled, expired, rejected).
+    * 
+    * @return ApiResponse<ListVaultMarketShareGiftsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareGiftsWithHttpInfo() : ApiResponse<ListVaultMarketShareGiftsResponse?> {
+        val localVariableConfig = listVaultMarketShareGiftsRequestConfig()
+
+        return request<Unit, ListVaultMarketShareGiftsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareGifts
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareGiftsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/gifts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your share-book orders, newest first; &#x60;seriesId&#x60; and &#x60;open&#x60; narrow it.
+    * 
+    * @return ListVaultMarketShareOrdersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareOrders() : ListVaultMarketShareOrdersResponse {
+        val localVarResponse = listVaultMarketShareOrdersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareOrdersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your share-book orders, newest first; &#x60;seriesId&#x60; and &#x60;open&#x60; narrow it.
+    * 
+    * @return ApiResponse<ListVaultMarketShareOrdersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareOrdersWithHttpInfo() : ApiResponse<ListVaultMarketShareOrdersResponse?> {
+        val localVariableConfig = listVaultMarketShareOrdersRequestConfig()
+
+        return request<Unit, ListVaultMarketShareOrdersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareOrders
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareOrdersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/orders",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Vault Shares series: open offerings first, then trading, then the rest. &#x60;status&#x60; and &#x60;bookKey&#x60; narrow it. Each with its terms, progress, last share price and implied item value (display only, never a mark), and your holding.
+    * 
+    * @return ListVaultMarketShareSeriesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareSeries() : ListVaultMarketShareSeriesResponse {
+        val localVarResponse = listVaultMarketShareSeriesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSeriesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Vault Shares series: open offerings first, then trading, then the rest. &#x60;status&#x60; and &#x60;bookKey&#x60; narrow it. Each with its terms, progress, last share price and implied item value (display only, never a mark), and your holding.
+    * 
+    * @return ApiResponse<ListVaultMarketShareSeriesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareSeriesWithHttpInfo() : ApiResponse<ListVaultMarketShareSeriesResponse?> {
+        val localVariableConfig = listVaultMarketShareSeriesRequestConfig()
+
+        return request<Unit, ListVaultMarketShareSeriesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareSeries
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareSeriesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The item’s appraisal history: the offering valuation (sealed valuation statement), independent and insurance appraisals, and any buyout or exit price.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareSeryAppraisalsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareSeryAppraisals(id: kotlin.String) : ListVaultMarketShareSeryAppraisalsResponse {
+        val localVarResponse = listVaultMarketShareSeryAppraisalsWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSeryAppraisalsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The item’s appraisal history: the offering valuation (sealed valuation statement), independent and insurance appraisals, and any buyout or exit price.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareSeryAppraisalsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareSeryAppraisalsWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareSeryAppraisalsResponse?> {
+        val localVariableConfig = listVaultMarketShareSeryAppraisalsRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareSeryAppraisalsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareSeryAppraisals
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareSeryAppraisalsRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series/{id}/appraisals".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The latest fills on a share book, newest first, with which side made the market.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareSeryTapeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareSeryTape(id: kotlin.String) : ListVaultMarketShareSeryTapeResponse {
+        val localVarResponse = listVaultMarketShareSeryTapeWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSeryTapeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The latest fills on a share book, newest first, with which side made the market.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareSeryTapeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareSeryTapeWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareSeryTapeResponse?> {
+        val localVariableConfig = listVaultMarketShareSeryTapeRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareSeryTapeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareSeryTape
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareSeryTapeRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series/{id}/tape".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The item’s story, provenance, condition reports, appraisals and exhibitions, newest first. Holders also see holders-only updates.
+    * 
+    * @param id  
+    * @return ListVaultMarketShareSeryUpdatesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareSeryUpdates(id: kotlin.String) : ListVaultMarketShareSeryUpdatesResponse {
+        val localVarResponse = listVaultMarketShareSeryUpdatesWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSeryUpdatesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The item’s story, provenance, condition reports, appraisals and exhibitions, newest first. Holders also see holders-only updates.
+    * 
+    * @param id  
+    * @return ApiResponse<ListVaultMarketShareSeryUpdatesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareSeryUpdatesWithHttpInfo(id: kotlin.String) : ApiResponse<ListVaultMarketShareSeryUpdatesResponse?> {
+        val localVariableConfig = listVaultMarketShareSeryUpdatesRequestConfig(id = id)
+
+        return request<Unit, ListVaultMarketShareSeryUpdatesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareSeryUpdates
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareSeryUpdatesRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/series/{id}/updates".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your offering subscriptions, newest first, with where each stands (pending, escrowed, allocated, refunded).
+    * 
+    * @return ListVaultMarketShareSubscriptionsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareSubscriptions() : ListVaultMarketShareSubscriptionsResponse {
+        val localVarResponse = listVaultMarketShareSubscriptionsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareSubscriptionsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your offering subscriptions, newest first, with where each stands (pending, escrowed, allocated, refunded).
+    * 
+    * @return ApiResponse<ListVaultMarketShareSubscriptionsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareSubscriptionsWithHttpInfo() : ApiResponse<ListVaultMarketShareSubscriptionsResponse?> {
+        val localVariableConfig = listVaultMarketShareSubscriptionsRequestConfig()
+
+        return request<Unit, ListVaultMarketShareSubscriptionsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareSubscriptions
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareSubscriptionsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/subscriptions",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The world vault home’s fractional tiles: each item you own a share of, with \&quot;you own 3.2%\&quot;.
+    * 
+    * @return ListVaultMarketShareWorldResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketShareWorld() : ListVaultMarketShareWorldResponse {
+        val localVarResponse = listVaultMarketShareWorldWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketShareWorldResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The world vault home’s fractional tiles: each item you own a share of, with \&quot;you own 3.2%\&quot;.
+    * 
+    * @return ApiResponse<ListVaultMarketShareWorldResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketShareWorldWithHttpInfo() : ApiResponse<ListVaultMarketShareWorldResponse?> {
+        val localVariableConfig = listVaultMarketShareWorldRequestConfig()
+
+        return request<Unit, ListVaultMarketShareWorldResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketShareWorld
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketShareWorldRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/shares/world",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What each item&#39;s declared value starts at, by your insurance rule (market, cost or price). &#x60;inventoryItemIds&#x60; comma-separated.
+    * 
+    * @return ListVaultMarketSupplyDeclaredValuesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketSupplyDeclaredValues() : ListVaultMarketSupplyDeclaredValuesResponse {
+        val localVarResponse = listVaultMarketSupplyDeclaredValuesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketSupplyDeclaredValuesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What each item&#39;s declared value starts at, by your insurance rule (market, cost or price). &#x60;inventoryItemIds&#x60; comma-separated.
+    * 
+    * @return ApiResponse<ListVaultMarketSupplyDeclaredValuesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketSupplyDeclaredValuesWithHttpInfo() : ApiResponse<ListVaultMarketSupplyDeclaredValuesResponse?> {
+        val localVariableConfig = listVaultMarketSupplyDeclaredValuesRequestConfig()
+
+        return request<Unit, ListVaultMarketSupplyDeclaredValuesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketSupplyDeclaredValues
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketSupplyDeclaredValuesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/supply/declared-values",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -29400,6 +43150,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Can these inventory items (&#x60;inventoryItemIds&#x60;, comma-separated, or every item linked to &#x60;listingId&#x60;) be sent to the vault now? Each says why not.
+    * 
+    * @return ListVaultMarketSupplyEligibilityResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketSupplyEligibility() : ListVaultMarketSupplyEligibilityResponse {
+        val localVarResponse = listVaultMarketSupplyEligibilityWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketSupplyEligibilityResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Can these inventory items (&#x60;inventoryItemIds&#x60;, comma-separated, or every item linked to &#x60;listingId&#x60;) be sent to the vault now? Each says why not.
+    * 
+    * @return ApiResponse<ListVaultMarketSupplyEligibilityResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketSupplyEligibilityWithHttpInfo() : ApiResponse<ListVaultMarketSupplyEligibilityResponse?> {
+        val localVariableConfig = listVaultMarketSupplyEligibilityRequestConfig()
+
+        return request<Unit, ListVaultMarketSupplyEligibilityResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketSupplyEligibility
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketSupplyEligibilityRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/supply/eligibility",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Market Open invites to you as a dealer: keys Crossly is opening and asks you to quote.
     * 
     * @return ListVaultMarketSupplyInvitesResponse
@@ -29460,6 +43277,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/vault-markets/supply/invites",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your shipments into the vault, newest first: method, label or drop-off code, tracking and how many units were received.
+    * 
+    * @return ListVaultMarketSupplyShipmentsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listVaultMarketSupplyShipments() : ListVaultMarketSupplyShipmentsResponse {
+        val localVarResponse = listVaultMarketSupplyShipmentsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListVaultMarketSupplyShipmentsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your shipments into the vault, newest first: method, label or drop-off code, tracking and how many units were received.
+    * 
+    * @return ApiResponse<ListVaultMarketSupplyShipmentsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listVaultMarketSupplyShipmentsWithHttpInfo() : ApiResponse<ListVaultMarketSupplyShipmentsResponse?> {
+        val localVariableConfig = listVaultMarketSupplyShipmentsRequestConfig()
+
+        return request<Unit, ListVaultMarketSupplyShipmentsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listVaultMarketSupplyShipments
+    *
+    * @return RequestConfig
+    */
+    fun listVaultMarketSupplyShipmentsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/vault-markets/supply/shipments",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -30271,6 +44155,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Set up or change Auto-buy with payouts: &#x60;shareBps&#x60; (1–50%) and the whole want list in order, each with an optional &#x60;maxPriceCents&#x60; (fee included).
+    * 
+    * @return UpdateVaultMarketAutoBuyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateVaultMarketAutoBuy() : UpdateVaultMarketAutoBuyResponse {
+        val localVarResponse = updateVaultMarketAutoBuyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateVaultMarketAutoBuyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set up or change Auto-buy with payouts: &#x60;shareBps&#x60; (1–50%) and the whole want list in order, each with an optional &#x60;maxPriceCents&#x60; (fee included).
+    * 
+    * @return ApiResponse<UpdateVaultMarketAutoBuyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateVaultMarketAutoBuyWithHttpInfo() : ApiResponse<UpdateVaultMarketAutoBuyResponse?> {
+        val localVariableConfig = updateVaultMarketAutoBuyRequestConfig()
+
+        return request<Unit, UpdateVaultMarketAutoBuyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateVaultMarketAutoBuy
+    *
+    * @return RequestConfig
+    */
+    fun updateVaultMarketAutoBuyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/vault-markets/auto-buy",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Post-trade allocation: set or replace the plan for a buy you placed for one of the entity&#39;s sub-accounts (that sub-account leads). Refused once any share has moved.
     * 
     * @param orderId  
@@ -31035,6 +44986,76 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Set which unit a sale of this item ships first: &#x60;vault_first&#x60;, &#x60;warehouse_first&#x60; or &#x60;cheapest&#x60; (to ship); null &#x3D; your default. Quantities stay the same on every channel: only who ships changes.
+    * 
+    * @param inventoryItemId  
+    * @return GetVaultMarketItemLocationResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateVaultMarketItemSellFrom(inventoryItemId: kotlin.String) : GetVaultMarketItemLocationResponse {
+        val localVarResponse = updateVaultMarketItemSellFromWithHttpInfo(inventoryItemId = inventoryItemId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketItemLocationResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set which unit a sale of this item ships first: &#x60;vault_first&#x60;, &#x60;warehouse_first&#x60; or &#x60;cheapest&#x60; (to ship); null &#x3D; your default. Quantities stay the same on every channel: only who ships changes.
+    * 
+    * @param inventoryItemId  
+    * @return ApiResponse<GetVaultMarketItemLocationResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateVaultMarketItemSellFromWithHttpInfo(inventoryItemId: kotlin.String) : ApiResponse<GetVaultMarketItemLocationResponse?> {
+        val localVariableConfig = updateVaultMarketItemSellFromRequestConfig(inventoryItemId = inventoryItemId)
+
+        return request<Unit, GetVaultMarketItemLocationResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateVaultMarketItemSellFrom
+    *
+    * @param inventoryItemId  
+    * @return RequestConfig
+    */
+    fun updateVaultMarketItemSellFromRequestConfig(inventoryItemId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/vault-markets/items/{inventoryItemId}/sell-from".replace("{"+"inventoryItemId"+"}", "$inventoryItemId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Change your lender election (applies to loans opened after the change). Needs lending.
     * 
     * @return GetVaultMarketLendingElectionResponse
@@ -31303,6 +45324,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     }
 
     /**
+    * Set your auto-close rule: &#x60;enabled&#x60;, &#x60;minutesBefore&#x60; (30 to 10080), &#x60;onlyItm&#x60;, &#x60;maxSlippageBps&#x60; (0 to 2000).
+    * 
+    * @return GetVaultMarketOptionAutoCloseResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateVaultMarketOptionAutoClose() : GetVaultMarketOptionAutoCloseResponse {
+        val localVarResponse = updateVaultMarketOptionAutoCloseWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketOptionAutoCloseResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set your auto-close rule: &#x60;enabled&#x60;, &#x60;minutesBefore&#x60; (30 to 10080), &#x60;onlyItm&#x60;, &#x60;maxSlippageBps&#x60; (0 to 2000).
+    * 
+    * @return ApiResponse<GetVaultMarketOptionAutoCloseResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateVaultMarketOptionAutoCloseWithHttpInfo() : ApiResponse<GetVaultMarketOptionAutoCloseResponse?> {
+        val localVariableConfig = updateVaultMarketOptionAutoCloseRequestConfig()
+
+        return request<Unit, GetVaultMarketOptionAutoCloseResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateVaultMarketOptionAutoClose
+    *
+    * @return RequestConfig
+    */
+    fun updateVaultMarketOptionAutoCloseRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/vault-markets/options/auto-close",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Join or leave the weekly paper leaderboard. Joining needs a display name (2 to 24 letters, numbers, spaces, dots, dashes or underscores), never your real name. Returns &#x60;{ optIn, displayName }&#x60;.
     * 
     * @return UpdateVaultMarketPaperLeaderboardResponse
@@ -31363,6 +45451,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/vault-markets/paper/leaderboard",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your drop-off partnership&#39;s finder profile: postal code, opening hours, services and whether you are listed.
+    * 
+    * @return UpdateVaultMarketPartnerMeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateVaultMarketPartnerMe() : UpdateVaultMarketPartnerMeResponse {
+        val localVarResponse = updateVaultMarketPartnerMeWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateVaultMarketPartnerMeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your drop-off partnership&#39;s finder profile: postal code, opening hours, services and whether you are listed.
+    * 
+    * @return ApiResponse<UpdateVaultMarketPartnerMeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateVaultMarketPartnerMeWithHttpInfo() : ApiResponse<UpdateVaultMarketPartnerMeResponse?> {
+        val localVariableConfig = updateVaultMarketPartnerMeRequestConfig()
+
+        return request<Unit, UpdateVaultMarketPartnerMeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateVaultMarketPartnerMe
+    *
+    * @return RequestConfig
+    */
+    fun updateVaultMarketPartnerMeRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/vault-markets/partners/me",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -31433,6 +45588,210 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/vault-markets/positions/{id}/exits".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Edit your comment.
+    * 
+    * @param id  
+    * @return CreateVaultMarketPredictionCommentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateVaultMarketPredictionComment(id: kotlin.String) : CreateVaultMarketPredictionCommentResponse {
+        val localVarResponse = updateVaultMarketPredictionCommentWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateVaultMarketPredictionCommentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Edit your comment.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateVaultMarketPredictionCommentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateVaultMarketPredictionCommentWithHttpInfo(id: kotlin.String) : ApiResponse<CreateVaultMarketPredictionCommentResponse?> {
+        val localVariableConfig = updateVaultMarketPredictionCommentRequestConfig(id = id)
+
+        return request<Unit, CreateVaultMarketPredictionCommentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateVaultMarketPredictionComment
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateVaultMarketPredictionCommentRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/vault-markets/predictions/comments/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Go public under a display name (&#x60;public: true&#x60;), rename, or go private (&#x60;public: false&#x60;: nothing is shown again).
+    * 
+    * @return GetVaultMarketPredictionForecasterResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateVaultMarketPredictionForecaster() : GetVaultMarketPredictionForecasterResponse {
+        val localVarResponse = updateVaultMarketPredictionForecasterWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionForecasterResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Go public under a display name (&#x60;public: true&#x60;), rename, or go private (&#x60;public: false&#x60;: nothing is shown again).
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionForecasterResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateVaultMarketPredictionForecasterWithHttpInfo() : ApiResponse<GetVaultMarketPredictionForecasterResponse?> {
+        val localVariableConfig = updateVaultMarketPredictionForecasterRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionForecasterResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateVaultMarketPredictionForecaster
+    *
+    * @return RequestConfig
+    */
+    fun updateVaultMarketPredictionForecasterRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/vault-markets/predictions/forecaster",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Set your daily loss limit (&#x60;dailyLossLimitCents&#x60;, null &#x3D; none) or exclude yourself (&#x60;excludeDays&#x60;, &#x60;excludedUntil&#x60; or \&quot;forever\&quot;). Tighter takes effect at once; looser waits 24 hours.
+    * 
+    * @return GetVaultMarketPredictionLimitResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateVaultMarketPredictionLimit() : GetVaultMarketPredictionLimitResponse {
+        val localVarResponse = updateVaultMarketPredictionLimitWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketPredictionLimitResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set your daily loss limit (&#x60;dailyLossLimitCents&#x60;, null &#x3D; none) or exclude yourself (&#x60;excludeDays&#x60;, &#x60;excludedUntil&#x60; or \&quot;forever\&quot;). Tighter takes effect at once; looser waits 24 hours.
+    * 
+    * @return ApiResponse<GetVaultMarketPredictionLimitResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateVaultMarketPredictionLimitWithHttpInfo() : ApiResponse<GetVaultMarketPredictionLimitResponse?> {
+        val localVariableConfig = updateVaultMarketPredictionLimitRequestConfig()
+
+        return request<Unit, GetVaultMarketPredictionLimitResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateVaultMarketPredictionLimit
+    *
+    * @return RequestConfig
+    */
+    fun updateVaultMarketPredictionLimitRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/vault-markets/predictions/limits",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -31710,6 +46069,73 @@ class VaultMarketsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
         return RequestConfig(
             method = RequestMethod.PATCH,
             path = "/v1/vault-markets/set-goals/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Change your vault defaults; send only the fields you change.
+    * 
+    * @return GetVaultMarketSettingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateVaultMarketSetting() : GetVaultMarketSettingResponse {
+        val localVarResponse = updateVaultMarketSettingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetVaultMarketSettingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Change your vault defaults; send only the fields you change.
+    * 
+    * @return ApiResponse<GetVaultMarketSettingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateVaultMarketSettingWithHttpInfo() : ApiResponse<GetVaultMarketSettingResponse?> {
+        val localVariableConfig = updateVaultMarketSettingRequestConfig()
+
+        return request<Unit, GetVaultMarketSettingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateVaultMarketSetting
+    *
+    * @return RequestConfig
+    */
+    fun updateVaultMarketSettingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/vault-markets/settings",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

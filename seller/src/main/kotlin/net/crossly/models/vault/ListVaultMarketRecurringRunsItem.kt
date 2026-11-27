@@ -33,8 +33,8 @@ import com.squareup.moshi.Json
  * @param status 
  * @param scheduleId 
  * @param usedBackup 
- * @param reason 
  * @param orderId 
+ * @param reason 
  * @param markCents 
  * @param limitCents 
  * @param filledCents 
@@ -63,11 +63,11 @@ data class ListVaultMarketRecurringRunsItem (
     @Json(name = "usedBackup")
     val usedBackup: kotlin.Boolean,
 
-    @Json(name = "reason")
-    val reason: kotlin.String? = null,
-
     @Json(name = "orderId")
     val orderId: kotlin.String? = null,
+
+    @Json(name = "reason")
+    val reason: kotlin.String? = null,
 
     @Json(name = "markCents")
     val markCents: java.math.BigDecimal? = null,

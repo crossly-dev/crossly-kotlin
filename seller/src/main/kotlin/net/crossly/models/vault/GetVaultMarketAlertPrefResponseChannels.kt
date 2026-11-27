@@ -55,12 +55,12 @@ data class GetVaultMarketAlertPrefResponseChannels (
     /**
      * 
      *
-     * Values: EMAIL,WEBHOOK,PUSH,TELEGRAM,TERMINAL
+     * Values: EMAIL,PUSH,WEBHOOK,TELEGRAM,TERMINAL
      */
     enum class Key(val value: kotlin.String) {
         @Json(name = "email") EMAIL("email"),
-        @Json(name = "webhook") WEBHOOK("webhook"),
         @Json(name = "push") PUSH("push"),
+        @Json(name = "webhook") WEBHOOK("webhook"),
         @Json(name = "telegram") TELEGRAM("telegram"),
         @Json(name = "terminal") TERMINAL("terminal");
     }

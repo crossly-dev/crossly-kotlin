@@ -29,9 +29,9 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param status 
+ * @param ownerUserId 
  * @param endsAt 
  * @param startsAt 
- * @param ownerUserId 
  * @param gamePlace 
  * @param gameObject 
  * @param entryMode 
@@ -51,14 +51,14 @@ data class ListWorldContestsItem (
     @Json(name = "status")
     val status: ListWorldContestsItem.Status,
 
+    @Json(name = "ownerUserId")
+    val ownerUserId: kotlin.String,
+
     @Json(name = "endsAt")
     val endsAt: java.time.OffsetDateTime,
 
     @Json(name = "startsAt")
     val startsAt: java.time.OffsetDateTime,
-
-    @Json(name = "ownerUserId")
-    val ownerUserId: kotlin.String,
 
     @Json(name = "gamePlace")
     val gamePlace: kotlin.String,
@@ -83,22 +83,22 @@ data class ListWorldContestsItem (
     /**
      * 
      *
-     * Values: OPEN,CANCELLED,SETTLED
+     * Values: CANCELLED,OPEN,SETTLED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "open") OPEN("open"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "open") OPEN("open"),
         @Json(name = "settled") SETTLED("settled");
     }
     /**
      * 
      *
-     * Values: FREE,SPONSORED,PAID
+     * Values: FREE,PAID,SPONSORED
      */
     enum class EntryMode(val value: kotlin.String) {
         @Json(name = "free") FREE("free"),
-        @Json(name = "sponsored") SPONSORED("sponsored"),
-        @Json(name = "paid") PAID("paid");
+        @Json(name = "paid") PAID("paid"),
+        @Json(name = "sponsored") SPONSORED("sponsored");
     }
     /**
      * 

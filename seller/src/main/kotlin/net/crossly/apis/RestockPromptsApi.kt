@@ -24,6 +24,7 @@ import java.io.IOException
 
 import net.crossly.models.common.CreateRestockPromptRepublishResponse
 import net.crossly.models.common.Error
+import net.crossly.models.common.GetRestockPromptSettingResponse
 import net.crossly.models.common.ListRestockPromptsResponse
 import net.crossly.models.common.OkResponse
 
@@ -191,6 +192,73 @@ class RestockPromptsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(b
     }
 
     /**
+    * Whether restocked items are republished automatically.
+    * autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically.
+    * @return GetRestockPromptSettingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getRestockPromptSetting() : GetRestockPromptSettingResponse {
+        val localVarResponse = getRestockPromptSettingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetRestockPromptSettingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Whether restocked items are republished automatically.
+    * autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically.
+    * @return ApiResponse<GetRestockPromptSettingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getRestockPromptSettingWithHttpInfo() : ApiResponse<GetRestockPromptSettingResponse?> {
+        val localVariableConfig = getRestockPromptSettingRequestConfig()
+
+        return request<Unit, GetRestockPromptSettingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getRestockPromptSetting
+    *
+    * @return RequestConfig
+    */
+    fun getRestockPromptSettingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/restock-prompts/settings",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * List pending restock prompts.
     * 
     * @return ListRestockPromptsResponse
@@ -251,6 +319,77 @@ class RestockPromptsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(b
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/restock-prompts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Turn automatic republish of restocked items on or off.
+    * 
+    * @param getRestockPromptSettingResponse  
+    * @return GetRestockPromptSettingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateRestockPromptSetting(getRestockPromptSettingResponse: GetRestockPromptSettingResponse) : GetRestockPromptSettingResponse {
+        val localVarResponse = updateRestockPromptSettingWithHttpInfo(getRestockPromptSettingResponse = getRestockPromptSettingResponse)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetRestockPromptSettingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Turn automatic republish of restocked items on or off.
+    * 
+    * @param getRestockPromptSettingResponse  
+    * @return ApiResponse<GetRestockPromptSettingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateRestockPromptSettingWithHttpInfo(getRestockPromptSettingResponse: GetRestockPromptSettingResponse) : ApiResponse<GetRestockPromptSettingResponse?> {
+        val localVariableConfig = updateRestockPromptSettingRequestConfig(getRestockPromptSettingResponse = getRestockPromptSettingResponse)
+
+        return request<GetRestockPromptSettingResponse, GetRestockPromptSettingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateRestockPromptSetting
+    *
+    * @param getRestockPromptSettingResponse  
+    * @return RequestConfig
+    */
+    fun updateRestockPromptSettingRequestConfig(getRestockPromptSettingResponse: GetRestockPromptSettingResponse) : RequestConfig<GetRestockPromptSettingResponse> {
+        val localVariableBody = getRestockPromptSettingResponse
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/restock-prompts/settings",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

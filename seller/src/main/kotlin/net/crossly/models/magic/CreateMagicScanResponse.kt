@@ -22,6 +22,7 @@ package net.crossly.models.magic
 
 import net.crossly.models.magic.CreateMagicScanResponseEbayHits
 import net.crossly.models.magic.CreateMagicScanResponseEbayMatch
+import net.crossly.models.magic.CreateMagicScanResponseMatchReference
 import net.crossly.models.magic.CreateMagicScanResponsePhotoIdentifier
 import net.crossly.models.magic.CreateMagicScanResponsePossibleDuplicates
 import net.crossly.models.magic.CreateMagicScanResponseTopHits
@@ -40,7 +41,9 @@ import com.squareup.moshi.Json
  * @param possibleDuplicates The seller's OWN listings/inventory that this scan probably duplicates (image + fuzzy-title self-dedup). Empty when nothing matched. Drives the \"you may already have this\" prompt.
  * @param cached 
  * @param photoIdentifier 
+ * @param matchReference 
  * @param ebayMatch 
+ * @param visionCallsUsed Monthly vision calls (vision-quota.ts) this scan spent: the seller's Activity Log shows them as credits used. 0 for a single-photo scan and for a re-scan of the same photos.
  */
 
 data class CreateMagicScanResponse (
@@ -77,8 +80,15 @@ data class CreateMagicScanResponse (
     @Json(name = "photoIdentifier")
     val photoIdentifier: CreateMagicScanResponsePhotoIdentifier? = null,
 
+    @Json(name = "matchReference")
+    val matchReference: CreateMagicScanResponseMatchReference? = null,
+
     @Json(name = "ebayMatch")
-    val ebayMatch: CreateMagicScanResponseEbayMatch? = null
+    val ebayMatch: CreateMagicScanResponseEbayMatch? = null,
+
+    /* Monthly vision calls (vision-quota.ts) this scan spent: the seller's Activity Log shows them as credits used. 0 for a single-photo scan and for a re-scan of the same photos. */
+    @Json(name = "visionCallsUsed")
+    val visionCallsUsed: java.math.BigDecimal? = null
 
 )
 

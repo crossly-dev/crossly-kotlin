@@ -28,11 +28,11 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param status 
- * @param nextRunAt 
  * @param intervalDays 
  * @param discountBps 
- * @param title 
+ * @param nextRunAt 
  * @param slug 
+ * @param title 
  */
 
 data class ListBuyerSubscriptionsItem (
@@ -43,20 +43,20 @@ data class ListBuyerSubscriptionsItem (
     @Json(name = "status")
     val status: kotlin.String,
 
-    @Json(name = "nextRunAt")
-    val nextRunAt: kotlin.String,
-
     @Json(name = "intervalDays")
     val intervalDays: java.math.BigDecimal,
 
     @Json(name = "discountBps")
     val discountBps: java.math.BigDecimal,
 
-    @Json(name = "title")
-    val title: kotlin.String? = null,
+    @Json(name = "nextRunAt")
+    val nextRunAt: kotlin.String,
 
     @Json(name = "slug")
-    val slug: kotlin.String? = null
+    val slug: kotlin.String? = null,
+
+    @Json(name = "title")
+    val title: kotlin.String? = null
 
 )
 

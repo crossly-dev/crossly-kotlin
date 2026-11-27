@@ -53,12 +53,12 @@ data class GetOrderEvidenceResponseDataGrade (
     /**
      * 
      *
-     * Values: NONE,STRONG,BASIC,CONCLUSIVE
+     * Values: NONE,BASIC,STRONG,CONCLUSIVE
      */
     enum class Grade(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
-        @Json(name = "strong") STRONG("strong"),
         @Json(name = "basic") BASIC("basic"),
+        @Json(name = "strong") STRONG("strong"),
         @Json(name = "conclusive") CONCLUSIVE("conclusive");
     }
 }

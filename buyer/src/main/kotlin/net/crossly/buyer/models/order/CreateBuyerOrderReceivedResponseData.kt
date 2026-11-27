@@ -28,8 +28,8 @@ import com.squareup.moshi.Json
  *
  * @param ok 
  * @param canReview Feedback can now be left on this order.
- * @param buyerReceivedAt 
  * @param alreadyConfirmed 
+ * @param buyerReceivedAt 
  */
 
 data class CreateBuyerOrderReceivedResponseData (
@@ -41,11 +41,11 @@ data class CreateBuyerOrderReceivedResponseData (
     @Json(name = "canReview")
     val canReview: kotlin.Boolean,
 
-    @Json(name = "buyerReceivedAt")
-    val buyerReceivedAt: kotlin.String? = null,
-
     @Json(name = "alreadyConfirmed")
-    val alreadyConfirmed: kotlin.Boolean? = null
+    val alreadyConfirmed: kotlin.Boolean? = null,
+
+    @Json(name = "buyerReceivedAt")
+    val buyerReceivedAt: kotlin.String? = null
 
 )
 

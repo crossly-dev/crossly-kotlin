@@ -55,11 +55,11 @@ data class GetVaultMarketHealthResponseConcentrationByCategory (
     /**
      * 
      *
-     * Values: SPREAD,MODERATE,EMPTY,CONCENTRATED
+     * Values: MODERATE,SPREAD,EMPTY,CONCENTRATED
      */
     enum class Band(val value: kotlin.String) {
-        @Json(name = "spread") SPREAD("spread"),
         @Json(name = "moderate") MODERATE("moderate"),
+        @Json(name = "spread") SPREAD("spread"),
         @Json(name = "empty") EMPTY("empty"),
         @Json(name = "concentrated") CONCENTRATED("concentrated");
     }

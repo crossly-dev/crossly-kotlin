@@ -20,7 +20,7 @@
 
 package net.crossly.models.grading
 
-import net.crossly.models.grading.ListGradingSubmissionsItemGrading
+import net.crossly.models.bulk.CreateBulkBatchItemResponseGrading
 
 import com.squareup.moshi.Json
 
@@ -42,6 +42,7 @@ import com.squareup.moshi.Json
  * @param certVerified 
  * @param createdAt 
  * @param updatedAt 
+ * @param orderId The grading order (submission through Crossly) this card is in.
  * @param runId 
  * @param runCutoffAt 
  * @param runStatus 
@@ -101,6 +102,10 @@ data class ListGradingSubmissionsItem (
     @Json(name = "updatedAt")
     val updatedAt: kotlin.String,
 
+    /* The grading order (submission through Crossly) this card is in. */
+    @Json(name = "orderId")
+    val orderId: kotlin.String? = null,
+
     @Json(name = "runId")
     val runId: kotlin.String? = null,
 
@@ -129,36 +134,37 @@ data class ListGradingSubmissionsItem (
     val prescreenNote: kotlin.String? = null,
 
     @Json(name = "grading")
-    val grading: ListGradingSubmissionsItemGrading? = null
+    val grading: CreateBulkBatchItemResponseGrading? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: RUN,DIRECT
+     * Values: DIRECT,ORDER,RUN
      */
     enum class Mode(val value: kotlin.String) {
-        @Json(name = "run") RUN("run"),
-        @Json(name = "direct") DIRECT("direct");
+        @Json(name = "direct") DIRECT("direct"),
+        @Json(name = "order") ORDER("order"),
+        @Json(name = "run") RUN("run");
     }
     /**
      * 
      *
-     * Values: GRADED,RETURNED,RELEASED,REFUNDED,RESERVED,RECEIVED,CHARGED,SHIPPED_TO_HUB,PRESCREEN_FAILED,AT_GRADER,RETURNING,VAULTED
+     * Values: REFUNDED,RECEIVED,RELEASED,RESERVED,CHARGED,SHIPPED_TO_HUB,PRESCREEN_FAILED,AT_GRADER,GRADED,RETURNING,RETURNED,VAULTED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "graded") GRADED("graded"),
-        @Json(name = "returned") RETURNED("returned"),
-        @Json(name = "released") RELEASED("released"),
         @Json(name = "refunded") REFUNDED("refunded"),
-        @Json(name = "reserved") RESERVED("reserved"),
         @Json(name = "received") RECEIVED("received"),
+        @Json(name = "released") RELEASED("released"),
+        @Json(name = "reserved") RESERVED("reserved"),
         @Json(name = "charged") CHARGED("charged"),
         @Json(name = "shipped_to_hub") SHIPPED_TO_HUB("shipped_to_hub"),
         @Json(name = "prescreen_failed") PRESCREEN_FAILED("prescreen_failed"),
         @Json(name = "at_grader") AT_GRADER("at_grader"),
+        @Json(name = "graded") GRADED("graded"),
         @Json(name = "returning") RETURNING("returning"),
+        @Json(name = "returned") RETURNED("returned"),
         @Json(name = "vaulted") VAULTED("vaulted");
     }
 }

@@ -21,8 +21,8 @@
 package net.crossly.models.world
 
 import net.crossly.models.world.CreateWorldGamePackageCheckResponseDataFits
-import net.crossly.models.world.CreateWorldGamePackageCheckResponseDataIssues
 import net.crossly.models.world.CreateWorldGamePackageCheckResponseDataManifest
+import net.crossly.models.common.PathMessage
 
 import com.squareup.moshi.Json
 
@@ -42,7 +42,7 @@ data class CreateWorldGamePackageCheckResponseData (
     val ok: kotlin.Boolean,
 
     @Json(name = "issues")
-    val issues: kotlin.collections.List<CreateWorldGamePackageCheckResponseDataIssues>,
+    val issues: kotlin.collections.List<PathMessage>,
 
     @Json(name = "fits")
     val fits: CreateWorldGamePackageCheckResponseDataFits,

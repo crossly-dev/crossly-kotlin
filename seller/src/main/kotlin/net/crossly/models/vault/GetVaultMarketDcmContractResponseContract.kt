@@ -93,11 +93,11 @@ data class GetVaultMarketDcmContractResponseContract (
     /**
      * 
      *
-     * Values: CALL,PUT
+     * Values: PUT,CALL
      */
     enum class OptionType(val value: kotlin.String) {
-        @Json(name = "call") CALL("call"),
-        @Json(name = "put") PUT("put");
+        @Json(name = "put") PUT("put"),
+        @Json(name = "call") CALL("call");
     }
 }
 

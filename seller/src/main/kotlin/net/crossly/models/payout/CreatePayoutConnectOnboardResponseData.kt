@@ -29,7 +29,8 @@ import com.squareup.moshi.Json
  * @param url 
  * @param country 
  * @param agreement 
- * @param payoutsSupported False when Stripe offers no way for Crossly to pay this account (see connect.ts).
+ * @param payoutsSupported 
+ * @param accountSource 
  */
 
 data class CreatePayoutConnectOnboardResponseData (
@@ -43,9 +44,11 @@ data class CreatePayoutConnectOnboardResponseData (
     @Json(name = "agreement")
     val agreement: CreatePayoutConnectOnboardResponseData.Agreement,
 
-    /* False when Stripe offers no way for Crossly to pay this account (see connect.ts). */
     @Json(name = "payoutsSupported")
-    val payoutsSupported: kotlin.Boolean
+    val payoutsSupported: kotlin.Boolean,
+
+    @Json(name = "accountSource")
+    val accountSource: kotlin.String
 
 ) {
 

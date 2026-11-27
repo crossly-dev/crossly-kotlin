@@ -20,7 +20,7 @@
 
 package net.crossly.models.order
 
-import net.crossly.models.order.CreateOrderWhatnotLabelResponseShipment
+import net.crossly.models.order.GetOrderWhatnotShipmentResponseShipment
 
 import com.squareup.moshi.Json
 
@@ -29,15 +29,61 @@ import com.squareup.moshi.Json
  *
  * @param shipment 
  * @param recorded 
+ * @param ok 
+ * @param downloadUrl Absent for an additional label, which Poshmark delivers only by email.
+ * @param emailOnly True when the label exists only in the seller's inbox.
+ * @param labelUrl 
+ * @param trackingNumber 
+ * @param carrier 
+ * @param service 
+ * @param documentKind 
+ * @param webUrl 
+ * @param pending 
+ * @param message 
  */
 
 data class CreateOrderWhatnotLabelResponse (
 
     @Json(name = "shipment")
-    val shipment: CreateOrderWhatnotLabelResponseShipment,
+    val shipment: GetOrderWhatnotShipmentResponseShipment? = null,
 
     @Json(name = "recorded")
-    val recorded: kotlin.Boolean
+    val recorded: kotlin.Boolean? = null,
+
+    @Json(name = "ok")
+    val ok: kotlin.Boolean? = null,
+
+    /* Absent for an additional label, which Poshmark delivers only by email. */
+    @Json(name = "downloadUrl")
+    val downloadUrl: kotlin.String? = null,
+
+    /* True when the label exists only in the seller's inbox. */
+    @Json(name = "emailOnly")
+    val emailOnly: kotlin.Boolean? = null,
+
+    @Json(name = "labelUrl")
+    val labelUrl: kotlin.String? = null,
+
+    @Json(name = "trackingNumber")
+    val trackingNumber: kotlin.String? = null,
+
+    @Json(name = "carrier")
+    val carrier: kotlin.String? = null,
+
+    @Json(name = "service")
+    val service: kotlin.String? = null,
+
+    @Json(name = "documentKind")
+    val documentKind: kotlin.String? = null,
+
+    @Json(name = "webUrl")
+    val webUrl: kotlin.String? = null,
+
+    @Json(name = "pending")
+    val pending: kotlin.Boolean? = null,
+
+    @Json(name = "message")
+    val message: kotlin.String? = null
 
 )
 

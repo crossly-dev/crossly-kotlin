@@ -20,6 +20,7 @@
 
 package net.crossly.models.world
 
+import net.crossly.models.world.ListWorldOutfitsItemAppearanceOutfit
 
 import com.squareup.moshi.Json
 
@@ -34,6 +35,7 @@ import com.squareup.moshi.Json
  * @param brows Face presets (BROW_STYLES, MOUTH_RESTS). Optional: a look saved before they existed is the defaults.
  * @param mouth 
  * @param shape A body shape (BODY_SHAPES). Optional, like the face presets.
+ * @param outfit 
  */
 
 data class ListWorldOutfitsItemAppearance (
@@ -62,7 +64,10 @@ data class ListWorldOutfitsItemAppearance (
 
     /* A body shape (BODY_SHAPES). Optional, like the face presets. */
     @Json(name = "shape")
-    val shape: kotlin.String? = null
+    val shape: kotlin.String? = null,
+
+    @Json(name = "outfit")
+    val outfit: ListWorldOutfitsItemAppearanceOutfit? = null
 
 )
 

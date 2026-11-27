@@ -68,13 +68,13 @@ data class GetWeb3CollectionInsightResponseTransfers (
     /**
      * 
      *
-     * Values: TRANSFER,LISTING,SALE,MINT,BURN
+     * Values: SALE,LISTING,MINT,TRANSFER,BURN
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "transfer") TRANSFER("transfer"),
-        @Json(name = "listing") LISTING("listing"),
         @Json(name = "sale") SALE("sale"),
+        @Json(name = "listing") LISTING("listing"),
         @Json(name = "mint") MINT("mint"),
+        @Json(name = "transfer") TRANSFER("transfer"),
         @Json(name = "burn") BURN("burn");
     }
 }

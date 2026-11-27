@@ -20,6 +20,7 @@
 
 package net.crossly.models.main
 
+import net.crossly.models.main.GetMainStageResponseStreamLot
 
 import com.squareup.moshi.Json
 
@@ -31,6 +32,7 @@ import com.squareup.moshi.Json
  * @param playbackUrl 
  * @param coverImageUrl 
  * @param host 
+ * @param lot 
  */
 
 data class GetMainStageResponseStream (
@@ -48,7 +50,10 @@ data class GetMainStageResponseStream (
     val coverImageUrl: kotlin.String? = null,
 
     @Json(name = "host")
-    val host: kotlin.String? = null
+    val host: kotlin.String? = null,
+
+    @Json(name = "lot")
+    val lot: GetMainStageResponseStreamLot? = null
 
 )
 

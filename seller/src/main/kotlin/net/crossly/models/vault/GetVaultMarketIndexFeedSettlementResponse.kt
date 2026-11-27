@@ -21,7 +21,7 @@
 package net.crossly.models.vault
 
 import net.crossly.models.vault.GetVaultMarketIndexFeedSettlementResponseSeries
-import net.crossly.models.common.SlugName
+import net.crossly.models.common.NameSlug
 
 import com.squareup.moshi.Json
 
@@ -36,7 +36,7 @@ import com.squareup.moshi.Json
 data class GetVaultMarketIndexFeedSettlementResponse (
 
     @Json(name = "index")
-    val index: SlugName,
+    val index: NameSlug,
 
     @Json(name = "method")
     val method: kotlin.String,

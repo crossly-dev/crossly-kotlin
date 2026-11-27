@@ -26,34 +26,34 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param status 
- * @param title 
- * @param soldAt 
- * @param sellerUserId 
  * @param streamId 
+ * @param title 
+ * @param sellerUserId 
+ * @param status 
  * @param offsetSeconds 
+ * @param soldAt 
  * @param replayUrl 
  */
 
 data class GetBuyerPurchaseLiveMomentResponseData (
 
-    @Json(name = "status")
-    val status: kotlin.String,
+    @Json(name = "streamId")
+    val streamId: kotlin.String,
 
     @Json(name = "title")
     val title: kotlin.String,
 
-    @Json(name = "soldAt")
-    val soldAt: kotlin.String,
-
     @Json(name = "sellerUserId")
     val sellerUserId: kotlin.String,
 
-    @Json(name = "streamId")
-    val streamId: kotlin.String,
+    @Json(name = "status")
+    val status: kotlin.String,
 
     @Json(name = "offsetSeconds")
     val offsetSeconds: java.math.BigDecimal,
+
+    @Json(name = "soldAt")
+    val soldAt: kotlin.String,
 
     @Json(name = "replayUrl")
     val replayUrl: kotlin.String? = null

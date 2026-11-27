@@ -26,17 +26,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param quantity 
  * @param platformListingId 
+ * @param quantity 
  */
 
 data class ListBuyerTotalRequestsItemLines (
 
-    @Json(name = "quantity")
-    val quantity: java.math.BigDecimal,
-
     @Json(name = "platformListingId")
-    val platformListingId: kotlin.String
+    val platformListingId: kotlin.String,
+
+    @Json(name = "quantity")
+    val quantity: java.math.BigDecimal
 
 )
 

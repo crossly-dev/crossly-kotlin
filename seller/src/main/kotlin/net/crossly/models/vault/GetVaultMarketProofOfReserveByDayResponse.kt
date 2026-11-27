@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.GetVaultMarketProofOfReserveByDayResponseAnchor
 import net.crossly.models.vault.GetVaultMarketProofOfReserveByDayResponseUnits
 
 import com.squareup.moshi.Json
@@ -36,6 +37,7 @@ import com.squareup.moshi.Json
  * @param loansOpen 
  * @param totalInsuredCents 
  * @param memo 
+ * @param anchor 
  */
 
 data class GetVaultMarketProofOfReserveByDayResponse (
@@ -65,7 +67,10 @@ data class GetVaultMarketProofOfReserveByDayResponse (
     val totalInsuredCents: java.math.BigDecimal,
 
     @Json(name = "memo")
-    val memo: kotlin.String
+    val memo: kotlin.String,
+
+    @Json(name = "anchor")
+    val anchor: GetVaultMarketProofOfReserveByDayResponseAnchor
 
 )
 

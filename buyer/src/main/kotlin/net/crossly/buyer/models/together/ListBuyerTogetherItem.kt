@@ -26,21 +26,21 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param code 
  * @param name 
  * @param endsAt 
- * @param code 
  */
 
 data class ListBuyerTogetherItem (
+
+    @Json(name = "code")
+    val code: kotlin.String,
 
     @Json(name = "name")
     val name: kotlin.String,
 
     @Json(name = "endsAt")
-    val endsAt: kotlin.String,
-
-    @Json(name = "code")
-    val code: kotlin.String
+    val endsAt: kotlin.String
 
 )
 

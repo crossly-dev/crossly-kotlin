@@ -87,15 +87,15 @@ data class GetVaultMarketPressResponseIndexes (
     /**
      * 
      *
-     * Values: CUSTOM,BRAND,CATEGORY,CURATED,COMPOSITE,SEGMENT
+     * Values: CUSTOM,BRAND,CATEGORY,SEGMENT,CURATED,COMPOSITE
      */
     enum class Kind(val value: kotlin.String) {
         @Json(name = "custom") CUSTOM("custom"),
         @Json(name = "brand") BRAND("brand"),
         @Json(name = "category") CATEGORY("category"),
+        @Json(name = "segment") SEGMENT("segment"),
         @Json(name = "curated") CURATED("curated"),
-        @Json(name = "composite") COMPOSITE("composite"),
-        @Json(name = "segment") SEGMENT("segment");
+        @Json(name = "composite") COMPOSITE("composite");
     }
     /**
      * 
@@ -111,13 +111,13 @@ data class GetVaultMarketPressResponseIndexes (
     /**
      * 
      *
-     * Values: NONE,A,B,C
+     * Values: NONE,C,A,B
      */
     enum class Quality(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
-        @Json(name = "B") B("B"),
-        @Json(name = "C") C("C");
+        @Json(name = "B") B("B");
     }
 }
 

@@ -102,12 +102,12 @@ data class GetVaultMarketLiquidityResponse (
     /**
      * 
      *
-     * Values: HIGH,MID,LOW
+     * Values: MID,LOW,HIGH
      */
     enum class Bucket(val value: kotlin.String) {
-        @Json(name = "high") HIGH("high"),
         @Json(name = "mid") MID("mid"),
-        @Json(name = "low") LOW("low");
+        @Json(name = "low") LOW("low"),
+        @Json(name = "high") HIGH("high");
     }
 }
 

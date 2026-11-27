@@ -29,9 +29,9 @@ import com.squareup.moshi.Json
  * @param custom 
  * @param brand 
  * @param category 
+ * @param segment 
  * @param curated 
  * @param composite 
- * @param segment 
  */
 
 data class GetVaultMarketIndexMethodologyResponseDailyMinPriced (
@@ -45,14 +45,14 @@ data class GetVaultMarketIndexMethodologyResponseDailyMinPriced (
     @Json(name = "category")
     val category: java.math.BigDecimal,
 
+    @Json(name = "segment")
+    val segment: java.math.BigDecimal,
+
     @Json(name = "curated")
     val curated: java.math.BigDecimal,
 
     @Json(name = "composite")
-    val composite: java.math.BigDecimal,
-
-    @Json(name = "segment")
-    val segment: java.math.BigDecimal
+    val composite: java.math.BigDecimal
 
 )
 

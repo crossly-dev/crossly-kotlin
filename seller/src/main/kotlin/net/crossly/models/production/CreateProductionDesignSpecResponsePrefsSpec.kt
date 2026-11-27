@@ -56,7 +56,7 @@ data class CreateProductionDesignSpecResponsePrefsSpec (
     /**
      * 
      *
-     * Values: OTHER,TEE,HOODIE,OUTERWEAR,HEADWEAR,PANTS,PINS,JEWELRY,BAG,SOCKS,BELT,EYEWEAR,SNEAKERS,SLIDES,FIGURE_RESIN,FIGURE_VINYL
+     * Values: OTHER,TEE,HOODIE,OUTERWEAR,HEADWEAR,PANTS,PINS,JEWELRY,BAG,SOCKS,BELT,EYEWEAR,SNEAKERS,SLIDES,FIGURE_RESIN,FIGURE_VINYL,TRADING_CARDS
      */
     enum class Category(val value: kotlin.String) {
         @Json(name = "other") OTHER("other"),
@@ -74,17 +74,18 @@ data class CreateProductionDesignSpecResponsePrefsSpec (
         @Json(name = "sneakers") SNEAKERS("sneakers"),
         @Json(name = "slides") SLIDES("slides"),
         @Json(name = "figure_resin") FIGURE_RESIN("figure_resin"),
-        @Json(name = "figure_vinyl") FIGURE_VINYL("figure_vinyl");
+        @Json(name = "figure_vinyl") FIGURE_VINYL("figure_vinyl"),
+        @Json(name = "trading_cards") TRADING_CARDS("trading_cards");
     }
     /**
      * 
      *
-     * Values: STANDARD,LUXURY,PREMIUM
+     * Values: STANDARD,PREMIUM,LUXURY
      */
     enum class MaterialTier(val value: kotlin.String) {
         @Json(name = "standard") STANDARD("standard"),
-        @Json(name = "luxury") LUXURY("luxury"),
-        @Json(name = "premium") PREMIUM("premium");
+        @Json(name = "premium") PREMIUM("premium"),
+        @Json(name = "luxury") LUXURY("luxury");
     }
     /**
      * 

@@ -20,36 +20,36 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.vault.GetVaultAttestationResponseLatestPhysicalCount
+import net.crossly.models.vault.GetVaultAttestationResponseLatestOther
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
+ * @param other 
  * @param physicalCount 
  * @param insuranceCertificate 
  * @param soc1Type2 
  * @param soc2 
- * @param other 
  */
 
 data class GetVaultAttestationResponseLatest (
 
+    @Json(name = "other")
+    val other: GetVaultAttestationResponseLatestOther? = null,
+
     @Json(name = "physical_count")
-    val physicalCount: GetVaultAttestationResponseLatestPhysicalCount? = null,
+    val physicalCount: GetVaultAttestationResponseLatestOther? = null,
 
     @Json(name = "insurance_certificate")
-    val insuranceCertificate: GetVaultAttestationResponseLatestPhysicalCount? = null,
+    val insuranceCertificate: GetVaultAttestationResponseLatestOther? = null,
 
     @Json(name = "soc1_type2")
-    val soc1Type2: GetVaultAttestationResponseLatestPhysicalCount? = null,
+    val soc1Type2: GetVaultAttestationResponseLatestOther? = null,
 
     @Json(name = "soc2")
-    val soc2: GetVaultAttestationResponseLatestPhysicalCount? = null,
-
-    @Json(name = "other")
-    val other: GetVaultAttestationResponseLatestPhysicalCount? = null
+    val soc2: GetVaultAttestationResponseLatestOther? = null
 
 )
 

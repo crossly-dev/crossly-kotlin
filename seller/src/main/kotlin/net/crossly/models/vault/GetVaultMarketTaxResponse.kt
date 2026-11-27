@@ -23,9 +23,12 @@ package net.crossly.models.vault
 import net.crossly.models.vault.GetVaultMarketTaxResponseFiles
 import net.crossly.models.vault.GetVaultMarketTaxResponseGiftsOut
 import net.crossly.models.vault.GetVaultMarketTaxResponseIncome
+import net.crossly.models.vault.GetVaultMarketTaxResponseOptions
 import net.crossly.models.vault.GetVaultMarketTaxResponsePositions
+import net.crossly.models.vault.GetVaultMarketTaxResponsePredictions
 import net.crossly.models.vault.GetVaultMarketTaxResponsePurchases
 import net.crossly.models.vault.GetVaultMarketTaxResponseSales
+import net.crossly.models.vault.GetVaultMarketTaxResponseShares
 import net.crossly.models.vault.GetVaultMarketTaxResponseTotals
 
 import com.squareup.moshi.Json
@@ -42,6 +45,9 @@ import com.squareup.moshi.Json
  * @param income 
  * @param positions 
  * @param notes 
+ * @param options 
+ * @param shares 
+ * @param predictions 
  */
 
 data class GetVaultMarketTaxResponse (
@@ -71,7 +77,16 @@ data class GetVaultMarketTaxResponse (
     val positions: kotlin.collections.List<GetVaultMarketTaxResponsePositions>,
 
     @Json(name = "notes")
-    val notes: kotlin.collections.List<kotlin.String>
+    val notes: kotlin.collections.List<kotlin.String>,
+
+    @Json(name = "options")
+    val options: GetVaultMarketTaxResponseOptions? = null,
+
+    @Json(name = "shares")
+    val shares: GetVaultMarketTaxResponseShares? = null,
+
+    @Json(name = "predictions")
+    val predictions: GetVaultMarketTaxResponsePredictions? = null
 
 )
 

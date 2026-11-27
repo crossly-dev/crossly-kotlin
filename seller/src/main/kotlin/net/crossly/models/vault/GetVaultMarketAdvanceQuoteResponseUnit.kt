@@ -80,11 +80,11 @@ data class GetVaultMarketAdvanceQuoteResponseUnit (
     /**
      * 
      *
-     * Values: STANDARD,CLOSED,DEEP,THIN
+     * Values: CLOSED,STANDARD,DEEP,THIN
      */
     enum class Tier(val value: kotlin.String) {
-        @Json(name = "standard") STANDARD("standard"),
         @Json(name = "closed") CLOSED("closed"),
+        @Json(name = "standard") STANDARD("standard"),
         @Json(name = "deep") DEEP("deep"),
         @Json(name = "thin") THIN("thin");
     }

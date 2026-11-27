@@ -54,12 +54,12 @@ data class ListWorldOutfitsItemItems (
     /**
      * 
      *
-     * Values: RECEIPT,COSMETIC,STOCK
+     * Values: RECEIPT,STOCK,COSMETIC
      */
     enum class Door(val value: kotlin.String) {
         @Json(name = "receipt") RECEIPT("receipt"),
-        @Json(name = "cosmetic") COSMETIC("cosmetic"),
-        @Json(name = "stock") STOCK("stock");
+        @Json(name = "stock") STOCK("stock"),
+        @Json(name = "cosmetic") COSMETIC("cosmetic");
     }
 }
 

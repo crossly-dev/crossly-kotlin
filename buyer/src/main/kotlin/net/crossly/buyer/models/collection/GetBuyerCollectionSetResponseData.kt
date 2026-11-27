@@ -30,13 +30,13 @@ import com.squareup.moshi.Json
  * 
  *
  * @param group 
- * @param leaderboard 
- * @param missing 
- * @param pieces 
- * @param leaderboardOptIn 
  * @param pct 
+ * @param pieces 
+ * @param missing 
  * @param missingCostCents 
  * @param missingUnpriced 
+ * @param leaderboard 
+ * @param leaderboardOptIn 
  * @param myRank 
  */
 
@@ -45,26 +45,26 @@ data class GetBuyerCollectionSetResponseData (
     @Json(name = "group")
     val group: GetBuyerCollectionSetResponseDataGroup,
 
-    @Json(name = "leaderboard")
-    val leaderboard: kotlin.collections.List<GetBuyerCollectionSetResponseDataLeaderboard>,
-
-    @Json(name = "missing")
-    val missing: java.math.BigDecimal,
+    @Json(name = "pct")
+    val pct: java.math.BigDecimal,
 
     @Json(name = "pieces")
     val pieces: kotlin.collections.List<GetBuyerCollectionSetResponseDataPieces>,
 
-    @Json(name = "leaderboardOptIn")
-    val leaderboardOptIn: kotlin.Boolean,
-
-    @Json(name = "pct")
-    val pct: java.math.BigDecimal,
+    @Json(name = "missing")
+    val missing: java.math.BigDecimal,
 
     @Json(name = "missingCostCents")
     val missingCostCents: java.math.BigDecimal,
 
     @Json(name = "missingUnpriced")
     val missingUnpriced: java.math.BigDecimal,
+
+    @Json(name = "leaderboard")
+    val leaderboard: kotlin.collections.List<GetBuyerCollectionSetResponseDataLeaderboard>,
+
+    @Json(name = "leaderboardOptIn")
+    val leaderboardOptIn: kotlin.Boolean,
 
     @Json(name = "myRank")
     val myRank: java.math.BigDecimal? = null

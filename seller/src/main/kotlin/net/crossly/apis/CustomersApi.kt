@@ -24,11 +24,24 @@ import java.io.IOException
 
 import net.crossly.models.customer.CreateCustomerBulkDeleteResponse
 import net.crossly.models.customer.CreateCustomerRefreshProfileResponse
+import net.crossly.models.loyalty.CreateLoyaltyAirdropPrepareResponse
+import net.crossly.models.loyalty.CreateLoyaltyProgramInviteResponse
+import net.crossly.models.loyalty.CreateLoyaltyTierResponse
 import net.crossly.models.common.Error
+import net.crossly.models.customer.GetCustomerNoteResponse
 import net.crossly.models.customer.GetCustomerResponse
-import net.crossly.models.common.GetLoyaltyClubResponse
+import net.crossly.models.loyalty.GetLoyaltyClubResponse
+import net.crossly.models.loyalty.GetLoyaltyProgramMemberResponse
+import net.crossly.models.loyalty.GetLoyaltyProgramResponse
 import net.crossly.models.customer.ListCustomersResponse
-import net.crossly.models.common.ListLoyaltyMembersResponse
+import net.crossly.models.loyalty.ListLoyaltyAirdropsResponse
+import net.crossly.models.loyalty.ListLoyaltyMembersResponse
+import net.crossly.models.loyalty.ListLoyaltyProgramInviteCandidatesResponse
+import net.crossly.models.loyalty.ListLoyaltyProgramMembersResponse
+import net.crossly.models.common.LoyaltyAirdropResponse
+import net.crossly.models.customer.UpdateCustomerNoteRequest
+import net.crossly.models.group.UpdateGroupBuyResponse
+import net.crossly.models.loyalty.UpdateLoyaltyProgramResponse
 
 import com.squareup.moshi.Json
 
@@ -258,6 +271,560 @@ class CustomersApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
+    * Cancel a queued or failed airdrop (one already sent is the member’s).
+    * 
+    * @param id  
+    * @return LoyaltyAirdropResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createLoyaltyAirdropCancel(id: kotlin.String) : LoyaltyAirdropResponse {
+        val localVarResponse = createLoyaltyAirdropCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as LoyaltyAirdropResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel a queued or failed airdrop (one already sent is the member’s).
+    * 
+    * @param id  
+    * @return ApiResponse<LoyaltyAirdropResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createLoyaltyAirdropCancelWithHttpInfo(id: kotlin.String) : ApiResponse<LoyaltyAirdropResponse?> {
+        val localVariableConfig = createLoyaltyAirdropCancelRequestConfig(id = id)
+
+        return request<Unit, LoyaltyAirdropResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createLoyaltyAirdropCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createLoyaltyAirdropCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/loyalty/airdrops/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Read a submitted airdrop’s receipt again now.
+    * 
+    * @param id  
+    * @return LoyaltyAirdropResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createLoyaltyAirdropCheck(id: kotlin.String) : LoyaltyAirdropResponse {
+        val localVarResponse = createLoyaltyAirdropCheckWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as LoyaltyAirdropResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Read a submitted airdrop’s receipt again now.
+    * 
+    * @param id  
+    * @return ApiResponse<LoyaltyAirdropResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createLoyaltyAirdropCheckWithHttpInfo(id: kotlin.String) : ApiResponse<LoyaltyAirdropResponse?> {
+        val localVariableConfig = createLoyaltyAirdropCheckRequestConfig(id = id)
+
+        return request<Unit, LoyaltyAirdropResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createLoyaltyAirdropCheck
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createLoyaltyAirdropCheckRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/loyalty/airdrops/{id}/check".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The mint transaction for your launch owner wallet to send: chain, from, to (your launch contract) and calldata, to the member’s verified wallet. Refused airdrop_not_sendable with a reason when it cannot be built.
+    * 
+    * @param id  
+    * @return CreateLoyaltyAirdropPrepareResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createLoyaltyAirdropPrepare(id: kotlin.String) : CreateLoyaltyAirdropPrepareResponse {
+        val localVarResponse = createLoyaltyAirdropPrepareWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateLoyaltyAirdropPrepareResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The mint transaction for your launch owner wallet to send: chain, from, to (your launch contract) and calldata, to the member’s verified wallet. Refused airdrop_not_sendable with a reason when it cannot be built.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateLoyaltyAirdropPrepareResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createLoyaltyAirdropPrepareWithHttpInfo(id: kotlin.String) : ApiResponse<CreateLoyaltyAirdropPrepareResponse?> {
+        val localVariableConfig = createLoyaltyAirdropPrepareRequestConfig(id = id)
+
+        return request<Unit, CreateLoyaltyAirdropPrepareResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createLoyaltyAirdropPrepare
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createLoyaltyAirdropPrepareRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/loyalty/airdrops/{id}/prepare".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Record the hash your wallet broadcast; Crossly reads the receipt (now, then on a schedule) and marks it sent or failed.
+    * 
+    * @param id  
+    * @return LoyaltyAirdropResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createLoyaltyAirdropSubmit(id: kotlin.String) : LoyaltyAirdropResponse {
+        val localVarResponse = createLoyaltyAirdropSubmitWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as LoyaltyAirdropResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Record the hash your wallet broadcast; Crossly reads the receipt (now, then on a schedule) and marks it sent or failed.
+    * 
+    * @param id  
+    * @return ApiResponse<LoyaltyAirdropResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createLoyaltyAirdropSubmitWithHttpInfo(id: kotlin.String) : ApiResponse<LoyaltyAirdropResponse?> {
+        val localVariableConfig = createLoyaltyAirdropSubmitRequestConfig(id = id)
+
+        return request<Unit, LoyaltyAirdropResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createLoyaltyAirdropSubmit
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createLoyaltyAirdropSubmitRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/loyalty/airdrops/{id}/submit".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Invite Crossly buyers to your loyalty program by user id (up to 500); returns how many were newly invited.
+    * 
+    * @return CreateLoyaltyProgramInviteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createLoyaltyProgramInvite() : CreateLoyaltyProgramInviteResponse {
+        val localVarResponse = createLoyaltyProgramInviteWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateLoyaltyProgramInviteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Invite Crossly buyers to your loyalty program by user id (up to 500); returns how many were newly invited.
+    * 
+    * @return ApiResponse<CreateLoyaltyProgramInviteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createLoyaltyProgramInviteWithHttpInfo() : ApiResponse<CreateLoyaltyProgramInviteResponse?> {
+        val localVariableConfig = createLoyaltyProgramInviteRequestConfig()
+
+        return request<Unit, CreateLoyaltyProgramInviteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createLoyaltyProgramInvite
+    *
+    * @return RequestConfig
+    */
+    fun createLoyaltyProgramInviteRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/loyalty/program/invite",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pin a member to a tier (tierId null clears the pin), with a reason.
+    * 
+    * @param id  
+    * @return GetLoyaltyProgramMemberResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createLoyaltyProgramMemberOverride(id: kotlin.String) : GetLoyaltyProgramMemberResponse {
+        val localVarResponse = createLoyaltyProgramMemberOverrideWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetLoyaltyProgramMemberResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pin a member to a tier (tierId null clears the pin), with a reason.
+    * 
+    * @param id  
+    * @return ApiResponse<GetLoyaltyProgramMemberResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createLoyaltyProgramMemberOverrideWithHttpInfo(id: kotlin.String) : ApiResponse<GetLoyaltyProgramMemberResponse?> {
+        val localVariableConfig = createLoyaltyProgramMemberOverrideRequestConfig(id = id)
+
+        return request<Unit, GetLoyaltyProgramMemberResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createLoyaltyProgramMemberOverride
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createLoyaltyProgramMemberOverrideRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/loyalty/program/members/{id}/override".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Add a tier: name, look, threshold and typed perks (% off, free shipping, early access, members-only listings, wholesale access, token gates, airdrops, Bucks, World items, event tickets, …).
+    * 
+    * @return CreateLoyaltyTierResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createLoyaltyTier() : CreateLoyaltyTierResponse {
+        val localVarResponse = createLoyaltyTierWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateLoyaltyTierResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Add a tier: name, look, threshold and typed perks (% off, free shipping, early access, members-only listings, wholesale access, token gates, airdrops, Bucks, World items, event tickets, …).
+    * 
+    * @return ApiResponse<CreateLoyaltyTierResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createLoyaltyTierWithHttpInfo() : ApiResponse<CreateLoyaltyTierResponse?> {
+        val localVariableConfig = createLoyaltyTierRequestConfig()
+
+        return request<Unit, CreateLoyaltyTierResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createLoyaltyTier
+    *
+    * @return RequestConfig
+    */
+    fun createLoyaltyTierRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/loyalty/tiers",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Delete a tier; its members are re-evaluated.
+    * 
+    * @param id  
+    * @return UpdateGroupBuyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteLoyaltyTier(id: kotlin.String) : UpdateGroupBuyResponse {
+        val localVarResponse = deleteLoyaltyTierWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateGroupBuyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Delete a tier; its members are re-evaluated.
+    * 
+    * @param id  
+    * @return ApiResponse<UpdateGroupBuyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteLoyaltyTierWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateGroupBuyResponse?> {
+        val localVariableConfig = deleteLoyaltyTierRequestConfig(id = id)
+
+        return request<Unit, UpdateGroupBuyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteLoyaltyTier
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteLoyaltyTierRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/loyalty/tiers/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Get one customer: recent 50 orders, buyer profiles per platform, and stats over all of their orders.
     * 
     * @param handle  
@@ -321,6 +888,146 @@ class CustomersApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/customers/{handle}".replace("{"+"handle"+"}", "$handle"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your private notes on a customer (empty when none). Works before their first order.
+    * 
+    * @param handle  
+    * @return GetCustomerNoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getCustomerNote(handle: kotlin.String) : GetCustomerNoteResponse {
+        val localVarResponse = getCustomerNoteWithHttpInfo(handle = handle)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetCustomerNoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your private notes on a customer (empty when none). Works before their first order.
+    * 
+    * @param handle  
+    * @return ApiResponse<GetCustomerNoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getCustomerNoteWithHttpInfo(handle: kotlin.String) : ApiResponse<GetCustomerNoteResponse?> {
+        val localVariableConfig = getCustomerNoteRequestConfig(handle = handle)
+
+        return request<Unit, GetCustomerNoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getCustomerNote
+    *
+    * @param handle  
+    * @return RequestConfig
+    */
+    fun getCustomerNoteRequestConfig(handle: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/customers/{handle}/notes".replace("{"+"handle"+"}", "$handle"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One loyalty NFT airdrop: member, collection, recipient wallet, transaction hash and status.
+    * 
+    * @param id  
+    * @return LoyaltyAirdropResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getLoyaltyAirdrop(id: kotlin.String) : LoyaltyAirdropResponse {
+        val localVarResponse = getLoyaltyAirdropWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as LoyaltyAirdropResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One loyalty NFT airdrop: member, collection, recipient wallet, transaction hash and status.
+    * 
+    * @param id  
+    * @return ApiResponse<LoyaltyAirdropResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getLoyaltyAirdropWithHttpInfo(id: kotlin.String) : ApiResponse<LoyaltyAirdropResponse?> {
+        val localVariableConfig = getLoyaltyAirdropRequestConfig(id = id)
+
+        return request<Unit, LoyaltyAirdropResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getLoyaltyAirdrop
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getLoyaltyAirdropRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/loyalty/airdrops/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -395,6 +1102,143 @@ class CustomersApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
+    * Your loyalty program: qualification (spend, orders, points), window, joining, downgrade and grace, and its tiers with typed perks.
+    * 
+    * @return GetLoyaltyProgramResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getLoyaltyProgram() : GetLoyaltyProgramResponse {
+        val localVarResponse = getLoyaltyProgramWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetLoyaltyProgramResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your loyalty program: qualification (spend, orders, points), window, joining, downgrade and grace, and its tiers with typed perks.
+    * 
+    * @return ApiResponse<GetLoyaltyProgramResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getLoyaltyProgramWithHttpInfo() : ApiResponse<GetLoyaltyProgramResponse?> {
+        val localVariableConfig = getLoyaltyProgramRequestConfig()
+
+        return request<Unit, GetLoyaltyProgramResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getLoyaltyProgram
+    *
+    * @return RequestConfig
+    */
+    fun getLoyaltyProgramRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/loyalty/program",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One member: standing, tier, progress, perks held, history and any override.
+    * 
+    * @param id  
+    * @return GetLoyaltyProgramMemberResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getLoyaltyProgramMember(id: kotlin.String) : GetLoyaltyProgramMemberResponse {
+        val localVarResponse = getLoyaltyProgramMemberWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetLoyaltyProgramMemberResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One member: standing, tier, progress, perks held, history and any override.
+    * 
+    * @param id  
+    * @return ApiResponse<GetLoyaltyProgramMemberResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getLoyaltyProgramMemberWithHttpInfo(id: kotlin.String) : ApiResponse<GetLoyaltyProgramMemberResponse?> {
+        val localVariableConfig = getLoyaltyProgramMemberRequestConfig(id = id)
+
+        return request<Unit, GetLoyaltyProgramMemberResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getLoyaltyProgramMember
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getLoyaltyProgramMemberRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/loyalty/program/members/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * List aggregated customers (group-by lower(buyer_username)), each with its best avatar, display name and star rating.
     * 
     * @return ListCustomersResponse
@@ -455,6 +1299,73 @@ class CustomersApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/customers",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * NFT airdrops your loyalty tiers earned members: queued to send, submitted (waiting on the receipt), sent, failed (with why) or cancelled.
+    * 
+    * @return ListLoyaltyAirdropsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listLoyaltyAirdrops() : ListLoyaltyAirdropsResponse {
+        val localVarResponse = listLoyaltyAirdropsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListLoyaltyAirdropsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * NFT airdrops your loyalty tiers earned members: queued to send, submitted (waiting on the receipt), sent, failed (with why) or cancelled.
+    * 
+    * @return ApiResponse<ListLoyaltyAirdropsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listLoyaltyAirdropsWithHttpInfo() : ApiResponse<ListLoyaltyAirdropsResponse?> {
+        val localVariableConfig = listLoyaltyAirdropsRequestConfig()
+
+        return request<Unit, ListLoyaltyAirdropsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listLoyaltyAirdrops
+    *
+    * @return RequestConfig
+    */
+    fun listLoyaltyAirdropsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/loyalty/airdrops",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -529,6 +1440,214 @@ class CustomersApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
+    * Crossly buyers who bought from you and are not loyalty members yet (q searches by name): who you can invite.
+    * 
+    * @return ListLoyaltyProgramInviteCandidatesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listLoyaltyProgramInviteCandidates() : ListLoyaltyProgramInviteCandidatesResponse {
+        val localVarResponse = listLoyaltyProgramInviteCandidatesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListLoyaltyProgramInviteCandidatesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Crossly buyers who bought from you and are not loyalty members yet (q searches by name): who you can invite.
+    * 
+    * @return ApiResponse<ListLoyaltyProgramInviteCandidatesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listLoyaltyProgramInviteCandidatesWithHttpInfo() : ApiResponse<ListLoyaltyProgramInviteCandidatesResponse?> {
+        val localVariableConfig = listLoyaltyProgramInviteCandidatesRequestConfig()
+
+        return request<Unit, ListLoyaltyProgramInviteCandidatesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listLoyaltyProgramInviteCandidates
+    *
+    * @return RequestConfig
+    */
+    fun listLoyaltyProgramInviteCandidatesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/loyalty/program/invite-candidates",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your loyalty members with tier, standing, grace and overrides; search, tier, status and sort filters.
+    * 
+    * @return ListLoyaltyProgramMembersResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listLoyaltyProgramMembers() : ListLoyaltyProgramMembersResponse {
+        val localVarResponse = listLoyaltyProgramMembersWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListLoyaltyProgramMembersResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your loyalty members with tier, standing, grace and overrides; search, tier, status and sort filters.
+    * 
+    * @return ApiResponse<ListLoyaltyProgramMembersResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listLoyaltyProgramMembersWithHttpInfo() : ApiResponse<ListLoyaltyProgramMembersResponse?> {
+        val localVariableConfig = listLoyaltyProgramMembersRequestConfig()
+
+        return request<Unit, ListLoyaltyProgramMembersResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listLoyaltyProgramMembers
+    *
+    * @return RequestConfig
+    */
+    fun listLoyaltyProgramMembersRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/loyalty/program/members",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Save your private notes on a customer (an empty string clears them).
+    * 
+    * @param handle  
+    * @param updateCustomerNoteRequest  
+    * @return GetCustomerNoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateCustomerNote(handle: kotlin.String, updateCustomerNoteRequest: UpdateCustomerNoteRequest) : GetCustomerNoteResponse {
+        val localVarResponse = updateCustomerNoteWithHttpInfo(handle = handle, updateCustomerNoteRequest = updateCustomerNoteRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetCustomerNoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Save your private notes on a customer (an empty string clears them).
+    * 
+    * @param handle  
+    * @param updateCustomerNoteRequest  
+    * @return ApiResponse<GetCustomerNoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateCustomerNoteWithHttpInfo(handle: kotlin.String, updateCustomerNoteRequest: UpdateCustomerNoteRequest) : ApiResponse<GetCustomerNoteResponse?> {
+        val localVariableConfig = updateCustomerNoteRequestConfig(handle = handle, updateCustomerNoteRequest = updateCustomerNoteRequest)
+
+        return request<UpdateCustomerNoteRequest, GetCustomerNoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateCustomerNote
+    *
+    * @param handle  
+    * @param updateCustomerNoteRequest  
+    * @return RequestConfig
+    */
+    fun updateCustomerNoteRequestConfig(handle: kotlin.String, updateCustomerNoteRequest: UpdateCustomerNoteRequest) : RequestConfig<UpdateCustomerNoteRequest> {
+        val localVariableBody = updateCustomerNoteRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/customers/{handle}/notes".replace("{"+"handle"+"}", "$handle"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Create or update your loyalty club: name, on/off, and up to 6 spend tiers each with a discount (≤ 30%) and perks.
     * 
     * @return GetLoyaltyClubResponse
@@ -589,6 +1708,143 @@ class CustomersApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/loyalty/club",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Create or update your loyalty program settings.
+    * 
+    * @return UpdateLoyaltyProgramResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateLoyaltyProgram() : UpdateLoyaltyProgramResponse {
+        val localVarResponse = updateLoyaltyProgramWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateLoyaltyProgramResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Create or update your loyalty program settings.
+    * 
+    * @return ApiResponse<UpdateLoyaltyProgramResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateLoyaltyProgramWithHttpInfo() : ApiResponse<UpdateLoyaltyProgramResponse?> {
+        val localVariableConfig = updateLoyaltyProgramRequestConfig()
+
+        return request<Unit, UpdateLoyaltyProgramResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateLoyaltyProgram
+    *
+    * @return RequestConfig
+    */
+    fun updateLoyaltyProgramRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/loyalty/program",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Replace a tier. Members holding it get the edited perks.
+    * 
+    * @param id  
+    * @return CreateLoyaltyTierResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateLoyaltyTier(id: kotlin.String) : CreateLoyaltyTierResponse {
+        val localVarResponse = updateLoyaltyTierWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateLoyaltyTierResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Replace a tier. Members holding it get the edited perks.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateLoyaltyTierResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateLoyaltyTierWithHttpInfo(id: kotlin.String) : ApiResponse<CreateLoyaltyTierResponse?> {
+        val localVariableConfig = updateLoyaltyTierRequestConfig(id = id)
+
+        return request<Unit, CreateLoyaltyTierResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateLoyaltyTier
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateLoyaltyTierRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/loyalty/tiers/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

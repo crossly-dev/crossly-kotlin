@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param expiresAt 
  * @param cents 
+ * @param expiresAt 
  */
 
 data class GetBuyerCollectionOfferResponseDataOffer (
@@ -36,11 +36,11 @@ data class GetBuyerCollectionOfferResponseDataOffer (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "expiresAt")
-    val expiresAt: kotlin.String,
-
     @Json(name = "cents")
-    val cents: java.math.BigDecimal
+    val cents: java.math.BigDecimal,
+
+    @Json(name = "expiresAt")
+    val expiresAt: kotlin.String
 
 )
 

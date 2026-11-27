@@ -30,8 +30,8 @@ import com.squareup.moshi.Json
  * @param platform 
  * @param actionType 
  * @param targetUserId 
- * @param performedAt 
  * @param engagerUserId 
+ * @param performedAt 
  * @param ruleId 
  * @param targetListingId 
  * @param targetPlatformListingId 
@@ -51,11 +51,11 @@ data class ListNetworkPoolLogItem (
     @Json(name = "targetUserId")
     val targetUserId: kotlin.String,
 
-    @Json(name = "performedAt")
-    val performedAt: java.time.OffsetDateTime,
-
     @Json(name = "engagerUserId")
     val engagerUserId: kotlin.String,
+
+    @Json(name = "performedAt")
+    val performedAt: java.time.OffsetDateTime,
 
     @Json(name = "ruleId")
     val ruleId: kotlin.String? = null,

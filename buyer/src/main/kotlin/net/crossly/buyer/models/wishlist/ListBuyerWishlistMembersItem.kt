@@ -26,18 +26,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param name 
  * @param userId 
+ * @param name 
  * @param joinedAt 
  */
 
 data class ListBuyerWishlistMembersItem (
 
-    @Json(name = "name")
-    val name: kotlin.String,
-
     @Json(name = "userId")
     val userId: kotlin.String,
+
+    @Json(name = "name")
+    val name: kotlin.String,
 
     @Json(name = "joinedAt")
     val joinedAt: kotlin.String

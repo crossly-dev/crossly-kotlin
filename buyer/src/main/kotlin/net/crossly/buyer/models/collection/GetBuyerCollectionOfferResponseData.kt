@@ -29,12 +29,12 @@ import com.squareup.moshi.Json
  * 
  *
  * @param portfolioId 
- * @param pending 
  * @param title 
  * @param lastSaleCents 
+ * @param topBidCents 
  * @param skuId 
  * @param offer 
- * @param topBidCents 
+ * @param pending 
  */
 
 data class GetBuyerCollectionOfferResponseData (
@@ -42,14 +42,14 @@ data class GetBuyerCollectionOfferResponseData (
     @Json(name = "portfolioId")
     val portfolioId: kotlin.String,
 
-    @Json(name = "pending")
-    val pending: GetBuyerCollectionOfferResponseDataPending? = null,
-
     @Json(name = "title")
     val title: kotlin.String? = null,
 
     @Json(name = "lastSaleCents")
     val lastSaleCents: java.math.BigDecimal? = null,
+
+    @Json(name = "topBidCents")
+    val topBidCents: java.math.BigDecimal? = null,
 
     @Json(name = "skuId")
     val skuId: kotlin.String? = null,
@@ -57,8 +57,8 @@ data class GetBuyerCollectionOfferResponseData (
     @Json(name = "offer")
     val offer: GetBuyerCollectionOfferResponseDataOffer? = null,
 
-    @Json(name = "topBidCents")
-    val topBidCents: java.math.BigDecimal? = null
+    @Json(name = "pending")
+    val pending: GetBuyerCollectionOfferResponseDataPending? = null
 
 )
 

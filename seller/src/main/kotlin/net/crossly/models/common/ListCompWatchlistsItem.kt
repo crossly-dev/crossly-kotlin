@@ -31,9 +31,9 @@ import com.squareup.moshi.Json
  * @param createdAt 
  * @param userId 
  * @param brand 
+ * @param platform 
  * @param condition 
  * @param categoryMain 
- * @param platform 
  * @param minPrice 
  * @param maxPrice 
  * @param lastMatchedAt 
@@ -57,14 +57,14 @@ data class ListCompWatchlistsItem (
     @Json(name = "brand")
     val brand: kotlin.String? = null,
 
+    @Json(name = "platform")
+    val platform: kotlin.String? = null,
+
     @Json(name = "condition")
     val condition: kotlin.String? = null,
 
     @Json(name = "categoryMain")
     val categoryMain: kotlin.String? = null,
-
-    @Json(name = "platform")
-    val platform: kotlin.String? = null,
 
     @Json(name = "minPrice")
     val minPrice: kotlin.String? = null,

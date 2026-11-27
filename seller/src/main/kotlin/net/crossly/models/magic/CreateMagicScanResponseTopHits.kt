@@ -29,11 +29,18 @@ import com.squareup.moshi.Json
  * @param platform 
  * @param title 
  * @param priceCents 
- * @param origin Origin marker for the UI badge.
+ * @param origin Origin marker for the UI badge. Every eBay hit is an image-search hit ('ebay-image'); 'ebay-text' is kept in the union only for rows cached before that was fixed.
  * @param state 'active' = currently for sale; 'sold' = historical comp. UI renders distinct badges so the seller can see both at a glance.
  * @param imageUrl 
  * @param listingUrl 
- * @param visualSim CLIP cosine [0,1]; populated after the visual-rank pass.
+ * @param visualSim CLIP cosine [0,1]; populated after the visual-rank pass. ABSENT = unscored (no image, CLIP down) — never filled in with a made-up value.
+ * @param agreement Title agreement with the match reference after the hard gates (rank.ts).
+ * @param carriesIdentifier True when the comp states the photo's own identifier (GTIN / style code).
+ * @param priceOutlier Price outlier within its condition / grade bucket: shown, but not used for pricing.
+ * @param condition Condition text the platform reported, for the pricing buckets.
+ * @param brand Brand the platform reported, for the brand gate at verdict time.
+ * @param shippingCents Shipping in cents (0 = free), where the platform reports it (ExternalSoldComp.shippingCents).
+ * @param format Auction vs fixed price, where the platform says; an active auction's price is a bid (compPriceIsBid).
  */
 
 data class CreateMagicScanResponseTopHits (
@@ -47,7 +54,7 @@ data class CreateMagicScanResponseTopHits (
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
 
-    /* Origin marker for the UI badge. */
+    /* Origin marker for the UI badge. Every eBay hit is an image-search hit ('ebay-image'); 'ebay-text' is kept in the union only for rows cached before that was fixed. */
     @Json(name = "origin")
     val origin: kotlin.String,
 
@@ -61,9 +68,37 @@ data class CreateMagicScanResponseTopHits (
     @Json(name = "listingUrl")
     val listingUrl: kotlin.String? = null,
 
-    /* CLIP cosine [0,1]; populated after the visual-rank pass. */
+    /* CLIP cosine [0,1]; populated after the visual-rank pass. ABSENT = unscored (no image, CLIP down) — never filled in with a made-up value. */
     @Json(name = "visualSim")
-    val visualSim: java.math.BigDecimal? = null
+    val visualSim: java.math.BigDecimal? = null,
+
+    /* Title agreement with the match reference after the hard gates (rank.ts). */
+    @Json(name = "agreement")
+    val agreement: java.math.BigDecimal? = null,
+
+    /* True when the comp states the photo's own identifier (GTIN / style code). */
+    @Json(name = "carriesIdentifier")
+    val carriesIdentifier: kotlin.Boolean? = null,
+
+    /* Price outlier within its condition / grade bucket: shown, but not used for pricing. */
+    @Json(name = "priceOutlier")
+    val priceOutlier: kotlin.Boolean? = null,
+
+    /* Condition text the platform reported, for the pricing buckets. */
+    @Json(name = "condition")
+    val condition: kotlin.String? = null,
+
+    /* Brand the platform reported, for the brand gate at verdict time. */
+    @Json(name = "brand")
+    val brand: kotlin.String? = null,
+
+    /* Shipping in cents (0 = free), where the platform reports it (ExternalSoldComp.shippingCents). */
+    @Json(name = "shippingCents")
+    val shippingCents: java.math.BigDecimal? = null,
+
+    /* Auction vs fixed price, where the platform says; an active auction's price is a bid (compPriceIsBid). */
+    @Json(name = "format")
+    val format: CreateMagicScanResponseTopHits.Format? = null
 
 ) {
 
@@ -75,6 +110,15 @@ data class CreateMagicScanResponseTopHits (
     enum class State(val value: kotlin.String) {
         @Json(name = "active") ACTIVE("active"),
         @Json(name = "sold") SOLD("sold");
+    }
+    /**
+     * Auction vs fixed price, where the platform says; an active auction's price is a bid (compPriceIsBid).
+     *
+     * Values: AUCTION,FIXED_PRICE
+     */
+    enum class Format(val value: kotlin.String) {
+        @Json(name = "auction") AUCTION("auction"),
+        @Json(name = "fixed_price") FIXED_PRICE("fixed_price");
     }
 }
 

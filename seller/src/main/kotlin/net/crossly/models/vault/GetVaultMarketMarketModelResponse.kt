@@ -93,12 +93,12 @@ data class GetVaultMarketMarketModelResponse (
     /**
      * 
      *
-     * Values: A,B,C,D
+     * Values: C,A,B,D
      */
     enum class Tier(val value: kotlin.String) {
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
         @Json(name = "B") B("B"),
-        @Json(name = "C") C("C"),
         @Json(name = "D") D("D");
     }
     /**

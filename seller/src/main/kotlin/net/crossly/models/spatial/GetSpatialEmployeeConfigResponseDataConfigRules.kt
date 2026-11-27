@@ -48,15 +48,15 @@ data class GetSpatialEmployeeConfigResponseDataConfigRules (
     /**
      * 
      *
-     * Values: ENTERED,LINGERED,INSPECTED,ADDED_TO_CART,LEAVING_WITH_CART,ASKED
+     * Values: ENTERED,ASKED,LINGERED,INSPECTED,ADDED_TO_CART,LEAVING_WITH_CART
      */
     enum class `When`(val value: kotlin.String) {
         @Json(name = "entered") ENTERED("entered"),
+        @Json(name = "asked") ASKED("asked"),
         @Json(name = "lingered") LINGERED("lingered"),
         @Json(name = "inspected") INSPECTED("inspected"),
         @Json(name = "added_to_cart") ADDED_TO_CART("added_to_cart"),
-        @Json(name = "leaving_with_cart") LEAVING_WITH_CART("leaving_with_cart"),
-        @Json(name = "asked") ASKED("asked");
+        @Json(name = "leaving_with_cart") LEAVING_WITH_CART("leaving_with_cart");
     }
 }
 

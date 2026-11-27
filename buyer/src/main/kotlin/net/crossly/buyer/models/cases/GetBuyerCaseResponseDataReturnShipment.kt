@@ -27,13 +27,13 @@ import com.squareup.moshi.Json
  * 
  *
  * @param trackingCode 
- * @param updatedAt 
- * @param status 
  * @param carrier 
- * @param deliveredAt 
- * @param labelUrl 
  * @param trackingUrl 
+ * @param labelUrl 
+ * @param status 
  * @param statusDetail 
+ * @param updatedAt 
+ * @param deliveredAt 
  */
 
 data class GetBuyerCaseResponseDataReturnShipment (
@@ -41,26 +41,26 @@ data class GetBuyerCaseResponseDataReturnShipment (
     @Json(name = "trackingCode")
     val trackingCode: kotlin.String,
 
-    @Json(name = "updatedAt")
-    val updatedAt: kotlin.String? = null,
-
-    @Json(name = "status")
-    val status: kotlin.String? = null,
-
     @Json(name = "carrier")
     val carrier: kotlin.String? = null,
-
-    @Json(name = "deliveredAt")
-    val deliveredAt: kotlin.String? = null,
-
-    @Json(name = "labelUrl")
-    val labelUrl: kotlin.String? = null,
 
     @Json(name = "trackingUrl")
     val trackingUrl: kotlin.String? = null,
 
+    @Json(name = "labelUrl")
+    val labelUrl: kotlin.String? = null,
+
+    @Json(name = "status")
+    val status: kotlin.String? = null,
+
     @Json(name = "statusDetail")
-    val statusDetail: kotlin.String? = null
+    val statusDetail: kotlin.String? = null,
+
+    @Json(name = "updatedAt")
+    val updatedAt: kotlin.String? = null,
+
+    @Json(name = "deliveredAt")
+    val deliveredAt: kotlin.String? = null
 
 )
 

@@ -20,55 +20,55 @@
 
 package net.crossly.models.automation
 
-import net.crossly.models.automation.GetAutomationRuleExportByIdResponseAction
 import net.crossly.models.automation.GetAutomationRuleExportByIdResponseCondition
 import net.crossly.models.automation.GetAutomationRuleExportByIdResponseMetadata
+import net.crossly.models.automation.GetAutomationRuleExportByIdResponseTrigger
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
- * @param name 
- * @param action 
  * @param schemaVersion 
+ * @param name 
  * @param trigger 
- * @param condition 
- * @param metadata 
- * @param description 
- * @param platforms 
+ * @param action 
  * @param dollarSchema Optional reference to the public schema URL — purely cosmetic.
+ * @param description 
+ * @param condition 
+ * @param platforms 
+ * @param metadata 
  */
 
 data class GetAutomationRuleExportByIdResponse (
 
-    @Json(name = "name")
-    val name: kotlin.String,
-
-    @Json(name = "action")
-    val action: GetAutomationRuleExportByIdResponseAction,
-
     @Json(name = "schemaVersion")
     val schemaVersion: java.math.BigDecimal,
 
+    @Json(name = "name")
+    val name: kotlin.String,
+
     @Json(name = "trigger")
-    val trigger: GetAutomationRuleExportByIdResponseAction,
+    val trigger: GetAutomationRuleExportByIdResponseTrigger,
 
-    @Json(name = "condition")
-    val condition: GetAutomationRuleExportByIdResponseCondition? = null,
+    @Json(name = "action")
+    val action: GetAutomationRuleExportByIdResponseTrigger,
 
-    @Json(name = "metadata")
-    val metadata: GetAutomationRuleExportByIdResponseMetadata? = null,
+    /* Optional reference to the public schema URL — purely cosmetic. */
+    @Json(name = "\$schema")
+    val dollarSchema: kotlin.String? = null,
 
     @Json(name = "description")
     val description: kotlin.String? = null,
 
+    @Json(name = "condition")
+    val condition: GetAutomationRuleExportByIdResponseCondition? = null,
+
     @Json(name = "platforms")
     val platforms: kotlin.collections.List<kotlin.String>? = null,
 
-    /* Optional reference to the public schema URL — purely cosmetic. */
-    @Json(name = "\$schema")
-    val dollarSchema: kotlin.String? = null
+    @Json(name = "metadata")
+    val metadata: GetAutomationRuleExportByIdResponseMetadata? = null
 
 )
 

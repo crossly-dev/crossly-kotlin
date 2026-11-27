@@ -26,17 +26,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param displayName 
  * @param username 
+ * @param displayName 
  */
 
 data class GetBuyerBreakResponseDataSeller (
 
-    @Json(name = "displayName")
-    val displayName: kotlin.String? = null,
-
     @Json(name = "username")
-    val username: kotlin.String? = null
+    val username: kotlin.String? = null,
+
+    @Json(name = "displayName")
+    val displayName: kotlin.String? = null
 
 )
 

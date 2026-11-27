@@ -20,6 +20,7 @@
 
 package net.crossly.models.inventory
 
+import net.crossly.models.inventory.CreateInventoryCsvImportResponseCapacity
 import net.crossly.models.inventory.CreateInventoryCsvImportResponseProblems
 
 import com.squareup.moshi.Json
@@ -30,11 +31,13 @@ import com.squareup.moshi.Json
  * @param problems 
  * @param problemCount 
  * @param maxRows 
- * @param created 
- * @param updated 
- * @param usable Rows that mapped cleanly. `created + updated` when not a dry run.
+ * @param created New items written — or, on a dry run, that WOULD be written.
+ * @param updated Existing items updated by SKU — or, on a dry run, that would be.
+ * @param usable Rows that can be imported: `created + updated + skippedOverLimit`. Zero means the file has nothing usable in it.
  * @param totalRows 
  * @param listingsCreated 
+ * @param skippedOverLimit New rows left out because the monthly item limit was reached.
+ * @param capacity 
  * @param dryRun True when nothing was written — a preview pass.
  */
 
@@ -49,13 +52,15 @@ data class CreateInventoryCsvImportResponse (
     @Json(name = "maxRows")
     val maxRows: java.math.BigDecimal,
 
+    /* New items written — or, on a dry run, that WOULD be written. */
     @Json(name = "created")
     val created: java.math.BigDecimal,
 
+    /* Existing items updated by SKU — or, on a dry run, that would be. */
     @Json(name = "updated")
     val updated: java.math.BigDecimal,
 
-    /* Rows that mapped cleanly. `created + updated` when not a dry run. */
+    /* Rows that can be imported: `created + updated + skippedOverLimit`. Zero means the file has nothing usable in it. */
     @Json(name = "usable")
     val usable: java.math.BigDecimal,
 
@@ -64,6 +69,13 @@ data class CreateInventoryCsvImportResponse (
 
     @Json(name = "listingsCreated")
     val listingsCreated: java.math.BigDecimal,
+
+    /* New rows left out because the monthly item limit was reached. */
+    @Json(name = "skippedOverLimit")
+    val skippedOverLimit: java.math.BigDecimal,
+
+    @Json(name = "capacity")
+    val capacity: CreateInventoryCsvImportResponseCapacity,
 
     /* True when nothing was written — a preview pass. */
     @Json(name = "dryRun")

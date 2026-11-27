@@ -26,18 +26,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param label 
  * @param key 
+ * @param label 
  * @param measures 
  */
 
 data class GetBuyerFitVocabularyResponseDataKinds (
 
-    @Json(name = "label")
-    val label: kotlin.String,
-
     @Json(name = "key")
     val key: kotlin.String,
+
+    @Json(name = "label")
+    val label: kotlin.String,
 
     @Json(name = "measures")
     val measures: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>

@@ -30,7 +30,7 @@ import com.squareup.moshi.Json
  * @param units 
  * @param label The variant / grade line (\"Size 10 - PSA 10\"), or null.
  * @param imageUrl 
- * @param bookKey The book key, for a click through to its market (/shop/vault/markets/<bookKey>).
+ * @param bookKey The book key, for a click through to its market (/trading/<bookKey>).
  * @param markCents One unit's mark, cents -- only when the viewer may see values (else absent).
  */
 
@@ -49,7 +49,7 @@ data class GetHomeResponseVaultWallUnits (
     @Json(name = "imageUrl")
     val imageUrl: kotlin.String? = null,
 
-    /* The book key, for a click through to its market (/shop/vault/markets/<bookKey>). */
+    /* The book key, for a click through to its market (/trading/<bookKey>). */
     @Json(name = "bookKey")
     val bookKey: kotlin.String? = null,
 

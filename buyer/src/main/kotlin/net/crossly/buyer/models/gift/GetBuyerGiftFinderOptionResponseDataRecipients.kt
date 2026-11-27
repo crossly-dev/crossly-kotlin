@@ -26,18 +26,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param label 
  * @param key 
+ * @param label 
  * @param interests 
  */
 
 data class GetBuyerGiftFinderOptionResponseDataRecipients (
 
-    @Json(name = "label")
-    val label: kotlin.String,
-
     @Json(name = "key")
     val key: kotlin.String,
+
+    @Json(name = "label")
+    val label: kotlin.String,
 
     @Json(name = "interests")
     val interests: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>

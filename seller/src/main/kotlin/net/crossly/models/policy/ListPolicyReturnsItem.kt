@@ -29,23 +29,23 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param status 
+ * @param buyerUserId 
  * @param reason 
  * @param sellerUserId 
- * @param buyerUserId 
  * @param purchaseId 
  * @param feeCents 
  * @param refundCents 
  * @param prepaidLabel 
  * @param orderId 
- * @param receivedAt 
  * @param carrier 
  * @param shippedAt 
  * @param refundedAt 
- * @param fit 
+ * @param receivedAt 
  * @param labelUrl 
  * @param refundStripeId 
  * @param note 
  * @param trackingCode 
+ * @param fit 
  */
 
 data class ListPolicyReturnsItem (
@@ -59,14 +59,14 @@ data class ListPolicyReturnsItem (
     @Json(name = "status")
     val status: kotlin.String,
 
+    @Json(name = "buyerUserId")
+    val buyerUserId: kotlin.String,
+
     @Json(name = "reason")
     val reason: kotlin.String,
 
     @Json(name = "sellerUserId")
     val sellerUserId: kotlin.String,
-
-    @Json(name = "buyerUserId")
-    val buyerUserId: kotlin.String,
 
     @Json(name = "purchaseId")
     val purchaseId: kotlin.String,
@@ -83,9 +83,6 @@ data class ListPolicyReturnsItem (
     @Json(name = "orderId")
     val orderId: kotlin.String? = null,
 
-    @Json(name = "receivedAt")
-    val receivedAt: java.time.OffsetDateTime? = null,
-
     @Json(name = "carrier")
     val carrier: kotlin.String? = null,
 
@@ -95,8 +92,8 @@ data class ListPolicyReturnsItem (
     @Json(name = "refundedAt")
     val refundedAt: java.time.OffsetDateTime? = null,
 
-    @Json(name = "fit")
-    val fit: kotlin.String? = null,
+    @Json(name = "receivedAt")
+    val receivedAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "labelUrl")
     val labelUrl: kotlin.String? = null,
@@ -108,7 +105,10 @@ data class ListPolicyReturnsItem (
     val note: kotlin.String? = null,
 
     @Json(name = "trackingCode")
-    val trackingCode: kotlin.String? = null
+    val trackingCode: kotlin.String? = null,
+
+    @Json(name = "fit")
+    val fit: kotlin.String? = null
 
 )
 

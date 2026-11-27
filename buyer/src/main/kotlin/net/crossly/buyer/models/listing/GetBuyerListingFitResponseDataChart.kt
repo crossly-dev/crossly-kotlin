@@ -28,8 +28,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param kind 
- * @param rows 
  * @param kindLabel 
+ * @param rows 
  */
 
 data class GetBuyerListingFitResponseDataChart (
@@ -37,11 +37,11 @@ data class GetBuyerListingFitResponseDataChart (
     @Json(name = "kind")
     val kind: kotlin.String,
 
-    @Json(name = "rows")
-    val rows: kotlin.collections.List<GetBuyerListingFitResponseDataChartRows>,
-
     @Json(name = "kindLabel")
-    val kindLabel: kotlin.String
+    val kindLabel: kotlin.String,
+
+    @Json(name = "rows")
+    val rows: kotlin.collections.List<GetBuyerListingFitResponseDataChartRows>
 
 )
 

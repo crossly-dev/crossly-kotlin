@@ -27,6 +27,7 @@ import com.squareup.moshi.Json
  * 
  *
  * @param grantedBaseUnits 
+ * @param fundingRestrictedBaseUnits 
  * @param earnedBaseUnits 
  * @param stakedBaseUnits 
  * @param earnedAvailableBaseUnits 
@@ -38,6 +39,9 @@ data class GetCbxSubjectBalanceBySubjectIdResponseData (
 
     @Json(name = "grantedBaseUnits")
     val grantedBaseUnits: kotlin.String,
+
+    @Json(name = "fundingRestrictedBaseUnits")
+    val fundingRestrictedBaseUnits: kotlin.String,
 
     @Json(name = "earnedBaseUnits")
     val earnedBaseUnits: kotlin.String,

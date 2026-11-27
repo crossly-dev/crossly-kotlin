@@ -87,15 +87,15 @@ data class GetVaultReceiptTokenByMintResponse (
     /**
      * 
      *
-     * Values: PENDING,LIVE,EXPIRED,FROZEN,BURNED,CONFLICT
+     * Values: PENDING,LIVE,EXPIRED,CONFLICT,FROZEN,BURNED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "pending") PENDING("pending"),
         @Json(name = "live") LIVE("live"),
         @Json(name = "expired") EXPIRED("expired"),
+        @Json(name = "conflict") CONFLICT("conflict"),
         @Json(name = "frozen") FROZEN("frozen"),
-        @Json(name = "burned") BURNED("burned"),
-        @Json(name = "conflict") CONFLICT("conflict");
+        @Json(name = "burned") BURNED("burned");
     }
 }
 

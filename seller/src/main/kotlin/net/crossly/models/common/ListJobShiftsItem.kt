@@ -20,7 +20,7 @@
 
 package net.crossly.models.common
 
-import net.crossly.models.common.SlugName
+import net.crossly.models.common.NameSlug
 
 import com.squareup.moshi.Json
 
@@ -56,7 +56,7 @@ data class ListJobShiftsItem (
     val title: kotlin.String,
 
     @Json(name = "place")
-    val place: SlugName,
+    val place: NameSlug,
 
     @Json(name = "startsAt")
     val startsAt: kotlin.String,
@@ -106,20 +106,20 @@ data class ListJobShiftsItem (
     /**
      * 
      *
-     * Values: BUCKS,CBX
+     * Values: CBX,BUCKS
      */
     enum class Rail(val value: kotlin.String) {
-        @Json(name = "bucks") BUCKS("bucks"),
-        @Json(name = "cbx") CBX("cbx");
+        @Json(name = "cbx") CBX("cbx"),
+        @Json(name = "bucks") BUCKS("bucks");
     }
     /**
      * 
      *
-     * Values: OPEN,CANCELLED,PAID,CLAIMED,WORKED,MISSED
+     * Values: CANCELLED,OPEN,PAID,CLAIMED,WORKED,MISSED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "open") OPEN("open"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "open") OPEN("open"),
         @Json(name = "paid") PAID("paid"),
         @Json(name = "claimed") CLAIMED("claimed"),
         @Json(name = "worked") WORKED("worked"),

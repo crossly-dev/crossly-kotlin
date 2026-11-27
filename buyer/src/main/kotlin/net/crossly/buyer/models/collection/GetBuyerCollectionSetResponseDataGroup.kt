@@ -26,8 +26,8 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param brand 
  * @param category 
+ * @param brand 
  * @param model 
  * @param brandSlug 
  * @param modelSlug 
@@ -37,11 +37,11 @@ import com.squareup.moshi.Json
 
 data class GetBuyerCollectionSetResponseDataGroup (
 
-    @Json(name = "brand")
-    val brand: kotlin.String,
-
     @Json(name = "category")
     val category: kotlin.String,
+
+    @Json(name = "brand")
+    val brand: kotlin.String,
 
     @Json(name = "model")
     val model: kotlin.String,

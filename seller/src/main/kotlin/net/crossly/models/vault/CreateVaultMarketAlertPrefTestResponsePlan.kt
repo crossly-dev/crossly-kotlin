@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param email 
- * @param webhook 
  * @param push 
+ * @param webhook 
  * @param telegram 
  * @param terminal 
  */
@@ -38,11 +38,11 @@ data class CreateVaultMarketAlertPrefTestResponsePlan (
     @Json(name = "email")
     val email: CreateVaultMarketAlertPrefTestResponsePlan.Email,
 
-    @Json(name = "webhook")
-    val webhook: CreateVaultMarketAlertPrefTestResponsePlan.Webhook,
-
     @Json(name = "push")
     val push: CreateVaultMarketAlertPrefTestResponsePlan.Push,
+
+    @Json(name = "webhook")
+    val webhook: CreateVaultMarketAlertPrefTestResponsePlan.Webhook,
 
     @Json(name = "telegram")
     val telegram: CreateVaultMarketAlertPrefTestResponsePlan.Telegram,
@@ -68,7 +68,7 @@ data class CreateVaultMarketAlertPrefTestResponsePlan (
      *
      * Values: UNAVAILABLE,OFF,SEND,QUIET
      */
-    enum class Webhook(val value: kotlin.String) {
+    enum class Push(val value: kotlin.String) {
         @Json(name = "unavailable") UNAVAILABLE("unavailable"),
         @Json(name = "off") OFF("off"),
         @Json(name = "send") SEND("send"),
@@ -79,7 +79,7 @@ data class CreateVaultMarketAlertPrefTestResponsePlan (
      *
      * Values: UNAVAILABLE,OFF,SEND,QUIET
      */
-    enum class Push(val value: kotlin.String) {
+    enum class Webhook(val value: kotlin.String) {
         @Json(name = "unavailable") UNAVAILABLE("unavailable"),
         @Json(name = "off") OFF("off"),
         @Json(name = "send") SEND("send"),

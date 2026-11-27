@@ -20,6 +20,7 @@
 
 package net.crossly.models.common
 
+import net.crossly.models.order.GetOrderResponseAppShare
 import net.crossly.models.common.ListSalesItemDocuments
 
 import com.squareup.moshi.Json
@@ -32,24 +33,29 @@ import com.squareup.moshi.Json
  * @param platform 
  * @param detectedBy 
  * @param detectedAt 
- * @param cancelledAt 
- * @param orderId 
- * @param listingId 
+ * @param detailsPending 
+ * @param appShare 
+ * @param netProfit 
+ * @param shippingCost 
+ * @param shippingCharged 
  * @param inventoryItemId 
  * @param currency 
+ * @param listingId 
  * @param platformListingId 
+ * @param storefrontId 
  * @param platformOrderId 
  * @param costOfGoods 
+ * @param cancelledAt 
  * @param deletedAt 
+ * @param orderId 
  * @param salePrice 
  * @param platformFee 
- * @param shippingCost 
- * @param netProfit 
  * @param taxCollected 
- * @param shippingCharged 
  * @param feeSource 
  * @param documents 
  * @param refundedAmount 
+ * @param variantSku 
+ * @param variantId 
  */
 
 data class ListSalesItem (
@@ -69,14 +75,20 @@ data class ListSalesItem (
     @Json(name = "detectedAt")
     val detectedAt: java.time.OffsetDateTime,
 
-    @Json(name = "cancelledAt")
-    val cancelledAt: java.time.OffsetDateTime? = null,
+    @Json(name = "detailsPending")
+    val detailsPending: kotlin.Boolean,
 
-    @Json(name = "orderId")
-    val orderId: kotlin.String? = null,
+    @Json(name = "appShare")
+    val appShare: GetOrderResponseAppShare? = null,
 
-    @Json(name = "listingId")
-    val listingId: kotlin.String? = null,
+    @Json(name = "netProfit")
+    val netProfit: kotlin.String? = null,
+
+    @Json(name = "shippingCost")
+    val shippingCost: kotlin.String? = null,
+
+    @Json(name = "shippingCharged")
+    val shippingCharged: kotlin.String? = null,
 
     @Json(name = "inventoryItemId")
     val inventoryItemId: kotlin.String? = null,
@@ -84,8 +96,14 @@ data class ListSalesItem (
     @Json(name = "currency")
     val currency: kotlin.String? = null,
 
+    @Json(name = "listingId")
+    val listingId: kotlin.String? = null,
+
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String? = null,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
 
     @Json(name = "platformOrderId")
     val platformOrderId: kotlin.String? = null,
@@ -93,8 +111,14 @@ data class ListSalesItem (
     @Json(name = "costOfGoods")
     val costOfGoods: kotlin.String? = null,
 
+    @Json(name = "cancelledAt")
+    val cancelledAt: java.time.OffsetDateTime? = null,
+
     @Json(name = "deletedAt")
     val deletedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "orderId")
+    val orderId: kotlin.String? = null,
 
     @Json(name = "salePrice")
     val salePrice: kotlin.String? = null,
@@ -102,17 +126,8 @@ data class ListSalesItem (
     @Json(name = "platformFee")
     val platformFee: kotlin.String? = null,
 
-    @Json(name = "shippingCost")
-    val shippingCost: kotlin.String? = null,
-
-    @Json(name = "netProfit")
-    val netProfit: kotlin.String? = null,
-
     @Json(name = "taxCollected")
     val taxCollected: kotlin.String? = null,
-
-    @Json(name = "shippingCharged")
-    val shippingCharged: kotlin.String? = null,
 
     @Json(name = "feeSource")
     val feeSource: kotlin.String? = null,
@@ -121,7 +136,13 @@ data class ListSalesItem (
     val documents: kotlin.collections.List<ListSalesItemDocuments>? = null,
 
     @Json(name = "refundedAmount")
-    val refundedAmount: kotlin.String? = null
+    val refundedAmount: kotlin.String? = null,
+
+    @Json(name = "variantSku")
+    val variantSku: kotlin.String? = null,
+
+    @Json(name = "variantId")
+    val variantId: kotlin.String? = null
 
 )
 

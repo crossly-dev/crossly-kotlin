@@ -31,6 +31,7 @@ import com.squareup.moshi.Json
  * @param platformListingId 
  * @param quantity 
  * @param unitPriceCents 
+ * @param listingVariantId 
  * @param slug 
  * @param title 
  * @param listingStatus 
@@ -52,6 +53,9 @@ data class ListBuyerCartItem (
 
     @Json(name = "unitPriceCents")
     val unitPriceCents: java.math.BigDecimal,
+
+    @Json(name = "listingVariantId")
+    val listingVariantId: kotlin.String? = null,
 
     @Json(name = "slug")
     val slug: kotlin.String? = null,

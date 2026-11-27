@@ -20,6 +20,7 @@
 
 package net.crossly.models.spatial
 
+import net.crossly.models.spatial.GetSpatialStreetPlotQuoteResponseDataClaim
 
 import com.squareup.moshi.Json
 
@@ -35,6 +36,7 @@ import com.squareup.moshi.Json
  * @param vacant 
  * @param buyable 
  * @param enabled 
+ * @param claim 
  */
 
 data class GetSpatialStreetPlotQuoteResponseData (
@@ -64,7 +66,10 @@ data class GetSpatialStreetPlotQuoteResponseData (
     val buyable: kotlin.Boolean,
 
     @Json(name = "enabled")
-    val enabled: kotlin.Boolean
+    val enabled: kotlin.Boolean,
+
+    @Json(name = "claim")
+    val claim: GetSpatialStreetPlotQuoteResponseDataClaim? = null
 
 )
 

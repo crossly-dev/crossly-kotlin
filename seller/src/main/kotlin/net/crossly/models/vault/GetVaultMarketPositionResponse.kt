@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.GetVaultMarketPositionResponseAuctionsItem
 import net.crossly.models.vault.GetVaultMarketPositionResponseInstructions
 import net.crossly.models.vault.GetVaultMarketPositionResponseLegs
 import net.crossly.models.vault.GetVaultMarketPositionResponseLoans
@@ -77,7 +78,7 @@ data class GetVaultMarketPositionResponse (
     val loans: kotlin.collections.List<GetVaultMarketPositionResponseLoans>,
 
     @Json(name = "auctions")
-    val auctions: kotlin.collections.List<kotlin.Any>,
+    val auctions: kotlin.collections.List<GetVaultMarketPositionResponseAuctionsItem>,
 
     @Json(name = "instructions")
     val instructions: kotlin.collections.List<GetVaultMarketPositionResponseInstructions>,
@@ -196,11 +197,11 @@ data class GetVaultMarketPositionResponse (
     /**
      * 
      *
-     * Values: LONG,SHORT
+     * Values: SHORT,LONG
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "long") LONG("long"),
-        @Json(name = "short") SHORT("short");
+        @Json(name = "short") SHORT("short"),
+        @Json(name = "long") LONG("long");
     }
 }
 

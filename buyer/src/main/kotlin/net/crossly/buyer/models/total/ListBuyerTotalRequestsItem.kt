@@ -28,15 +28,15 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param status requested | quoted | declined | expired.
  * @param sellerUserId 
+ * @param status requested | quoted | declined | expired.
  * @param lines The cart lines the request covers.
+ * @param createdAt 
  * @param matchesCart Your cart still holds exactly the quoted items, so checkout applies the quote.
- * @param expiresAt 
+ * @param sellerDisplayName 
  * @param quotedShippingCents The seller's combined shipping for these items, in cents, once quoted.
  * @param sellerMessage 
- * @param sellerDisplayName 
+ * @param expiresAt 
  */
 
 data class ListBuyerTotalRequestsItem (
@@ -44,26 +44,26 @@ data class ListBuyerTotalRequestsItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
+    @Json(name = "sellerUserId")
+    val sellerUserId: kotlin.String,
 
     /* requested | quoted | declined | expired. */
     @Json(name = "status")
     val status: kotlin.String,
 
-    @Json(name = "sellerUserId")
-    val sellerUserId: kotlin.String,
-
     /* The cart lines the request covers. */
     @Json(name = "lines")
     val lines: kotlin.collections.List<ListBuyerTotalRequestsItemLines>,
+
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
 
     /* Your cart still holds exactly the quoted items, so checkout applies the quote. */
     @Json(name = "matchesCart")
     val matchesCart: kotlin.Boolean,
 
-    @Json(name = "expiresAt")
-    val expiresAt: kotlin.String? = null,
+    @Json(name = "sellerDisplayName")
+    val sellerDisplayName: kotlin.String? = null,
 
     /* The seller's combined shipping for these items, in cents, once quoted. */
     @Json(name = "quotedShippingCents")
@@ -72,8 +72,8 @@ data class ListBuyerTotalRequestsItem (
     @Json(name = "sellerMessage")
     val sellerMessage: kotlin.String? = null,
 
-    @Json(name = "sellerDisplayName")
-    val sellerDisplayName: kotlin.String? = null
+    @Json(name = "expiresAt")
+    val expiresAt: kotlin.String? = null
 
 )
 

@@ -20,7 +20,7 @@
 
 package net.crossly.models.listing
 
-import net.crossly.models.grading.ListGradingSubmissionsItemGrading
+import net.crossly.models.bulk.CreateBulkBatchItemResponseGrading
 
 import com.squareup.moshi.Json
 
@@ -48,6 +48,8 @@ import com.squareup.moshi.Json
  * @param automationBlockedRuleIds 
  * @param automationAssignedChainIds 
  * @param automationBlockedChainIds 
+ * @param workflowBlockedIds Per-listing workflow overrides (migration 1099, docs/WORKFLOWS.md §10): the automation_* rule/chain ids above map here on conversion; `find.listings` and listing action nodes honour them.   workflowBlockedIds  — workflows (workflows.id) this listing is exempt from  workflowAssignedIds — workflows this listing is force-included in
+ * @param workflowAssignedIds 
  * @param floorIsNet When true the floor is a TAKE-HOME target, converted to a per-platform gross at reprice time. A gross floor is four different promises across four platforms; this is the one number a seller actually cares about.
  * @param source Mirrors inventory_items.source. 'manual' for every seller-created listing; external-stub.ts sets 'external_sale' on the synthetic listing it fabricates for a sale detected on a platform id Crossly never listed — those rows have no real photos/description of their own (everything is lifted from the platform's sale payload) and are otherwise indistinguishable from a real listing in the UI.
  * @param createdAt 
@@ -97,6 +99,9 @@ import com.squareup.moshi.Json
  * @param ebayAttributesEnrichedAt When the eBay per-item attribute back-fill (GetItem → condition/ category/item-specifics/…) last RAN for this listing — set whether or not it found anything, so the background enrichment pass (services/import-listings/ebay-attribute-enrich.ts) terminates and resumes cleanly: it only picks up eBay listings where this is null. The bulk import leaves it null (it only reads GetMyeBaySelling, which carries none of those fields); null on a non-eBay listing is just \"n/a\". See quota.ts for why this is decoupled from the import.
  * @param duplicateOfListingId Set when import's bin-packing (see _import-one.ts) created THIS listing to hold a same-platform straggler it couldn't fit onto an existing candidate listing for the same physical item — points at the primary/first candidate. Purely informational: this listing is a real, independently listable/delistable row, not a shadow. Null for every ordinarily-created listing.
  * @param clientDraftId UUID minted on a seller's machine for a draft written offline.  The idempotency key for desktop sync. The failure it guards is a POST that succeeds server-side whose reply is lost — the client cannot tell that from a failure, retries, and one item becomes two live listings against one piece of stock. Unique per user (partial index, migration 0268); null for every listing that did not come from an offline draft.
+ * @param attributedOauthAppId The third-party OAuth app that created this listing (via its access token), if any — the anchor for developer revenue-share: the app that created the item earns a cut of its sales. Stamped once at create time (first writer wins, never overwritten); null for the web app, a PAT, or anything first-party. `attributedGrantId` pins the specific install whose agreed terms apply. See services/developer-earnings/.
+ * @param attributedGrantId 
+ * @param quotaBucket Which quota this listing is counted in (migration 1064): 'app_allowance' = the attributed app's per-seller allowance (services/app-allowance/), 'plan' = the seller's plan, null = created before allowances / by no app (plan rules). Stays 'app_allowance' after an unlink (grandfathered, no longer counted).
  */
 
 data class CreateListingByIdResponseItems (
@@ -169,6 +174,13 @@ data class CreateListingByIdResponseItems (
     @Json(name = "automationBlockedChainIds")
     val automationBlockedChainIds: kotlin.collections.List<kotlin.String>,
 
+    /* Per-listing workflow overrides (migration 1099, docs/WORKFLOWS.md §10): the automation_* rule/chain ids above map here on conversion; `find.listings` and listing action nodes honour them.   workflowBlockedIds  — workflows (workflows.id) this listing is exempt from  workflowAssignedIds — workflows this listing is force-included in */
+    @Json(name = "workflowBlockedIds")
+    val workflowBlockedIds: kotlin.collections.List<kotlin.String>,
+
+    @Json(name = "workflowAssignedIds")
+    val workflowAssignedIds: kotlin.collections.List<kotlin.String>,
+
     /* When true the floor is a TAKE-HOME target, converted to a per-platform gross at reprice time. A gross floor is four different promises across four platforms; this is the one number a seller actually cares about. */
     @Json(name = "floorIsNet")
     val floorIsNet: kotlin.Boolean,
@@ -238,7 +250,7 @@ data class CreateListingByIdResponseItems (
     val gradeKey: kotlin.String? = null,
 
     @Json(name = "grading")
-    val grading: ListGradingSubmissionsItemGrading? = null,
+    val grading: CreateBulkBatchItemResponseGrading? = null,
 
     @Json(name = "brand")
     val brand: kotlin.String? = null,
@@ -330,7 +342,18 @@ data class CreateListingByIdResponseItems (
 
     /* UUID minted on a seller's machine for a draft written offline.  The idempotency key for desktop sync. The failure it guards is a POST that succeeds server-side whose reply is lost — the client cannot tell that from a failure, retries, and one item becomes two live listings against one piece of stock. Unique per user (partial index, migration 0268); null for every listing that did not come from an offline draft. */
     @Json(name = "clientDraftId")
-    val clientDraftId: kotlin.String? = null
+    val clientDraftId: kotlin.String? = null,
+
+    /* The third-party OAuth app that created this listing (via its access token), if any — the anchor for developer revenue-share: the app that created the item earns a cut of its sales. Stamped once at create time (first writer wins, never overwritten); null for the web app, a PAT, or anything first-party. `attributedGrantId` pins the specific install whose agreed terms apply. See services/developer-earnings/. */
+    @Json(name = "attributedOauthAppId")
+    val attributedOauthAppId: kotlin.String? = null,
+
+    @Json(name = "attributedGrantId")
+    val attributedGrantId: kotlin.String? = null,
+
+    /* Which quota this listing is counted in (migration 1064): 'app_allowance' = the attributed app's per-seller allowance (services/app-allowance/), 'plan' = the seller's plan, null = created before allowances / by no app (plan rules). Stays 'app_allowance' after an unlink (grandfathered, no longer counted). */
+    @Json(name = "quotaBucket")
+    val quotaBucket: kotlin.String? = null
 
 ) {
 

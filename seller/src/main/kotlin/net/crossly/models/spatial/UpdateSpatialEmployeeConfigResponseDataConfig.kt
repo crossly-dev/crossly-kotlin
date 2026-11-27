@@ -72,12 +72,13 @@ data class UpdateSpatialEmployeeConfigResponseDataConfig (
     /**
      * 
      *
-     * Values: IDLE,RULES,AGENT
+     * Values: RULES,IDLE,AGENT,BYOK
      */
     enum class BrainKind(val value: kotlin.String) {
-        @Json(name = "idle") IDLE("idle"),
         @Json(name = "rules") RULES("rules"),
-        @Json(name = "agent") AGENT("agent");
+        @Json(name = "idle") IDLE("idle"),
+        @Json(name = "agent") AGENT("agent"),
+        @Json(name = "byok") BYOK("byok");
     }
 }
 

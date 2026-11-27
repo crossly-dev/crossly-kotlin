@@ -27,9 +27,9 @@ import com.squareup.moshi.Json
  * 
  *
  * @param bidding 
- * @param won 
  * @param myMaxCents 
  * @param leading 
+ * @param won 
  * @param needsPayment Won, and the charge at close did not go through — call pay.
  */
 
@@ -38,14 +38,14 @@ data class GetBuyerAuctionMeResponseData (
     @Json(name = "bidding")
     val bidding: kotlin.Boolean,
 
-    @Json(name = "won")
-    val won: kotlin.Boolean? = null,
-
     @Json(name = "myMaxCents")
     val myMaxCents: java.math.BigDecimal? = null,
 
     @Json(name = "leading")
     val leading: kotlin.Boolean? = null,
+
+    @Json(name = "won")
+    val won: kotlin.Boolean? = null,
 
     /* Won, and the charge at close did not go through — call pay. */
     @Json(name = "needsPayment")

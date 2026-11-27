@@ -6,7 +6,9 @@ Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createRestockPromptDismiss**](RestockPromptsApi.md#createRestockPromptDismiss) | **POST** /v1/restock-prompts/{id}/dismiss | Dismiss a pending restock prompt.
 [**createRestockPromptRepublish**](RestockPromptsApi.md#createRestockPromptRepublish) | **POST** /v1/restock-prompts/{id}/republish | Republish a restock prompt to platforms.
+[**getRestockPromptSetting**](RestockPromptsApi.md#getRestockPromptSetting) | **GET** /v1/restock-prompts/settings | Whether restocked items are republished automatically.
 [**listRestockPrompts**](RestockPromptsApi.md#listRestockPrompts) | **GET** /v1/restock-prompts | List pending restock prompts.
+[**updateRestockPromptSetting**](RestockPromptsApi.md#updateRestockPromptSetting) | **PUT** /v1/restock-prompts/settings | Turn automatic republish of restocked items on or off.
 
 
 <a name="createRestockPromptDismiss"></a>
@@ -103,6 +105,51 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getRestockPromptSetting"></a>
+# **getRestockPromptSetting**
+> GetRestockPromptSettingResponse getRestockPromptSetting()
+
+Whether restocked items are republished automatically.
+
+autoRepublish (default true): when an item that sold out comes back in stock, Crossly republishes it to the marketplaces it came off without asking. False: a restock prompt is raised instead. A listing the seller ended by hand is never republished automatically.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = RestockPromptsApi()
+try {
+    val result : GetRestockPromptSettingResponse = apiInstance.getRestockPromptSetting()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling RestockPromptsApi#getRestockPromptSetting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling RestockPromptsApi#getRestockPromptSetting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetRestockPromptSettingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listRestockPrompts"></a>
 # **listRestockPrompts**
 > ListRestockPromptsResponse listRestockPrompts()
@@ -144,5 +191,52 @@ Configure PersonalAccessToken:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateRestockPromptSetting"></a>
+# **updateRestockPromptSetting**
+> GetRestockPromptSettingResponse updateRestockPromptSetting(getRestockPromptSettingResponse)
+
+Turn automatic republish of restocked items on or off.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = RestockPromptsApi()
+val getRestockPromptSettingResponse : GetRestockPromptSettingResponse =  // GetRestockPromptSettingResponse | 
+try {
+    val result : GetRestockPromptSettingResponse = apiInstance.updateRestockPromptSetting(getRestockPromptSettingResponse)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling RestockPromptsApi#updateRestockPromptSetting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling RestockPromptsApi#updateRestockPromptSetting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **getRestockPromptSettingResponse** | **GetRestockPromptSettingResponse**|  |
+
+### Return type
+
+**GetRestockPromptSettingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 

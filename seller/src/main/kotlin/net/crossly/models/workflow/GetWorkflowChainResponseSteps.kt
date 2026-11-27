@@ -27,9 +27,10 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param position 
  * @param chainId 
+ * @param position 
  * @param stepType 
+ * @param actionConfig 
  * @param actionId 
  * @param waitMs 
  */
@@ -39,14 +40,17 @@ data class GetWorkflowChainResponseSteps (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "position")
-    val position: java.math.BigDecimal,
-
     @Json(name = "chainId")
     val chainId: kotlin.String,
 
+    @Json(name = "position")
+    val position: java.math.BigDecimal,
+
     @Json(name = "stepType")
     val stepType: kotlin.String,
+
+    @Json(name = "actionConfig")
+    val actionConfig: kotlin.collections.Map<kotlin.String, kotlin.Any>,
 
     @Json(name = "actionId")
     val actionId: kotlin.String? = null,

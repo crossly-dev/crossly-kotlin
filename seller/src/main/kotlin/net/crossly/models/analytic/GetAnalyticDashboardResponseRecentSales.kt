@@ -28,9 +28,7 @@ import com.squareup.moshi.Json
  *
  * @param saleId 
  * @param platform 
- * @param detectedBy 
- * @param detectedAt 
- * @param itemImage 
+ * @param detailsPending 
  * @param platformOrderId 
  * @param salePrice 
  * @param platformFee 
@@ -38,6 +36,7 @@ import com.squareup.moshi.Json
  * @param costOfGoods 
  * @param netProfit 
  * @param itemTitle 
+ * @param itemImage 
  */
 
 data class GetAnalyticDashboardResponseRecentSales (
@@ -48,14 +47,8 @@ data class GetAnalyticDashboardResponseRecentSales (
     @Json(name = "platform")
     val platform: kotlin.String,
 
-    @Json(name = "detectedBy")
-    val detectedBy: kotlin.String,
-
-    @Json(name = "detectedAt")
-    val detectedAt: java.time.OffsetDateTime,
-
-    @Json(name = "itemImage")
-    val itemImage: kotlin.String,
+    @Json(name = "detailsPending")
+    val detailsPending: kotlin.Boolean,
 
     @Json(name = "platformOrderId")
     val platformOrderId: kotlin.String? = null,
@@ -76,7 +69,10 @@ data class GetAnalyticDashboardResponseRecentSales (
     val netProfit: java.math.BigDecimal? = null,
 
     @Json(name = "itemTitle")
-    val itemTitle: kotlin.String? = null
+    val itemTitle: kotlin.String? = null,
+
+    @Json(name = "itemImage")
+    val itemImage: kotlin.String? = null
 
 )
 

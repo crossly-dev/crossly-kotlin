@@ -30,6 +30,7 @@ import com.squareup.moshi.Json
  * @param limit Rows per page.
  * @param total Total matching rows, when the endpoint counts them.
  * @param totalPages Derived from total and limit.
+ * @param pages Deprecated alias of `totalPages`, sent only by GET /v1/inventory (its original name). Read `totalPages`.
  */
 
 data class Pagination (
@@ -48,7 +49,12 @@ data class Pagination (
 
     /* Derived from total and limit. */
     @Json(name = "totalPages")
-    val totalPages: kotlin.Int? = null
+    val totalPages: kotlin.Int? = null,
+
+    /* Deprecated alias of `totalPages`, sent only by GET /v1/inventory (its original name). Read `totalPages`. */
+    @Json(name = "pages")
+    @Deprecated(message = "This property is deprecated.")
+    val pages: kotlin.Int? = null
 
 )
 

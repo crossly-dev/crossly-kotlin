@@ -29,10 +29,10 @@ import com.squareup.moshi.Json
  * @param brand 
  * @param category 
  * @param medianCents 
- * @param buybackDays 
  * @param comps 
- * @param buybackCents 
+ * @param buybackDays 
  * @param keepsPct 
+ * @param buybackCents 
  */
 
 data class GetBuyerListingResaleValueResponseData (
@@ -46,17 +46,17 @@ data class GetBuyerListingResaleValueResponseData (
     @Json(name = "medianCents")
     val medianCents: java.math.BigDecimal,
 
-    @Json(name = "buybackDays")
-    val buybackDays: java.math.BigDecimal,
-
     @Json(name = "comps")
     val comps: java.math.BigDecimal,
 
-    @Json(name = "buybackCents")
-    val buybackCents: java.math.BigDecimal? = null,
+    @Json(name = "buybackDays")
+    val buybackDays: java.math.BigDecimal,
 
     @Json(name = "keepsPct")
-    val keepsPct: java.math.BigDecimal? = null
+    val keepsPct: java.math.BigDecimal? = null,
+
+    @Json(name = "buybackCents")
+    val buybackCents: java.math.BigDecimal? = null
 
 )
 

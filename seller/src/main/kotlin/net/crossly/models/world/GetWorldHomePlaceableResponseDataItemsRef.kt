@@ -43,16 +43,16 @@ data class GetWorldHomePlaceableResponseDataItemsRef (
     /**
      * 
      *
-     * Values: TOKEN,PORTAL,PORTFOLIO,INVENTORY,PURCHASE,NFT,VAULT
+     * Values: INVENTORY,VAULT,PORTAL,TOKEN,PURCHASE,NFT,PORTFOLIO
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "token") TOKEN("token"),
-        @Json(name = "portal") PORTAL("portal"),
-        @Json(name = "portfolio") PORTFOLIO("portfolio"),
         @Json(name = "inventory") INVENTORY("inventory"),
+        @Json(name = "vault") VAULT("vault"),
+        @Json(name = "portal") PORTAL("portal"),
+        @Json(name = "token") TOKEN("token"),
         @Json(name = "purchase") PURCHASE("purchase"),
         @Json(name = "nft") NFT("nft"),
-        @Json(name = "vault") VAULT("vault");
+        @Json(name = "portfolio") PORTFOLIO("portfolio");
     }
 }
 

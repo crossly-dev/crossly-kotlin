@@ -26,29 +26,29 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param available 
  * @param platformListingId 
  * @param priceCents 
+ * @param available 
  * @param x 
  * @param y 
  * @param w 
  * @param z 
- * @param title 
  * @param slug 
- * @param note 
+ * @param title 
  * @param imageUrl 
+ * @param note 
  */
 
 data class BuyerBoardResponseDataItems (
-
-    @Json(name = "available")
-    val available: kotlin.Boolean,
 
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String,
 
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
+
+    @Json(name = "available")
+    val available: kotlin.Boolean,
 
     @Json(name = "x")
     val x: java.math.BigDecimal,
@@ -62,17 +62,17 @@ data class BuyerBoardResponseDataItems (
     @Json(name = "z")
     val z: java.math.BigDecimal,
 
-    @Json(name = "title")
-    val title: kotlin.String? = null,
-
     @Json(name = "slug")
     val slug: kotlin.String? = null,
 
-    @Json(name = "note")
-    val note: kotlin.String? = null,
+    @Json(name = "title")
+    val title: kotlin.String? = null,
 
     @Json(name = "imageUrl")
-    val imageUrl: kotlin.String? = null
+    val imageUrl: kotlin.String? = null,
+
+    @Json(name = "note")
+    val note: kotlin.String? = null
 
 )
 

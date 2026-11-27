@@ -24,7 +24,7 @@ package net.crossly.models.common
 import com.squareup.moshi.Json
 
 /**
- * 
+ * 1172 ratings: average stars (null before the first) and how many.
  *
  * @param count 
  * @param average 

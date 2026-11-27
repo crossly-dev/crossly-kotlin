@@ -27,22 +27,22 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param nonce 
  * @param serverSeedHash 
  * @param clientSeed 
+ * @param nonce 
  * @param revealed 
  */
 
 data class GetBuyerPackFairnessResponseData (
-
-    @Json(name = "nonce")
-    val nonce: java.math.BigDecimal,
 
     @Json(name = "serverSeedHash")
     val serverSeedHash: kotlin.String,
 
     @Json(name = "clientSeed")
     val clientSeed: kotlin.String,
+
+    @Json(name = "nonce")
+    val nonce: java.math.BigDecimal,
 
     @Json(name = "revealed")
     val revealed: kotlin.collections.List<GetBuyerPackFairnessResponseDataRevealed>

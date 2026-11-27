@@ -26,17 +26,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param url 
  * @param kind 
+ * @param url 
  */
 
 data class ListBuyerListingSellerReviewsItemMedia (
 
-    @Json(name = "url")
-    val url: kotlin.String,
-
     @Json(name = "kind")
-    val kind: kotlin.String
+    val kind: kotlin.String,
+
+    @Json(name = "url")
+    val url: kotlin.String
 
 )
 

@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param status 
  * @param cents 
+ * @param status 
  */
 
 data class GetBuyerCollectionOfferResponseDataPending (
@@ -36,11 +36,11 @@ data class GetBuyerCollectionOfferResponseDataPending (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "cents")
-    val cents: java.math.BigDecimal
+    val cents: java.math.BigDecimal,
+
+    @Json(name = "status")
+    val status: kotlin.String
 
 )
 

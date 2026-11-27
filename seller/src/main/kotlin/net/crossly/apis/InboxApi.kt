@@ -29,16 +29,19 @@ import net.crossly.models.inbox.CreateInboxConversationBulkResponse
 import net.crossly.models.inbox.CreateInboxMessageTriageResponse
 import net.crossly.models.inbox.CreateInboxOfferResponse
 import net.crossly.models.inbox.CreateInboxReplyResponse
-import net.crossly.models.order.CreateOrderDisputeResponse
+import net.crossly.models.inbox.CreateInboxSendOfferRequest
+import net.crossly.models.inbox.CreateInboxSendOfferResponse
 import net.crossly.models.video.CreateVideoRequestAnswerResponse
 import net.crossly.models.video.CreateVideoRequestUploadUrlResponse
 import net.crossly.models.web3.CreateWeb3LaunchArtResponse
 import net.crossly.models.common.Error
 import net.crossly.models.inbox.GetInboxCannedResponseResponse
 import net.crossly.models.inbox.GetInboxConversationMessageResponse
+import net.crossly.models.inbox.GetInboxCountResponse
 import net.crossly.models.inbox.GetInboxResponse
 import net.crossly.models.inbox.ListInboxResponse
 import net.crossly.models.video.ListVideoRequestsResponse
+import net.crossly.models.inbox.UpdateInboxCannedResponseOrderRequest
 import net.crossly.models.inbox.UpdateInboxConversationResponse
 
 import com.squareup.moshi.Json
@@ -132,7 +135,7 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Create a canned response.
+    * Create a canned response (added to the end of the list).
     * 
     * @return CreateInboxCannedResponseResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -162,7 +165,7 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Create a canned response.
+    * Create a canned response (added to the end of the list).
     * 
     * @return ApiResponse<CreateInboxCannedResponseResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -613,6 +616,80 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Make the buyer an offer inside a conversation (seller → buyer). Only where the conversation&#39;s canSendOffer is true (Grailed today). &#x60;amount&#x60; is in the listing&#39;s currency, above 0 and below the listing price (whole dollars on Grailed). The offer is in the thread at once as a message with offerAmount + offerStatus, deliveryStatus &#39;sending&#39; until the platform confirms.
+    * 
+    * @param id  
+    * @param createInboxSendOfferRequest  
+    * @return CreateInboxSendOfferResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createInboxSendOffer(id: java.util.UUID, createInboxSendOfferRequest: CreateInboxSendOfferRequest) : CreateInboxSendOfferResponse {
+        val localVarResponse = createInboxSendOfferWithHttpInfo(id = id, createInboxSendOfferRequest = createInboxSendOfferRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateInboxSendOfferResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Make the buyer an offer inside a conversation (seller → buyer). Only where the conversation&#39;s canSendOffer is true (Grailed today). &#x60;amount&#x60; is in the listing&#39;s currency, above 0 and below the listing price (whole dollars on Grailed). The offer is in the thread at once as a message with offerAmount + offerStatus, deliveryStatus &#39;sending&#39; until the platform confirms.
+    * 
+    * @param id  
+    * @param createInboxSendOfferRequest  
+    * @return ApiResponse<CreateInboxSendOfferResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createInboxSendOfferWithHttpInfo(id: java.util.UUID, createInboxSendOfferRequest: CreateInboxSendOfferRequest) : ApiResponse<CreateInboxSendOfferResponse?> {
+        val localVariableConfig = createInboxSendOfferRequestConfig(id = id, createInboxSendOfferRequest = createInboxSendOfferRequest)
+
+        return request<CreateInboxSendOfferRequest, CreateInboxSendOfferResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createInboxSendOffer
+    *
+    * @param id  
+    * @param createInboxSendOfferRequest  
+    * @return RequestConfig
+    */
+    fun createInboxSendOfferRequestConfig(id: java.util.UUID, createInboxSendOfferRequest: CreateInboxSendOfferRequest) : RequestConfig<CreateInboxSendOfferRequest> {
+        val localVariableBody = createInboxSendOfferRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/inbox/{id}/send-offer".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Answer a video request with a clip you uploaded (POST /v1/video-requests/upload-url, then PUT the file to uploadUrl). The buyer is notified and the clip shows on the listing.
     * 
     * @param id  
@@ -823,20 +900,19 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Delete a canned response.
     * 
     * @param id  
-    * @return CreateOrderDisputeResponse
+    * @return void
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
     * @throws ClientException If the API returns a client error response
     * @throws ServerException If the API returns a server error response
     */
-    @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun deleteInboxCannedResponse(id: java.util.UUID) : CreateOrderDisputeResponse {
+    fun deleteInboxCannedResponse(id: java.util.UUID) : Unit {
         val localVarResponse = deleteInboxCannedResponseWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateOrderDisputeResponse
+            ResponseType.Success -> Unit
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -854,16 +930,15 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Delete a canned response.
     * 
     * @param id  
-    * @return ApiResponse<CreateOrderDisputeResponse?>
+    * @return ApiResponse<Unit?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
-    @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun deleteInboxCannedResponseWithHttpInfo(id: java.util.UUID) : ApiResponse<CreateOrderDisputeResponse?> {
+    fun deleteInboxCannedResponseWithHttpInfo(id: java.util.UUID) : ApiResponse<Unit?> {
         val localVariableConfig = deleteInboxCannedResponseRequestConfig(id = id)
 
-        return request<Unit, CreateOrderDisputeResponse>(
+        return request<Unit, Unit>(
             localVariableConfig
         )
     }
@@ -890,7 +965,7 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Get one conversation with its messages.
+    * Get one conversation with its messages and the item it is about (itemTitle, itemThumbnail, itemPrice, itemCurrency, itemUrl on the platform, listingId in Crossly, crosslyListingSlug, canSendOffer). An offer made in the thread is a message with offerAmount + offerStatus.
     * 
     * @param id  
     * @return GetInboxResponse
@@ -921,7 +996,7 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Get one conversation with its messages.
+    * Get one conversation with its messages and the item it is about (itemTitle, itemThumbnail, itemPrice, itemCurrency, itemUrl on the platform, listingId in Crossly, crosslyListingSlug, canSendOffer). An offer made in the thread is a message with offerAmount + offerStatus.
     * 
     * @param id  
     * @return ApiResponse<GetInboxResponse?>
@@ -960,7 +1035,7 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * List canned responses.
+    * List canned responses in the seller&#39;s order.
     * 
     * @return GetInboxCannedResponseResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -990,7 +1065,7 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * List canned responses.
+    * List canned responses in the seller&#39;s order.
     * 
     * @return ApiResponse<GetInboxCannedResponseResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -1097,7 +1172,7 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Sidebar badge: unread conversation count.
+    * Unread conversation count (threads only; /v1/inbox/counts adds offers).
     * 
     * @return CreateWeb3LaunchArtResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -1127,7 +1202,7 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Sidebar badge: unread conversation count.
+    * Unread conversation count (threads only; /v1/inbox/counts adds offers).
     * 
     * @return ApiResponse<CreateWeb3LaunchArtResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -1164,10 +1239,87 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * List conversations.
+    * Inbox badges: unread and needs-reply, split into conversations and offers.
+    * 
+    * @return GetInboxCountResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getInboxCount() : GetInboxCountResponse {
+        val localVarResponse = getInboxCountWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetInboxCountResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Inbox badges: unread and needs-reply, split into conversations and offers.
+    * 
+    * @return ApiResponse<GetInboxCountResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getInboxCountWithHttpInfo() : ApiResponse<GetInboxCountResponse?> {
+        val localVariableConfig = getInboxCountRequestConfig()
+
+        return request<Unit, GetInboxCountResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getInboxCount
+    *
+    * @return RequestConfig
+    */
+    fun getInboxCountRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/inbox/counts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter filter
+     */
+     enum class Filter_listInbox(val value: kotlin.String) {
+         @Json(name = "unread") UNREAD("unread"),
+         @Json(name = "needs_reply") NEEDS_REPLY("needs_reply"),
+         ;
+     }
+
+    /**
+    * List conversations. &#x60;filter&#x60; narrows to the rows GET /v1/inbox/counts counts.
     * 
     * @param page  (optional, default to 1)
     * @param limit  (optional, default to 25)
+    * @param filter unread | needs_reply (services/inbox/attention.ts). Omit for all. (optional)
     * @return ListInboxResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -1177,8 +1329,8 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun listInbox(page: kotlin.Int?, limit: kotlin.Int?) : ListInboxResponse {
-        val localVarResponse = listInboxWithHttpInfo(page = page, limit = limit)
+    fun listInbox(page: kotlin.Int?, limit: kotlin.Int?, filter: Filter_listInbox?) : ListInboxResponse {
+        val localVarResponse = listInboxWithHttpInfo(page = page, limit = limit, filter = filter)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListInboxResponse
@@ -1196,18 +1348,19 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * List conversations.
+    * List conversations. &#x60;filter&#x60; narrows to the rows GET /v1/inbox/counts counts.
     * 
     * @param page  (optional, default to 1)
     * @param limit  (optional, default to 25)
+    * @param filter unread | needs_reply (services/inbox/attention.ts). Omit for all. (optional)
     * @return ApiResponse<ListInboxResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun listInboxWithHttpInfo(page: kotlin.Int?, limit: kotlin.Int?) : ApiResponse<ListInboxResponse?> {
-        val localVariableConfig = listInboxRequestConfig(page = page, limit = limit)
+    fun listInboxWithHttpInfo(page: kotlin.Int?, limit: kotlin.Int?, filter: Filter_listInbox?) : ApiResponse<ListInboxResponse?> {
+        val localVariableConfig = listInboxRequestConfig(page = page, limit = limit, filter = filter)
 
         return request<Unit, ListInboxResponse>(
             localVariableConfig
@@ -1219,9 +1372,10 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     *
     * @param page  (optional, default to 1)
     * @param limit  (optional, default to 25)
+    * @param filter unread | needs_reply (services/inbox/attention.ts). Omit for all. (optional)
     * @return RequestConfig
     */
-    fun listInboxRequestConfig(page: kotlin.Int?, limit: kotlin.Int?) : RequestConfig<Unit> {
+    fun listInboxRequestConfig(page: kotlin.Int?, limit: kotlin.Int?, filter: Filter_listInbox?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -1230,6 +1384,9 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
                 }
                 if (limit != null) {
                     put("limit", listOf(limit.toString()))
+                }
+                if (filter != null) {
+                    put("filter", listOf(filter.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -1375,6 +1532,77 @@ class InboxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/inbox/canned-responses/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Reorder canned responses.
+    * Pass EVERY canned response id in the new order (first &#x3D; top of the picker). A list with an unknown, missing or repeated id is refused with a validation error and nothing changes.
+    * @param updateInboxCannedResponseOrderRequest  
+    * @return GetInboxCannedResponseResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateInboxCannedResponseOrder(updateInboxCannedResponseOrderRequest: UpdateInboxCannedResponseOrderRequest) : GetInboxCannedResponseResponse {
+        val localVarResponse = updateInboxCannedResponseOrderWithHttpInfo(updateInboxCannedResponseOrderRequest = updateInboxCannedResponseOrderRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetInboxCannedResponseResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Reorder canned responses.
+    * Pass EVERY canned response id in the new order (first &#x3D; top of the picker). A list with an unknown, missing or repeated id is refused with a validation error and nothing changes.
+    * @param updateInboxCannedResponseOrderRequest  
+    * @return ApiResponse<GetInboxCannedResponseResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateInboxCannedResponseOrderWithHttpInfo(updateInboxCannedResponseOrderRequest: UpdateInboxCannedResponseOrderRequest) : ApiResponse<GetInboxCannedResponseResponse?> {
+        val localVariableConfig = updateInboxCannedResponseOrderRequestConfig(updateInboxCannedResponseOrderRequest = updateInboxCannedResponseOrderRequest)
+
+        return request<UpdateInboxCannedResponseOrderRequest, GetInboxCannedResponseResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateInboxCannedResponseOrder
+    *
+    * @param updateInboxCannedResponseOrderRequest  
+    * @return RequestConfig
+    */
+    fun updateInboxCannedResponseOrderRequestConfig(updateInboxCannedResponseOrderRequest: UpdateInboxCannedResponseOrderRequest) : RequestConfig<UpdateInboxCannedResponseOrderRequest> {
+        val localVariableBody = updateInboxCannedResponseOrderRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/inbox/canned-responses/order",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

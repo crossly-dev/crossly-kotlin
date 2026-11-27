@@ -75,23 +75,23 @@ data class GetVaultMarketHealthResponseItems (
     /**
      * 
      *
-     * Values: NONE,A,B,C
+     * Values: NONE,C,A,B
      */
     enum class Quality(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
-        @Json(name = "B") B("B"),
-        @Json(name = "C") C("C");
+        @Json(name = "B") B("B");
     }
     /**
      * 
      *
-     * Values: A,B,C,D,UNCLASSIFIED
+     * Values: C,A,B,D,UNCLASSIFIED
      */
     enum class Tier(val value: kotlin.String) {
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
         @Json(name = "B") B("B"),
-        @Json(name = "C") C("C"),
         @Json(name = "D") D("D"),
         @Json(name = "unclassified") UNCLASSIFIED("unclassified");
     }

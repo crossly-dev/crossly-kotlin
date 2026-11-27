@@ -20,8 +20,9 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.vault.ListVaultMarketFeedItemMark
+import net.crossly.models.vault.ListVaultMarketFollowFeedItemBy
 import net.crossly.models.vault.ListVaultMarketFollowFeedItemExhibition
+import net.crossly.models.vault.ListVaultMarketOpeningItemMark
 
 import com.squareup.moshi.Json
 
@@ -32,6 +33,7 @@ import com.squareup.moshi.Json
  * @param kind 
  * @param verb 
  * @param at 
+ * @param by 
  * @param bookKey 
  * @param mark 
  * @param buyHref 
@@ -55,11 +57,14 @@ data class ListVaultMarketFollowFeedItem (
     @Json(name = "at")
     val at: kotlin.String,
 
+    @Json(name = "by")
+    val by: ListVaultMarketFollowFeedItemBy,
+
     @Json(name = "bookKey")
     val bookKey: kotlin.String,
 
     @Json(name = "mark")
-    val mark: ListVaultMarketFeedItemMark,
+    val mark: ListVaultMarketOpeningItemMark,
 
     @Json(name = "buyHref")
     val buyHref: kotlin.String,
@@ -81,11 +86,11 @@ data class ListVaultMarketFollowFeedItem (
     /**
      * 
      *
-     * Values: DEPOSIT,SALE,BUY,HALL_LOAN
+     * Values: SALE,DEPOSIT,BUY,HALL_LOAN
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "deposit") DEPOSIT("deposit"),
         @Json(name = "sale") SALE("sale"),
+        @Json(name = "deposit") DEPOSIT("deposit"),
         @Json(name = "buy") BUY("buy"),
         @Json(name = "hall_loan") HALL_LOAN("hall_loan");
     }

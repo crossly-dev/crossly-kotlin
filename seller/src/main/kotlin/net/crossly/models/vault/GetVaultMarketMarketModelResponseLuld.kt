@@ -60,12 +60,12 @@ data class GetVaultMarketMarketModelResponseLuld (
     /**
      * 
      *
-     * Values: LIMIT,NORMAL,PAUSED
+     * Values: LIMIT,PAUSED,NORMAL
      */
     enum class Phase(val value: kotlin.String) {
         @Json(name = "limit") LIMIT("limit"),
-        @Json(name = "normal") NORMAL("normal"),
-        @Json(name = "paused") PAUSED("paused");
+        @Json(name = "paused") PAUSED("paused"),
+        @Json(name = "normal") NORMAL("normal");
     }
 }
 

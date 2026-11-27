@@ -79,11 +79,11 @@ data class CreateCbxWalletPaymentConfirmResponseData (
     /**
      * 
      *
-     * Values: REVIEW,RELEASE,REFUSE
+     * Values: RELEASE,REVIEW,REFUSE
      */
     enum class ReleaseDecision(val value: kotlin.String) {
-        @Json(name = "review") REVIEW("review"),
         @Json(name = "release") RELEASE("release"),
+        @Json(name = "review") REVIEW("review"),
         @Json(name = "refuse") REFUSE("refuse");
     }
 }

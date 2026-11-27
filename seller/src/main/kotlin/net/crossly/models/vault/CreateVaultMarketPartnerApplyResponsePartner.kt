@@ -33,12 +33,16 @@ import com.squareup.moshi.Json
  * @param shareBps 
  * @param capCents 
  * @param appliedAt 
+ * @param services 
+ * @param listed 
  * @param address 
  * @param website 
  * @param note 
  * @param code 
  * @param decidedAt 
  * @param decisionNote 
+ * @param postalCode 
+ * @param hours 
  */
 
 data class CreateVaultMarketPartnerApplyResponsePartner (
@@ -64,6 +68,12 @@ data class CreateVaultMarketPartnerApplyResponsePartner (
     @Json(name = "appliedAt")
     val appliedAt: kotlin.String,
 
+    @Json(name = "services")
+    val services: kotlin.collections.List<kotlin.String>,
+
+    @Json(name = "listed")
+    val listed: kotlin.Boolean,
+
     @Json(name = "address")
     val address: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
@@ -80,19 +90,25 @@ data class CreateVaultMarketPartnerApplyResponsePartner (
     val decidedAt: kotlin.String? = null,
 
     @Json(name = "decisionNote")
-    val decisionNote: kotlin.String? = null
+    val decisionNote: kotlin.String? = null,
+
+    @Json(name = "postalCode")
+    val postalCode: kotlin.String? = null,
+
+    @Json(name = "hours")
+    val hours: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: APPLIED,APPROVED,REJECTED,SUSPENDED
+     * Values: APPLIED,REJECTED,APPROVED,SUSPENDED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "applied") APPLIED("applied"),
-        @Json(name = "approved") APPROVED("approved"),
         @Json(name = "rejected") REJECTED("rejected"),
+        @Json(name = "approved") APPROVED("approved"),
         @Json(name = "suspended") SUSPENDED("suspended");
     }
 }

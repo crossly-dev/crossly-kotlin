@@ -55,11 +55,11 @@ data class CreateBuyerGiftCardRedeemResponseData (
     /**
      * 
      *
-     * Values: BUCKS,CBX
+     * Values: CBX,BUCKS
      */
     enum class Rail(val value: kotlin.String) {
-        @Json(name = "bucks") BUCKS("bucks"),
-        @Json(name = "cbx") CBX("cbx");
+        @Json(name = "cbx") CBX("cbx"),
+        @Json(name = "bucks") BUCKS("bucks");
     }
 }
 

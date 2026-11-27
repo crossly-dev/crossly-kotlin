@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param status 
  * @param buyerPaidCents 
+ * @param status 
  * @param refundStatus 
  * @param refundAmountCents 
  */
@@ -38,11 +38,11 @@ data class GetBuyerCaseResponseDataPurchase (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "buyerPaidCents")
     val buyerPaidCents: java.math.BigDecimal,
+
+    @Json(name = "status")
+    val status: kotlin.String,
 
     @Json(name = "refundStatus")
     val refundStatus: kotlin.String? = null,

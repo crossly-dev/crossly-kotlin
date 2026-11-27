@@ -29,6 +29,8 @@ import com.squareup.moshi.Json
  * @param day 
  * @param sales 
  * @param revenue 
+ * @param netSalesCents 
+ * @param netProfitCents 
  */
 
 data class GetAnalyticTimeseryResponseSeries (
@@ -40,7 +42,13 @@ data class GetAnalyticTimeseryResponseSeries (
     val sales: java.math.BigDecimal,
 
     @Json(name = "revenue")
-    val revenue: java.math.BigDecimal
+    val revenue: java.math.BigDecimal,
+
+    @Json(name = "netSalesCents")
+    val netSalesCents: java.math.BigDecimal,
+
+    @Json(name = "netProfitCents")
+    val netProfitCents: java.math.BigDecimal
 
 )
 

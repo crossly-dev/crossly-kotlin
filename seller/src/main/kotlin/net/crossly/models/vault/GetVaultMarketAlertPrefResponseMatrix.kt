@@ -20,17 +20,19 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.vault.GetVaultMarketAlertPrefResponseMatrixPrice
+import net.crossly.models.vault.GetVaultMarketAlertPrefResponseMatrixAccount
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
- * @param price 
- * @param auction 
- * @param fill 
  * @param account 
+ * @param price 
+ * @param fill 
+ * @param auction 
+ * @param prediction 
+ * @param optionExpiry 
  * @param marginCall 
  * @param adl 
  * @param p2pLoan 
@@ -38,42 +40,64 @@ import com.squareup.moshi.Json
  * @param receiptToken 
  * @param setGoal 
  * @param follow 
+ * @param shareOffering 
+ * @param shareVote 
+ * @param optionSettlement 
+ * @param predictionOdds 
  */
 
 data class GetVaultMarketAlertPrefResponseMatrix (
 
-    @Json(name = "price")
-    val price: GetVaultMarketAlertPrefResponseMatrixPrice,
+    @Json(name = "account")
+    val account: GetVaultMarketAlertPrefResponseMatrixAccount,
 
-    @Json(name = "auction")
-    val auction: GetVaultMarketAlertPrefResponseMatrixPrice,
+    @Json(name = "price")
+    val price: GetVaultMarketAlertPrefResponseMatrixAccount,
 
     @Json(name = "fill")
-    val fill: GetVaultMarketAlertPrefResponseMatrixPrice,
+    val fill: GetVaultMarketAlertPrefResponseMatrixAccount,
 
-    @Json(name = "account")
-    val account: GetVaultMarketAlertPrefResponseMatrixPrice,
+    @Json(name = "auction")
+    val auction: GetVaultMarketAlertPrefResponseMatrixAccount,
+
+    @Json(name = "prediction")
+    val prediction: GetVaultMarketAlertPrefResponseMatrixAccount,
+
+    @Json(name = "option_expiry")
+    val optionExpiry: GetVaultMarketAlertPrefResponseMatrixAccount,
 
     @Json(name = "margin_call")
-    val marginCall: GetVaultMarketAlertPrefResponseMatrixPrice,
+    val marginCall: GetVaultMarketAlertPrefResponseMatrixAccount,
 
     @Json(name = "adl")
-    val adl: GetVaultMarketAlertPrefResponseMatrixPrice,
+    val adl: GetVaultMarketAlertPrefResponseMatrixAccount,
 
     @Json(name = "p2p_loan")
-    val p2pLoan: GetVaultMarketAlertPrefResponseMatrixPrice,
+    val p2pLoan: GetVaultMarketAlertPrefResponseMatrixAccount,
 
     @Json(name = "market_open")
-    val marketOpen: GetVaultMarketAlertPrefResponseMatrixPrice,
+    val marketOpen: GetVaultMarketAlertPrefResponseMatrixAccount,
 
     @Json(name = "receipt_token")
-    val receiptToken: GetVaultMarketAlertPrefResponseMatrixPrice,
+    val receiptToken: GetVaultMarketAlertPrefResponseMatrixAccount,
 
     @Json(name = "set_goal")
-    val setGoal: GetVaultMarketAlertPrefResponseMatrixPrice,
+    val setGoal: GetVaultMarketAlertPrefResponseMatrixAccount,
 
     @Json(name = "follow")
-    val follow: GetVaultMarketAlertPrefResponseMatrixPrice
+    val follow: GetVaultMarketAlertPrefResponseMatrixAccount,
+
+    @Json(name = "share_offering")
+    val shareOffering: GetVaultMarketAlertPrefResponseMatrixAccount,
+
+    @Json(name = "share_vote")
+    val shareVote: GetVaultMarketAlertPrefResponseMatrixAccount,
+
+    @Json(name = "option_settlement")
+    val optionSettlement: GetVaultMarketAlertPrefResponseMatrixAccount,
+
+    @Json(name = "prediction_odds")
+    val predictionOdds: GetVaultMarketAlertPrefResponseMatrixAccount
 
 )
 

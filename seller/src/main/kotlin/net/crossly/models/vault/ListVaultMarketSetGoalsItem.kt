@@ -31,16 +31,16 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param status 
- * @param title 
  * @param category 
- * @param progress 
- * @param brandSlug 
- * @param modelSlug 
+ * @param title 
  * @param target 
- * @param held 
- * @param complete 
- * @param href 
  * @param total 
+ * @param href 
+ * @param brandSlug 
+ * @param progress 
+ * @param held 
+ * @param modelSlug 
+ * @param complete 
  * @param setFound 
  * @param cardSetHref 
  * @param completedAt 
@@ -58,35 +58,35 @@ data class ListVaultMarketSetGoalsItem (
     @Json(name = "status")
     val status: ListVaultMarketSetGoalsItem.Status,
 
-    @Json(name = "title")
-    val title: kotlin.String,
-
     @Json(name = "category")
     val category: kotlin.String,
 
-    @Json(name = "progress")
-    val progress: kotlin.String,
-
-    @Json(name = "brandSlug")
-    val brandSlug: kotlin.String,
-
-    @Json(name = "modelSlug")
-    val modelSlug: kotlin.String,
+    @Json(name = "title")
+    val title: kotlin.String,
 
     @Json(name = "target")
     val target: GetVaultMarketSetGoalResponseTarget,
 
-    @Json(name = "held")
-    val held: java.math.BigDecimal,
-
-    @Json(name = "complete")
-    val complete: kotlin.Boolean,
+    @Json(name = "total")
+    val total: java.math.BigDecimal,
 
     @Json(name = "href")
     val href: kotlin.String,
 
-    @Json(name = "total")
-    val total: java.math.BigDecimal,
+    @Json(name = "brandSlug")
+    val brandSlug: kotlin.String,
+
+    @Json(name = "progress")
+    val progress: kotlin.String,
+
+    @Json(name = "held")
+    val held: java.math.BigDecimal,
+
+    @Json(name = "modelSlug")
+    val modelSlug: kotlin.String,
+
+    @Json(name = "complete")
+    val complete: kotlin.Boolean,
 
     @Json(name = "setFound")
     val setFound: kotlin.Boolean,
@@ -105,12 +105,12 @@ data class ListVaultMarketSetGoalsItem (
     /**
      * 
      *
-     * Values: ACTIVE,COMPLETE,ARCHIVED
+     * Values: ACTIVE,ARCHIVED,COMPLETE
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "active") ACTIVE("active"),
-        @Json(name = "complete") COMPLETE("complete"),
-        @Json(name = "archived") ARCHIVED("archived");
+        @Json(name = "archived") ARCHIVED("archived"),
+        @Json(name = "complete") COMPLETE("complete");
     }
 }
 

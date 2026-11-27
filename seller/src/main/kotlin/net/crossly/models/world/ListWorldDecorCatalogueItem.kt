@@ -145,14 +145,14 @@ data class ListWorldDecorCatalogueItem (
     /**
      * 
      *
-     * Values: SHOP,HOME,STREET,STALL,AVATAR
+     * Values: HOME,STREET,SHOP,AVATAR,STALL
      */
     enum class Surface(val value: kotlin.String) {
-        @Json(name = "shop") SHOP("shop"),
         @Json(name = "home") HOME("home"),
         @Json(name = "street") STREET("street"),
-        @Json(name = "stall") STALL("stall"),
-        @Json(name = "avatar") AVATAR("avatar");
+        @Json(name = "shop") SHOP("shop"),
+        @Json(name = "avatar") AVATAR("avatar"),
+        @Json(name = "stall") STALL("stall");
     }
 }
 

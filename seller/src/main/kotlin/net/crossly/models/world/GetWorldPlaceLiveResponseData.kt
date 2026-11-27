@@ -20,7 +20,7 @@
 
 package net.crossly.models.world
 
-import net.crossly.models.world.GetWorldPlaceLiveResponseDataLot
+import net.crossly.models.main.GetMainStageResponseStreamLot
 import net.crossly.models.world.GetWorldPlaceLiveResponseDataStream
 
 import com.squareup.moshi.Json
@@ -38,7 +38,7 @@ data class GetWorldPlaceLiveResponseData (
     val stream: GetWorldPlaceLiveResponseDataStream? = null,
 
     @Json(name = "lot")
-    val lot: GetWorldPlaceLiveResponseDataLot? = null
+    val lot: GetMainStageResponseStreamLot? = null
 
 )
 

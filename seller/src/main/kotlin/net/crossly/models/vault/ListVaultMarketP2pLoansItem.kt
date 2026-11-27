@@ -155,19 +155,19 @@ data class ListVaultMarketP2pLoansItem (
     /**
      * 
      *
-     * Values: ACTIVE,FUNDING,CANCELLED,AUCTION,REPAYING,REFINANCING,REFI_PENDING,REPAID,REFINANCED,FORECLOSED
+     * Values: ACTIVE,CANCELLED,FUNDING,AUCTION,REPAID,FORECLOSED,REPAYING,REFINANCING,REFI_PENDING,REFINANCED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "active") ACTIVE("active"),
-        @Json(name = "funding") FUNDING("funding"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "funding") FUNDING("funding"),
         @Json(name = "auction") AUCTION("auction"),
+        @Json(name = "repaid") REPAID("repaid"),
+        @Json(name = "foreclosed") FORECLOSED("foreclosed"),
         @Json(name = "repaying") REPAYING("repaying"),
         @Json(name = "refinancing") REFINANCING("refinancing"),
         @Json(name = "refi_pending") REFI_PENDING("refi_pending"),
-        @Json(name = "repaid") REPAID("repaid"),
-        @Json(name = "refinanced") REFINANCED("refinanced"),
-        @Json(name = "foreclosed") FORECLOSED("foreclosed");
+        @Json(name = "refinanced") REFINANCED("refinanced");
     }
 }
 

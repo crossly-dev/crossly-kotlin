@@ -84,13 +84,13 @@ data class ListVaultMarketIndexConsultationsItem (
     /**
      * 
      *
-     * Values: OPEN,CLOSED,ADOPTED,WITHDRAWN
+     * Values: OPEN,CLOSED,WITHDRAWN,ADOPTED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "open") OPEN("open"),
         @Json(name = "closed") CLOSED("closed"),
-        @Json(name = "adopted") ADOPTED("adopted"),
-        @Json(name = "withdrawn") WITHDRAWN("withdrawn");
+        @Json(name = "withdrawn") WITHDRAWN("withdrawn"),
+        @Json(name = "adopted") ADOPTED("adopted");
     }
 }
 

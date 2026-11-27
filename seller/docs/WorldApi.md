@@ -4,6 +4,10 @@ All URIs are relative to *https://crossly.net/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**createGamePackBreak**](WorldApi.md#createGamePackBreak) | **POST** /v1/games/pack-break | Pack Break: your open pack of five real market pieces, or a fresh one. No prices until you pick.
+[**createGamePackBreakPick**](WorldApi.md#createGamePackBreakPick) | **POST** /v1/games/pack-break/{id}/pick | Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
+[**createShowroom**](WorldApi.md#createShowroom) | **POST** /v1/showrooms | Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
+[**createShowroomPlacement**](WorldApi.md#createShowroomPlacement) | **POST** /v1/showrooms/{id}/placement | Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
 [**createSpatialInviteAccept**](WorldApi.md#createSpatialInviteAccept) | **POST** /v1/spatial/invites/accept | Redeem an invite code (dashes optional); returns the room it opens.
 [**createSpatialPropertyLeaseWithdraw**](WorldApi.md#createSpatialPropertyLeaseWithdraw) | **POST** /v1/spatial/property/leases/{id}/withdraw | Withdraw a lease offer nobody has accepted yet.
 [**createSpatialScene**](WorldApi.md#createSpatialScene) | **POST** /v1/spatial/scenes | Start a 3D room: a collection (your items on shelves) or a warehouse (racks you arrange). Private until you make it public.
@@ -16,9 +20,9 @@ Method | HTTP request | Description
 [**createSpatialSceneUnpin**](WorldApi.md#createSpatialSceneUnpin) | **POST** /v1/spatial/scenes/{id}/unpin | Clear every pin in one of your rooms, so it arranges itself again.
 [**createSpatialSceneVisibility**](WorldApi.md#createSpatialSceneVisibility) | **POST** /v1/spatial/scenes/{id}/visibility | Make one of your rooms private, unlisted (anyone with the link) or public (in the lobby and searchable).
 [**createSpatialSceneWarehouseStock**](WorldApi.md#createSpatialSceneWarehouseStock) | **POST** /v1/spatial/scenes/{id}/warehouse/stock | Put an inventory item (or unit) on a rack in one of your warehouse rooms.
-[**createSpatialShopNeighbourhood**](WorldApi.md#createSpatialShopNeighbourhood) | **POST** /v1/spatial/shop/neighbourhood | Move your shop to another neighbourhood (by slug).
 [**createSpatialStreetApply**](WorldApi.md#createSpatialStreetApply) | **POST** /v1/spatial/streets/{slug}/apply | Ask to open your shop on a street whose owner reviews applications.
 [**createSpatialStreetInvite**](WorldApi.md#createSpatialStreetInvite) | **POST** /v1/spatial/streets/{slug}/invite | Invite a shop (by its slug) to open on a street you own.
+[**createWorldAttendantTestChat**](WorldApi.md#createWorldAttendantTestChat) | **POST** /v1/world/attendant/test-chat | One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
 [**createWorldAvatarEquip**](WorldApi.md#createWorldAvatarEquip) | **POST** /v1/world/avatar/equip | Wear something you already own -- exactly ONE of { cosmeticId } (a cosmetic you hold), { receiptId } (a Crossly purchase from your closet) or { inventoryItemId } (your own stock). The slot comes from the thing itself; slot is only a fallback for an item with no catalog shape. Replaces whatever was in that slot. Moves no money. Answers the slot and your loadout after the change.
 [**createWorldAvatarUnequip**](WorldApi.md#createWorldAvatarUnequip) | **POST** /v1/world/avatar/unequip | Take off whatever is in one slot. Idempotent: an empty slot answers removed:false. Answers your loadout after the change.
 [**createWorldAvatarWearable**](WorldApi.md#createWorldAvatarWearable) | **POST** /v1/world/avatar/wearables | Author a wearable for a body slot (a mesh profile and params, an asking price in COSM base units as a string). A submission: inactive until an operator approves it.
@@ -28,8 +32,15 @@ Method | HTTP request | Description
 [**createWorldConvention**](WorldApi.md#createWorldConvention) | **POST** /v1/world/conventions | Host a convention in one of your rooms: title, dates, tables and how sellers get one (invite, free, a fee in cents, or a revenue share in basis points).
 [**createWorldConventionAccept**](WorldApi.md#createWorldConventionAccept) | **POST** /v1/world/conventions/{id}/accept | Accept: your own invitation (no body), or, as host, an application (username).
 [**createWorldConventionApply**](WorldApi.md#createWorldConventionApply) | **POST** /v1/world/conventions/{id}/apply | Ask for a table at a convention.
+[**createWorldConventionBoothApply**](WorldApi.md#createWorldConventionBoothApply) | **POST** /v1/world/conventions/{id}/booths/apply | Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
+[**createWorldConventionBoothFee**](WorldApi.md#createWorldConventionBoothFee) | **POST** /v1/world/conventions/{id}/booth-fee | Pay your booth fee to the organiser on a Worlds rail: { rail: \&quot;cash\&quot; | \&quot;cbx\&quot; }. Once per booth. Full-access token and Idempotency-Key required.
+[**createWorldConventionCheckIn**](WorldApi.md#createWorldConventionCheckIn) | **POST** /v1/world/conventions/{id}/check-in | Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
+[**createWorldConventionFull**](WorldApi.md#createWorldConventionFull) | **POST** /v1/world/conventions/full | Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
 [**createWorldConventionInvite**](WorldApi.md#createWorldConventionInvite) | **POST** /v1/world/conventions/{id}/invite | Invite a seller (by shop handle) to a convention you host.
+[**createWorldConventionMessage**](WorldApi.md#createWorldConventionMessage) | **POST** /v1/world/conventions/{id}/messages | Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
 [**createWorldConventionPaid**](WorldApi.md#createWorldConventionPaid) | **POST** /v1/world/conventions/{id}/paid | As host, record that a seller (username) paid their table fee off-platform. Moves no money.
+[**createWorldConventionSellerAssign**](WorldApi.md#createWorldConventionSellerAssign) | **POST** /v1/world/conventions/{id}/sellers/assign | Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
+[**createWorldConventionSellerDecide**](WorldApi.md#createWorldConventionSellerDecide) | **POST** /v1/world/conventions/{id}/sellers/decide | Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
 [**createWorldConventionWithdraw**](WorldApi.md#createWorldConventionWithdraw) | **POST** /v1/world/conventions/{id}/withdraw | Withdraw your table or decline your invitation; as host, decline someone (username).
 [**createWorldCrew**](WorldApi.md#createWorldCrew) | **POST** /v1/world/crews | Start a crew you own: { name (2-32 chars), tag (2-5 letters or digits, shown on members&#39; nameplates) }. Answers its id and join code. 409 when you are already in a crew.
 [**createWorldCrewChat**](WorldApi.md#createWorldCrewChat) | **POST** /v1/world/crew/chat | Say a line to your crew (body: text, up to 400 characters). Returns data.messages, the crew chat ring (the last 50 lines, kept in memory only), and data.said when your line went out; a blocked or too-quick line is dropped silently. 404 when you are in no crew.
@@ -43,6 +54,10 @@ Method | HTTP request | Description
 [**createWorldFriendInvite**](WorldApi.md#createWorldFriendInvite) | **POST** /v1/world/friends/{userId}/invite | \&quot;Join me\&quot;: send one friend (a mutual follow) a notification with a link to the PUBLIC room you name by slug. 404 when they are not a friend or the room is not public; 429 when you invited them in the last minute.
 [**createWorldGamePackage**](WorldApi.md#createWorldGamePackage) | **POST** /v1/world/games/packages | Submit a game package version for review: files as { path, base64 } (game.json, thumb.png, logic/, scene/, audio/, images/). Checked like the CLI, assets quarantined, the entry document dry-run, then reviewed by a person.
 [**createWorldGamePackageCheck**](WorldApi.md#createWorldGamePackageCheck) | **POST** /v1/world/games/packages/check | Validate a game package exactly as a submission is checked (the shared intake report, your version still free) without storing, uploading or queuing anything: world-kit validate for an agent. Same files body as submit.
+[**createWorldGamePackagePublish**](WorldApi.md#createWorldGamePackagePublish) | **POST** /v1/world/games/packages/{id}/publish | Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
+[**createWorldGamePackageRestore**](WorldApi.md#createWorldGamePackageRestore) | **POST** /v1/world/games/packages/{id}/restore | Restore a deleted Classic game within 30 days (it comes back unpublished).
+[**createWorldGamePackageUnpublish**](WorldApi.md#createWorldGamePackageUnpublish) | **POST** /v1/world/games/packages/{id}/unpublish | Take a Classic game off the Game Directory and the Carnival Plaza launcher, its store off sale. Copies people already placed keep running. Needs no plan: a lapsed creator can always take a game down.
+[**createWorldGamePackageVersionSubmit**](WorldApi.md#createWorldGamePackageVersionSubmit) | **POST** /v1/world/games/packages/{id}/versions/{semver}/submit | Send a draft version (uploaded with submit: false) to review: the same static check, sandbox dry run and human review as an upload. Starter seller plan or higher.
 [**createWorldGameRating**](WorldApi.md#createWorldGameRating) | **POST** /v1/world/games/{id}/rating | Rate a game you played, 1 to 5 stars (rating again replaces it). Only players the runner recorded in that game can rate it.
 [**createWorldGameReport**](WorldApi.md#createWorldGameReport) | **POST** /v1/world/games/{id}/report | Report a game: reason broken | unfair | offensive | scam | other, optional detail. Staff review it; the creator is told the reason, never who.
 [**createWorldGameStoreCheckout**](WorldApi.md#createWorldGameStoreCheckout) | **POST** /v1/world/games/{id}/store/{item}/checkout | Buy an item or pass from a game store: answers a client secret for the payment; the item is yours once it succeeds.
@@ -52,7 +67,7 @@ Method | HTTP request | Description
 [**createWorldHomeGuestbook**](WorldApi.md#createWorldHomeGuestbook) | **POST** /v1/world/homes/{slug}/guestbook | Sign a home guestbook (one short line).
 [**createWorldHomeGuestbookReport**](WorldApi.md#createWorldHomeGuestbookReport) | **POST** /v1/world/homes/{slug}/guestbook/{id}/report | Report a guestbook entry to moderation.
 [**createWorldHuntStart**](WorldApi.md#createWorldHuntStart) | **POST** /v1/world/hunt/start | Start the Great Hunt this season by reading its first riddle (the Copper key&#39;s). Idempotent: starting again answers your progress unchanged. Answers the same shape as GET /v1/world/hunt. 409 when no season is running.
-[**createWorldInteractiveAsset**](WorldApi.md#createWorldInteractiveAsset) | **POST** /v1/world/interactive/assets | Upload one asset for your designs: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64. Answers its sha256 and the path to reference from MML.
+[**createWorldInteractiveAsset**](WorldApi.md#createWorldInteractiveAsset) | **POST** /v1/world/interactive/assets | Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
 [**createWorldInteractiveDesign**](WorldApi.md#createWorldInteractiveDesign) | **POST** /v1/world/interactive/designs | Create an interactive design: name, footprint (s, m, l or f), optional tint and description, an asking price in COSM base units (a string, six decimals) and optional max supply. Inactive until ops approve a submitted version.
 [**createWorldInteractiveDesignCheck**](WorldApi.md#createWorldInteractiveDesignCheck) | **POST** /v1/world/interactive/designs/{id}/check | Check the draft: static rules, that every referenced upload exists, and a sandboxed dry run. Budgeted per person.
 [**createWorldInteractiveDesignPreview**](WorldApi.md#createWorldInteractiveDesignPreview) | **POST** /v1/world/interactive/designs/{id}/preview | A private preview token for the draft (author only) and the socket path that runs it. Budgeted per person.
@@ -61,6 +76,9 @@ Method | HTTP request | Description
 [**createWorldJobAppraisalAnswer**](WorldApi.md#createWorldJobAppraisalAnswer) | **POST** /v1/world/jobs/appraisals/{id}/answers | Answer a price check: your estimate of the item value in CENTS and an optional note. Moves no money; the asker may accept it.
 [**createWorldJobShiftClaim**](WorldApi.md#createWorldJobShiftClaim) | **POST** /v1/world/jobs/shifts/{id}/claim | Claim an open shift. You work it by being in the place while it runs.
 [**createWorldJobShiftRelease**](WorldApi.md#createWorldJobShiftRelease) | **POST** /v1/world/jobs/shifts/{id}/release | Give a shift you claimed back to the board.
+[**createWorldMarketBuy**](WorldApi.md#createWorldMarketBuy) | **POST** /v1/world/market/{kind}/{id}/buy | Buy a plot or a street.
+[**createWorldMarketListing**](WorldApi.md#createWorldMarketListing) | **POST** /v1/world/market/listings | List a plot for sale or rent, or a street for sale.
+[**createWorldMarketPlotRent**](WorldApi.md#createWorldMarketPlotRent) | **POST** /v1/world/market/plot/{id}/rent | Rent a plot offered for lease.
 [**createWorldOutfit**](WorldApi.md#createWorldOutfit) | **POST** /v1/world/outfits | Save what you are wearing now as a named look: { name (1-32 chars), appearance? (skin, hair, hairColour, eyes, build -- unknown keys fall back to the default) }. Each worn thing is recorded as the door it goes back on by; one that no longer traces to something you own is listed in skipped and not saved. 409 when you already keep 6.
 [**createWorldOutfitApply**](WorldApi.md#createWorldOutfitApply) | **POST** /v1/world/outfits/{id}/apply | Put a saved look on. Every item goes through the same equip as POST /v1/world/avatar/equip, so ownership still holds: something you no longer own is listed in skipped with the reason and not worn. Slots the look left empty are emptied (cleared). Answers the appearance of the look (for your character -- appearance lives on your device), applied, skipped and cleared. Moves no money.
 [**createWorldParty**](WorldApi.md#createWorldParty) | **POST** /v1/world/parties | Start a party with you as leader (up to 8 members).
@@ -74,6 +92,9 @@ Method | HTTP request | Description
 [**createWorldPartyWishlist**](WorldApi.md#createWorldPartyWishlist) | **POST** /v1/world/parties/{id}/wishlist | Add a listing (listingId, or its shop slug) to the party wishlist; answers the wishlist.
 [**createWorldPartyWishlistVote**](WorldApi.md#createWorldPartyWishlistVote) | **POST** /v1/world/parties/{id}/wishlist/{listingId}/vote | Thumb a wishlist listing up or down (null clears your vote); answers the wishlist.
 [**createWorldPlaceItemWant**](WorldApi.md#createWorldPlaceItemWant) | **POST** /v1/world/places/{slug}/items/{itemId}/want | Tell a room owner you would buy one of their items (once per person per item; they see the count). Moves no money.
+[**createWorldPropertyPlotPhotoUploadUrl**](WorldApi.md#createWorldPropertyPlotPhotoUploadUrl) | **POST** /v1/world/property/plots/{plotId}/photo/upload-url | A presigned upload for a plot&#39;s photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
+[**createWorldPropertyPlotShowroom**](WorldApi.md#createWorldPropertyPlotShowroom) | **POST** /v1/world/property/plots/{plotId}/showroom | Stand one of your showrooms on a plot you own or rent.
+[**createWorldPropertyTrespassed**](WorldApi.md#createWorldPropertyTrespassed) | **POST** /v1/world/property/trespassed | Ban someone owner-wide or from one showroom.
 [**createWorldSpace**](WorldApi.md#createWorldSpace) | **POST** /v1/world/spaces | Open a Space (sellers only, at most two): slug, name, venue, optional membership and about.
 [**createWorldSpaceEvent**](WorldApi.md#createWorldSpaceEvent) | **POST** /v1/world/spaces/{slug}/events | As host or co-host, put an event on: title, kind, optional about, ISO start and end with offset.
 [**createWorldSpaceEventRsvp**](WorldApi.md#createWorldSpaceEventRsvp) | **POST** /v1/world/spaces/{slug}/events/{id}/rsvp | Say whether you are going to an event.
@@ -82,6 +103,16 @@ Method | HTTP request | Description
 [**createWorldSpaceLeave**](WorldApi.md#createWorldSpaceLeave) | **POST** /v1/world/spaces/{slug}/leave | Leave a Space.
 [**createWorldSpaceRequestByUserId**](WorldApi.md#createWorldSpaceRequestByUserId) | **POST** /v1/world/spaces/{slug}/requests/{userId} | As host or co-host, accept or turn down a request to join.
 [**createWorldSpaceRole**](WorldApi.md#createWorldSpaceRole) | **POST** /v1/world/spaces/{slug}/role | As host, make a member a co-host or back to a member.
+[**createWorldStaffApplicationDecide**](WorldApi.md#createWorldStaffApplicationDecide) | **POST** /v1/world/staff/applications/{id}/decide | Accept or decline an application.
+[**createWorldStaffAssignmentRateWorker**](WorldApi.md#createWorldStaffAssignmentRateWorker) | **POST** /v1/world/staff/assignments/{id}/rate-worker | Rate the worker of one of your seats.
+[**createWorldStaffPosting**](WorldApi.md#createWorldStaffPosting) | **POST** /v1/world/staff/postings | Post a job: a showroom, stall or convention, pay, recurrence and rules.
+[**createWorldStaffPostingStatus**](WorldApi.md#createWorldStaffPostingStatus) | **POST** /v1/world/staff/postings/{id}/status | Open, pause or close a posting.
+[**createWorldStreetOwnedUpkeepPay**](WorldApi.md#createWorldStreetOwnedUpkeepPay) | **POST** /v1/world/streets/owned/{id}/upkeep/pay | Pay your street&#39;s upkeep forward.
+[**createWorldVenueBookingCancel**](WorldApi.md#createWorldVenueBookingCancel) | **POST** /v1/world/venue-bookings/{id}/cancel | Cancel a hall rental: the whole rent back until 7 days before the first day, nothing after.
+[**createWorldWorkAssignmentRateEmployer**](WorldApi.md#createWorldWorkAssignmentRateEmployer) | **POST** /v1/world/work/assignments/{id}/rate-employer | Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
+[**createWorldWorkPostingApply**](WorldApi.md#createWorldWorkPostingApply) | **POST** /v1/world/work/postings/{id}/apply | Apply for a job.
+[**deleteShowroom**](WorldApi.md#deleteShowroom) | **DELETE** /v1/showrooms/{id} | Archive a showroom: private, off its plots, billing stopped. Never deletes; the primary cannot be archived (409 showroom_primary).
+[**deleteShowroomPlacement**](WorldApi.md#deleteShowroomPlacement) | **DELETE** /v1/showrooms/{id}/placement/{plotId} | Take a showroom off a plot (the plot stays yours).
 [**deleteSpatialSceneGrant**](WorldApi.md#deleteSpatialSceneGrant) | **DELETE** /v1/spatial/scenes/{id}/grants/{grantId} | Take somebody&#39;s access to your room away, or kill an invite nobody has used yet.
 [**deleteSpatialSceneNode**](WorldApi.md#deleteSpatialSceneNode) | **DELETE** /v1/spatial/scenes/{id}/nodes | Remove units (by id, up to 500) from one of your warehouse rooms.
 [**deleteSpatialSceneWarehouseStock**](WorldApi.md#deleteSpatialSceneWarehouseStock) | **DELETE** /v1/spatial/scenes/{id}/warehouse/stock | Take an inventory item (or unit) off its rack.
@@ -89,36 +120,53 @@ Method | HTTP request | Description
 [**deleteWorldBlock**](WorldApi.md#deleteWorldBlock) | **DELETE** /v1/world/blocks/{id} | Unblock somebody (by the block id from GET /v1/world/blocks).
 [**deleteWorldCollectionCapability**](WorldApi.md#deleteWorldCollectionCapability) | **DELETE** /v1/world/collections/{chain}/{contract}/capabilities | Withdraw your declaration for a collection.
 [**deleteWorldFollow**](WorldApi.md#deleteWorldFollow) | **DELETE** /v1/world/follows/{userId} | Unfollow somebody. Idempotent.
+[**deleteWorldGamePackage**](WorldApi.md#deleteWorldGamePackage) | **DELETE** /v1/world/games/packages/{id} | Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
 [**deleteWorldHallLoan**](WorldApi.md#deleteWorldHallLoan) | **DELETE** /v1/world/hall/loans/{id} | Take one of your loans off show in the Hall of Grails.
 [**deleteWorldHomeGuestbook**](WorldApi.md#deleteWorldHomeGuestbook) | **DELETE** /v1/world/homes/{slug}/guestbook/{id} | As the home owner, hide a guestbook entry.
 [**deleteWorldInteractiveDesign**](WorldApi.md#deleteWorldInteractiveDesign) | **DELETE** /v1/world/interactive/designs/{id} | Delete a draft design, or archive a submitted one (off sale; owned copies keep working).
 [**deleteWorldJobShift**](WorldApi.md#deleteWorldJobShift) | **DELETE** /v1/world/jobs/shifts/{id} | Cancel a shift you posted that nobody has worked yet.
+[**deleteWorldMarketListing**](WorldApi.md#deleteWorldMarketListing) | **DELETE** /v1/world/market/listings/{kind}/{id}/{mode} | Withdraw a plot or street from the Market.
 [**deleteWorldOutfit**](WorldApi.md#deleteWorldOutfit) | **DELETE** /v1/world/outfits/{id} | Delete a saved look. 404 when it is not yours.
 [**deleteWorldPartyWishlist**](WorldApi.md#deleteWorldPartyWishlist) | **DELETE** /v1/world/parties/{id}/wishlist/{listingId} | Take a listing you added off the party wishlist; answers the wishlist.
 [**deleteWorldPlaceBan**](WorldApi.md#deleteWorldPlaceBan) | **DELETE** /v1/world/places/{slug}/bans/{userId} | Lift a ban from a place you own; they can walk in again right away.
+[**deleteWorldPropertyPlotShowroom**](WorldApi.md#deleteWorldPropertyPlotShowroom) | **DELETE** /v1/world/property/plots/{plotId}/showroom | Take the showroom off a plot.
+[**deleteWorldPropertyTrespassed**](WorldApi.md#deleteWorldPropertyTrespassed) | **DELETE** /v1/world/property/trespassed/{userId} | Lift a ban.
 [**deleteWorldSpace**](WorldApi.md#deleteWorldSpace) | **DELETE** /v1/world/spaces/{slug} | As host, close a Space.
 [**deleteWorldSpaceEvent**](WorldApi.md#deleteWorldSpaceEvent) | **DELETE** /v1/world/spaces/{slug}/events/{id} | As host or co-host, cancel an event.
+[**deleteWorldStaffAssignment**](WorldApi.md#deleteWorldStaffAssignment) | **DELETE** /v1/world/staff/assignments/{id} | Take a worker off a seat that has not started.
+[**getShowroom**](WorldApi.md#getShowroom) | **GET** /v1/showroom | Your store&#39;s showroom in Crossly World: the room and its look, fixtures with their slot grids, where every item stands (pinned by a person or placed automatically), sharing settings and the stock that can stand there. The ETag is the version.
+[**getShowroomBilling**](WorldApi.md#getShowroomBilling) | **GET** /v1/showrooms/{id}/billing | A showroom&#39;s billing: included, active (paid through), past due or cancelled, and the rails a payment can use.
+[**getShowroomById**](WorldApi.md#getShowroomById) | **GET** /v1/showrooms/{id} | One showroom: room and look, fixtures (with holders), placements, settings (hours, auto-include) and stock. The ETag is the version.
+[**getShowroomCatalog**](WorldApi.md#getShowroomCatalog) | **GET** /v1/showroom/catalog | Everything a showroom can be made of: fixture displays (kind, slots per unit), room sizes, themes, surfaces, shopfronts, facades, sign styles and fonts, window moods, and &#x60;holders&#x60;: every fixture holder with &#x60;owned&#x60; (free, or a premium one you bought in the in-world cosmetics market; an unowned premium holder is refused with holder_not_owned).
+[**getShowroomPlacement**](WorldApi.md#getShowroomPlacement) | **GET** /v1/showrooms/{id}/placement | The plots a showroom stands on, and the plots your store owns or rents that it could stand on.
 [**getSpatialSceneAttention**](WorldApi.md#getSpatialSceneAttention) | **GET** /v1/spatial/scenes/{sceneId}/attention | What visitors looked at in one of your rooms: viewers, looks, inspects and dwell per item over the last days (1-35, default 30).
 [**getSpatialSceneWindow**](WorldApi.md#getSpatialSceneWindow) | **GET** /v1/spatial/scenes/{id}/window | The listings you chose for the street window of your shop, in slot order (left, middle, right; empty &#x3D; newest first), and &#x60;choices&#x60;: your listings that can go in it, newest first.
-[**getSpatialShopNeighbourhood**](WorldApi.md#getSpatialShopNeighbourhood) | **GET** /v1/spatial/shop/neighbourhood | Your shop&#39;s neighbourhood, and whether and where it may move.
+[**getSpatialShopNeighbourhood**](WorldApi.md#getSpatialShopNeighbourhood) | **GET** /v1/spatial/shop/neighbourhood | Where your shop stands, and the district theme your stock fits.
 [**getSpatialSpace**](WorldApi.md#getSpatialSpace) | **GET** /v1/spatial/spaces | The room catalogue: every space profile (what it holds, how it is sorted, its containers) and the warehouse units.
 [**getSpatialStreetAdmission**](WorldApi.md#getSpatialStreetAdmission) | **GET** /v1/spatial/streets/admissions | Street applications and invitations: yours, and those waiting on streets you own.
 [**getSpatialStreetDecor**](WorldApi.md#getSpatialStreetDecor) | **GET** /v1/spatial/streets/{slug}/decor | The decor on a street you may dress, and what you can place.
 [**getWorldArcade**](WorldApi.md#getWorldArcade) | **GET** /v1/world/arcade | The Arcade in Crossly World: data.cabinets (slot, where it stands, host -- piece, price_guess or empty --, game, title, blurb, the piece it hosts and where, record, packageId and thumbnail for a creator game from the Game Directory, players) and data.scores (the High Score wall: per game a title, kind -- leaderboard, record or top -- and up to five ASCII lines; a name shows only for somebody who chose to be seen by name, everyone else is \&quot;A player\&quot;), plus creatorGames (creator games with a cabinet now). Games are played in the world.
+[**getWorldAttendant**](WorldApi.md#getWorldAttendant) | **GET** /v1/world/attendant | Your AI attendant and whether your AI key is connected.
 [**getWorldAurora**](WorldApi.md#getWorldAurora) | **GET** /v1/world/aurora | The Sales Aurora over the Commons in Crossly World: every real sale on Crossly in the last data.windowDays (30) days. data.total (sales in the window), data.families (key, label, colour, count per colour family: cards, coins, jewellery, electronics, media, fashion, toys, other) and data.sales (newest first, at most 48: family, ageHours, fresh -- sold in the last ten minutes, which shimmers). Aggregate only: no item, price, seller or platform. data.updatedAt is when it was read.
-[**getWorldAutoShop**](WorldApi.md#getWorldAutoShop) | **GET** /v1/world/auto-shop | Whether Crossly keeps a world shop for you automatically: enabled, and the shop (id, name, visibility, autoCreated, address, label) or null. Change it with PATCH /v1/world/auto-shop.
+[**getWorldAvatarBasic**](WorldApi.md#getWorldAvatarBasic) | **GET** /v1/world/avatar/basics | The free basic wardrobe every account owns: 25 garments (tees, hoodie, overshirt, polo, jacket, vest, jeans, shorts, skirt, sneakers, boots, loafers, caps...) by slot, each with its colourways. Wear one by saving appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } as \&quot;garment:colour\&quot; (outer and hat may be \&quot;none\&quot;) with PUT /v1/world/avatar/look.
 [**getWorldAvatarIdentity**](WorldApi.md#getWorldAvatarIdentity) | **GET** /v1/world/avatar/identity | Whether others see your name in the world (named), or not (anonymous); null if you have never chosen.
 [**getWorldAvatarLoadout**](WorldApi.md#getWorldAvatarLoadout) | **GET** /v1/world/avatar/loadout | What you are wearing: the rig, its slots (avatar_head, avatar_body, avatar_outer -- a jacket over the top, avatar_legs, avatar_feet, avatar_back) and each worn entry -- a cosmetic or a real item -- with its verified-purchase mark. Carries no price, receipt id, seller or order.
 [**getWorldAvatarLoadoutByUserId**](WorldApi.md#getWorldAvatarLoadoutByUserId) | **GET** /v1/world/avatar/loadout/{userId} | What somebody else is wearing, with the verified-purchase mark on each real item -- public on purpose, since a check only its owner can see is not a check. No price, receipt id, seller or order.
 [**getWorldAvatarLook**](WorldApi.md#getWorldAvatarLook) | **GET** /v1/world/avatar/look | Your world look on the account: the handle you chose (null if anonymous) and your appearance; null if you never made one.
 [**getWorldAvatarNftBadge**](WorldApi.md#getWorldAvatarNftBadge) | **GET** /v1/world/avatar/nft-badge | The NFT you wear on your nameplate in the world, or null.
+[**getWorldBillingRail**](WorldApi.md#getWorldBillingRail) | **GET** /v1/world/billing/rails | Which rails (card, CBX) can pay in the world right now.
 [**getWorldCapability**](WorldApi.md#getWorldCapability) | **GET** /v1/world/capabilities | What your held NFTs unlock in Crossly World: each token with the capabilities its collection declared (wear, display, emote, gate, ...). Holding is your verified wallets (their synced tokens); the capabilities of a transferred token go within five minutes.
 [**getWorldCapabilityCatalogue**](WorldApi.md#getWorldCapabilityCatalogue) | **GET** /v1/world/capabilities/catalogue | The capability kinds of spec crossly.nft-capabilities/1: what each does, whether only the creator of the collection may declare it, whether it needs review, and which clients honour it.
 [**getWorldCapabilityWear**](WorldApi.md#getWorldCapabilityWear) | **GET** /v1/world/capabilities/wear | What you wear from your NFTs and COSM copies: your pick per avatar slot (head, body, legs, feet, back) and what the room sees.
 [**getWorldChest**](WorldApi.md#getWorldChest) | **GET** /v1/world/chests | The Commons chest: data.window (this 20-minute window, UTC), spot ([x, z] on the plaza), endsAt (when the next chest comes) and mine (openedThis, and opened -- how many windows you have opened one in; the Chest opener pin comes at 10). A chest is opened by walking up to it in Crossly World, never over the API.
 [**getWorldCollectionCapability**](WorldApi.md#getWorldCollectionCapability) | **GET** /v1/world/collections/{chain}/{contract}/capabilities | The live capability declaration of a collection (404 when it has none).
 [**getWorldContestMine**](WorldApi.md#getWorldContestMine) | **GET** /v1/world/contests/mine | Your contest entries (best score, attempts used, payment state) and prizes (granted, or owed until their gate opens).
+[**getWorldControl**](WorldApi.md#getWorldControl) | **GET** /v1/world/controls | Your world controls settings (look sensitivity, invert look, stick size, left-handed, camera distance, reduced camera motion, tap-to-walk, haptics) and whether you have seen the controls tutorial.
 [**getWorldConvention**](WorldApi.md#getWorldConvention) | **GET** /v1/world/conventions/{id} | One convention. 404 for an unknown or malformed id alike.
+[**getWorldConventionExhibit**](WorldApi.md#getWorldConventionExhibit) | **GET** /v1/world/conventions/{id}/exhibit | A convention from the exhibitor side: tiers with price, size, capacity and booths left, the rails that pay now, and your own booth (status, fee, paid, checked in, listings).
+[**getWorldConventionHall**](WorldApi.md#getWorldConventionHall) | **GET** /v1/world/conventions/{id}/hall | The hall design (booths, stage, signs, entrance, kiosk), its version and any problems.
+[**getWorldConventionManage**](WorldApi.md#getWorldConventionManage) | **GET** /v1/world/conventions/{id}/manage | A convention you organise: its settings, booth tiers, every seller (status, booth, fee, paid, checked in) and the venue.
+[**getWorldConventionStatusPage**](WorldApi.md#getWorldConventionStatusPage) | **GET** /v1/world/conventions/{id}/status-page | The status page: sellers, booths filled per tier, walk-ins, sales of brought listings, booth fees paid and owed.
 [**getWorldCosmBalance**](WorldApi.md#getWorldCosmBalance) | **GET** /v1/world/cosm/balance | Your COSM balance: baseUnits (a STRING -- COSM has 6 decimals and overflows a JSON number), decimals, available (false &#x3D; COSM is not provisioned on this deployment, not a zero balance).
 [**getWorldCrew**](WorldApi.md#getWorldCrew) | **GET** /v1/world/crew | Your crew: data.crew is null when you are in none, else its name, tag, join code and whether you own it; data.members lists up to 30 members, each with the public room they are in right now when they chose to be seen by name (else null).
 [**getWorldCrewChat**](WorldApi.md#getWorldCrewChat) | **GET** /v1/world/crew/chat | Your crew chat: data.messages is the last 50 lines (from, name, text, at), kept in memory only, so it starts empty after a restart. 404 when you are in no crew.
@@ -131,6 +179,8 @@ Method | HTTP request | Description
 [**getWorldGame**](WorldApi.md#getWorldGame) | **GET** /v1/world/games/{id} | One live game: its manifest, its store items and which you own.
 [**getWorldGameLeaderboard**](WorldApi.md#getWorldGameLeaderboard) | **GET** /v1/world/games/{id}/leaderboard | A live game leaderboard, this week and all time, by its manifest scoring (wins, best points, or best time). Only people who chose to be named show by name. scoring is null for a game that keeps no board.
 [**getWorldGamePackage**](WorldApi.md#getWorldGamePackage) | **GET** /v1/world/games/packages/{id} | One of your game packages with every version, its review state and decision note.
+[**getWorldGamePackageStat**](WorldApi.md#getWorldGamePackageStat) | **GET** /v1/world/games/packages/{id}/stats | Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days&#x3D;1-90.
+[**getWorldGamePackageVersion**](WorldApi.md#getWorldGamePackageVersion) | **GET** /v1/world/games/packages/{id}/versions | Every version of one of your Classic games: draft, pending, approved, rejected, withdrawn or cancelled, which one is live, its documents and report.
 [**getWorldGameTemplate**](WorldApi.md#getWorldGameTemplate) | **GET** /v1/world/games/templates/{kind} | A fresh game package from a template (table, arena, object; collection is an NFT capability declaration), as { path, base64 } files: the world-kit init, for an agent with no local kit. ?id&#x3D;my-game&amp;name&#x3D;My Game.
 [**getWorldHall**](WorldApi.md#getWorldHall) | **GET** /v1/world/hall | The Hall of Grails in Crossly World: data.exhibition (key, title, blurb, endsAt -- a new one every Monday UTC -- and next, the coming one&#39;s title) and data.exhibits, up to twelve real catalogue items in slot order (skuId, name, brand, imageUrl, thumbUrl, retailCents, lowestAskCents, lastSaleCents: the live order book, null when the market has none). The first stands on the centre plinth. Buy, bid or watch an exhibit through the market endpoints with its skuId.
 [**getWorldHallLoan**](WorldApi.md#getWorldHallLoan) | **GET** /v1/world/hall/loans | Lend to the Hall: this week&#39;s exhibition (key, title, categorySlug, endsAt), your loans on show (id, vaultItemId, skuId, name, credit, since) and the vault pieces you can lend (eligible: vaultItemId, skuId, name, imageUrl, grade) -- held in your Crossly vault, not pledged, in the exhibition&#39;s category. perMember is how many you may lend each week.
@@ -141,6 +191,12 @@ Method | HTTP request | Description
 [**getWorldJob**](WorldApi.md#getWorldJob) | **GET** /v1/world/jobs | The jobs board: open staff shifts you could claim, your claimed shifts and open price checks (appraisals), as the world shows them.
 [**getWorldKite**](WorldApi.md#getWorldKite) | **GET** /v1/world/kites | Kites flown on the Commons lawn: data.day (today, UTC), today (kites everyone has flown today) and mine (today -- yours today, up to perDay -- perDay, and days -- the days you have flown one on; the Kite flyer pin comes at 5). Kites are flown by standing out on the lawn in Crossly World by day, never over the API, and nothing is spent.
 [**getWorldLantern**](WorldApi.md#getWorldLantern) | **GET** /v1/world/lanterns | Sky lanterns in the Commons: data.day (today, UTC), today (lanterns everyone has released today) and mine (today -- yours today, up to perDay -- perDay, and days -- the days you have released one on; the Lantern lighter pin comes at 5). Lanterns are released at the lantern stand in Crossly World, never over the API, and nothing is spent.
+[**getWorldLauncher**](WorldApi.md#getWorldLauncher) | **GET** /v1/worlds/launcher | The Carnival Plaza launcher: portals for Classic games, Crossly&#39;s own card games and the Commons card tables, each with players right now, your friends inside, its ranking score (published weights, retention-weighted, first-play bounce negative) and where Play goes. Twelve ring slots: friends&#39; pick, new &amp; rising (guaranteed test impressions), then the top, first-party capped at 25%.
+[**getWorldManageLedger**](WorldApi.md#getWorldManageLedger) | **GET** /v1/world/manage/ledger | World money over 7, 30 or 90 days: plot purchases, maintenance, rent, deed sales, staff wages, shifts and stalls, in and out.
+[**getWorldManageOverview**](WorldApi.md#getWorldManageOverview) | **GET** /v1/world/manage/overview | Your Crossly World at a glance: shop and addresses, property, staff and shifts, conventions, stalls, 30-day visitors and money.
+[**getWorldManageVisitor**](WorldApi.md#getWorldManageVisitor) | **GET** /v1/world/manage/visitors | Who came to your world shop over 7, 30 or 90 days: the funnel, attention by day, most-looked and most-wanted items.
+[**getWorldMarket**](WorldApi.md#getWorldMarket) | **GET** /v1/world/market/{kind}/{id} | One plot or street in the Market: price, renders, neighbours, foot traffic, history.
+[**getWorldNeighbourhoodClaim**](WorldApi.md#getWorldNeighbourhoodClaim) | **GET** /v1/world/neighbourhoods/{slug}/claim | Whether you may claim a plot on a neighbourhood street (its top sellers by recent sales), and why not.
 [**getWorldPartyChat**](WorldApi.md#getWorldPartyChat) | **GET** /v1/world/parties/{id}/chat | Your party chat: the recent lines. 404 when this is not your party.
 [**getWorldPlaceBoard**](WorldApi.md#getWorldPlaceBoard) | **GET** /v1/world/places/{slug}/boards | The Trade Floor&#39;s wall of wants, its authentication desk and its Vault Markets ticker (vaultMovers: bookKey, name, label, units, markCents, change24hBps; only the trade-floor place has them).
 [**getWorldPlaceCollection**](WorldApi.md#getWorldPlaceCollection) | **GET** /v1/world/places/{slug}/collections/{category}/{brand}/{model} | One collection room: every piece of the set, owned or missing. 404 for an unknown room or set.
@@ -149,16 +205,33 @@ Method | HTTP request | Description
 [**getWorldPlaceLive**](WorldApi.md#getWorldPlaceLive) | **GET** /v1/world/places/{slug}/live | The owner&#39;s live sale: their stream and the lot on the block, or null.
 [**getWorldPlaceSeller**](WorldApi.md#getWorldPlaceSeller) | **GET** /v1/world/places/{slug}/seller | The shop whose public room this is (username and name), or null.
 [**getWorldPlaceShopPet**](WorldApi.md#getWorldPlaceShopPet) | **GET** /v1/world/places/{slug}/shop-pet | The shop&#39;s pet kind, or null.
+[**getWorldPropertyPlot**](WorldApi.md#getWorldPropertyPlot) | **GET** /v1/world/property/plots/{plotId} | One plot of yours: showroom, rental, value, upkeep.
+[**getWorldPropertyRental**](WorldApi.md#getWorldPropertyRental) | **GET** /v1/world/property/rentals/{leaseId} | One plot you rent out, with its payments.
+[**getWorldPropertyRenting**](WorldApi.md#getWorldPropertyRenting) | **GET** /v1/world/property/renting/{leaseId} | One plot you rent, with its payments.
+[**getWorldRail**](WorldApi.md#getWorldRail) | **GET** /v1/world/rails | Which Worlds payment rails are on now: cash (card), CBX, or both.
 [**getWorldSpace**](WorldApi.md#getWorldSpace) | **GET** /v1/world/spaces/{slug} | One Space: its layout, host, events and your place in it.
 [**getWorldSpaceCanHost**](WorldApi.md#getWorldSpaceCanHost) | **GET** /v1/world/spaces/can-host | Whether you may open a Space: sellers only, at most two active.
+[**getWorldStaffPosting**](WorldApi.md#getWorldStaffPosting) | **GET** /v1/world/staff/postings/{id} | One of your postings, with its shifts.
+[**getWorldStaffReputation**](WorldApi.md#getWorldStaffReputation) | **GET** /v1/world/staff/reputation | Your employer reputation, rated by the people who worked your public jobs.
+[**getWorldStreetFund**](WorldApi.md#getWorldStreetFund) | **GET** /v1/world/streets/{slug}/fund | A street&#39;s fund: the CBX property payments on its plots over the last four weeks, and the street events it unlocked.
+[**getWorldStreetOwned**](WorldApi.md#getWorldStreetOwned) | **GET** /v1/world/streets/owned/{id} | A street you own: tenants, applications, upkeep, look, fund.
+[**getWorldStreetTrespassBarrier**](WorldApi.md#getWorldStreetTrespassBarrier) | **GET** /v1/world/streets/{slug}/trespass-barriers | Plot numbers on the street you are trespassed from.
 [**getWorldTrialLeaderboard**](WorldApi.md#getWorldTrialLeaderboard) | **GET** /v1/world/trials/{course}/leaderboard | A Time Trials course&#39;s boards, as the board beside it in the Commons shows them: data.course, week, weekly (this week&#39;s ten fastest: rank, name, short, named, ms, at) and allTime (the ten fastest ever, each person once). A name shows only for somebody who chose to be seen by name in the world; everyone else is \&quot;A player\&quot;. 404 for an unknown course; course 1 is commons-loop.
 [**getWorldTrialMine**](WorldApi.md#getWorldTrialMine) | **GET** /v1/world/trials/mine | Your Hoverboard Time Trials bests: data.week (its Monday, YYYY-MM-DD, UTC) and courses, each with course (id, name, parMs, rings, lengthM), week (your best lap this week in ms, your place on the weekly board, laps finished, and the split at each ring) or null, and allTime (your best ever in ms, your place on the all-time board, when) or null. Laps are timed by Crossly from where it saw you ride in the world; nothing here writes one.
+[**getWorldVenueQuote**](WorldApi.md#getWorldVenueQuote) | **GET** /v1/world/venues/{id}/quote | What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
 [**getWorldWallet**](WorldApi.md#getWorldWallet) | **GET** /v1/world/wallet | Every balance you hold in Crossly World, read-only: bucksCents (Crossly Bucks, cents); cbx (available, decimals, and the three CBX balances kept apart as base-unit STRINGS -- granted (spend here only), earned (withdrawable once matured), connected (a delegation ceiling on your own wallet, not cash on hand) -- plus pendingCents of cashback not yet matured); cosm (available, decimals, baseUnits string). available:false means that currency is not provisioned on this deployment, not that you hold none.
 [**getWorldWish**](WorldApi.md#getWorldWish) | **GET** /v1/world/wishes | The Wishing Fountain in the Commons: data.day (today, UTC), today (wishes everyone has made today) and mine (madeToday, days -- how many days you have wished on, the Wishmaker pin comes at 7 -- and nextAt, when tomorrow&#39;s wish opens). One wish a day; a wish is made by tossing a coin at the fountain in Crossly World, never over the API, and nothing is spent.
+[**getWorldWorkEarning**](WorldApi.md#getWorldWorkEarning) | **GET** /v1/world/work/earnings | What your shifts paid, by rail.
+[**getWorldWorkMine**](WorldApi.md#getWorldWorkMine) | **GET** /v1/world/work/mine | Where you work: your seats, applications and your teams’ open jobs.
+[**listGameCoupons**](WorldApi.md#listGameCoupons) | **GET** /v1/games/coupons | Your fee-back coupons from house-game wins: Bucks paid out of the fee on your next market purchase.
+[**listShowroomItemSearch**](WorldApi.md#listShowroomItemSearch) | **GET** /v1/showrooms/{id}/item-search | Search this store&#39;s in-stock items (title, brand, SKU) to put on a fixture or in a window slot; each with listed / passport / multi_unit badges.
+[**listShowrooms**](WorldApi.md#listShowrooms) | **GET** /v1/showrooms | Your store&#39;s showrooms, primary first: name, visibility, auto-include, pinned items, fixtures, billing and the plots each stands on.
+[**listSpatialLeases**](WorldApi.md#listSpatialLeases) | **GET** /v1/spatial/leases | Plots offered for lease on every street, cheapest first: address, weekly rent and maintenance in CENTS.
 [**listSpatialSceneGrants**](WorldApi.md#listSpatialSceneGrants) | **GET** /v1/spatial/scenes/{id}/grants | Everyone who can currently walk into one of your rooms, and unused invites. Never returns codes.
 [**listSpatialSceneWarehouseUnplaced**](WorldApi.md#listSpatialSceneWarehouseUnplaced) | **GET** /v1/spatial/scenes/{id}/warehouse/unplaced | Stock not yet on a shelf in a warehouse room you can arrange (q filters by title).
 [**listSpatialSharedWithMe**](WorldApi.md#listSpatialSharedWithMe) | **GET** /v1/spatial/shared-with-me | Rooms other people let you into.
 [**listSpatialStreetLeases**](WorldApi.md#listSpatialStreetLeases) | **GET** /v1/spatial/streets/{slug}/leases | Plots on a street offered for lease: weekly rent in CENTS and terms.
+[**listWorldAttendantUsage**](WorldApi.md#listWorldAttendantUsage) | **GET** /v1/world/attendant/usage | Your AI attendant’s usage log.
 [**listWorldAvatarCloset**](WorldApi.md#listWorldAvatarCloset) | **GET** /v1/world/avatar/closet | Everything you can verifiably wear (your Crossly purchase receipts), newest first: receiptId, item title, brand, size, image, catalog sku/variant, quantity, purchasedAt. Pass a receiptId to POST /v1/world/avatar/equip to put one on. limit 1-200, offset for paging.
 [**listWorldAvatarStock**](WorldApi.md#listWorldAvatarStock) | **GET** /v1/world/avatar/stock | Items of your OWN inventory you could wear into a room as a walking storefront: inventoryItemId, title, image and the slot it would go on. Pass an inventoryItemId to POST /v1/world/avatar/equip.
 [**listWorldAvatarWearables**](WorldApi.md#listWorldAvatarWearables) | **GET** /v1/world/avatar/wearables | Wearables you have authored as a designer: id, sku, name, slot, priceBaseUnits (COSM base units, a string), maxSupply, mintedCount, active (false until reviewed). meta.available is false when COSM is not provisioned here.
@@ -167,6 +240,7 @@ Method | HTTP request | Description
 [**listWorldContestStandings**](WorldApi.md#listWorldContestStandings) | **GET** /v1/world/contests/{id}/standings | The standings of a contest now: best score first (or lowest, for a time game), ties to whoever got there first.
 [**listWorldContests**](WorldApi.md#listWorldContests) | **GET** /v1/world/contests | Open skill contests on Crossly World games, soonest ending first: entry mode (free, sponsored, paid) and prizes.
 [**listWorldConventionExhibitors**](WorldApi.md#listWorldConventionExhibitors) | **GET** /v1/world/conventions/{id}/exhibitors | The host roster: who applied, who was invited, who is coming (by shop handle). Host only; 404 otherwise.
+[**listWorldConventionMessages**](WorldApi.md#listWorldConventionMessages) | **GET** /v1/world/conventions/{id}/messages | Convention messages you may read: the organiser all of them (?with&#x3D;&lt;userId&gt; for one seller), an exhibitor theirs and the broadcasts.
 [**listWorldConventionMine**](WorldApi.md#listWorldConventionMine) | **GET** /v1/world/conventions/mine | Conventions you host and conventions you are exhibiting at.
 [**listWorldConventions**](WorldApi.md#listWorldConventions) | **GET** /v1/world/conventions | Conventions open to sellers now or soon: title, room, dates, and how to get a table (invite, free, fee or revenue share).
 [**listWorldCosmCosmetics**](WorldApi.md#listWorldCosmCosmetics) | **GET** /v1/world/cosm/cosmetics | The active cosmetics catalogue, optionally by tier (premium | earned | stake_exclusive) or slot: sku, name, slot, tier, priceCents (premium only), priceBaseUnits (earned only, COSM base units string), supply, fusable, preview and what it unlocks. Read-only: cosmetics are bought on crossly.net. meta.available / meta.decimals.
@@ -184,13 +258,17 @@ Method | HTTP request | Description
 [**listWorldFollows**](WorldApi.md#listWorldFollows) | **GET** /v1/world/follows | Everybody you follow in Crossly World, newest first, each with mutual: true when they follow you back (a friend).
 [**listWorldFriendHere**](WorldApi.md#listWorldFriendHere) | **GET** /v1/world/friends/here | Your friends in Crossly World right now, and where (when they share it).
 [**listWorldFriends**](WorldApi.md#listWorldFriends) | **GET** /v1/world/friends | Your friends (mutual follows), each with the PUBLIC room they are in right now when they chose to be seen by name there (else null), and their home address slug when they let friends visit. Invisible and anonymous friends are never located.
+[**listWorldGamePackageReceipts**](WorldApi.md#listWorldGamePackageReceipts) | **GET** /v1/world/games/packages/{id}/receipts | Store sales of one of your game packages, newest first: item, price paid, edition, when. Never who bought. Cursor-paged: pass pagination.nextCursor back as ?cursor&#x3D;.
 [**listWorldGamePackages**](WorldApi.md#listWorldGamePackages) | **GET** /v1/world/games/packages | Your game packages, each with its latest version and review state.
 [**listWorldGameRewards**](WorldApi.md#listWorldGameRewards) | **GET** /v1/world/games/rewards | Rewards you won in games: granted, or recorded as unfunded for COSM and CBX (a game prints no value).
 [**listWorldGames**](WorldApi.md#listWorldGames) | **GET** /v1/world/games | The Game Directory: every live, reviewed game package with its players, places, rewards, contests and the piece people place.
 [**listWorldHomeBuilding**](WorldApi.md#listWorldHomeBuilding) | **GET** /v1/world/home/building | Homes whose owner made you a co-builder.
 [**listWorldInteractiveCatalogue**](WorldApi.md#listWorldInteractiveCatalogue) | **GET** /v1/world/interactive/catalogue | Interactive objects: every piece that runs a shared script in a room (first-party and approved creator designs). Per item: model (the piece key a home layout or boutique prop stores), decorValue (the home_prop value its SKU claims), source (first_party | creator), name, blurb, size [x, z] metres, fallbackMesh, cosmeticId (the SKU on the Decor Shop, null when not on sale) and version (a creator design: the approved version every copy runs). Read-only: buying is on crossly.net/shop/decor.
-[**listWorldInteractiveDesigns**](WorldApi.md#listWorldInteractiveDesigns) | **GET** /v1/world/interactive/designs | Your interactive-object designs (MML documents you wrote), newest first: id, handle, name, footprint (s | m | l | f), tint, priceBaseUnits (COSM, base-unit string), maxSupply, model, decorValue, cosmeticId, liveVersion (the approved version every copy runs; null &#x3D; none), withdrawnReason, archivedAt (you archived it: off sale, owned copies keep running; null &#x3D; not archived), latestVersion { version, state: pending | approved | rejected | withdrawn | cancelled, decisionNote }, inReview. &#x60;archived&#x60;: exclude (default), include or only archived designs. Read-only: writing, previewing, submitting and archiving happen on crossly.net/shop/decor?tab&#x3D;interactive.
+[**listWorldInteractiveDesigns**](WorldApi.md#listWorldInteractiveDesigns) | **GET** /v1/world/interactive/designs | Your interactive-object designs (MML documents you wrote), newest first: id, handle, name, footprint (s | m | l | f), tint, priceBaseUnits (COSM, base-unit string), maxSupply, model, decorValue, cosmeticId, liveVersion (the approved version every copy runs; null &#x3D; none), withdrawnReason, archivedAt (you archived it: off sale, owned copies keep running; null &#x3D; not archived), latestVersion { version, state: pending | approved | rejected | withdrawn | cancelled, decisionNote }, inReview. &#x60;archived&#x60;: exclude (default), include or only archived designs. Read-only: writing, previewing, submitting and archiving happen in the Creator Studio on crossly.net (/studio/creator/creations/interactive/new/edit).
+[**listWorldJobBoard**](WorldApi.md#listWorldJobBoard) | **GET** /v1/world/jobs/board | The public Job Board, filterable.
 [**listWorldJobPosted**](WorldApi.md#listWorldJobPosted) | **GET** /v1/world/jobs/posted | Shifts you posted for your rooms, with who claimed each and how it went.
+[**listWorldMarket**](WorldApi.md#listWorldMarket) | **GET** /v1/world/market | Plots and streets for sale or rent in the Worlds Market.
+[**listWorldMarketStreetSigns**](WorldApi.md#listWorldMarketStreetSigns) | **GET** /v1/world/market/streets/{slug}/signs | The street&#39;s for-sale and for-rent boards.
 [**listWorldOutfits**](WorldApi.md#listWorldOutfits) | **GET** /v1/world/outfits | Your saved outfits (up to 6, oldest first): id, name, appearance (skin, hair, hairColour, eyes, build) and items -- each worn thing as the door it goes back on by (slot, door: cosmetic | receipt | stock, id, label). Put one on with POST /v1/world/outfits/:id/apply.
 [**listWorldPlaceBans**](WorldApi.md#listWorldPlaceBans) | **GET** /v1/world/places/{slug}/bans | Who is banned from a place you own (your boutique or home).
 [**listWorldPlaceBundles**](WorldApi.md#listWorldPlaceBundles) | **GET** /v1/world/places/{slug}/bundles | The owner&#39;s bundle deals mapped onto this room&#39;s items (itemIds null &#x3D; any N from the shop). The discount is decided at checkout.
@@ -199,16 +277,31 @@ Method | HTTP request | Description
 [**listWorldPlaceRadar**](WorldApi.md#listWorldPlaceRadar) | **GET** /v1/world/places/{slug}/radar | What you have that someone here wants, and what is here that you want: matched on catalog ids.
 [**listWorldPlaceTradeTables**](WorldApi.md#listWorldPlaceTradeTables) | **GET** /v1/world/places/{slug}/trade-tables | The open trade tables in a place: who is sitting and what is laid on the mat.
 [**listWorldPlaceTrades**](WorldApi.md#listWorldPlaceTrades) | **GET** /v1/world/places/{slug}/trades | Items in this room open to trades, each with its trade post path.
+[**listWorldPromoted**](WorldApi.md#listWorldPromoted) | **GET** /v1/world/promoted | Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \&quot;Promoted\&quot;), with the token to send when one is opened.
+[**listWorldPropertyPlots**](WorldApi.md#listWorldPropertyPlots) | **GET** /v1/world/property/plots | Plots your store owns or rents.
+[**listWorldPropertyRentals**](WorldApi.md#listWorldPropertyRentals) | **GET** /v1/world/property/rentals | Plots you rent out.
+[**listWorldPropertyRenting**](WorldApi.md#listWorldPropertyRenting) | **GET** /v1/world/property/renting | Plots you rent.
+[**listWorldPropertyTrespassed**](WorldApi.md#listWorldPropertyTrespassed) | **GET** /v1/world/property/trespassed | People your store has banned, owner-wide or from one showroom.
 [**listWorldProvenance**](WorldApi.md#listWorldProvenance) | **GET** /v1/world/provenance | Provenance trails: where in Crossly World your purchases were found, newest first (optionally ?listingIds&#x3D;a,b -- platform listing ids). data: [{ platformListingId, slug (the listing public slug), kind (room | window | stall | space | drop | auction | worn | agent), place (its name, or null when gone), at, line -- e.g. \&quot;Found at The Sneaker Vault, Oct 2026\&quot; }]. Yours only.
 [**listWorldQuests**](WorldApi.md#listWorldQuests) | **GET** /v1/world/quests | Every world quest with your progress: key, the pin it earns, goal, target, count, done, colour. meta.wearing is the pin on your nameplate (or null); meta.streak your current and best daily visit streak. Progress only comes from what the server saw -- there is no write of it.
 [**listWorldSpaceMine**](WorldApi.md#listWorldSpaceMine) | **GET** /v1/world/spaces/mine | Spaces you belong to.
 [**listWorldSpaceRequests**](WorldApi.md#listWorldSpaceRequests) | **GET** /v1/world/spaces/{slug}/requests | As host or co-host, who asked to join.
 [**listWorldSpaceWhatsOn**](WorldApi.md#listWorldSpaceWhatsOn) | **GET** /v1/world/spaces/whats-on | Live and upcoming events across Spaces (streets&#x3D;1 and stage&#x3D;1 add street and Main Stage events).
 [**listWorldSpaces**](WorldApi.md#listWorldSpaces) | **GET** /v1/world/spaces | The Spaces directory: seller-hosted clubs with a venue, members and events (optional venue filter).
+[**listWorldStaffApplicants**](WorldApi.md#listWorldStaffApplicants) | **GET** /v1/world/staff/applicants | Who applied to your postings, with their worker reputation.
+[**listWorldStaffPeople**](WorldApi.md#listWorldStaffPeople) | **GET** /v1/world/staff/people | Everyone working for you: your Settings team and public workers, with their seats.
+[**listWorldStaffPlaces**](WorldApi.md#listWorldStaffPlaces) | **GET** /v1/world/staff/places | The showrooms, stalls and conventions a job can be posted at, and the pay rails that are live.
+[**listWorldStaffPostings**](WorldApi.md#listWorldStaffPostings) | **GET** /v1/world/staff/postings | Your job postings, with their upcoming shifts.
+[**listWorldStaffShifts**](WorldApi.md#listWorldStaffShifts) | **GET** /v1/world/staff/shifts | Your scheduled seats and who is on them.
 [**listWorldStreaks**](WorldApi.md#listWorldStreaks) | **GET** /v1/world/streaks | The longest current daily visit streaks (2+ days), top ten: name and days. Only people still choosing to be seen by name.
 [**listWorldTradeMine**](WorldApi.md#listWorldTradeMine) | **GET** /v1/world/trades/mine | Your trades and each item progress through the authentication gate (verified or failed).
 [**listWorldTradeTableBinder**](WorldApi.md#listWorldTradeTableBinder) | **GET** /v1/world/trade-tables/binder | Your binder: unsold collection rows that are catalog items and may be laid on a trade mat -- key, variantId, condition, grade, portfolioId, name, image and valueCents (market value, cents).
 [**listWorldTradeTableListings**](WorldApi.md#listWorldTradeTableListings) | **GET** /v1/world/trade-tables/listings | Your open Trade Block trade listings a trade table can be opened on in the world, each with its items&#39; names.
+[**listWorldVenues**](WorldApi.md#listWorldVenues) | **GET** /v1/world/venues | The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
+[**updateShowroom**](WorldApi.md#updateShowroom) | **PUT** /v1/showroom | Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store&#39;s, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
+[**updateShowroom2**](WorldApi.md#updateShowroom2) | **PATCH** /v1/showroom | Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
+[**updateShowroom3**](WorldApi.md#updateShowroom3) | **PATCH** /v1/showrooms/{id} | Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
+[**updateShowroomById**](WorldApi.md#updateShowroomById) | **PUT** /v1/showrooms/{id} | Replace one showroom&#39;s whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
 [**updateSpatialSceneCosmetic**](WorldApi.md#updateSpatialSceneCosmetic) | **PATCH** /v1/spatial/scenes/{id}/cosmetics | Redecorate one of your rooms (wall, floor, lighting, trim...). Unknown keys are dropped; the response is what survived. &#x60;clear&#x60; lists keys to reset.
 [**updateSpatialSceneNode**](WorldApi.md#updateSpatialSceneNode) | **PATCH** /v1/spatial/scenes/{id}/nodes/{nodeId} | Move a rack in one of your warehouse rooms (position in metres).
 [**updateSpatialSceneSetting**](WorldApi.md#updateSpatialSceneSetting) | **PATCH** /v1/spatial/scenes/{id}/settings | How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
@@ -216,12 +309,15 @@ Method | HTTP request | Description
 [**updateSpatialSceneWindow**](WorldApi.md#updateSpatialSceneWindow) | **PUT** /v1/spatial/scenes/{id}/window | Choose up to three of your live Crossly listings for the street window of your shop, in slot order. Picks that sell drop out and the newest fill in; an empty list goes back to newest first.
 [**updateSpatialStreetDecor**](WorldApi.md#updateSpatialStreetDecor) | **PUT** /v1/spatial/streets/{slug}/decor | Dress a street you own with decor you hold (validated against your inventory).
 [**updateSpatialStreetOwned**](WorldApi.md#updateSpatialStreetOwned) | **PATCH** /v1/spatial/streets/owned/{id} | Who may open a shop on a street you own (open, apply or invite).
-[**updateWorldAutoShop**](WorldApi.md#updateWorldAutoShop) | **PATCH** /v1/world/auto-shop | Turn your automatic world shop off ({ enabled: false } -- an auto-created shop is made private, never deleted) or back on. Answers the new status.
+[**updateWorldAttendant**](WorldApi.md#updateWorldAttendant) | **PUT** /v1/world/attendant | Create or replace your AI attendant (BYOK: switching it on needs your AI key).
 [**updateWorldAvatarIdentity**](WorldApi.md#updateWorldAvatarIdentity) | **PUT** /v1/world/avatar/identity | Choose named or anonymous. Rooms you are already in keep the old answer until you rejoin.
-[**updateWorldAvatarLook**](WorldApi.md#updateWorldAvatarLook) | **PUT** /v1/world/avatar/look | Save your world look to the account, so every device starts from it. look: null stays anonymous.
+[**updateWorldAvatarLook**](WorldApi.md#updateWorldAvatarLook) | **PUT** /v1/world/avatar/look | Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
 [**updateWorldAvatarNftBadge**](WorldApi.md#updateWorldAvatarNftBadge) | **PUT** /v1/world/avatar/nft-badge | Wear an NFT you hold on your nameplate (null to take it off). Checked again each time you join a room.
 [**updateWorldCapabilityWear**](WorldApi.md#updateWorldCapabilityWear) | **PUT** /v1/world/capabilities/wear | Wear a held token on an avatar slot (refId from GET /v1/world/capabilities), or pass refId null to take it off. Its collection must declare a wear capability for that slot.
 [**updateWorldCollectionCapability**](WorldApi.md#updateWorldCollectionCapability) | **PUT** /v1/world/collections/{chain}/{contract}/capabilities | Declare what the tokens of a collection can do (the whole declaration, spec crossly.nft-capabilities/1). As its creator (launched on Crossly or claimed) any kind; as a holder, cosmetic kinds only. Replaces your previous declaration; pending if it names an uploaded asset or an always-reviewed kind.
+[**updateWorldControl**](WorldApi.md#updateWorldControl) | **PUT** /v1/world/controls | Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
+[**updateWorldConventionHall**](WorldApi.md#updateWorldConventionHall) | **PUT** /v1/world/conventions/{id}/hall | Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
+[**updateWorldConventionMyBooth**](WorldApi.md#updateWorldConventionMyBooth) | **PUT** /v1/world/conventions/{id}/my-booth | Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
 [**updateWorldConventionStatus**](WorldApi.md#updateWorldConventionStatus) | **PUT** /v1/world/conventions/{id}/status | Open, start, end or cancel a convention you host.
 [**updateWorldCosmDesignChainAutoUnlock**](WorldApi.md#updateWorldCosmDesignChainAutoUnlock) | **PUT** /v1/world/cosm/designs/{id}/chain-auto-unlock | Opt one of your COSM designs in or out of the free chain unlock it earns when popular (on by default). Answers its popularity.
 [**updateWorldEmoteWheel**](WorldApi.md#updateWorldEmoteWheel) | **PUT** /v1/world/emotes/wheel | Arrange your emote wheel: up to 8 slots, each an emote id, a moment slot or null. Returns the saved wheel (locked or unknown ids are dropped).
@@ -234,12 +330,202 @@ Method | HTTP request | Description
 [**updateWorldListingHoldersOnly**](WorldApi.md#updateWorldListingHoldersOnly) | **PUT** /v1/world/listings/{id}/holders-only | Reserve one of your listings for holders of a collection you declared a holders_only perk for (or release it). Checkout refuses anybody else.
 [**updateWorldOutfit**](WorldApi.md#updateWorldOutfit) | **PATCH** /v1/world/outfits/{id} | Rename a saved look: { name (1-32 chars) }. 404 when it is not yours.
 [**updateWorldPetActive**](WorldApi.md#updateWorldPetActive) | **PUT** /v1/world/pets/active | Walk one of your pets with you in the world, or none (kind: null).
+[**updateWorldPropertyPlotPhoto**](WorldApi.md#updateWorldPropertyPlotPhoto) | **PUT** /v1/world/property/plots/{plotId}/photo | Store a plot&#39;s photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot&#39;s current one) or an in-world capture.
+[**updateWorldPropertyRenting**](WorldApi.md#updateWorldPropertyRenting) | **PATCH** /v1/world/property/renting/{leaseId} | Turn weekly autopay on or off (card leases).
 [**updateWorldQuestPin**](WorldApi.md#updateWorldQuestPin) | **PUT** /v1/world/quests/pin | Wear a pin you EARNED from a quest on your nameplate, or { pin: null } to wear none. 403 for a pin you have not earned. Shows from the next room you walk into.
 [**updateWorldRoomHolderGate**](WorldApi.md#updateWorldRoomHolderGate) | **PUT** /v1/world/rooms/{id}/holder-gate | Make your room holders-only (its collection rooms follow). Send null to open it again. Returns &#x60;{ gate }&#x60;.
 [**updateWorldSpace**](WorldApi.md#updateWorldSpace) | **PATCH** /v1/world/spaces/{slug} | As host, change a Space name, about or membership.
 [**updateWorldSpaceHolderGate**](WorldApi.md#updateWorldSpaceHolderGate) | **PUT** /v1/world/spaces/{slug}/holder-gate | Make your Space holders-only: only holders of an NFT collection join it (others can look in). Send null to open it again. Returns &#x60;{ gate }&#x60;.
+[**updateWorldStaffPosting**](WorldApi.md#updateWorldStaffPosting) | **PUT** /v1/world/staff/postings/{id} | Replace a posting; its future unstaffed shifts are re-made.
 [**updateWorldStallBookingBooth**](WorldApi.md#updateWorldStallBookingBooth) | **PUT** /v1/world/stalls/bookings/{id}/booth | Dress the booth of a stall you booked (decor you hold).
+[**updateWorldStreetOwnedTheme**](WorldApi.md#updateWorldStreetOwnedTheme) | **PUT** /v1/world/streets/owned/{id}/theme | Set your street&#39;s theme.
 
+
+<a name="createGamePackBreak"></a>
+# **createGamePackBreak**
+> CreateGamePackBreakResponse createGamePackBreak()
+
+Pack Break: your open pack of five real market pieces, or a fresh one. No prices until you pick.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : CreateGamePackBreakResponse = apiInstance.createGamePackBreak()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createGamePackBreak")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createGamePackBreak")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateGamePackBreakResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createGamePackBreakPick"></a>
+# **createGamePackBreakPick**
+> CreateGamePackBreakPickResponse createGamePackBreakPick(id)
+
+Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateGamePackBreakPickResponse = apiInstance.createGamePackBreakPick(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createGamePackBreakPick")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createGamePackBreakPick")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateGamePackBreakPickResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createShowroom"></a>
+# **createShowroom**
+> CreateShowroomResponse createShowroom(storefrontId)
+
+Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : CreateShowroomResponse = apiInstance.createShowroom(storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createShowroom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createShowroom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**CreateShowroomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createShowroomPlacement"></a>
+# **createShowroomPlacement**
+> CreateShowroomPlacementResponse createShowroomPlacement(id, storefrontId)
+
+Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : CreateShowroomPlacementResponse = apiInstance.createShowroomPlacement(id, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createShowroomPlacement")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createShowroomPlacement")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**CreateShowroomPlacementResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
 
 <a name="createSpatialInviteAccept"></a>
 # **createSpatialInviteAccept**
@@ -333,7 +619,7 @@ Configure PersonalAccessToken:
 
 <a name="createSpatialScene"></a>
 # **createSpatialScene**
-> SpatialSceneResponse2 createSpatialScene(createSpatialSceneRequest)
+> SpatialSceneResponse createSpatialScene(createSpatialSceneRequest)
 
 Start a 3D room: a collection (your items on shelves) or a warehouse (racks you arrange). Private until you make it public.
 
@@ -346,7 +632,7 @@ Start a 3D room: a collection (your items on shelves) or a warehouse (racks you 
 val apiInstance = WorldApi()
 val createSpatialSceneRequest : CreateSpatialSceneRequest =  // CreateSpatialSceneRequest | 
 try {
-    val result : SpatialSceneResponse2 = apiInstance.createSpatialScene(createSpatialSceneRequest)
+    val result : SpatialSceneResponse = apiInstance.createSpatialScene(createSpatialSceneRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#createSpatialScene")
@@ -365,7 +651,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SpatialSceneResponse2**
+**SpatialSceneResponse**
 
 ### Authorization
 
@@ -521,7 +807,7 @@ Configure PersonalAccessToken:
 
 <a name="createSpatialScenePlace"></a>
 # **createSpatialScenePlace**
-> SpatialSceneResponse createSpatialScenePlace(id)
+> CreateSpatialScenePlaceResponse createSpatialScenePlace(id)
 
 Pin an inventory item to a slot in one of your rooms: by warehouse nodeId, or by a collection container key and index.
 
@@ -534,7 +820,7 @@ Pin an inventory item to a slot in one of your rooms: by warehouse nodeId, or by
 val apiInstance = WorldApi()
 val id : kotlin.String = id_example // kotlin.String | 
 try {
-    val result : SpatialSceneResponse = apiInstance.createSpatialScenePlace(id)
+    val result : CreateSpatialScenePlaceResponse = apiInstance.createSpatialScenePlace(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#createSpatialScenePlace")
@@ -553,7 +839,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SpatialSceneResponse**
+**CreateSpatialScenePlaceResponse**
 
 ### Authorization
 
@@ -568,7 +854,7 @@ Configure PersonalAccessToken:
 
 <a name="createSpatialSceneRename"></a>
 # **createSpatialSceneRename**
-> SpatialSceneResponse2 createSpatialSceneRename(id, createSpatialSceneRenameRequest)
+> SpatialSceneResponse createSpatialSceneRename(id, createSpatialSceneRenameRequest)
 
 Rename one of your rooms.
 
@@ -582,7 +868,7 @@ val apiInstance = WorldApi()
 val id : kotlin.String = id_example // kotlin.String | 
 val createSpatialSceneRenameRequest : CreateSpatialSceneRenameRequest =  // CreateSpatialSceneRenameRequest | 
 try {
-    val result : SpatialSceneResponse2 = apiInstance.createSpatialSceneRename(id, createSpatialSceneRenameRequest)
+    val result : SpatialSceneResponse = apiInstance.createSpatialSceneRename(id, createSpatialSceneRenameRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#createSpatialSceneRename")
@@ -602,7 +888,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SpatialSceneResponse2**
+**SpatialSceneResponse**
 
 ### Authorization
 
@@ -617,7 +903,7 @@ Configure PersonalAccessToken:
 
 <a name="createSpatialSceneShopPlace"></a>
 # **createSpatialSceneShopPlace**
-> SpatialSceneResponse createSpatialSceneShopPlace(id)
+> CreateSpatialSceneShopPlaceResponse createSpatialSceneShopPlace(id)
 
 Place an inventory item in a section and display of your shop room.
 
@@ -630,7 +916,7 @@ Place an inventory item in a section and display of your shop room.
 val apiInstance = WorldApi()
 val id : kotlin.String = id_example // kotlin.String | 
 try {
-    val result : SpatialSceneResponse = apiInstance.createSpatialSceneShopPlace(id)
+    val result : CreateSpatialSceneShopPlaceResponse = apiInstance.createSpatialSceneShopPlace(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#createSpatialSceneShopPlace")
@@ -649,7 +935,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SpatialSceneResponse**
+**CreateSpatialSceneShopPlaceResponse**
 
 ### Authorization
 
@@ -711,7 +997,7 @@ Configure PersonalAccessToken:
 
 <a name="createSpatialSceneVisibility"></a>
 # **createSpatialSceneVisibility**
-> SpatialSceneResponse2 createSpatialSceneVisibility(id, createSpatialSceneVisibilityRequest)
+> SpatialSceneResponse createSpatialSceneVisibility(id, createSpatialSceneVisibilityRequest)
 
 Make one of your rooms private, unlisted (anyone with the link) or public (in the lobby and searchable).
 
@@ -725,7 +1011,7 @@ val apiInstance = WorldApi()
 val id : kotlin.String = id_example // kotlin.String | 
 val createSpatialSceneVisibilityRequest : CreateSpatialSceneVisibilityRequest =  // CreateSpatialSceneVisibilityRequest | 
 try {
-    val result : SpatialSceneResponse2 = apiInstance.createSpatialSceneVisibility(id, createSpatialSceneVisibilityRequest)
+    val result : SpatialSceneResponse = apiInstance.createSpatialSceneVisibility(id, createSpatialSceneVisibilityRequest)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#createSpatialSceneVisibility")
@@ -745,7 +1031,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SpatialSceneResponse2**
+**SpatialSceneResponse**
 
 ### Authorization
 
@@ -760,7 +1046,7 @@ Configure PersonalAccessToken:
 
 <a name="createSpatialSceneWarehouseStock"></a>
 # **createSpatialSceneWarehouseStock**
-> SpatialSceneResponse createSpatialSceneWarehouseStock(id)
+> CreateSpatialScenePlaceResponse createSpatialSceneWarehouseStock(id)
 
 Put an inventory item (or unit) on a rack in one of your warehouse rooms.
 
@@ -773,7 +1059,7 @@ Put an inventory item (or unit) on a rack in one of your warehouse rooms.
 val apiInstance = WorldApi()
 val id : kotlin.String = id_example // kotlin.String | 
 try {
-    val result : SpatialSceneResponse = apiInstance.createSpatialSceneWarehouseStock(id)
+    val result : CreateSpatialScenePlaceResponse = apiInstance.createSpatialSceneWarehouseStock(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#createSpatialSceneWarehouseStock")
@@ -792,50 +1078,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SpatialSceneResponse**
-
-### Authorization
-
-
-Configure PersonalAccessToken:
-    ApiClient.accessToken = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="createSpatialShopNeighbourhood"></a>
-# **createSpatialShopNeighbourhood**
-> CreateSpatialShopNeighbourhoodResponse createSpatialShopNeighbourhood()
-
-Move your shop to another neighbourhood (by slug).
-
-### Example
-```kotlin
-// Import classes:
-//import net.crossly.infrastructure.*
-//import net.crossly.models.*
-
-val apiInstance = WorldApi()
-try {
-    val result : CreateSpatialShopNeighbourhoodResponse = apiInstance.createSpatialShopNeighbourhood()
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling WorldApi#createSpatialShopNeighbourhood")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling WorldApi#createSpatialShopNeighbourhood")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-**CreateSpatialShopNeighbourhoodResponse**
+**CreateSpatialScenePlaceResponse**
 
 ### Authorization
 
@@ -930,6 +1173,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 **CreateSpatialStreetApplyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldAttendantTestChat"></a>
+# **createWorldAttendantTestChat**
+> CreateWorldAttendantTestChatResponse createWorldAttendantTestChat()
+
+One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : CreateWorldAttendantTestChatResponse = apiInstance.createWorldAttendantTestChat()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldAttendantTestChat")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldAttendantTestChat")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateWorldAttendantTestChatResponse**
 
 ### Authorization
 
@@ -1353,6 +1639,190 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createWorldConventionBoothApply"></a>
+# **createWorldConventionBoothApply**
+> CreateWorldConventionBoothApplyResponse createWorldConventionBoothApply(id)
+
+Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldConventionBoothApplyResponse = apiInstance.createWorldConventionBoothApply(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldConventionBoothApply")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldConventionBoothApply")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldConventionBoothApplyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldConventionBoothFee"></a>
+# **createWorldConventionBoothFee**
+> CreateWorldConventionBoothFeeResponse createWorldConventionBoothFee(id)
+
+Pay your booth fee to the organiser on a Worlds rail: { rail: \&quot;cash\&quot; | \&quot;cbx\&quot; }. Once per booth. Full-access token and Idempotency-Key required.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldConventionBoothFeeResponse = apiInstance.createWorldConventionBoothFee(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldConventionBoothFee")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldConventionBoothFee")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldConventionBoothFeeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldConventionCheckIn"></a>
+# **createWorldConventionCheckIn**
+> CreateWorldConventionCheckInResponse createWorldConventionCheckIn(id)
+
+Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldConventionCheckInResponse = apiInstance.createWorldConventionCheckIn(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldConventionCheckIn")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldConventionCheckIn")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldConventionCheckInResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldConventionFull"></a>
+# **createWorldConventionFull**
+> GetWorldConventionManageResponse createWorldConventionFull()
+
+Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldConventionManageResponse = apiInstance.createWorldConventionFull()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldConventionFull")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldConventionFull")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldConventionManageResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="createWorldConventionInvite"></a>
 # **createWorldConventionInvite**
 > CreateWorldSpaceInviteResponse createWorldConventionInvite(id)
@@ -1400,9 +1870,56 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createWorldConventionMessage"></a>
+# **createWorldConventionMessage**
+> CreateWorldConventionMessageResponse createWorldConventionMessage(id)
+
+Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldConventionMessageResponse = apiInstance.createWorldConventionMessage(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldConventionMessage")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldConventionMessage")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldConventionMessageResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="createWorldConventionPaid"></a>
 # **createWorldConventionPaid**
-> CreateBreakCancelResponse createWorldConventionPaid(id)
+> UpdateGroupBuyResponse createWorldConventionPaid(id)
 
 As host, record that a seller (username) paid their table fee off-platform. Moves no money.
 
@@ -1415,7 +1932,7 @@ As host, record that a seller (username) paid their table fee off-platform. Move
 val apiInstance = WorldApi()
 val id : kotlin.String = id_example // kotlin.String | 
 try {
-    val result : CreateBreakCancelResponse = apiInstance.createWorldConventionPaid(id)
+    val result : UpdateGroupBuyResponse = apiInstance.createWorldConventionPaid(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#createWorldConventionPaid")
@@ -1434,7 +1951,101 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**CreateBreakCancelResponse**
+**UpdateGroupBuyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldConventionSellerAssign"></a>
+# **createWorldConventionSellerAssign**
+> CreateWorldConventionSellerAssignResponse createWorldConventionSellerAssign(id)
+
+Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldConventionSellerAssignResponse = apiInstance.createWorldConventionSellerAssign(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldConventionSellerAssign")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldConventionSellerAssign")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldConventionSellerAssignResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldConventionSellerDecide"></a>
+# **createWorldConventionSellerDecide**
+> CreateWorldConventionBoothApplyResponse createWorldConventionSellerDecide(id)
+
+Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldConventionBoothApplyResponse = apiInstance.createWorldConventionSellerDecide(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldConventionSellerDecide")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldConventionSellerDecide")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldConventionBoothApplyResponse**
 
 ### Authorization
 
@@ -1449,7 +2060,7 @@ Configure PersonalAccessToken:
 
 <a name="createWorldConventionWithdraw"></a>
 # **createWorldConventionWithdraw**
-> CreateBreakCancelResponse createWorldConventionWithdraw(id)
+> UpdateGroupBuyResponse createWorldConventionWithdraw(id)
 
 Withdraw your table or decline your invitation; as host, decline someone (username).
 
@@ -1462,7 +2073,7 @@ Withdraw your table or decline your invitation; as host, decline someone (userna
 val apiInstance = WorldApi()
 val id : kotlin.String = id_example // kotlin.String | 
 try {
-    val result : CreateBreakCancelResponse = apiInstance.createWorldConventionWithdraw(id)
+    val result : UpdateGroupBuyResponse = apiInstance.createWorldConventionWithdraw(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#createWorldConventionWithdraw")
@@ -1481,7 +2092,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**CreateBreakCancelResponse**
+**UpdateGroupBuyResponse**
 
 ### Authorization
 
@@ -2042,6 +2653,196 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createWorldGamePackagePublish"></a>
+# **createWorldGamePackagePublish**
+> CreateWorldGamePackagePublishResponse createWorldGamePackagePublish(id)
+
+Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldGamePackagePublishResponse = apiInstance.createWorldGamePackagePublish(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldGamePackagePublish")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldGamePackagePublish")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldGamePackagePublishResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldGamePackageRestore"></a>
+# **createWorldGamePackageRestore**
+> CreateWorldGamePackageRestoreResponse createWorldGamePackageRestore(id)
+
+Restore a deleted Classic game within 30 days (it comes back unpublished).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldGamePackageRestoreResponse = apiInstance.createWorldGamePackageRestore(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldGamePackageRestore")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldGamePackageRestore")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldGamePackageRestoreResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldGamePackageUnpublish"></a>
+# **createWorldGamePackageUnpublish**
+> CreateWorldGamePackageUnpublishResponse createWorldGamePackageUnpublish(id)
+
+Take a Classic game off the Game Directory and the Carnival Plaza launcher, its store off sale. Copies people already placed keep running. Needs no plan: a lapsed creator can always take a game down.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldGamePackageUnpublishResponse = apiInstance.createWorldGamePackageUnpublish(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldGamePackageUnpublish")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldGamePackageUnpublish")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldGamePackageUnpublishResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldGamePackageVersionSubmit"></a>
+# **createWorldGamePackageVersionSubmit**
+> CreateWorldGamePackageVersionSubmitResponse createWorldGamePackageVersionSubmit(id, semver)
+
+Send a draft version (uploaded with submit: false) to review: the same static check, sandbox dry run and human review as an upload. Starter seller plan or higher.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val semver : kotlin.String = semver_example // kotlin.String | 
+try {
+    val result : CreateWorldGamePackageVersionSubmitResponse = apiInstance.createWorldGamePackageVersionSubmit(id, semver)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldGamePackageVersionSubmit")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldGamePackageVersionSubmit")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **semver** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldGamePackageVersionSubmitResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="createWorldGameRating"></a>
 # **createWorldGameRating**
 > CreateWorldGameRatingResponse createWorldGameRating(id)
@@ -2461,7 +3262,7 @@ Configure PersonalAccessToken:
 # **createWorldInteractiveAsset**
 > CreateWorldInteractiveAssetResponse createWorldInteractiveAsset()
 
-Upload one asset for your designs: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64. Answers its sha256 and the path to reference from MML.
+Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
 
 ### Example
 ```kotlin
@@ -2856,6 +3657,145 @@ Name | Type | Description  | Notes
 ### Return type
 
 **CreateWorldJobShiftReleaseResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldMarketBuy"></a>
+# **createWorldMarketBuy**
+> CreateWorldMarketBuyResponse createWorldMarketBuy(kind, id)
+
+Buy a plot or a street.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val kind : kotlin.String = kind_example // kotlin.String | 
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldMarketBuyResponse = apiInstance.createWorldMarketBuy(kind, id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldMarketBuy")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldMarketBuy")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kind** | **kotlin.String**|  |
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldMarketBuyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldMarketListing"></a>
+# **createWorldMarketListing**
+> CreateWorldMarketListingResponse createWorldMarketListing()
+
+List a plot for sale or rent, or a street for sale.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : CreateWorldMarketListingResponse = apiInstance.createWorldMarketListing()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldMarketListing")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldMarketListing")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateWorldMarketListingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldMarketPlotRent"></a>
+# **createWorldMarketPlotRent**
+> CreateWorldMarketPlotRentResponse createWorldMarketPlotRent(id)
+
+Rent a plot offered for lease.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldMarketPlotRentResponse = apiInstance.createWorldMarketPlotRent(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldMarketPlotRent")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldMarketPlotRent")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldMarketPlotRentResponse**
 
 ### Authorization
 
@@ -3479,6 +4419,143 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createWorldPropertyPlotPhotoUploadUrl"></a>
+# **createWorldPropertyPlotPhotoUploadUrl**
+> CreateWorldPropertyPlotPhotoUploadUrlResponse createWorldPropertyPlotPhotoUploadUrl(plotId)
+
+A presigned upload for a plot&#39;s photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val plotId : kotlin.String = plotId_example // kotlin.String | 
+try {
+    val result : CreateWorldPropertyPlotPhotoUploadUrlResponse = apiInstance.createWorldPropertyPlotPhotoUploadUrl(plotId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldPropertyPlotPhotoUploadUrl")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldPropertyPlotPhotoUploadUrl")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **plotId** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldPropertyPlotPhotoUploadUrlResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldPropertyPlotShowroom"></a>
+# **createWorldPropertyPlotShowroom**
+> CreateWorldPropertyPlotShowroomResponse createWorldPropertyPlotShowroom(plotId)
+
+Stand one of your showrooms on a plot you own or rent.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val plotId : kotlin.String = plotId_example // kotlin.String | 
+try {
+    val result : CreateWorldPropertyPlotShowroomResponse = apiInstance.createWorldPropertyPlotShowroom(plotId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldPropertyPlotShowroom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldPropertyPlotShowroom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **plotId** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldPropertyPlotShowroomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldPropertyTrespassed"></a>
+# **createWorldPropertyTrespassed**
+> ListWorldPropertyTrespassedResponse createWorldPropertyTrespassed()
+
+Ban someone owner-wide or from one showroom.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldPropertyTrespassedResponse = apiInstance.createWorldPropertyTrespassed()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldPropertyTrespassed")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldPropertyTrespassed")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldPropertyTrespassedResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="createWorldSpace"></a>
 # **createWorldSpace**
 > CreateWorldSpaceResponse createWorldSpace()
@@ -3855,6 +4932,478 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createWorldStaffApplicationDecide"></a>
+# **createWorldStaffApplicationDecide**
+> CreateWorldStaffApplicationDecideResponse createWorldStaffApplicationDecide(id)
+
+Accept or decline an application.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldStaffApplicationDecideResponse = apiInstance.createWorldStaffApplicationDecide(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldStaffApplicationDecide")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldStaffApplicationDecide")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldStaffApplicationDecideResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldStaffAssignmentRateWorker"></a>
+# **createWorldStaffAssignmentRateWorker**
+> CreateWorldStaffAssignmentRateWorkerResponse createWorldStaffAssignmentRateWorker(id)
+
+Rate the worker of one of your seats.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldStaffAssignmentRateWorkerResponse = apiInstance.createWorldStaffAssignmentRateWorker(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldStaffAssignmentRateWorker")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldStaffAssignmentRateWorker")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldStaffAssignmentRateWorkerResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldStaffPosting"></a>
+# **createWorldStaffPosting**
+> WorldStaffPostingResponse createWorldStaffPosting()
+
+Post a job: a showroom, stall or convention, pay, recurrence and rules.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : WorldStaffPostingResponse = apiInstance.createWorldStaffPosting()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldStaffPosting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldStaffPosting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**WorldStaffPostingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldStaffPostingStatus"></a>
+# **createWorldStaffPostingStatus**
+> WorldStaffPostingResponse createWorldStaffPostingStatus(id)
+
+Open, pause or close a posting.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : WorldStaffPostingResponse = apiInstance.createWorldStaffPostingStatus(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldStaffPostingStatus")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldStaffPostingStatus")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**WorldStaffPostingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldStreetOwnedUpkeepPay"></a>
+# **createWorldStreetOwnedUpkeepPay**
+> CreateWorldStreetOwnedUpkeepPayResponse createWorldStreetOwnedUpkeepPay(id)
+
+Pay your street&#39;s upkeep forward.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldStreetOwnedUpkeepPayResponse = apiInstance.createWorldStreetOwnedUpkeepPay(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldStreetOwnedUpkeepPay")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldStreetOwnedUpkeepPay")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldStreetOwnedUpkeepPayResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldVenueBookingCancel"></a>
+# **createWorldVenueBookingCancel**
+> CreateWorldVenueBookingCancelResponse createWorldVenueBookingCancel(id)
+
+Cancel a hall rental: the whole rent back until 7 days before the first day, nothing after.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldVenueBookingCancelResponse = apiInstance.createWorldVenueBookingCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldVenueBookingCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldVenueBookingCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldVenueBookingCancelResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldWorkAssignmentRateEmployer"></a>
+# **createWorldWorkAssignmentRateEmployer**
+> CreateWorldStaffAssignmentRateWorkerResponse createWorldWorkAssignmentRateEmployer(id)
+
+Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldStaffAssignmentRateWorkerResponse = apiInstance.createWorldWorkAssignmentRateEmployer(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldWorkAssignmentRateEmployer")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldWorkAssignmentRateEmployer")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldStaffAssignmentRateWorkerResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createWorldWorkPostingApply"></a>
+# **createWorldWorkPostingApply**
+> CreateWorldWorkPostingApplyResponse createWorldWorkPostingApply(id)
+
+Apply for a job.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateWorldWorkPostingApplyResponse = apiInstance.createWorldWorkPostingApply(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#createWorldWorkPostingApply")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#createWorldWorkPostingApply")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateWorldWorkPostingApplyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteShowroom"></a>
+# **deleteShowroom**
+> DeleteShowroomResponse deleteShowroom(id, storefrontId)
+
+Archive a showroom: private, off its plots, billing stopped. Never deletes; the primary cannot be archived (409 showroom_primary).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : DeleteShowroomResponse = apiInstance.deleteShowroom(id, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#deleteShowroom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#deleteShowroom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**DeleteShowroomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteShowroomPlacement"></a>
+# **deleteShowroomPlacement**
+> CreateShowroomPlacementResponse deleteShowroomPlacement(id, plotId, storefrontId)
+
+Take a showroom off a plot (the plot stays yours).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val plotId : kotlin.String = plotId_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : CreateShowroomPlacementResponse = apiInstance.deleteShowroomPlacement(id, plotId, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#deleteShowroomPlacement")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#deleteShowroomPlacement")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **plotId** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**CreateShowroomPlacementResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteSpatialSceneGrant"></a>
 # **deleteSpatialSceneGrant**
 > DeleteSpatialSceneGrantResponse deleteSpatialSceneGrant(id, grantId)
@@ -4187,6 +5736,53 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="deleteWorldGamePackage"></a>
+# **deleteWorldGamePackage**
+> DeleteWorldGamePackageResponse deleteWorldGamePackage(id)
+
+Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : DeleteWorldGamePackageResponse = apiInstance.deleteWorldGamePackage(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#deleteWorldGamePackage")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#deleteWorldGamePackage")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**DeleteWorldGamePackageResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteWorldHallLoan"></a>
 # **deleteWorldHallLoan**
 > CreateBreakResponse deleteWorldHallLoan(id)
@@ -4377,6 +5973,57 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="deleteWorldMarketListing"></a>
+# **deleteWorldMarketListing**
+> DeleteWorldMarketListingResponse deleteWorldMarketListing(kind, id, mode)
+
+Withdraw a plot or street from the Market.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val kind : kotlin.String = kind_example // kotlin.String | 
+val id : kotlin.String = id_example // kotlin.String | 
+val mode : kotlin.String = mode_example // kotlin.String | 
+try {
+    val result : DeleteWorldMarketListingResponse = apiInstance.deleteWorldMarketListing(kind, id, mode)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#deleteWorldMarketListing")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#deleteWorldMarketListing")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kind** | **kotlin.String**|  |
+ **id** | **kotlin.String**|  |
+ **mode** | **kotlin.String**|  |
+
+### Return type
+
+**DeleteWorldMarketListingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteWorldOutfit"></a>
 # **deleteWorldOutfit**
 > DeleteWorldOutfitResponse deleteWorldOutfit(id)
@@ -4522,6 +6169,100 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="deleteWorldPropertyPlotShowroom"></a>
+# **deleteWorldPropertyPlotShowroom**
+> DeleteWorldPropertyPlotShowroomResponse deleteWorldPropertyPlotShowroom(plotId)
+
+Take the showroom off a plot.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val plotId : kotlin.String = plotId_example // kotlin.String | 
+try {
+    val result : DeleteWorldPropertyPlotShowroomResponse = apiInstance.deleteWorldPropertyPlotShowroom(plotId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#deleteWorldPropertyPlotShowroom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#deleteWorldPropertyPlotShowroom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **plotId** | **kotlin.String**|  |
+
+### Return type
+
+**DeleteWorldPropertyPlotShowroomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteWorldPropertyTrespassed"></a>
+# **deleteWorldPropertyTrespassed**
+> DeleteSpatialSceneGrantResponse deleteWorldPropertyTrespassed(userId)
+
+Lift a ban.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val userId : kotlin.String = userId_example // kotlin.String | 
+try {
+    val result : DeleteSpatialSceneGrantResponse = apiInstance.deleteWorldPropertyTrespassed(userId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#deleteWorldPropertyTrespassed")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#deleteWorldPropertyTrespassed")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **userId** | **kotlin.String**|  |
+
+### Return type
+
+**DeleteSpatialSceneGrantResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteWorldSpace"></a>
 # **deleteWorldSpace**
 > DeleteWorldSpaceResponse deleteWorldSpace(slug)
@@ -4606,6 +6347,290 @@ Name | Type | Description  | Notes
 ### Return type
 
 **DeleteWorldJobShiftResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteWorldStaffAssignment"></a>
+# **deleteWorldStaffAssignment**
+> DeleteSpatialSceneGrantResponse deleteWorldStaffAssignment(id)
+
+Take a worker off a seat that has not started.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : DeleteSpatialSceneGrantResponse = apiInstance.deleteWorldStaffAssignment(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#deleteWorldStaffAssignment")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#deleteWorldStaffAssignment")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**DeleteSpatialSceneGrantResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getShowroom"></a>
+# **getShowroom**
+> GetShowroomResponse getShowroom(storefrontId)
+
+Your store&#39;s showroom in Crossly World: the room and its look, fixtures with their slot grids, where every item stands (pinned by a person or placed automatically), sharing settings and the stock that can stand there. The ETag is the version.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : GetShowroomResponse = apiInstance.getShowroom(storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getShowroom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getShowroom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**GetShowroomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getShowroomBilling"></a>
+# **getShowroomBilling**
+> GetShowroomBillingResponse getShowroomBilling(id, storefrontId)
+
+A showroom&#39;s billing: included, active (paid through), past due or cancelled, and the rails a payment can use.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : GetShowroomBillingResponse = apiInstance.getShowroomBilling(id, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getShowroomBilling")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getShowroomBilling")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**GetShowroomBillingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getShowroomById"></a>
+# **getShowroomById**
+> GetShowroomResponse getShowroomById(id, storefrontId)
+
+One showroom: room and look, fixtures (with holders), placements, settings (hours, auto-include) and stock. The ETag is the version.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : GetShowroomResponse = apiInstance.getShowroomById(id, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getShowroomById")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getShowroomById")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**GetShowroomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getShowroomCatalog"></a>
+# **getShowroomCatalog**
+> GetShowroomCatalogResponse getShowroomCatalog()
+
+Everything a showroom can be made of: fixture displays (kind, slots per unit), room sizes, themes, surfaces, shopfronts, facades, sign styles and fonts, window moods, and &#x60;holders&#x60;: every fixture holder with &#x60;owned&#x60; (free, or a premium one you bought in the in-world cosmetics market; an unowned premium holder is refused with holder_not_owned).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetShowroomCatalogResponse = apiInstance.getShowroomCatalog()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getShowroomCatalog")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getShowroomCatalog")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetShowroomCatalogResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getShowroomPlacement"></a>
+# **getShowroomPlacement**
+> GetShowroomPlacementResponse getShowroomPlacement(id, storefrontId)
+
+The plots a showroom stands on, and the plots your store owns or rents that it could stand on.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : GetShowroomPlacementResponse = apiInstance.getShowroomPlacement(id, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getShowroomPlacement")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getShowroomPlacement")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**GetShowroomPlacementResponse**
 
 ### Authorization
 
@@ -4716,7 +6741,7 @@ Configure PersonalAccessToken:
 # **getSpatialShopNeighbourhood**
 > GetSpatialShopNeighbourhoodResponse getSpatialShopNeighbourhood()
 
-Your shop&#39;s neighbourhood, and whether and where it may move.
+Where your shop stands, and the district theme your stock fits.
 
 ### Example
 ```kotlin
@@ -4931,6 +6956,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getWorldAttendant"></a>
+# **getWorldAttendant**
+> GetWorldAttendantResponse getWorldAttendant()
+
+Your AI attendant and whether your AI key is connected.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldAttendantResponse = apiInstance.getWorldAttendant()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldAttendant")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldAttendant")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldAttendantResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getWorldAurora"></a>
 # **getWorldAurora**
 > GetWorldAuroraResponse getWorldAurora()
@@ -4974,11 +7042,11 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="getWorldAutoShop"></a>
-# **getWorldAutoShop**
-> GetWorldAutoShopResponse getWorldAutoShop()
+<a name="getWorldAvatarBasic"></a>
+# **getWorldAvatarBasic**
+> GetWorldAvatarBasicResponse getWorldAvatarBasic()
 
-Whether Crossly keeps a world shop for you automatically: enabled, and the shop (id, name, visibility, autoCreated, address, label) or null. Change it with PATCH /v1/world/auto-shop.
+The free basic wardrobe every account owns: 25 garments (tees, hoodie, overshirt, polo, jacket, vest, jeans, shorts, skirt, sneakers, boots, loafers, caps...) by slot, each with its colourways. Wear one by saving appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } as \&quot;garment:colour\&quot; (outer and hat may be \&quot;none\&quot;) with PUT /v1/world/avatar/look.
 
 ### Example
 ```kotlin
@@ -4988,13 +7056,13 @@ Whether Crossly keeps a world shop for you automatically: enabled, and the shop 
 
 val apiInstance = WorldApi()
 try {
-    val result : GetWorldAutoShopResponse = apiInstance.getWorldAutoShop()
+    val result : GetWorldAvatarBasicResponse = apiInstance.getWorldAvatarBasic()
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling WorldApi#getWorldAutoShop")
+    println("4xx response calling WorldApi#getWorldAvatarBasic")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling WorldApi#getWorldAutoShop")
+    println("5xx response calling WorldApi#getWorldAvatarBasic")
     e.printStackTrace()
 }
 ```
@@ -5004,7 +7072,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**GetWorldAutoShopResponse**
+**GetWorldAvatarBasicResponse**
 
 ### Authorization
 
@@ -5224,6 +7292,49 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetWorldAvatarNftBadgeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldBillingRail"></a>
+# **getWorldBillingRail**
+> GetWorldBillingRailResponse getWorldBillingRail()
+
+Which rails (card, CBX) can pay in the world right now.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldBillingRailResponse = apiInstance.getWorldBillingRail()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldBillingRail")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldBillingRail")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldBillingRailResponse**
 
 ### Authorization
 
@@ -5500,6 +7611,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getWorldControl"></a>
+# **getWorldControl**
+> GetWorldControlResponse getWorldControl()
+
+Your world controls settings (look sensitivity, invert look, stick size, left-handed, camera distance, reduced camera motion, tap-to-walk, haptics) and whether you have seen the controls tutorial.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldControlResponse = apiInstance.getWorldControl()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldControl")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldControl")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldControlResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getWorldConvention"></a>
 # **getWorldConvention**
 > GetWorldConventionResponse getWorldConvention(id)
@@ -5535,6 +7689,194 @@ Name | Type | Description  | Notes
 ### Return type
 
 **GetWorldConventionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldConventionExhibit"></a>
+# **getWorldConventionExhibit**
+> GetWorldConventionExhibitResponse getWorldConventionExhibit(id)
+
+A convention from the exhibitor side: tiers with price, size, capacity and booths left, the rails that pay now, and your own booth (status, fee, paid, checked in, listings).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldConventionExhibitResponse = apiInstance.getWorldConventionExhibit(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldConventionExhibit")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldConventionExhibit")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldConventionExhibitResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldConventionHall"></a>
+# **getWorldConventionHall**
+> GetWorldConventionHallResponse getWorldConventionHall(id)
+
+The hall design (booths, stage, signs, entrance, kiosk), its version and any problems.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldConventionHallResponse = apiInstance.getWorldConventionHall(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldConventionHall")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldConventionHall")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldConventionHallResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldConventionManage"></a>
+# **getWorldConventionManage**
+> GetWorldConventionManageResponse getWorldConventionManage(id)
+
+A convention you organise: its settings, booth tiers, every seller (status, booth, fee, paid, checked in) and the venue.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldConventionManageResponse = apiInstance.getWorldConventionManage(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldConventionManage")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldConventionManage")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldConventionManageResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldConventionStatusPage"></a>
+# **getWorldConventionStatusPage**
+> GetWorldConventionStatusPageResponse getWorldConventionStatusPage(id)
+
+The status page: sellers, booths filled per tier, walk-ins, sales of brought listings, booth fees paid and owed.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldConventionStatusPageResponse = apiInstance.getWorldConventionStatusPage(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldConventionStatusPage")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldConventionStatusPage")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldConventionStatusPageResponse**
 
 ### Authorization
 
@@ -6079,6 +8421,100 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getWorldGamePackageStat"></a>
+# **getWorldGamePackageStat**
+> GetWorldGamePackageStatResponse getWorldGamePackageStat(id)
+
+Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days&#x3D;1-90.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldGamePackageStatResponse = apiInstance.getWorldGamePackageStat(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldGamePackageStat")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldGamePackageStat")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldGamePackageStatResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldGamePackageVersion"></a>
+# **getWorldGamePackageVersion**
+> GetWorldGamePackageVersionResponse getWorldGamePackageVersion(id)
+
+Every version of one of your Classic games: draft, pending, approved, rejected, withdrawn or cancelled, which one is live, its documents and report.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldGamePackageVersionResponse = apiInstance.getWorldGamePackageVersion(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldGamePackageVersion")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldGamePackageVersion")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldGamePackageVersionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getWorldGameTemplate"></a>
 # **getWorldGameTemplate**
 > GetWorldGameTemplateResponse getWorldGameTemplate(kind)
@@ -6517,6 +8953,274 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getWorldLauncher"></a>
+# **getWorldLauncher**
+> GetWorldLauncherResponse getWorldLauncher()
+
+The Carnival Plaza launcher: portals for Classic games, Crossly&#39;s own card games and the Commons card tables, each with players right now, your friends inside, its ranking score (published weights, retention-weighted, first-play bounce negative) and where Play goes. Twelve ring slots: friends&#39; pick, new &amp; rising (guaranteed test impressions), then the top, first-party capped at 25%.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldLauncherResponse = apiInstance.getWorldLauncher()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldLauncher")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldLauncher")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldLauncherResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldManageLedger"></a>
+# **getWorldManageLedger**
+> GetWorldManageLedgerResponse getWorldManageLedger()
+
+World money over 7, 30 or 90 days: plot purchases, maintenance, rent, deed sales, staff wages, shifts and stalls, in and out.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldManageLedgerResponse = apiInstance.getWorldManageLedger()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldManageLedger")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldManageLedger")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldManageLedgerResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldManageOverview"></a>
+# **getWorldManageOverview**
+> GetWorldManageOverviewResponse getWorldManageOverview()
+
+Your Crossly World at a glance: shop and addresses, property, staff and shifts, conventions, stalls, 30-day visitors and money.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldManageOverviewResponse = apiInstance.getWorldManageOverview()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldManageOverview")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldManageOverview")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldManageOverviewResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldManageVisitor"></a>
+# **getWorldManageVisitor**
+> GetWorldManageVisitorResponse getWorldManageVisitor()
+
+Who came to your world shop over 7, 30 or 90 days: the funnel, attention by day, most-looked and most-wanted items.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldManageVisitorResponse = apiInstance.getWorldManageVisitor()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldManageVisitor")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldManageVisitor")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldManageVisitorResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldMarket"></a>
+# **getWorldMarket**
+> GetWorldMarketResponse getWorldMarket(kind, id)
+
+One plot or street in the Market: price, renders, neighbours, foot traffic, history.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val kind : kotlin.String = kind_example // kotlin.String | 
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldMarketResponse = apiInstance.getWorldMarket(kind, id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldMarket")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldMarket")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **kind** | **kotlin.String**|  |
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldMarketResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldNeighbourhoodClaim"></a>
+# **getWorldNeighbourhoodClaim**
+> GetWorldNeighbourhoodClaimResponse getWorldNeighbourhoodClaim(slug)
+
+Whether you may claim a plot on a neighbourhood street (its top sellers by recent sales), and why not.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val slug : kotlin.String = slug_example // kotlin.String | 
+try {
+    val result : GetWorldNeighbourhoodClaimResponse = apiInstance.getWorldNeighbourhoodClaim(slug)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldNeighbourhoodClaim")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldNeighbourhoodClaim")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **slug** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldNeighbourhoodClaimResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getWorldPartyChat"></a>
 # **getWorldPartyChat**
 > WorldResponse getWorldPartyChat(id)
@@ -6901,6 +9605,190 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getWorldPropertyPlot"></a>
+# **getWorldPropertyPlot**
+> GetWorldPropertyPlotResponse getWorldPropertyPlot(plotId)
+
+One plot of yours: showroom, rental, value, upkeep.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val plotId : kotlin.String = plotId_example // kotlin.String | 
+try {
+    val result : GetWorldPropertyPlotResponse = apiInstance.getWorldPropertyPlot(plotId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldPropertyPlot")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldPropertyPlot")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **plotId** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldPropertyPlotResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldPropertyRental"></a>
+# **getWorldPropertyRental**
+> GetWorldPropertyRentalResponse getWorldPropertyRental(leaseId)
+
+One plot you rent out, with its payments.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val leaseId : kotlin.String = leaseId_example // kotlin.String | 
+try {
+    val result : GetWorldPropertyRentalResponse = apiInstance.getWorldPropertyRental(leaseId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldPropertyRental")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldPropertyRental")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **leaseId** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldPropertyRentalResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldPropertyRenting"></a>
+# **getWorldPropertyRenting**
+> GetWorldPropertyRentalResponse getWorldPropertyRenting(leaseId)
+
+One plot you rent, with its payments.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val leaseId : kotlin.String = leaseId_example // kotlin.String | 
+try {
+    val result : GetWorldPropertyRentalResponse = apiInstance.getWorldPropertyRenting(leaseId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldPropertyRenting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldPropertyRenting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **leaseId** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldPropertyRentalResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldRail"></a>
+# **getWorldRail**
+> GetWorldRailResponse getWorldRail()
+
+Which Worlds payment rails are on now: cash (card), CBX, or both.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldRailResponse = apiInstance.getWorldRail()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldRail")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldRail")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldRailResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getWorldSpace"></a>
 # **getWorldSpace**
 > GetWorldSpaceResponse getWorldSpace(slug)
@@ -6979,6 +9867,237 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetWorldSpaceCanHostResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldStaffPosting"></a>
+# **getWorldStaffPosting**
+> GetWorldStaffPostingResponse getWorldStaffPosting(id)
+
+One of your postings, with its shifts.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldStaffPostingResponse = apiInstance.getWorldStaffPosting(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldStaffPosting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldStaffPosting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldStaffPostingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldStaffReputation"></a>
+# **getWorldStaffReputation**
+> GetWorldStaffReputationResponse getWorldStaffReputation()
+
+Your employer reputation, rated by the people who worked your public jobs.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldStaffReputationResponse = apiInstance.getWorldStaffReputation()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldStaffReputation")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldStaffReputation")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldStaffReputationResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldStreetFund"></a>
+# **getWorldStreetFund**
+> GetWorldStreetFundResponse getWorldStreetFund(slug)
+
+A street&#39;s fund: the CBX property payments on its plots over the last four weeks, and the street events it unlocked.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val slug : kotlin.String = slug_example // kotlin.String | 
+try {
+    val result : GetWorldStreetFundResponse = apiInstance.getWorldStreetFund(slug)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldStreetFund")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldStreetFund")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **slug** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldStreetFundResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldStreetOwned"></a>
+# **getWorldStreetOwned**
+> GetWorldStreetOwnedResponse getWorldStreetOwned(id)
+
+A street you own: tenants, applications, upkeep, look, fund.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldStreetOwnedResponse = apiInstance.getWorldStreetOwned(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldStreetOwned")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldStreetOwned")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldStreetOwnedResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldStreetTrespassBarrier"></a>
+# **getWorldStreetTrespassBarrier**
+> GetWorldStreetTrespassBarrierResponse getWorldStreetTrespassBarrier(slug)
+
+Plot numbers on the street you are trespassed from.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val slug : kotlin.String = slug_example // kotlin.String | 
+try {
+    val result : GetWorldStreetTrespassBarrierResponse = apiInstance.getWorldStreetTrespassBarrier(slug)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldStreetTrespassBarrier")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldStreetTrespassBarrier")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **slug** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldStreetTrespassBarrierResponse**
 
 ### Authorization
 
@@ -7081,6 +10200,53 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getWorldVenueQuote"></a>
+# **getWorldVenueQuote**
+> GetWorldVenueQuoteResponse getWorldVenueQuote(id)
+
+What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetWorldVenueQuoteResponse = apiInstance.getWorldVenueQuote(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldVenueQuote")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldVenueQuote")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetWorldVenueQuoteResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getWorldWallet"></a>
 # **getWorldWallet**
 > GetWorldWalletResponse getWorldWallet()
@@ -7155,6 +10321,274 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetWorldWishResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldWorkEarning"></a>
+# **getWorldWorkEarning**
+> GetWorldWorkEarningResponse getWorldWorkEarning()
+
+What your shifts paid, by rail.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldWorkEarningResponse = apiInstance.getWorldWorkEarning()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldWorkEarning")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldWorkEarning")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldWorkEarningResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getWorldWorkMine"></a>
+# **getWorldWorkMine**
+> GetWorldWorkMineResponse getWorldWorkMine()
+
+Where you work: your seats, applications and your teams’ open jobs.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldWorkMineResponse = apiInstance.getWorldWorkMine()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#getWorldWorkMine")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#getWorldWorkMine")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldWorkMineResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listGameCoupons"></a>
+# **listGameCoupons**
+> ListGameCouponsResponse listGameCoupons()
+
+Your fee-back coupons from house-game wins: Bucks paid out of the fee on your next market purchase.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListGameCouponsResponse = apiInstance.listGameCoupons()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listGameCoupons")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listGameCoupons")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListGameCouponsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listShowroomItemSearch"></a>
+# **listShowroomItemSearch**
+> ListShowroomItemSearchResponse listShowroomItemSearch(id, storefrontId)
+
+Search this store&#39;s in-stock items (title, brand, SKU) to put on a fixture or in a window slot; each with listed / passport / multi_unit badges.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : ListShowroomItemSearchResponse = apiInstance.listShowroomItemSearch(id, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listShowroomItemSearch")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listShowroomItemSearch")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**ListShowroomItemSearchResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listShowrooms"></a>
+# **listShowrooms**
+> ListShowroomsResponse listShowrooms(storefrontId)
+
+Your store&#39;s showrooms, primary first: name, visibility, auto-include, pinned items, fixtures, billing and the plots each stands on.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : ListShowroomsResponse = apiInstance.listShowrooms(storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listShowrooms")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listShowrooms")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**ListShowroomsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listSpatialLeases"></a>
+# **listSpatialLeases**
+> ListSpatialLeasesResponse listSpatialLeases()
+
+Plots offered for lease on every street, cheapest first: address, weekly rent and maintenance in CENTS.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListSpatialLeasesResponse = apiInstance.listSpatialLeases()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listSpatialLeases")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listSpatialLeases")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListSpatialLeasesResponse**
 
 ### Authorization
 
@@ -7306,7 +10740,7 @@ Configure PersonalAccessToken:
 
 <a name="listSpatialStreetLeases"></a>
 # **listSpatialStreetLeases**
-> ListSpatialStreetLeasesResponse listSpatialStreetLeases(slug)
+> ListSpatialLeasesResponse listSpatialStreetLeases(slug)
 
 Plots on a street offered for lease: weekly rent in CENTS and terms.
 
@@ -7319,7 +10753,7 @@ Plots on a street offered for lease: weekly rent in CENTS and terms.
 val apiInstance = WorldApi()
 val slug : kotlin.String = slug_example // kotlin.String | 
 try {
-    val result : ListSpatialStreetLeasesResponse = apiInstance.listSpatialStreetLeases(slug)
+    val result : ListSpatialLeasesResponse = apiInstance.listSpatialStreetLeases(slug)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#listSpatialStreetLeases")
@@ -7338,7 +10772,50 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**ListSpatialStreetLeasesResponse**
+**ListSpatialLeasesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldAttendantUsage"></a>
+# **listWorldAttendantUsage**
+> ListWorldAttendantUsageResponse listWorldAttendantUsage()
+
+Your AI attendant’s usage log.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldAttendantUsageResponse = apiInstance.listWorldAttendantUsage()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldAttendantUsage")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldAttendantUsage")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldAttendantUsageResponse**
 
 ### Authorization
 
@@ -7697,6 +11174,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 **ListWorldConventionExhibitorsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldConventionMessages"></a>
+# **listWorldConventionMessages**
+> ListWorldConventionMessagesResponse listWorldConventionMessages(id)
+
+Convention messages you may read: the organiser all of them (?with&#x3D;&lt;userId&gt; for one seller), an exhibitor theirs and the broadcasts.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListWorldConventionMessagesResponse = apiInstance.listWorldConventionMessages(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldConventionMessages")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldConventionMessages")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListWorldConventionMessagesResponse**
 
 ### Authorization
 
@@ -8450,6 +11974,53 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listWorldGamePackageReceipts"></a>
+# **listWorldGamePackageReceipts**
+> ListWorldGamePackageReceiptsResponse listWorldGamePackageReceipts(id)
+
+Store sales of one of your game packages, newest first: item, price paid, edition, when. Never who bought. Cursor-paged: pass pagination.nextCursor back as ?cursor&#x3D;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListWorldGamePackageReceiptsResponse = apiInstance.listWorldGamePackageReceipts(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldGamePackageReceipts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldGamePackageReceipts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListWorldGamePackageReceiptsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listWorldGamePackages"></a>
 # **listWorldGamePackages**
 > ListWorldGamePackagesResponse listWorldGamePackages()
@@ -8669,7 +12240,7 @@ Configure PersonalAccessToken:
 # **listWorldInteractiveDesigns**
 > ListWorldInteractiveDesignsResponse listWorldInteractiveDesigns(archived)
 
-Your interactive-object designs (MML documents you wrote), newest first: id, handle, name, footprint (s | m | l | f), tint, priceBaseUnits (COSM, base-unit string), maxSupply, model, decorValue, cosmeticId, liveVersion (the approved version every copy runs; null &#x3D; none), withdrawnReason, archivedAt (you archived it: off sale, owned copies keep running; null &#x3D; not archived), latestVersion { version, state: pending | approved | rejected | withdrawn | cancelled, decisionNote }, inReview. &#x60;archived&#x60;: exclude (default), include or only archived designs. Read-only: writing, previewing, submitting and archiving happen on crossly.net/shop/decor?tab&#x3D;interactive.
+Your interactive-object designs (MML documents you wrote), newest first: id, handle, name, footprint (s | m | l | f), tint, priceBaseUnits (COSM, base-unit string), maxSupply, model, decorValue, cosmeticId, liveVersion (the approved version every copy runs; null &#x3D; none), withdrawnReason, archivedAt (you archived it: off sale, owned copies keep running; null &#x3D; not archived), latestVersion { version, state: pending | approved | rejected | withdrawn | cancelled, decisionNote }, inReview. &#x60;archived&#x60;: exclude (default), include or only archived designs. Read-only: writing, previewing, submitting and archiving happen in the Creator Studio on crossly.net (/studio/creator/creations/interactive/new/edit).
 
 ### Example
 ```kotlin
@@ -8700,6 +12271,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 **ListWorldInteractiveDesignsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldJobBoard"></a>
+# **listWorldJobBoard**
+> ListWorldJobBoardResponse listWorldJobBoard()
+
+The public Job Board, filterable.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldJobBoardResponse = apiInstance.listWorldJobBoard()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldJobBoard")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldJobBoard")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldJobBoardResponse**
 
 ### Authorization
 
@@ -8743,6 +12357,96 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListJobShiftsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldMarket"></a>
+# **listWorldMarket**
+> ListWorldMarketResponse listWorldMarket()
+
+Plots and streets for sale or rent in the Worlds Market.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldMarketResponse = apiInstance.listWorldMarket()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldMarket")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldMarket")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldMarketResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldMarketStreetSigns"></a>
+# **listWorldMarketStreetSigns**
+> ListWorldMarketStreetSignsResponse listWorldMarketStreetSigns(slug)
+
+The street&#39;s for-sale and for-rent boards.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val slug : kotlin.String = slug_example // kotlin.String | 
+try {
+    val result : ListWorldMarketStreetSignsResponse = apiInstance.listWorldMarketStreetSigns(slug)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldMarketStreetSigns")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldMarketStreetSigns")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **slug** | **kotlin.String**|  |
+
+### Return type
+
+**ListWorldMarketStreetSignsResponse**
 
 ### Authorization
 
@@ -9127,6 +12831,221 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listWorldPromoted"></a>
+# **listWorldPromoted**
+> ListWorldPromotedResponse listWorldPromoted()
+
+Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \&quot;Promoted\&quot;), with the token to send when one is opened.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldPromotedResponse = apiInstance.listWorldPromoted()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldPromoted")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldPromoted")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldPromotedResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldPropertyPlots"></a>
+# **listWorldPropertyPlots**
+> ListWorldPropertyPlotsResponse listWorldPropertyPlots()
+
+Plots your store owns or rents.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldPropertyPlotsResponse = apiInstance.listWorldPropertyPlots()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldPropertyPlots")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldPropertyPlots")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldPropertyPlotsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldPropertyRentals"></a>
+# **listWorldPropertyRentals**
+> ListWorldPropertyRentalsResponse listWorldPropertyRentals()
+
+Plots you rent out.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldPropertyRentalsResponse = apiInstance.listWorldPropertyRentals()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldPropertyRentals")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldPropertyRentals")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldPropertyRentalsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldPropertyRenting"></a>
+# **listWorldPropertyRenting**
+> ListWorldPropertyRentalsResponse listWorldPropertyRenting()
+
+Plots you rent.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldPropertyRentalsResponse = apiInstance.listWorldPropertyRenting()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldPropertyRenting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldPropertyRenting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldPropertyRentalsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldPropertyTrespassed"></a>
+# **listWorldPropertyTrespassed**
+> ListWorldPropertyTrespassedResponse listWorldPropertyTrespassed()
+
+People your store has banned, owner-wide or from one showroom.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldPropertyTrespassedResponse = apiInstance.listWorldPropertyTrespassed()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldPropertyTrespassed")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldPropertyTrespassed")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldPropertyTrespassedResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listWorldProvenance"></a>
 # **listWorldProvenance**
 > ListWorldProvenanceResponse listWorldProvenance()
@@ -9389,6 +13308,221 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listWorldStaffApplicants"></a>
+# **listWorldStaffApplicants**
+> ListWorldStaffApplicantsResponse listWorldStaffApplicants()
+
+Who applied to your postings, with their worker reputation.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldStaffApplicantsResponse = apiInstance.listWorldStaffApplicants()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldStaffApplicants")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldStaffApplicants")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldStaffApplicantsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldStaffPeople"></a>
+# **listWorldStaffPeople**
+> ListWorldStaffPeopleResponse listWorldStaffPeople()
+
+Everyone working for you: your Settings team and public workers, with their seats.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldStaffPeopleResponse = apiInstance.listWorldStaffPeople()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldStaffPeople")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldStaffPeople")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldStaffPeopleResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldStaffPlaces"></a>
+# **listWorldStaffPlaces**
+> ListWorldStaffPlacesResponse listWorldStaffPlaces()
+
+The showrooms, stalls and conventions a job can be posted at, and the pay rails that are live.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldStaffPlacesResponse = apiInstance.listWorldStaffPlaces()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldStaffPlaces")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldStaffPlaces")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldStaffPlacesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldStaffPostings"></a>
+# **listWorldStaffPostings**
+> ListWorldStaffPostingsResponse listWorldStaffPostings()
+
+Your job postings, with their upcoming shifts.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldStaffPostingsResponse = apiInstance.listWorldStaffPostings()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldStaffPostings")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldStaffPostings")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldStaffPostingsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWorldStaffShifts"></a>
+# **listWorldStaffShifts**
+> ListWorldStaffShiftsResponse listWorldStaffShifts()
+
+Your scheduled seats and who is on them.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldStaffShiftsResponse = apiInstance.listWorldStaffShifts()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldStaffShifts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldStaffShifts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldStaffShiftsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listWorldStreaks"></a>
 # **listWorldStreaks**
 > ListWorldStreaksResponse listWorldStreaks()
@@ -9561,6 +13695,241 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listWorldVenues"></a>
+# **listWorldVenues**
+> ListWorldVenuesResponse listWorldVenues()
+
+The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : ListWorldVenuesResponse = apiInstance.listWorldVenues()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#listWorldVenues")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#listWorldVenues")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListWorldVenuesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateShowroom"></a>
+# **updateShowroom**
+> UpdateShowroomResponse updateShowroom(storefrontId)
+
+Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store&#39;s, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : UpdateShowroomResponse = apiInstance.updateShowroom(storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateShowroom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateShowroom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**UpdateShowroomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateShowroom2"></a>
+# **updateShowroom2**
+> UpdateShowroom2Response updateShowroom2(storefrontId)
+
+Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : UpdateShowroom2Response = apiInstance.updateShowroom2(storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateShowroom2")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateShowroom2")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**UpdateShowroom2Response**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateShowroom3"></a>
+# **updateShowroom3**
+> UpdateShowroom2Response updateShowroom3(id, storefrontId)
+
+Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : UpdateShowroom2Response = apiInstance.updateShowroom3(id, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateShowroom3")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateShowroom3")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**UpdateShowroom2Response**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateShowroomById"></a>
+# **updateShowroomById**
+> UpdateShowroomResponse updateShowroomById(id, storefrontId)
+
+Replace one showroom&#39;s whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+val storefrontId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | Which store (else X-Storefront-Id, else your default store).
+try {
+    val result : UpdateShowroomResponse = apiInstance.updateShowroomById(id, storefrontId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateShowroomById")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateShowroomById")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+ **storefrontId** | **java.util.UUID**| Which store (else X-Storefront-Id, else your default store). | [optional]
+
+### Return type
+
+**UpdateShowroomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="updateSpatialSceneCosmetic"></a>
 # **updateSpatialSceneCosmetic**
 > UpdateSpatialSceneCosmeticResponse updateSpatialSceneCosmetic(id)
@@ -9659,7 +14028,7 @@ Configure PersonalAccessToken:
 
 <a name="updateSpatialSceneSetting"></a>
 # **updateSpatialSceneSetting**
-> SpatialSceneResponse2 updateSpatialSceneSetting(id)
+> SpatialSceneResponse updateSpatialSceneSetting(id)
 
 How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
 
@@ -9672,7 +14041,7 @@ How one of your rooms is laid out and lit: grouping and sort keys, theme, overla
 val apiInstance = WorldApi()
 val id : kotlin.String = id_example // kotlin.String | 
 try {
-    val result : SpatialSceneResponse2 = apiInstance.updateSpatialSceneSetting(id)
+    val result : SpatialSceneResponse = apiInstance.updateSpatialSceneSetting(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling WorldApi#updateSpatialSceneSetting")
@@ -9691,7 +14060,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**SpatialSceneResponse2**
+**SpatialSceneResponse**
 
 ### Authorization
 
@@ -9892,11 +14261,11 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
-<a name="updateWorldAutoShop"></a>
-# **updateWorldAutoShop**
-> GetWorldAutoShopResponse updateWorldAutoShop(updateWorldAutoShopRequest)
+<a name="updateWorldAttendant"></a>
+# **updateWorldAttendant**
+> UpdateWorldAttendantResponse updateWorldAttendant()
 
-Turn your automatic world shop off ({ enabled: false } -- an auto-created shop is made private, never deleted) or back on. Answers the new status.
+Create or replace your AI attendant (BYOK: switching it on needs your AI key).
 
 ### Example
 ```kotlin
@@ -9905,28 +14274,24 @@ Turn your automatic world shop off ({ enabled: false } -- an auto-created shop i
 //import net.crossly.models.*
 
 val apiInstance = WorldApi()
-val updateWorldAutoShopRequest : UpdateWorldAutoShopRequest =  // UpdateWorldAutoShopRequest | 
 try {
-    val result : GetWorldAutoShopResponse = apiInstance.updateWorldAutoShop(updateWorldAutoShopRequest)
+    val result : UpdateWorldAttendantResponse = apiInstance.updateWorldAttendant()
     println(result)
 } catch (e: ClientException) {
-    println("4xx response calling WorldApi#updateWorldAutoShop")
+    println("4xx response calling WorldApi#updateWorldAttendant")
     e.printStackTrace()
 } catch (e: ServerException) {
-    println("5xx response calling WorldApi#updateWorldAutoShop")
+    println("5xx response calling WorldApi#updateWorldAttendant")
     e.printStackTrace()
 }
 ```
 
 ### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **updateWorldAutoShopRequest** | **UpdateWorldAutoShopRequest**|  |
+This endpoint does not need any parameter.
 
 ### Return type
 
-**GetWorldAutoShopResponse**
+**UpdateWorldAttendantResponse**
 
 ### Authorization
 
@@ -9936,7 +14301,7 @@ Configure PersonalAccessToken:
 
 ### HTTP request headers
 
- - **Content-Type**: application/json
+ - **Content-Type**: Not defined
  - **Accept**: application/json
 
 <a name="updateWorldAvatarIdentity"></a>
@@ -9986,7 +14351,7 @@ Configure PersonalAccessToken:
 # **updateWorldAvatarLook**
 > UpdateWorldAvatarLookResponse updateWorldAvatarLook()
 
-Save your world look to the account, so every device starts from it. look: null stays anonymous.
+Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
 
 ### Example
 ```kotlin
@@ -10148,6 +14513,143 @@ Name | Type | Description  | Notes
 ### Return type
 
 **GetWorldCollectionCapabilityResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateWorldControl"></a>
+# **updateWorldControl**
+> GetWorldControlResponse updateWorldControl()
+
+Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+try {
+    val result : GetWorldControlResponse = apiInstance.updateWorldControl()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateWorldControl")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateWorldControl")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetWorldControlResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateWorldConventionHall"></a>
+# **updateWorldConventionHall**
+> UpdateWorldConventionHallResponse updateWorldConventionHall(id)
+
+Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : UpdateWorldConventionHallResponse = apiInstance.updateWorldConventionHall(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateWorldConventionHall")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateWorldConventionHall")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**UpdateWorldConventionHallResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateWorldConventionMyBooth"></a>
+# **updateWorldConventionMyBooth**
+> UpdateWorldConventionMyBoothResponse updateWorldConventionMyBooth(id)
+
+Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : UpdateWorldConventionMyBoothResponse = apiInstance.updateWorldConventionMyBooth(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateWorldConventionMyBooth")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateWorldConventionMyBooth")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**UpdateWorldConventionMyBoothResponse**
 
 ### Authorization
 
@@ -10714,6 +15216,100 @@ Configure PersonalAccessToken:
  - **Content-Type**: application/json
  - **Accept**: application/json
 
+<a name="updateWorldPropertyPlotPhoto"></a>
+# **updateWorldPropertyPlotPhoto**
+> UpdateWorldPropertyPlotPhotoResponse updateWorldPropertyPlotPhoto(plotId)
+
+Store a plot&#39;s photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot&#39;s current one) or an in-world capture.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val plotId : kotlin.String = plotId_example // kotlin.String | 
+try {
+    val result : UpdateWorldPropertyPlotPhotoResponse = apiInstance.updateWorldPropertyPlotPhoto(plotId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateWorldPropertyPlotPhoto")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateWorldPropertyPlotPhoto")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **plotId** | **kotlin.String**|  |
+
+### Return type
+
+**UpdateWorldPropertyPlotPhotoResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateWorldPropertyRenting"></a>
+# **updateWorldPropertyRenting**
+> UpdateWorldPropertyRentingResponse updateWorldPropertyRenting(leaseId)
+
+Turn weekly autopay on or off (card leases).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val leaseId : kotlin.String = leaseId_example // kotlin.String | 
+try {
+    val result : UpdateWorldPropertyRentingResponse = apiInstance.updateWorldPropertyRenting(leaseId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateWorldPropertyRenting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateWorldPropertyRenting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **leaseId** | **kotlin.String**|  |
+
+### Return type
+
+**UpdateWorldPropertyRentingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="updateWorldQuestPin"></a>
 # **updateWorldQuestPin**
 > UpdateWorldQuestPinResponse updateWorldQuestPin(updateWorldQuestPinRequest)
@@ -10902,6 +15498,53 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="updateWorldStaffPosting"></a>
+# **updateWorldStaffPosting**
+> WorldStaffPostingResponse updateWorldStaffPosting(id)
+
+Replace a posting; its future unstaffed shifts are re-made.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : WorldStaffPostingResponse = apiInstance.updateWorldStaffPosting(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateWorldStaffPosting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateWorldStaffPosting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**WorldStaffPostingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="updateWorldStallBookingBooth"></a>
 # **updateWorldStallBookingBooth**
 > UpdateWorldStallBookingBoothResponse updateWorldStallBookingBooth(id)
@@ -10937,6 +15580,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 **UpdateWorldStallBookingBoothResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateWorldStreetOwnedTheme"></a>
+# **updateWorldStreetOwnedTheme**
+> UpdateWorldStreetOwnedThemeResponse updateWorldStreetOwnedTheme(id)
+
+Set your street&#39;s theme.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WorldApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : UpdateWorldStreetOwnedThemeResponse = apiInstance.updateWorldStreetOwnedTheme(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WorldApi#updateWorldStreetOwnedTheme")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WorldApi#updateWorldStreetOwnedTheme")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**UpdateWorldStreetOwnedThemeResponse**
 
 ### Authorization
 

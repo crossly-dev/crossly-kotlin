@@ -54,12 +54,12 @@ data class CreateWorldDecorRetractResponseDataInventorySpaces (
     /**
      * 
      *
-     * Values: SHOP,HOME,STREET,STALL
+     * Values: HOME,STREET,SHOP,STALL
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "shop") SHOP("shop"),
         @Json(name = "home") HOME("home"),
         @Json(name = "street") STREET("street"),
+        @Json(name = "shop") SHOP("shop"),
         @Json(name = "stall") STALL("stall");
     }
 }

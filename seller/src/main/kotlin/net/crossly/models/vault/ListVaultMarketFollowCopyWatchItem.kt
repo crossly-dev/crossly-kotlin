@@ -20,17 +20,22 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.ListVaultMarketFollowCopyWatchItemPerson
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
+ * @param person 
  * @param since 
  * @param active 
  */
 
 data class ListVaultMarketFollowCopyWatchItem (
+
+    @Json(name = "person")
+    val person: ListVaultMarketFollowCopyWatchItemPerson,
 
     @Json(name = "since")
     val since: kotlin.String,

@@ -27,13 +27,23 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param shares 
  * @param custody 
  * @param lending 
  * @param leverage 
  * @param staking 
+ * @param sharesPartner 
+ * @param sharesSelf 
+ * @param optionsRouting 
+ * @param optionsVenue 
+ * @param predictionPartner 
+ * @param predictionSelf 
  */
 
 data class GetVaultMarketAccountResponseGates (
+
+    @Json(name = "shares")
+    val shares: ListVaultMarketGradeToVaultItemGatesGradingRuns,
 
     @Json(name = "custody")
     val custody: ListVaultMarketGradeToVaultItemGatesGradingRuns,
@@ -45,7 +55,25 @@ data class GetVaultMarketAccountResponseGates (
     val leverage: ListVaultMarketGradeToVaultItemGatesGradingRuns,
 
     @Json(name = "staking")
-    val staking: ListVaultMarketGradeToVaultItemGatesGradingRuns
+    val staking: ListVaultMarketGradeToVaultItemGatesGradingRuns,
+
+    @Json(name = "shares_partner")
+    val sharesPartner: ListVaultMarketGradeToVaultItemGatesGradingRuns,
+
+    @Json(name = "shares_self")
+    val sharesSelf: ListVaultMarketGradeToVaultItemGatesGradingRuns,
+
+    @Json(name = "options_routing")
+    val optionsRouting: ListVaultMarketGradeToVaultItemGatesGradingRuns,
+
+    @Json(name = "options_venue")
+    val optionsVenue: ListVaultMarketGradeToVaultItemGatesGradingRuns,
+
+    @Json(name = "prediction_partner")
+    val predictionPartner: ListVaultMarketGradeToVaultItemGatesGradingRuns,
+
+    @Json(name = "prediction_self")
+    val predictionSelf: ListVaultMarketGradeToVaultItemGatesGradingRuns
 
 )
 

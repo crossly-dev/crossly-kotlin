@@ -56,35 +56,35 @@ data class ListVaultMarketShareCardsItemChange (
     /**
      * 
      *
-     * Values: LIVE,OPEN,CLOSED,HELD,SOLD,GONE
+     * Values: LIVE,OPEN,CLOSED,SOLD,HELD,GONE
      */
     enum class State(val value: kotlin.String) {
         @Json(name = "live") LIVE("live"),
         @Json(name = "open") OPEN("open"),
         @Json(name = "closed") CLOSED("closed"),
-        @Json(name = "held") HELD("held"),
         @Json(name = "sold") SOLD("sold"),
+        @Json(name = "held") HELD("held"),
         @Json(name = "gone") GONE("gone");
     }
     /**
      * What the % is measured from.
      *
-     * Values: FILL,ENTRY,COST,INCEPTION
+     * Values: ENTRY,COST,FILL,INCEPTION
      */
     enum class Since(val value: kotlin.String) {
-        @Json(name = "fill") FILL("fill"),
         @Json(name = "entry") ENTRY("entry"),
         @Json(name = "cost") COST("cost"),
+        @Json(name = "fill") FILL("fill"),
         @Json(name = "inception") INCEPTION("inception");
     }
     /**
      * 
      *
-     * Values: LONG,SHORT,OWN
+     * Values: SHORT,LONG,OWN
      */
     enum class Side(val value: kotlin.String) {
-        @Json(name = "long") LONG("long"),
         @Json(name = "short") SHORT("short"),
+        @Json(name = "long") LONG("long"),
         @Json(name = "own") OWN("own");
     }
 }

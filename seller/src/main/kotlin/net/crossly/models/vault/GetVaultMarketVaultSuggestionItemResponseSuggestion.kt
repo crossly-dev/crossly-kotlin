@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.GetVaultMarketVaultSuggestionItemResponseSuggestionFractionalize
 import net.crossly.models.vault.GetVaultMarketVaultSuggestionItemResponseSuggestionInstantExit
 import net.crossly.models.vault.GetVaultMarketVaultSuggestionItemResponseSuggestionMarket
 import net.crossly.models.vault.GetVaultMarketVaultSuggestionItemResponseSuggestionParts
@@ -50,6 +51,7 @@ import com.squareup.moshi.Json
  * @param exitVsListBps 
  * @param exitBasis 
  * @param daysListed 
+ * @param fractionalize 
  */
 
 data class GetVaultMarketVaultSuggestionItemResponseSuggestion (
@@ -115,7 +117,10 @@ data class GetVaultMarketVaultSuggestionItemResponseSuggestion (
     val exitBasis: GetVaultMarketVaultSuggestionItemResponseSuggestion.ExitBasis? = null,
 
     @Json(name = "daysListed")
-    val daysListed: java.math.BigDecimal? = null
+    val daysListed: java.math.BigDecimal? = null,
+
+    @Json(name = "fractionalize")
+    val fractionalize: GetVaultMarketVaultSuggestionItemResponseSuggestionFractionalize? = null
 
 ) {
 

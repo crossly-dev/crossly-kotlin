@@ -20,13 +20,13 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.inventory.GetInventorySellThroughResponseDataWindow
 import net.crossly.models.vault.GetVaultMarketReportResponseGradePremiums
 import net.crossly.models.vault.GetVaultMarketReportResponseIndexes
 import net.crossly.models.vault.GetVaultMarketReportResponseMostLent
 import net.crossly.models.vault.GetVaultMarketReportResponsePrintable
 import net.crossly.models.vault.GetVaultMarketReportResponseRisers
 import net.crossly.models.vault.GetVaultMarketReportResponseTotals
+import net.crossly.models.common.StartEnd
 
 import com.squareup.moshi.Json
 
@@ -58,7 +58,7 @@ data class GetVaultMarketReportResponse (
     val label: kotlin.String,
 
     @Json(name = "range")
-    val range: GetInventorySellThroughResponseDataWindow,
+    val range: StartEnd,
 
     @Json(name = "inProgress")
     val inProgress: kotlin.Boolean,

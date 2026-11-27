@@ -27,11 +27,11 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param status 
- * @param endsAt 
  * @param slug 
- * @param startsAt 
  * @param theme 
+ * @param startsAt 
+ * @param endsAt 
+ * @param status 
  */
 
 data class ListBuyerPartiesItem (
@@ -39,20 +39,20 @@ data class ListBuyerPartiesItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
-    @Json(name = "endsAt")
-    val endsAt: kotlin.String,
-
     @Json(name = "slug")
     val slug: kotlin.String,
+
+    @Json(name = "theme")
+    val theme: kotlin.String,
 
     @Json(name = "startsAt")
     val startsAt: kotlin.String,
 
-    @Json(name = "theme")
-    val theme: kotlin.String
+    @Json(name = "endsAt")
+    val endsAt: kotlin.String,
+
+    @Json(name = "status")
+    val status: kotlin.String
 
 )
 

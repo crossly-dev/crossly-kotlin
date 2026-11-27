@@ -26,19 +26,19 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param verified 
  * @param refreshedAt 
  * @param chain 
  * @param contract 
  * @param firstSeenAt 
- * @param verified 
  * @param collectors 
  * @param symbol 
  * @param name 
  * @param description 
  * @param category 
  * @param slug 
- * @param hiddenAt 
  * @param imageUrl 
+ * @param hiddenAt 
  * @param externalUrl 
  * @param tokenType 
  * @param totalSupply 
@@ -60,6 +60,9 @@ import com.squareup.moshi.Json
 
 data class GetWeb3CollectionResponseCollection (
 
+    @Json(name = "verified")
+    val verified: kotlin.Boolean,
+
     @Json(name = "refreshedAt")
     val refreshedAt: java.time.OffsetDateTime,
 
@@ -71,9 +74,6 @@ data class GetWeb3CollectionResponseCollection (
 
     @Json(name = "firstSeenAt")
     val firstSeenAt: java.time.OffsetDateTime,
-
-    @Json(name = "verified")
-    val verified: kotlin.Boolean,
 
     @Json(name = "collectors")
     val collectors: java.math.BigDecimal,
@@ -93,11 +93,11 @@ data class GetWeb3CollectionResponseCollection (
     @Json(name = "slug")
     val slug: kotlin.String? = null,
 
-    @Json(name = "hiddenAt")
-    val hiddenAt: java.time.OffsetDateTime? = null,
-
     @Json(name = "imageUrl")
     val imageUrl: kotlin.String? = null,
+
+    @Json(name = "hiddenAt")
+    val hiddenAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "externalUrl")
     val externalUrl: kotlin.String? = null,

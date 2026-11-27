@@ -31,6 +31,8 @@ import com.squareup.moshi.Json
  * @param count 
  * @param platformFees 
  * @param netProfit 
+ * @param refunds 
+ * @param taxCollected 
  */
 
 data class GetAnalyticBookkeepingResponsePlatformBreakdown (
@@ -48,7 +50,13 @@ data class GetAnalyticBookkeepingResponsePlatformBreakdown (
     val platformFees: java.math.BigDecimal,
 
     @Json(name = "netProfit")
-    val netProfit: java.math.BigDecimal
+    val netProfit: java.math.BigDecimal,
+
+    @Json(name = "refunds")
+    val refunds: java.math.BigDecimal,
+
+    @Json(name = "taxCollected")
+    val taxCollected: java.math.BigDecimal
 
 )
 

@@ -130,24 +130,24 @@ data class CreateVaultMarketAgentDraftCancelResponseDraft (
     /**
      * 
      *
-     * Values: CARD,CUSTODIAN,VAULT
+     * Values: VAULT,CARD,CUSTODIAN
      */
     enum class Funding(val value: kotlin.String) {
+        @Json(name = "vault") VAULT("vault"),
         @Json(name = "card") CARD("card"),
-        @Json(name = "custodian") CUSTODIAN("custodian"),
-        @Json(name = "vault") VAULT("vault");
+        @Json(name = "custodian") CUSTODIAN("custodian");
     }
     /**
      * 
      *
-     * Values: CANCELLED,EXPIRED,REJECTED,PLACING,DRAFTED,PLACED
+     * Values: CANCELLED,EXPIRED,DRAFTED,REJECTED,PLACING,PLACED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "cancelled") CANCELLED("cancelled"),
         @Json(name = "expired") EXPIRED("expired"),
+        @Json(name = "drafted") DRAFTED("drafted"),
         @Json(name = "rejected") REJECTED("rejected"),
         @Json(name = "placing") PLACING("placing"),
-        @Json(name = "drafted") DRAFTED("drafted"),
         @Json(name = "placed") PLACED("placed");
     }
 }

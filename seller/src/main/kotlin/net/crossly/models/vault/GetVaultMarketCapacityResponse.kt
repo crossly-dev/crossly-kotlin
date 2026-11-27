@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.GetVaultMarketCapacityResponsePerKeyItem
 
 import com.squareup.moshi.Json
 
@@ -74,7 +75,7 @@ data class GetVaultMarketCapacityResponse (
     val unpriced: kotlin.collections.List<kotlin.String>,
 
     @Json(name = "perKey")
-    val perKey: kotlin.collections.List<kotlin.Any>,
+    val perKey: kotlin.collections.List<GetVaultMarketCapacityResponsePerKeyItem>,
 
     @Json(name = "notes")
     val notes: kotlin.collections.List<kotlin.String>

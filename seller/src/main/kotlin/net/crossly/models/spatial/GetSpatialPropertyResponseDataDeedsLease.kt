@@ -33,12 +33,17 @@ import com.squareup.moshi.Json
  * @param plotId 
  * @param deedId 
  * @param rentWeeklyCents 
+ * @param autopay 
  * @param endedAt 
- * @param endReason 
+ * @param rail 
  * @param paidThrough 
  * @param tenantUserId 
  * @param tenantSceneId 
  * @param termsFrozenAt 
+ * @param endReason 
+ * @param address 
+ * @param label 
+ * @param tenantName 
  */
 
 data class GetSpatialPropertyResponseDataDeedsLease (
@@ -64,11 +69,14 @@ data class GetSpatialPropertyResponseDataDeedsLease (
     @Json(name = "rentWeeklyCents")
     val rentWeeklyCents: java.math.BigDecimal,
 
+    @Json(name = "autopay")
+    val autopay: kotlin.Boolean,
+
     @Json(name = "endedAt")
     val endedAt: java.time.OffsetDateTime? = null,
 
-    @Json(name = "endReason")
-    val endReason: kotlin.String? = null,
+    @Json(name = "rail")
+    val rail: kotlin.String? = null,
 
     @Json(name = "paidThrough")
     val paidThrough: java.time.OffsetDateTime? = null,
@@ -80,7 +88,19 @@ data class GetSpatialPropertyResponseDataDeedsLease (
     val tenantSceneId: kotlin.String? = null,
 
     @Json(name = "termsFrozenAt")
-    val termsFrozenAt: java.time.OffsetDateTime? = null
+    val termsFrozenAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "endReason")
+    val endReason: kotlin.String? = null,
+
+    @Json(name = "address")
+    val address: kotlin.String? = null,
+
+    @Json(name = "label")
+    val label: kotlin.String? = null,
+
+    @Json(name = "tenantName")
+    val tenantName: kotlin.String? = null
 
 )
 

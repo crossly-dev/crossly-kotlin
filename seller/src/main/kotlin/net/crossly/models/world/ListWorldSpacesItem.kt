@@ -64,14 +64,14 @@ data class ListWorldSpacesItem (
     /**
      * 
      *
-     * Values: GALLERY,CARD_CLUB,SNEAKER_MEET,VINTAGE_MARKET,STAGE,CLUBHOUSE
+     * Values: STAGE,GALLERY,CARD_CLUB,SNEAKER_MEET,VINTAGE_MARKET,CLUBHOUSE
      */
     enum class Venue(val value: kotlin.String) {
+        @Json(name = "stage") STAGE("stage"),
         @Json(name = "gallery") GALLERY("gallery"),
         @Json(name = "card_club") CARD_CLUB("card_club"),
         @Json(name = "sneaker_meet") SNEAKER_MEET("sneaker_meet"),
         @Json(name = "vintage_market") VINTAGE_MARKET("vintage_market"),
-        @Json(name = "stage") STAGE("stage"),
         @Json(name = "clubhouse") CLUBHOUSE("clubhouse");
     }
 }

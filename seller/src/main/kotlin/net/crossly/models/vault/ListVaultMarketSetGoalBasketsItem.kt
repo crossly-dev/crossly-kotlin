@@ -105,13 +105,13 @@ data class ListVaultMarketSetGoalBasketsItem (
     /**
      * 
      *
-     * Values: CANCELLED,ENDED,WORKING,COMPLETED
+     * Values: COMPLETED,CANCELLED,ENDED,WORKING
      */
     enum class Status(val value: kotlin.String) {
+        @Json(name = "completed") COMPLETED("completed"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
         @Json(name = "ended") ENDED("ended"),
-        @Json(name = "working") WORKING("working"),
-        @Json(name = "completed") COMPLETED("completed");
+        @Json(name = "working") WORKING("working");
     }
     /**
      * 

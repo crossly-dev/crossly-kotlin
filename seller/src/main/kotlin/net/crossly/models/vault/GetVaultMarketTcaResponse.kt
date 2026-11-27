@@ -22,6 +22,7 @@ package net.crossly.models.vault
 
 import net.crossly.models.common.AccountIdLabel
 import net.crossly.models.vault.GetVaultMarketTcaResponseItems
+import net.crossly.models.vault.GetVaultMarketTcaResponseOptions
 import net.crossly.models.vault.GetVaultMarketTcaResponseSummary
 
 import com.squareup.moshi.Json
@@ -34,6 +35,7 @@ import com.squareup.moshi.Json
  * @param to 
  * @param summary 
  * @param items 
+ * @param options 
  * @param note 
  */
 
@@ -53,6 +55,9 @@ data class GetVaultMarketTcaResponse (
 
     @Json(name = "items")
     val items: kotlin.collections.List<GetVaultMarketTcaResponseItems>,
+
+    @Json(name = "options")
+    val options: GetVaultMarketTcaResponseOptions,
 
     @Json(name = "note")
     val note: kotlin.String

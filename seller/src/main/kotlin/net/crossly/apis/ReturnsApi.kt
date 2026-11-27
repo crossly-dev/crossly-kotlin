@@ -23,10 +23,13 @@ package net.crossly.apis
 import java.io.IOException
 
 import net.crossly.models.policy.CreatePolicyReturnReceivedResponse
+import net.crossly.models.returns.CreateReturnAcceptResponse
+import net.crossly.models.returns.CreateReturnDeclineRequest
 import net.crossly.models.common.Error
+import net.crossly.models.returns.GetReturnResponse
 import net.crossly.models.policy.ListPolicyReturnsResponse
-import net.crossly.models.common.ListReturnsItem
-import net.crossly.models.common.ListReturnsResponse
+import net.crossly.models.returns.ListReturnsItem
+import net.crossly.models.returns.ListReturnsResponse
 
 import com.squareup.moshi.Json
 
@@ -124,7 +127,7 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     /**
     * Open a return record on an order (rejects if another open return exists).
     * 
-    * @return ListReturnsItem
+    * @return GetReturnResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -133,11 +136,11 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createReturn() : ListReturnsItem {
+    fun createReturn() : GetReturnResponse {
         val localVarResponse = createReturnWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as ListReturnsItem
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetReturnResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -154,16 +157,16 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     /**
     * Open a return record on an order (rejects if another open return exists).
     * 
-    * @return ApiResponse<ListReturnsItem?>
+    * @return ApiResponse<GetReturnResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createReturnWithHttpInfo() : ApiResponse<ListReturnsItem?> {
+    fun createReturnWithHttpInfo() : ApiResponse<GetReturnResponse?> {
         val localVariableConfig = createReturnRequestConfig()
 
-        return request<Unit, ListReturnsItem>(
+        return request<Unit, GetReturnResponse>(
             localVariableConfig
         )
     }
@@ -189,9 +192,80 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
-    * Get one return record.
+    * Accept a Crossly-marketplace return request: a prepaid return label to your return address (the buyer has 14 days to ship), a return record linked to it, and optionally a refund now (refund: { amount? } in dollars; needs orders:refund). Without one, the rest is refunded when the return is delivered. Safe to repeat. Crossposted orders: not_supported_on_platform.
     * 
     * @param id  
+    * @return CreateReturnAcceptResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createReturnAccept(id: java.util.UUID) : CreateReturnAcceptResponse {
+        val localVarResponse = createReturnAcceptWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateReturnAcceptResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Accept a Crossly-marketplace return request: a prepaid return label to your return address (the buyer has 14 days to ship), a return record linked to it, and optionally a refund now (refund: { amount? } in dollars; needs orders:refund). Without one, the rest is refunded when the return is delivered. Safe to repeat. Crossposted orders: not_supported_on_platform.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateReturnAcceptResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createReturnAcceptWithHttpInfo(id: java.util.UUID) : ApiResponse<CreateReturnAcceptResponse?> {
+        val localVariableConfig = createReturnAcceptRequestConfig(id = id)
+
+        return request<Unit, CreateReturnAcceptResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createReturnAccept
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createReturnAcceptRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/returns/{id}/accept".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Decline a Crossly-marketplace return request with a reason (required, 8-2000 chars), posted to the buyer as your response. It does not close the request: the buyer can reply or ask Crossly to decide. Not after the label is issued.
+    * 
+    * @param id  
+    * @param createReturnDeclineRequest  
     * @return ListReturnsItem
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -201,8 +275,8 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun getReturn(id: java.util.UUID) : ListReturnsItem {
-        val localVarResponse = getReturnWithHttpInfo(id = id)
+    fun createReturnDecline(id: java.util.UUID, createReturnDeclineRequest: CreateReturnDeclineRequest) : ListReturnsItem {
+        val localVarResponse = createReturnDeclineWithHttpInfo(id = id, createReturnDeclineRequest = createReturnDeclineRequest)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListReturnsItem
@@ -220,19 +294,92 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
-    * Get one return record.
+    * Decline a Crossly-marketplace return request with a reason (required, 8-2000 chars), posted to the buyer as your response. It does not close the request: the buyer can reply or ask Crossly to decide. Not after the label is issued.
     * 
     * @param id  
+    * @param createReturnDeclineRequest  
     * @return ApiResponse<ListReturnsItem?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun getReturnWithHttpInfo(id: java.util.UUID) : ApiResponse<ListReturnsItem?> {
+    fun createReturnDeclineWithHttpInfo(id: java.util.UUID, createReturnDeclineRequest: CreateReturnDeclineRequest) : ApiResponse<ListReturnsItem?> {
+        val localVariableConfig = createReturnDeclineRequestConfig(id = id, createReturnDeclineRequest = createReturnDeclineRequest)
+
+        return request<CreateReturnDeclineRequest, ListReturnsItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createReturnDecline
+    *
+    * @param id  
+    * @param createReturnDeclineRequest  
+    * @return RequestConfig
+    */
+    fun createReturnDeclineRequestConfig(id: java.util.UUID, createReturnDeclineRequest: CreateReturnDeclineRequest) : RequestConfig<CreateReturnDeclineRequest> {
+        val localVariableBody = createReturnDeclineRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/returns/{id}/decline".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Get one return record.
+    * 
+    * @param id  
+    * @return GetReturnResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getReturn(id: java.util.UUID) : GetReturnResponse {
+        val localVarResponse = getReturnWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetReturnResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Get one return record.
+    * 
+    * @param id  
+    * @return ApiResponse<GetReturnResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getReturnWithHttpInfo(id: java.util.UUID) : ApiResponse<GetReturnResponse?> {
         val localVariableConfig = getReturnRequestConfig(id = id)
 
-        return request<Unit, ListReturnsItem>(
+        return request<Unit, GetReturnResponse>(
             localVariableConfig
         )
     }
@@ -326,7 +473,7 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
-    * List returns (physical-return workflow). status&#x3D;open|closed|&lt;exact&gt;.
+    * List returns. Default: your return records (the physical-return workflow), status&#x3D;open|closed|&lt;exact&gt;. source&#x3D;request: the OPEN return requests buyers made on the Crossly marketplace, newest first; accept or decline each with POST /v1/returns/{id}/accept | decline.
     * 
     * @return ListReturnsResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -356,7 +503,7 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
-    * List returns (physical-return workflow). status&#x3D;open|closed|&lt;exact&gt;.
+    * List returns. Default: your return records (the physical-return workflow), status&#x3D;open|closed|&lt;exact&gt;. source&#x3D;request: the OPEN return requests buyers made on the Crossly marketplace, newest first; accept or decline each with POST /v1/returns/{id}/accept | decline.
     * 
     * @return ApiResponse<ListReturnsResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -396,7 +543,7 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * Transition return status (received/inspected/restocked) and bump inventory on restock.
     * 
     * @param id  
-    * @return ListReturnsItem
+    * @return GetReturnResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -405,11 +552,11 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun updateReturn(id: java.util.UUID) : ListReturnsItem {
+    fun updateReturn(id: java.util.UUID) : GetReturnResponse {
         val localVarResponse = updateReturnWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as ListReturnsItem
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetReturnResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -427,16 +574,16 @@ class ReturnsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * Transition return status (received/inspected/restocked) and bump inventory on restock.
     * 
     * @param id  
-    * @return ApiResponse<ListReturnsItem?>
+    * @return ApiResponse<GetReturnResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun updateReturnWithHttpInfo(id: java.util.UUID) : ApiResponse<ListReturnsItem?> {
+    fun updateReturnWithHttpInfo(id: java.util.UUID) : ApiResponse<GetReturnResponse?> {
         val localVariableConfig = updateReturnRequestConfig(id = id)
 
-        return request<Unit, ListReturnsItem>(
+        return request<Unit, GetReturnResponse>(
             localVariableConfig
         )
     }

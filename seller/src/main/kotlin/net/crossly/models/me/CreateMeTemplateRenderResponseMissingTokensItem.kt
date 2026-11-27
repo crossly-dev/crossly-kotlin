@@ -26,7 +26,7 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: DATE,BRAND,SKU,CONDITION,SIZE,MATERIAL,STYLE,COLOR,PRICE,CATEGORY,YEAR,MODEL,ITEM_NAME,MONTH
+ * Values: DATE,BRAND,CATEGORY,MONTH,SKU,CONDITION,SIZE,MATERIAL,STYLE,COLOR,PRICE,YEAR,MODEL,ITEM_NAME
  */
 
 enum class CreateMeTemplateRenderResponseMissingTokensItem(val value: kotlin.String) {
@@ -36,6 +36,12 @@ enum class CreateMeTemplateRenderResponseMissingTokensItem(val value: kotlin.Str
 
     @Json(name = "brand")
     BRAND("brand"),
+
+    @Json(name = "category")
+    CATEGORY("category"),
+
+    @Json(name = "month")
+    MONTH("month"),
 
     @Json(name = "sku")
     SKU("sku"),
@@ -58,9 +64,6 @@ enum class CreateMeTemplateRenderResponseMissingTokensItem(val value: kotlin.Str
     @Json(name = "price")
     PRICE("price"),
 
-    @Json(name = "category")
-    CATEGORY("category"),
-
     @Json(name = "year")
     YEAR("year"),
 
@@ -68,10 +71,7 @@ enum class CreateMeTemplateRenderResponseMissingTokensItem(val value: kotlin.Str
     MODEL("model"),
 
     @Json(name = "item_name")
-    ITEM_NAME("item_name"),
-
-    @Json(name = "month")
-    MONTH("month");
+    ITEM_NAME("item_name");
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use

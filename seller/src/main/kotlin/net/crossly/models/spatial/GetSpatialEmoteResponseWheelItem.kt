@@ -26,10 +26,13 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: SPIN,WAVE,POINT,CLAP,CHEER,HYPE,SHRUG,NOD,SIT,LEAN,REACH,DANCE,BOW,THUMBS,LOUPE,BOX_SPIN,FLEX,HUG,HIGH_FIVE,HANDSHAKE,SHOWOFF,MOMENT_COLON_HANDSHAKE,MOMENT_COLON_UNBOX,MOMENT_COLON_SLAB_FLIP
+ * Values: PHONE,SPIN,WAVE,POINT,CLAP,CHEER,HYPE,SHRUG,NOD,SIT,LEAN,REACH,DANCE,BOW,THUMBS,LOUPE,BOX_SPIN,FLEX,HUG,HIGH_FIVE,HANDSHAKE,FACEPALM,THINK,LAUGH,SIGH,NO,FIST_PUMP,VICTORY,YAWN,SALUTE,BIG_WAVE,BECKON,SHUSH,KISS,PEACE,HEART,SWAY,VIBE,AIR_GUITAR,ROBOT,DISCO,GAVEL,HAGGLE,ARMS_CROSSED,HANDS_ON_HIPS,KNEEL,FIST_BUMP,DANCE_OFF,SHOWOFF,MOMENT_COLON_HANDSHAKE,MOMENT_COLON_UNBOX,MOMENT_COLON_SLAB_FLIP
  */
 
 enum class GetSpatialEmoteResponseWheelItem(val value: kotlin.String) {
+
+    @Json(name = "phone")
+    PHONE("phone"),
 
     @Json(name = "spin")
     SPIN("spin"),
@@ -90,6 +93,87 @@ enum class GetSpatialEmoteResponseWheelItem(val value: kotlin.String) {
 
     @Json(name = "handshake")
     HANDSHAKE("handshake"),
+
+    @Json(name = "facepalm")
+    FACEPALM("facepalm"),
+
+    @Json(name = "think")
+    THINK("think"),
+
+    @Json(name = "laugh")
+    LAUGH("laugh"),
+
+    @Json(name = "sigh")
+    SIGH("sigh"),
+
+    @Json(name = "no")
+    NO("no"),
+
+    @Json(name = "fist_pump")
+    FIST_PUMP("fist_pump"),
+
+    @Json(name = "victory")
+    VICTORY("victory"),
+
+    @Json(name = "yawn")
+    YAWN("yawn"),
+
+    @Json(name = "salute")
+    SALUTE("salute"),
+
+    @Json(name = "big_wave")
+    BIG_WAVE("big_wave"),
+
+    @Json(name = "beckon")
+    BECKON("beckon"),
+
+    @Json(name = "shush")
+    SHUSH("shush"),
+
+    @Json(name = "kiss")
+    KISS("kiss"),
+
+    @Json(name = "peace")
+    PEACE("peace"),
+
+    @Json(name = "heart")
+    HEART("heart"),
+
+    @Json(name = "sway")
+    SWAY("sway"),
+
+    @Json(name = "vibe")
+    VIBE("vibe"),
+
+    @Json(name = "air_guitar")
+    AIR_GUITAR("air_guitar"),
+
+    @Json(name = "robot")
+    ROBOT("robot"),
+
+    @Json(name = "disco")
+    DISCO("disco"),
+
+    @Json(name = "gavel")
+    GAVEL("gavel"),
+
+    @Json(name = "haggle")
+    HAGGLE("haggle"),
+
+    @Json(name = "arms_crossed")
+    ARMS_CROSSED("arms_crossed"),
+
+    @Json(name = "hands_on_hips")
+    HANDS_ON_HIPS("hands_on_hips"),
+
+    @Json(name = "kneel")
+    KNEEL("kneel"),
+
+    @Json(name = "fist_bump")
+    FIST_BUMP("fist_bump"),
+
+    @Json(name = "dance_off")
+    DANCE_OFF("dance_off"),
 
     @Json(name = "showoff")
     SHOWOFF("showoff"),

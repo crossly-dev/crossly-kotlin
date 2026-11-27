@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param body 
- * @param legs 
  * @param head 
+ * @param legs 
  * @param feet 
  * @param back 
  */
@@ -38,11 +38,11 @@ data class GetWorldCapabilityWearResponseDataPicks (
     @Json(name = "body")
     val body: kotlin.String? = null,
 
-    @Json(name = "legs")
-    val legs: kotlin.String? = null,
-
     @Json(name = "head")
     val head: kotlin.String? = null,
+
+    @Json(name = "legs")
+    val legs: kotlin.String? = null,
 
     @Json(name = "feet")
     val feet: kotlin.String? = null,

@@ -20,7 +20,7 @@
 
 package net.crossly.models.inbox
 
-import net.crossly.models.inbox.ListInboxItem
+import net.crossly.models.inbox.UpdateInboxConversationResponseConversation
 
 import com.squareup.moshi.Json
 
@@ -33,7 +33,7 @@ import com.squareup.moshi.Json
 data class UpdateInboxConversationResponse (
 
     @Json(name = "conversation")
-    val conversation: ListInboxItem
+    val conversation: UpdateInboxConversationResponseConversation
 
 )
 

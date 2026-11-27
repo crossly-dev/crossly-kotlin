@@ -27,37 +27,45 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param steps 
  * @param id 
- * @param name 
- * @param createdAt 
  * @param userId 
- * @param isActive 
+ * @param name 
  * @param triggerId 
+ * @param triggerConfig 
+ * @param isActive 
+ * @param createdAt 
+ * @param workflowId 
+ * @param steps 
  */
 
 data class ListWorkflowChainsItem (
 
-    @Json(name = "steps")
-    val steps: kotlin.collections.List<GetWorkflowChainResponseSteps>,
-
     @Json(name = "id")
     val id: kotlin.String,
-
-    @Json(name = "name")
-    val name: kotlin.String,
-
-    @Json(name = "createdAt")
-    val createdAt: java.time.OffsetDateTime,
 
     @Json(name = "userId")
     val userId: kotlin.String,
 
+    @Json(name = "name")
+    val name: kotlin.String,
+
+    @Json(name = "triggerId")
+    val triggerId: kotlin.String,
+
+    @Json(name = "triggerConfig")
+    val triggerConfig: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
     @Json(name = "isActive")
     val isActive: kotlin.Boolean,
 
-    @Json(name = "triggerId")
-    val triggerId: kotlin.String
+    @Json(name = "createdAt")
+    val createdAt: java.time.OffsetDateTime,
+
+    @Json(name = "workflowId")
+    val workflowId: kotlin.String,
+
+    @Json(name = "steps")
+    val steps: kotlin.collections.List<GetWorkflowChainResponseSteps>
 
 )
 

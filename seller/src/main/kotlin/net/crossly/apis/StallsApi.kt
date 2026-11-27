@@ -25,7 +25,10 @@ import java.io.IOException
 import net.crossly.models.stall.CreateStallBookResponse
 import net.crossly.models.stall.CreateStallBookingCancelResponse
 import net.crossly.models.common.Error
+import net.crossly.models.stall.GetStallBookingCounterResponse
 import net.crossly.models.stall.GetStallQuoteResponse
+import net.crossly.models.stall.GetStallStreetAerialResponse
+import net.crossly.models.stall.ListStallListingSearchResponse
 import net.crossly.models.stall.ListStallMineResponse
 import net.crossly.models.street.ListStreetEventsResponse
 import net.crossly.models.street.ListStreetStallsResponse
@@ -191,6 +194,76 @@ class StallsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     }
 
     /**
+    * A stall counter: the listings you picked (in order), its booth kind and capacity.
+    * 
+    * @param id  
+    * @return GetStallBookingCounterResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getStallBookingCounter(id: kotlin.String) : GetStallBookingCounterResponse {
+        val localVarResponse = getStallBookingCounterWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetStallBookingCounterResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A stall counter: the listings you picked (in order), its booth kind and capacity.
+    * 
+    * @param id  
+    * @return ApiResponse<GetStallBookingCounterResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getStallBookingCounterWithHttpInfo(id: kotlin.String) : ApiResponse<GetStallBookingCounterResponse?> {
+        val localVariableConfig = getStallBookingCounterRequestConfig(id = id)
+
+        return request<Unit, GetStallBookingCounterResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getStallBookingCounter
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getStallBookingCounterRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/stalls/bookings/{id}/counter".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
      * enum for parameter unit
      */
      enum class Unit_getStallQuote(val value: kotlin.String) {
@@ -294,6 +367,143 @@ class StallsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/stalls/quote",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
+    * 
+    * @param slug  
+    * @return GetStallStreetAerialResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getStallStreetAerial(slug: kotlin.String) : GetStallStreetAerialResponse {
+        val localVarResponse = getStallStreetAerialWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetStallStreetAerialResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A street from above for booking: every spot with its owner, booth size, counter capacity and price, the street events, and who is booked on each date.
+    * 
+    * @param slug  
+    * @return ApiResponse<GetStallStreetAerialResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getStallStreetAerialWithHttpInfo(slug: kotlin.String) : ApiResponse<GetStallStreetAerialResponse?> {
+        val localVariableConfig = getStallStreetAerialRequestConfig(slug = slug)
+
+        return request<Unit, GetStallStreetAerialResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getStallStreetAerial
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun getStallStreetAerialRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/stalls/streets/{slug}/aerial".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Search ANY of your live Crossly listings for a stall counter or convention booth: q, category, min, max (cents), street (marks what its terms allow), limit, offset.
+    * 
+    * @return ListStallListingSearchResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listStallListingSearch() : ListStallListingSearchResponse {
+        val localVarResponse = listStallListingSearchWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListStallListingSearchResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Search ANY of your live Crossly listings for a stall counter or convention booth: q, category, min, max (cents), street (marks what its terms allow), limit, offset.
+    * 
+    * @return ApiResponse<ListStallListingSearchResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listStallListingSearchWithHttpInfo() : ApiResponse<ListStallListingSearchResponse?> {
+        val localVariableConfig = listStallListingSearchRequestConfig()
+
+        return request<Unit, ListStallListingSearchResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listStallListingSearch
+    *
+    * @return RequestConfig
+    */
+    fun listStallListingSearchRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/stalls/listing-search",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

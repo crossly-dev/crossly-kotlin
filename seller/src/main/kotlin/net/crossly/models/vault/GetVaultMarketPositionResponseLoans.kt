@@ -28,13 +28,13 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param status 
- * @param vaultItemId 
  * @param openedAt 
+ * @param vaultItemId 
+ * @param positionId 
  * @param bookKey 
  * @param feesPaidCents 
  * @param latePenaltyPaidCents 
  * @param lenderUserId 
- * @param positionId 
  * @param aprBps 
  * @param markCentsAtOpen 
  * @param feesAccruedCents 
@@ -55,11 +55,14 @@ data class GetVaultMarketPositionResponseLoans (
     @Json(name = "status")
     val status: kotlin.String,
 
+    @Json(name = "openedAt")
+    val openedAt: java.time.OffsetDateTime,
+
     @Json(name = "vaultItemId")
     val vaultItemId: kotlin.String,
 
-    @Json(name = "openedAt")
-    val openedAt: java.time.OffsetDateTime,
+    @Json(name = "positionId")
+    val positionId: kotlin.String,
 
     @Json(name = "bookKey")
     val bookKey: kotlin.String,
@@ -72,9 +75,6 @@ data class GetVaultMarketPositionResponseLoans (
 
     @Json(name = "lenderUserId")
     val lenderUserId: kotlin.String,
-
-    @Json(name = "positionId")
-    val positionId: kotlin.String,
 
     @Json(name = "aprBps")
     val aprBps: java.math.BigDecimal,

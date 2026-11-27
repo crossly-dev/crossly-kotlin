@@ -32,9 +32,9 @@ import com.squareup.moshi.Json
  * @param status 
  * @param carrier 
  * @param orderIds 
- * @param shippoManifestId 
- * @param shipDate 
  * @param warnings 
+ * @param shipDate 
+ * @param shippoManifestId 
  * @param documentUrl 
  */
 
@@ -58,14 +58,14 @@ data class ListOrderScanFormsItem (
     @Json(name = "orderIds")
     val orderIds: kotlin.collections.List<kotlin.String>,
 
-    @Json(name = "shippoManifestId")
-    val shippoManifestId: kotlin.String,
+    @Json(name = "warnings")
+    val warnings: kotlin.collections.List<kotlin.String>,
 
     @Json(name = "shipDate")
     val shipDate: kotlin.String,
 
-    @Json(name = "warnings")
-    val warnings: kotlin.collections.List<kotlin.String>,
+    @Json(name = "shippoManifestId")
+    val shippoManifestId: kotlin.String,
 
     @Json(name = "documentUrl")
     val documentUrl: kotlin.String? = null

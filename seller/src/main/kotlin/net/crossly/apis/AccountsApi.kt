@@ -23,8 +23,11 @@ package net.crossly.apis
 import java.io.IOException
 
 import net.crossly.models.account.CreateAccountResponse
+import net.crossly.models.connection.CreateConnectionCardnexusApiKeyResponse
 import net.crossly.models.connection.CreateConnectionEmailImapResponse
 import net.crossly.models.connection.CreateConnectionEmailImapTestResponse
+import net.crossly.models.connection.CreateConnectionLightspeedXTokenRequest
+import net.crossly.models.connection.CreateConnectionLightspeedXTokenResponse
 import net.crossly.models.platform.CreatePlatformAccountConnectResponse
 import net.crossly.models.platform.CreatePlatformAccountDisconnectResponse
 import net.crossly.models.platform.CreatePlatformAccountHistoryImportRequest
@@ -33,9 +36,12 @@ import net.crossly.models.platform.CreatePlatformAccountRefreshStatusResponse
 import net.crossly.models.common.Error
 import net.crossly.models.connection.GetConnectionEmailResponse
 import net.crossly.models.connection.GetConnectionExtensionOnlineResponse
+import net.crossly.models.connection.GetConnectionPolicyManagementOptionResponse
 import net.crossly.models.common.GetOauthInitResponse
 import net.crossly.models.platform.GetPlatformLimitResponse
 import net.crossly.models.account.ListAccountsResponse
+import net.crossly.models.connection.ListConnectionPolicyManagementItem
+import net.crossly.models.connection.ListConnectionPolicyManagementResponse
 import net.crossly.models.connection.ListConnectionsResponse
 import net.crossly.models.common.OkResponse
 import net.crossly.models.common.SuccessResponse
@@ -125,6 +131,73 @@ class AccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/accounts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Connect CardNexus with a personal API key (validated live before it is stored).
+    * 
+    * @return CreateConnectionCardnexusApiKeyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createConnectionCardnexusApiKey() : CreateConnectionCardnexusApiKeyResponse {
+        val localVarResponse = createConnectionCardnexusApiKeyWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateConnectionCardnexusApiKeyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Connect CardNexus with a personal API key (validated live before it is stored).
+    * 
+    * @return ApiResponse<CreateConnectionCardnexusApiKeyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createConnectionCardnexusApiKeyWithHttpInfo() : ApiResponse<CreateConnectionCardnexusApiKeyResponse?> {
+        val localVariableConfig = createConnectionCardnexusApiKeyRequestConfig()
+
+        return request<Unit, CreateConnectionCardnexusApiKeyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createConnectionCardnexusApiKey
+    *
+    * @return RequestConfig
+    */
+    fun createConnectionCardnexusApiKeyRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/connections/cardnexus/api-key",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -259,6 +332,77 @@ class AccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/connections/email/imap/test",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+    * 
+    * @param createConnectionLightspeedXTokenRequest  
+    * @return CreateConnectionLightspeedXTokenResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createConnectionLightspeedXToken(createConnectionLightspeedXTokenRequest: CreateConnectionLightspeedXTokenRequest) : CreateConnectionLightspeedXTokenResponse {
+        val localVarResponse = createConnectionLightspeedXTokenWithHttpInfo(createConnectionLightspeedXTokenRequest = createConnectionLightspeedXTokenRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateConnectionLightspeedXTokenResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+    * 
+    * @param createConnectionLightspeedXTokenRequest  
+    * @return ApiResponse<CreateConnectionLightspeedXTokenResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createConnectionLightspeedXTokenWithHttpInfo(createConnectionLightspeedXTokenRequest: CreateConnectionLightspeedXTokenRequest) : ApiResponse<CreateConnectionLightspeedXTokenResponse?> {
+        val localVariableConfig = createConnectionLightspeedXTokenRequestConfig(createConnectionLightspeedXTokenRequest = createConnectionLightspeedXTokenRequest)
+
+        return request<CreateConnectionLightspeedXTokenRequest, CreateConnectionLightspeedXTokenResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createConnectionLightspeedXToken
+    *
+    * @param createConnectionLightspeedXTokenRequest  
+    * @return RequestConfig
+    */
+    fun createConnectionLightspeedXTokenRequestConfig(createConnectionLightspeedXTokenRequest: CreateConnectionLightspeedXTokenRequest) : RequestConfig<CreateConnectionLightspeedXTokenRequest> {
+        val localVariableBody = createConnectionLightspeedXTokenRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/connections/lightspeed_x/token",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -406,7 +550,7 @@ class AccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * Archive every active account row for a platform.
+    * Disconnect every account of a platform (archives the rows and deletes their stored sessions).
     * 
     * @param platform  
     * @return CreatePlatformAccountDisconnectResponse
@@ -437,7 +581,7 @@ class AccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
-    * Archive every active account row for a platform.
+    * Disconnect every account of a platform (archives the rows and deletes their stored sessions).
     * 
     * @param platform  
     * @return ApiResponse<CreatePlatformAccountDisconnectResponse?>
@@ -961,8 +1105,81 @@ class AccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
+    * List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+    * For one of your managed connections, the choices a preset&#39;s &#x60;platformFields&#x60; picker offers, from the marketplace (&#x60;source&#x60; is the field&#39;s &#x60;optionsSource&#x60;, e.g. &#x60;delivery-methods&#x60;). An unknown connection or source is a 404.
+    * @param connectionId  
+    * @param source  
+    * @return GetConnectionPolicyManagementOptionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getConnectionPolicyManagementOption(connectionId: kotlin.String, source: kotlin.String) : GetConnectionPolicyManagementOptionResponse {
+        val localVarResponse = getConnectionPolicyManagementOptionWithHttpInfo(connectionId = connectionId, source = source)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetConnectionPolicyManagementOptionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+    * For one of your managed connections, the choices a preset&#39;s &#x60;platformFields&#x60; picker offers, from the marketplace (&#x60;source&#x60; is the field&#39;s &#x60;optionsSource&#x60;, e.g. &#x60;delivery-methods&#x60;). An unknown connection or source is a 404.
+    * @param connectionId  
+    * @param source  
+    * @return ApiResponse<GetConnectionPolicyManagementOptionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getConnectionPolicyManagementOptionWithHttpInfo(connectionId: kotlin.String, source: kotlin.String) : ApiResponse<GetConnectionPolicyManagementOptionResponse?> {
+        val localVariableConfig = getConnectionPolicyManagementOptionRequestConfig(connectionId = connectionId, source = source)
+
+        return request<Unit, GetConnectionPolicyManagementOptionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getConnectionPolicyManagementOption
+    *
+    * @param connectionId  
+    * @param source  
+    * @return RequestConfig
+    */
+    fun getConnectionPolicyManagementOptionRequestConfig(connectionId: kotlin.String, source: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/connections/policy-management/{connectionId}/options/{source}".replace("{"+"connectionId"+"}", "$connectionId").replace("{"+"source"+"}", "$source"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Return the OAuth authorize URL for an API-track platform.
-    * Most platforms return &#x60;{ url }&#x60;. Etsy adds &#x60;{ correlationId }&#x60; (PKCE verifier stashed in Redis). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
+    * Most platforms return &#x60;{ url }&#x60; (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
     * @param platform  
     * @param shop  (optional)
     * @param region  (optional)
@@ -996,7 +1213,7 @@ class AccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
 
     /**
     * Return the OAuth authorize URL for an API-track platform.
-    * Most platforms return &#x60;{ url }&#x60;. Etsy adds &#x60;{ correlationId }&#x60; (PKCE verifier stashed in Redis). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
+    * Most platforms return &#x60;{ url }&#x60; (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
     * @param platform  
     * @param shop  (optional)
     * @param region  (optional)
@@ -1185,6 +1402,73 @@ class AccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
     }
 
     /**
+    * List eBay and Etsy accounts with whether Crossly manages their policies.
+    * One row per connected eBay or Etsy account: &#x60;eligible&#x60; (eBay only on EBAY_US), &#x60;managed&#x60; (Crossly keeps its policies / shipping profiles in step with your default presets) and sync &#x60;notes&#x60;.
+    * @return ListConnectionPolicyManagementResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listConnectionPolicyManagement() : ListConnectionPolicyManagementResponse {
+        val localVarResponse = listConnectionPolicyManagementWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListConnectionPolicyManagementResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * List eBay and Etsy accounts with whether Crossly manages their policies.
+    * One row per connected eBay or Etsy account: &#x60;eligible&#x60; (eBay only on EBAY_US), &#x60;managed&#x60; (Crossly keeps its policies / shipping profiles in step with your default presets) and sync &#x60;notes&#x60;.
+    * @return ApiResponse<ListConnectionPolicyManagementResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listConnectionPolicyManagementWithHttpInfo() : ApiResponse<ListConnectionPolicyManagementResponse?> {
+        val localVariableConfig = listConnectionPolicyManagementRequestConfig()
+
+        return request<Unit, ListConnectionPolicyManagementResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listConnectionPolicyManagement
+    *
+    * @return RequestConfig
+    */
+    fun listConnectionPolicyManagementRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/connections/policy-management",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * List OAuth-connected API platforms.
     * 
     * @return ListConnectionsResponse
@@ -1315,6 +1599,76 @@ class AccountsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
         return RequestConfig(
             method = RequestMethod.PATCH,
             path = "/v1/connections/email/imap/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Turn Crossly policy management on or off for one eBay or Etsy account.
+    * Body &#x60;{ managed: boolean }&#x60;. On: Crossly may overwrite that account&#39;s own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
+    * @param connectionId  
+    * @return ListConnectionPolicyManagementItem
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateConnectionPolicyManagement(connectionId: kotlin.String) : ListConnectionPolicyManagementItem {
+        val localVarResponse = updateConnectionPolicyManagementWithHttpInfo(connectionId = connectionId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListConnectionPolicyManagementItem
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Turn Crossly policy management on or off for one eBay or Etsy account.
+    * Body &#x60;{ managed: boolean }&#x60;. On: Crossly may overwrite that account&#39;s own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
+    * @param connectionId  
+    * @return ApiResponse<ListConnectionPolicyManagementItem?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateConnectionPolicyManagementWithHttpInfo(connectionId: kotlin.String) : ApiResponse<ListConnectionPolicyManagementItem?> {
+        val localVariableConfig = updateConnectionPolicyManagementRequestConfig(connectionId = connectionId)
+
+        return request<Unit, ListConnectionPolicyManagementItem>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateConnectionPolicyManagement
+    *
+    * @param connectionId  
+    * @return RequestConfig
+    */
+    fun updateConnectionPolicyManagementRequestConfig(connectionId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/connections/policy-management/{connectionId}".replace("{"+"connectionId"+"}", "$connectionId"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

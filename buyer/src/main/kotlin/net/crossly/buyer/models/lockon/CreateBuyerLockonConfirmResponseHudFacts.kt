@@ -48,12 +48,12 @@ data class CreateBuyerLockonConfirmResponseHudFacts (
     /**
      * `good` is a saving or a strong signal; `warn` is a reason to hesitate.
      *
-     * Values: GOOD,WARN,NEUTRAL
+     * Values: NEUTRAL,WARN,GOOD
      */
     enum class Tone(val value: kotlin.String) {
-        @Json(name = "good") GOOD("good"),
+        @Json(name = "neutral") NEUTRAL("neutral"),
         @Json(name = "warn") WARN("warn"),
-        @Json(name = "neutral") NEUTRAL("neutral");
+        @Json(name = "good") GOOD("good");
     }
 }
 

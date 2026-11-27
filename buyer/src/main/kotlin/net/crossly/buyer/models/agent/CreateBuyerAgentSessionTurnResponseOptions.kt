@@ -41,6 +41,8 @@ import com.squareup.moshi.Json
  * @param propertySize 
  * @param sellerDisplayName 
  * @param priceCheck 
+ * @param model The world object it stands as, and the seller's public shop room (world-picks.ts).
+ * @param shopSlug 
  */
 
 data class CreateBuyerAgentSessionTurnResponseOptions (
@@ -85,7 +87,14 @@ data class CreateBuyerAgentSessionTurnResponseOptions (
     val sellerDisplayName: kotlin.String? = null,
 
     @Json(name = "priceCheck")
-    val priceCheck: CreateBuyerAgentSessionActResponseQuotePriceCheck? = null
+    val priceCheck: CreateBuyerAgentSessionActResponseQuotePriceCheck? = null,
+
+    /* The world object it stands as, and the seller's public shop room (world-picks.ts). */
+    @Json(name = "model")
+    val model: kotlin.String? = null,
+
+    @Json(name = "shopSlug")
+    val shopSlug: kotlin.String? = null
 
 )
 

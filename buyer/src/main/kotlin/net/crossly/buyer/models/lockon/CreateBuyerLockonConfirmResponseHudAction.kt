@@ -48,14 +48,14 @@ data class CreateBuyerLockonConfirmResponseHudAction (
     /**
      * 
      *
-     * Values: NONE,CONFIRM,SAVE,BUY_CROSSLY,BUY_OFFSITE
+     * Values: NONE,SAVE,BUY_CROSSLY,BUY_OFFSITE,CONFIRM
      */
     enum class Kind(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
-        @Json(name = "confirm") CONFIRM("confirm"),
         @Json(name = "save") SAVE("save"),
         @Json(name = "buy_crossly") BUY_CROSSLY("buy_crossly"),
-        @Json(name = "buy_offsite") BUY_OFFSITE("buy_offsite");
+        @Json(name = "buy_offsite") BUY_OFFSITE("buy_offsite"),
+        @Json(name = "confirm") CONFIRM("confirm");
     }
 }
 

@@ -36,6 +36,7 @@ import com.squareup.moshi.Json
  * @param appDescription 
  * @param homepageUrl 
  * @param developerName 
+ * @param revShareBps The share of take-home THIS install agreed to (frozen at consent), not the app's current terms. Null = free.
  */
 
 data class ListConnectedAppsItem (
@@ -68,7 +69,11 @@ data class ListConnectedAppsItem (
     val homepageUrl: kotlin.String? = null,
 
     @Json(name = "developerName")
-    val developerName: kotlin.String? = null
+    val developerName: kotlin.String? = null,
+
+    /* The share of take-home THIS install agreed to (frozen at consent), not the app's current terms. Null = free. */
+    @Json(name = "revShareBps")
+    val revShareBps: java.math.BigDecimal? = null
 
 )
 

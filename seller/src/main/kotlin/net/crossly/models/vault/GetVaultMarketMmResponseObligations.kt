@@ -29,8 +29,8 @@ import com.squareup.moshi.Json
  * @param updatedAt 
  * @param userId 
  * @param day 
- * @param bookKey 
  * @param program 
+ * @param bookKey 
  * @param samples 
  * @param inSpread 
  * @param inHalfSpread 
@@ -57,11 +57,11 @@ data class GetVaultMarketMmResponseObligations (
     @Json(name = "day")
     val day: kotlin.String,
 
-    @Json(name = "bookKey")
-    val bookKey: kotlin.String,
-
     @Json(name = "program")
     val program: kotlin.String,
+
+    @Json(name = "bookKey")
+    val bookKey: kotlin.String,
 
     @Json(name = "samples")
     val samples: java.math.BigDecimal,

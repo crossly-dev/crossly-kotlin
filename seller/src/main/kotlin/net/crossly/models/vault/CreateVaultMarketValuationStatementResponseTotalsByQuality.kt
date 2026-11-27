@@ -28,9 +28,9 @@ import com.squareup.moshi.Json
  * 
  *
  * @param none 
+ * @param C 
  * @param A 
  * @param B 
- * @param C 
  */
 
 data class CreateVaultMarketValuationStatementResponseTotalsByQuality (
@@ -38,14 +38,14 @@ data class CreateVaultMarketValuationStatementResponseTotalsByQuality (
     @Json(name = "none")
     val none: UnitsCents,
 
+    @Json(name = "C")
+    val C: UnitsCents,
+
     @Json(name = "A")
     val A: UnitsCents,
 
     @Json(name = "B")
-    val B: UnitsCents,
-
-    @Json(name = "C")
-    val C: UnitsCents
+    val B: UnitsCents
 
 )
 

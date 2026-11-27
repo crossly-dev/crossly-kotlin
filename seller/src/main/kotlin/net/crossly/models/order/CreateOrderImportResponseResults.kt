@@ -52,12 +52,12 @@ data class CreateOrderImportResponseResults (
     /**
      * 
      *
-     * Values: UNSUPPORTED_PLATFORM,NOT_CONNECTED,UNKNOWN_PLATFORM
+     * Values: NOT_CONNECTED,UNKNOWN_PLATFORM,UNSUPPORTED_PLATFORM
      */
     enum class Reason(val value: kotlin.String) {
-        @Json(name = "unsupported_platform") UNSUPPORTED_PLATFORM("unsupported_platform"),
         @Json(name = "not_connected") NOT_CONNECTED("not_connected"),
-        @Json(name = "unknown_platform") UNKNOWN_PLATFORM("unknown_platform");
+        @Json(name = "unknown_platform") UNKNOWN_PLATFORM("unknown_platform"),
+        @Json(name = "unsupported_platform") UNSUPPORTED_PLATFORM("unsupported_platform");
     }
 }
 

@@ -53,11 +53,11 @@ data class CreateVaultMarketInstantExitResponse (
     /**
      * 
      *
-     * Values: FILLED,MISSED
+     * Values: MISSED,FILLED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "filled") FILLED("filled"),
-        @Json(name = "missed") MISSED("missed");
+        @Json(name = "missed") MISSED("missed"),
+        @Json(name = "filled") FILLED("filled");
     }
 }
 

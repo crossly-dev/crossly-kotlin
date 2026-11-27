@@ -65,11 +65,11 @@ data class GetSpatialPartyResponsePartyMembers (
     /**
      * 
      *
-     * Values: MEMBER,LEADER
+     * Values: LEADER,MEMBER
      */
     enum class Role(val value: kotlin.String) {
-        @Json(name = "member") MEMBER("member"),
-        @Json(name = "leader") LEADER("leader");
+        @Json(name = "leader") LEADER("leader"),
+        @Json(name = "member") MEMBER("member");
     }
 }
 

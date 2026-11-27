@@ -31,9 +31,9 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param updatedAt 
+ * @param cosmeticId 
  * @param merchantId 
  * @param creatorSubjectId 
- * @param cosmeticId 
  * @param physicalOptOut 
  * @param spec 
  * @param brief 
@@ -51,14 +51,14 @@ data class CreateProductionDesignSpecResponsePrefs (
     @Json(name = "updatedAt")
     val updatedAt: java.time.OffsetDateTime,
 
+    @Json(name = "cosmeticId")
+    val cosmeticId: kotlin.String,
+
     @Json(name = "merchantId")
     val merchantId: kotlin.String,
 
     @Json(name = "creatorSubjectId")
     val creatorSubjectId: kotlin.String,
-
-    @Json(name = "cosmeticId")
-    val cosmeticId: kotlin.String,
 
     @Json(name = "physicalOptOut")
     val physicalOptOut: kotlin.Boolean,

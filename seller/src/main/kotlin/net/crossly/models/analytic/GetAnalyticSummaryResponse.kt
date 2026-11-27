@@ -26,13 +26,21 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param days 
  * @param sales 
  * @param revenue 
  * @param fees 
- * @param days 
+ * @param pendingDetailsCount 
+ * @param unitsSold 
+ * @param netSalesCents 
+ * @param feesCents 
+ * @param netProfitCents 
  */
 
 data class GetAnalyticSummaryResponse (
+
+    @Json(name = "days")
+    val days: java.math.BigDecimal,
 
     @Json(name = "sales")
     val sales: java.math.BigDecimal,
@@ -43,8 +51,20 @@ data class GetAnalyticSummaryResponse (
     @Json(name = "fees")
     val fees: java.math.BigDecimal,
 
-    @Json(name = "days")
-    val days: java.math.BigDecimal
+    @Json(name = "pendingDetailsCount")
+    val pendingDetailsCount: java.math.BigDecimal,
+
+    @Json(name = "unitsSold")
+    val unitsSold: java.math.BigDecimal,
+
+    @Json(name = "netSalesCents")
+    val netSalesCents: java.math.BigDecimal,
+
+    @Json(name = "feesCents")
+    val feesCents: java.math.BigDecimal,
+
+    @Json(name = "netProfitCents")
+    val netProfitCents: java.math.BigDecimal? = null
 
 )
 

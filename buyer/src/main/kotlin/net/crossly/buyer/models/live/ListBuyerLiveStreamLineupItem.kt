@@ -26,20 +26,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param available 
  * @param platformListingId 
  * @param position 
  * @param priceCents 
+ * @param available 
  * @param pinned 
- * @param title 
  * @param slug 
+ * @param title 
  * @param imageUrl 
  */
 
 data class ListBuyerLiveStreamLineupItem (
-
-    @Json(name = "available")
-    val available: kotlin.Boolean,
 
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String,
@@ -50,14 +47,17 @@ data class ListBuyerLiveStreamLineupItem (
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
 
+    @Json(name = "available")
+    val available: kotlin.Boolean,
+
     @Json(name = "pinned")
     val pinned: kotlin.Boolean,
 
-    @Json(name = "title")
-    val title: kotlin.String? = null,
-
     @Json(name = "slug")
     val slug: kotlin.String? = null,
+
+    @Json(name = "title")
+    val title: kotlin.String? = null,
 
     @Json(name = "imageUrl")
     val imageUrl: kotlin.String? = null

@@ -79,38 +79,43 @@ data class ListVaultMarketPaperMissionsItem (
     /**
      * 
      *
-     * Values: ROUND_TRIP,FIRST_FILL,READ_MARK,BID_BELOW,MAKER_FILL,INSTANT_EXIT,PRICE_WATCH,MINI_SET
+     * Values: FIRST_FILL,READ_MARK,BID_BELOW,MAKER_FILL,INSTANT_EXIT,PRICE_WATCH,ROUND_TRIP,MINI_SET,SHARE_FIRST,SHARE_QUEUE,OPTION_FIRST,OPTION_EXPIRY
      */
     enum class Key(val value: kotlin.String) {
-        @Json(name = "round_trip") ROUND_TRIP("round_trip"),
         @Json(name = "first_fill") FIRST_FILL("first_fill"),
         @Json(name = "read_mark") READ_MARK("read_mark"),
         @Json(name = "bid_below") BID_BELOW("bid_below"),
         @Json(name = "maker_fill") MAKER_FILL("maker_fill"),
         @Json(name = "instant_exit") INSTANT_EXIT("instant_exit"),
         @Json(name = "price_watch") PRICE_WATCH("price_watch"),
-        @Json(name = "mini_set") MINI_SET("mini_set");
+        @Json(name = "round_trip") ROUND_TRIP("round_trip"),
+        @Json(name = "mini_set") MINI_SET("mini_set"),
+        @Json(name = "share_first") SHARE_FIRST("share_first"),
+        @Json(name = "share_queue") SHARE_QUEUE("share_queue"),
+        @Json(name = "option_first") OPTION_FIRST("option_first"),
+        @Json(name = "option_expiry") OPTION_EXPIRY("option_expiry");
     }
     /**
      * 
      *
-     * Values: MARKET,ASSISTANT,PAPER,MARK_CHECK,SETS
+     * Values: MARKET,PAPER,ASSISTANT,SETS,MARK_CHECK
      */
     enum class Action(val value: kotlin.String) {
         @Json(name = "market") MARKET("market"),
-        @Json(name = "assistant") ASSISTANT("assistant"),
         @Json(name = "paper") PAPER("paper"),
-        @Json(name = "mark_check") MARK_CHECK("mark_check"),
-        @Json(name = "sets") SETS("sets");
+        @Json(name = "assistant") ASSISTANT("assistant"),
+        @Json(name = "sets") SETS("sets"),
+        @Json(name = "mark_check") MARK_CHECK("mark_check");
     }
     /**
      * 
      *
-     * Values: INSTANT_MINUS_EXIT,MARKS
+     * Values: INSTANT_MINUS_EXIT,MARKS,VAULT_MINUS_SHARES
      */
     enum class Learn(val value: kotlin.String) {
         @Json(name = "instant-exit") INSTANT_MINUS_EXIT("instant-exit"),
-        @Json(name = "marks") MARKS("marks");
+        @Json(name = "marks") MARKS("marks"),
+        @Json(name = "vault-shares") VAULT_MINUS_SHARES("vault-shares");
     }
 }
 

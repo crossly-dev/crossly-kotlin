@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param status accepted | declined | countered.
- * @param offerId Countered: the id of YOUR new offer, now waiting on the seller.
  * @param redeemable Accepted: you can now pay for it (48 hours).
+ * @param offerId Countered: the id of YOUR new offer, now waiting on the seller.
  */
 
 data class CreateBuyerOfferRespondResponseData (
@@ -37,13 +37,13 @@ data class CreateBuyerOfferRespondResponseData (
     @Json(name = "status")
     val status: kotlin.String,
 
-    /* Countered: the id of YOUR new offer, now waiting on the seller. */
-    @Json(name = "offerId")
-    val offerId: kotlin.String? = null,
-
     /* Accepted: you can now pay for it (48 hours). */
     @Json(name = "redeemable")
-    val redeemable: kotlin.Boolean? = null
+    val redeemable: kotlin.Boolean? = null,
+
+    /* Countered: the id of YOUR new offer, now waiting on the seller. */
+    @Json(name = "offerId")
+    val offerId: kotlin.String? = null
 
 )
 

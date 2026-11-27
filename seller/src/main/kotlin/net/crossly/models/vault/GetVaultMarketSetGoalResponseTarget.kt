@@ -51,12 +51,12 @@ data class GetVaultMarketSetGoalResponseTarget (
     /**
      * 
      *
-     * Values: EXACT,UNGRADED,ANY
+     * Values: ANY,EXACT,UNGRADED
      */
     enum class GradeMode(val value: kotlin.String) {
+        @Json(name = "any") ANY("any"),
         @Json(name = "exact") EXACT("exact"),
-        @Json(name = "ungraded") UNGRADED("ungraded"),
-        @Json(name = "any") ANY("any");
+        @Json(name = "ungraded") UNGRADED("ungraded");
     }
 }
 

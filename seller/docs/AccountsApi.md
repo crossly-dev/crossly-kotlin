@@ -5,11 +5,13 @@ All URIs are relative to *https://crossly.net/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createAccount**](AccountsApi.md#createAccount) | **POST** /v1/accounts | Connect a new platform account (kicks off OAuth or extension handshake).
+[**createConnectionCardnexusApiKey**](AccountsApi.md#createConnectionCardnexusApiKey) | **POST** /v1/connections/cardnexus/api-key | Connect CardNexus with a personal API key (validated live before it is stored).
 [**createConnectionEmailImap**](AccountsApi.md#createConnectionEmailImap) | **POST** /v1/connections/email/imap | Add an IMAP mailbox connection.
 [**createConnectionEmailImapTest**](AccountsApi.md#createConnectionEmailImapTest) | **POST** /v1/connections/email/imap/test | Validate IMAP credentials without persisting.
+[**createConnectionLightspeedXToken**](AccountsApi.md#createConnectionLightspeedXToken) | **POST** /v1/connections/lightspeed_x/token | Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
 [**createConnectionRequest**](AccountsApi.md#createConnectionRequest) | **POST** /v1/connections/{platform}/request | Express interest in a request_only platform.
 [**createPlatformAccountConnect**](AccountsApi.md#createPlatformAccountConnect) | **POST** /v1/platform-accounts/{platform}/connect | Revive or initiate connection for a cookie platform.
-[**createPlatformAccountDisconnect**](AccountsApi.md#createPlatformAccountDisconnect) | **POST** /v1/platform-accounts/{platform}/disconnect | Archive every active account row for a platform.
+[**createPlatformAccountDisconnect**](AccountsApi.md#createPlatformAccountDisconnect) | **POST** /v1/platform-accounts/{platform}/disconnect | Disconnect every account of a platform (archives the rows and deletes their stored sessions).
 [**createPlatformAccountHistoryImport**](AccountsApi.md#createPlatformAccountHistoryImport) | **POST** /v1/platform-accounts/{platform}/history-import | Set how far back to backfill order history + active listings for a platform, and run it now.
 [**createPlatformAccountRefreshStatus**](AccountsApi.md#createPlatformAccountRefreshStatus) | **POST** /v1/platform-accounts/refresh-status | Run on-demand healthchecks across cookie accounts.
 [**deleteAccount**](AccountsApi.md#deleteAccount) | **DELETE** /v1/accounts/{id} | Disconnect a platform account.
@@ -17,11 +19,14 @@ Method | HTTP request | Description
 [**deleteConnectionEmailImap**](AccountsApi.md#deleteConnectionEmailImap) | **DELETE** /v1/connections/email/imap/{id} | Remove an IMAP mailbox connection.
 [**getConnectionEmail**](AccountsApi.md#getConnectionEmail) | **GET** /v1/connections/email | List IMAP and email-OAuth connections.
 [**getConnectionExtensionOnline**](AccountsApi.md#getConnectionExtensionOnline) | **GET** /v1/connections/extension-online | Check if the browser extension is online.
+[**getConnectionPolicyManagementOption**](AccountsApi.md#getConnectionPolicyManagementOption) | **GET** /v1/connections/policy-management/{connectionId}/options/{source} | List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
 [**getOauthInit**](AccountsApi.md#getOauthInit) | **GET** /v1/oauth/{platform}/init | Return the OAuth authorize URL for an API-track platform.
 [**getPlatformLimit**](AccountsApi.md#getPlatformLimit) | **GET** /v1/platforms/limits | eBay free-tier + Etsy fees aggregate.
 [**listAccounts**](AccountsApi.md#listAccounts) | **GET** /v1/accounts | List your connected platform accounts.
+[**listConnectionPolicyManagement**](AccountsApi.md#listConnectionPolicyManagement) | **GET** /v1/connections/policy-management | List eBay and Etsy accounts with whether Crossly manages their policies.
 [**listConnections**](AccountsApi.md#listConnections) | **GET** /v1/connections | List OAuth-connected API platforms.
 [**updateConnectionEmailImap**](AccountsApi.md#updateConnectionEmailImap) | **PATCH** /v1/connections/email/imap/{id} | Edit an IMAP mailbox connection.
+[**updateConnectionPolicyManagement**](AccountsApi.md#updateConnectionPolicyManagement) | **PUT** /v1/connections/policy-management/{connectionId} | Turn Crossly policy management on or off for one eBay or Etsy account.
 [**updatePlatformPreference**](AccountsApi.md#updatePlatformPreference) | **PATCH** /v1/platforms/{platform}/preferences | Update per-platform connection preferences.
 
 
@@ -56,6 +61,49 @@ This endpoint does not need any parameter.
 ### Return type
 
 **CreateAccountResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createConnectionCardnexusApiKey"></a>
+# **createConnectionCardnexusApiKey**
+> CreateConnectionCardnexusApiKeyResponse createConnectionCardnexusApiKey()
+
+Connect CardNexus with a personal API key (validated live before it is stored).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = AccountsApi()
+try {
+    val result : CreateConnectionCardnexusApiKeyResponse = apiInstance.createConnectionCardnexusApiKey()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#createConnectionCardnexusApiKey")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#createConnectionCardnexusApiKey")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateConnectionCardnexusApiKeyResponse**
 
 ### Authorization
 
@@ -152,6 +200,53 @@ Configure PersonalAccessToken:
 ### HTTP request headers
 
  - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createConnectionLightspeedXToken"></a>
+# **createConnectionLightspeedXToken**
+> CreateConnectionLightspeedXTokenResponse createConnectionLightspeedXToken(createConnectionLightspeedXTokenRequest)
+
+Connect Lightspeed X-Series with a personal token (Setup → Personal tokens, Plus plan) and the store prefix.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = AccountsApi()
+val createConnectionLightspeedXTokenRequest : CreateConnectionLightspeedXTokenRequest =  // CreateConnectionLightspeedXTokenRequest | 
+try {
+    val result : CreateConnectionLightspeedXTokenResponse = apiInstance.createConnectionLightspeedXToken(createConnectionLightspeedXTokenRequest)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#createConnectionLightspeedXToken")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#createConnectionLightspeedXToken")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **createConnectionLightspeedXTokenRequest** | **CreateConnectionLightspeedXTokenRequest**|  |
+
+### Return type
+
+**CreateConnectionLightspeedXTokenResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: application/json
  - **Accept**: application/json
 
 <a name="createConnectionRequest"></a>
@@ -252,7 +347,7 @@ Configure PersonalAccessToken:
 # **createPlatformAccountDisconnect**
 > CreatePlatformAccountDisconnectResponse createPlatformAccountDisconnect(platform)
 
-Archive every active account row for a platform.
+Disconnect every account of a platform (archives the rows and deletes their stored sessions).
 
 ### Example
 ```kotlin
@@ -614,13 +709,64 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getConnectionPolicyManagementOption"></a>
+# **getConnectionPolicyManagementOption**
+> GetConnectionPolicyManagementOptionResponse getConnectionPolicyManagementOption(connectionId, source)
+
+List the live options a marketplace policy field offers (e.g. Allegro delivery methods).
+
+For one of your managed connections, the choices a preset&#39;s &#x60;platformFields&#x60; picker offers, from the marketplace (&#x60;source&#x60; is the field&#39;s &#x60;optionsSource&#x60;, e.g. &#x60;delivery-methods&#x60;). An unknown connection or source is a 404.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = AccountsApi()
+val connectionId : kotlin.String = connectionId_example // kotlin.String | 
+val source : kotlin.String = source_example // kotlin.String | 
+try {
+    val result : GetConnectionPolicyManagementOptionResponse = apiInstance.getConnectionPolicyManagementOption(connectionId, source)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#getConnectionPolicyManagementOption")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#getConnectionPolicyManagementOption")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connectionId** | **kotlin.String**|  |
+ **source** | **kotlin.String**|  |
+
+### Return type
+
+**GetConnectionPolicyManagementOptionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getOauthInit"></a>
 # **getOauthInit**
 > GetOauthInitResponse getOauthInit(platform, shop, region, siteUrl)
 
 Return the OAuth authorize URL for an API-track platform.
 
-Most platforms return &#x60;{ url }&#x60;. Etsy adds &#x60;{ correlationId }&#x60; (PKCE verifier stashed in Redis). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
+Most platforms return &#x60;{ url }&#x60; (Shopify, Etsy, Amazon and the other marketplaces Atlas Connections connects: the URL Atlas returns for this seller). Bonanza adds &#x60;{ oneShot: true }&#x60;. WooCommerce requires &#x60;?siteUrl&#x3D;...&#x60;. Walmart returns &#x60;{ status: \&quot;request_only\&quot;, requestUrl, message }&#x60; instead of a URL because per-seller OAuth needs Solution Provider approval.
 
 ### Example
 ```kotlin
@@ -755,6 +901,51 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listConnectionPolicyManagement"></a>
+# **listConnectionPolicyManagement**
+> ListConnectionPolicyManagementResponse listConnectionPolicyManagement()
+
+List eBay and Etsy accounts with whether Crossly manages their policies.
+
+One row per connected eBay or Etsy account: &#x60;eligible&#x60; (eBay only on EBAY_US), &#x60;managed&#x60; (Crossly keeps its policies / shipping profiles in step with your default presets) and sync &#x60;notes&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = AccountsApi()
+try {
+    val result : ListConnectionPolicyManagementResponse = apiInstance.listConnectionPolicyManagement()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#listConnectionPolicyManagement")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#listConnectionPolicyManagement")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListConnectionPolicyManagementResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listConnections"></a>
 # **listConnections**
 > ListConnectionsResponse listConnections()
@@ -833,6 +1024,55 @@ Name | Type | Description  | Notes
 ### Return type
 
 **SuccessResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateConnectionPolicyManagement"></a>
+# **updateConnectionPolicyManagement**
+> ListConnectionPolicyManagementItem updateConnectionPolicyManagement(connectionId)
+
+Turn Crossly policy management on or off for one eBay or Etsy account.
+
+Body &#x60;{ managed: boolean }&#x60;. On: Crossly may overwrite that account&#39;s own policies with your default presets and queues a sync now (409 for an ineligible account, e.g. non-US eBay). Off: Crossly stops touching them. A connection that is not yours (or not eBay/Etsy) is a 404.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = AccountsApi()
+val connectionId : kotlin.String = connectionId_example // kotlin.String | 
+try {
+    val result : ListConnectionPolicyManagementItem = apiInstance.updateConnectionPolicyManagement(connectionId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling AccountsApi#updateConnectionPolicyManagement")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling AccountsApi#updateConnectionPolicyManagement")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **connectionId** | **kotlin.String**|  |
+
+### Return type
+
+**ListConnectionPolicyManagementItem**
 
 ### Authorization
 

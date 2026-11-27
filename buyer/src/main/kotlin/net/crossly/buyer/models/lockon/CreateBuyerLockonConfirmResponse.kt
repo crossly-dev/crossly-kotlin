@@ -119,13 +119,13 @@ data class CreateBuyerLockonConfirmResponse (
     /**
      * How we know. `confirmed` means a human picked it.
      *
-     * Values: CONFIRMED,VISUAL,OCR,BARCODE
+     * Values: CONFIRMED,BARCODE,VISUAL,OCR
      */
     enum class IdentitySource(val value: kotlin.String) {
         @Json(name = "confirmed") CONFIRMED("confirmed"),
+        @Json(name = "barcode") BARCODE("barcode"),
         @Json(name = "visual") VISUAL("visual"),
-        @Json(name = "ocr") OCR("ocr"),
-        @Json(name = "barcode") BARCODE("barcode");
+        @Json(name = "ocr") OCR("ocr");
     }
 }
 

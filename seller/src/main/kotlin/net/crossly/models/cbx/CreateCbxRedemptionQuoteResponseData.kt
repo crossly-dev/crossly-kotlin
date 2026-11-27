@@ -63,12 +63,12 @@ data class CreateCbxRedemptionQuoteResponseData (
     /**
      * 
      *
-     * Values: GRADING,AUTHENTICATION,SUBSCRIPTION
+     * Values: GRADING,SUBSCRIPTION,AUTHENTICATION
      */
     enum class ServiceKind(val value: kotlin.String) {
         @Json(name = "grading") GRADING("grading"),
-        @Json(name = "authentication") AUTHENTICATION("authentication"),
-        @Json(name = "subscription") SUBSCRIPTION("subscription");
+        @Json(name = "subscription") SUBSCRIPTION("subscription"),
+        @Json(name = "authentication") AUTHENTICATION("authentication");
     }
 }
 

@@ -35,7 +35,10 @@ import com.squareup.moshi.Json
  * @param costCents 
  * @param retailCents 
  * @param stuckCostCents 
+ * @param reconstructed 
  * @param marketCents 
+ * @param over90CostCents 
+ * @param costKnownItems 
  */
 
 data class GetInventoryValueHistoryResponseDataPoints (
@@ -67,8 +70,17 @@ data class GetInventoryValueHistoryResponseDataPoints (
     @Json(name = "stuckCostCents")
     val stuckCostCents: java.math.BigDecimal,
 
+    @Json(name = "reconstructed")
+    val reconstructed: kotlin.Boolean,
+
     @Json(name = "marketCents")
-    val marketCents: java.math.BigDecimal? = null
+    val marketCents: java.math.BigDecimal? = null,
+
+    @Json(name = "over90CostCents")
+    val over90CostCents: java.math.BigDecimal? = null,
+
+    @Json(name = "costKnownItems")
+    val costKnownItems: java.math.BigDecimal? = null
 
 )
 

@@ -89,11 +89,11 @@ data class ListVaultMarketAdlEventsItem (
     /**
      * 'unit' = closed at the bankruptcy price against an opposite position; 'cash' = a settlement-time loss covered from a profit.
      *
-     * Values: UNIT,CASH
+     * Values: CASH,UNIT
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "unit") UNIT("unit"),
-        @Json(name = "cash") CASH("cash");
+        @Json(name = "cash") CASH("cash"),
+        @Json(name = "unit") UNIT("unit");
     }
     /**
      * 'bankrupt' = your position went under water; 'counterparty' = yours was first in line.
@@ -107,11 +107,11 @@ data class ListVaultMarketAdlEventsItem (
     /**
      * 
      *
-     * Values: LONG,SHORT
+     * Values: SHORT,LONG
      */
     enum class Side(val value: kotlin.String) {
-        @Json(name = "long") LONG("long"),
-        @Json(name = "short") SHORT("short");
+        @Json(name = "short") SHORT("short"),
+        @Json(name = "long") LONG("long");
     }
 }
 

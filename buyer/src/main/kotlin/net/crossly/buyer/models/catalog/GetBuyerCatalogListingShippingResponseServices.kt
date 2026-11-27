@@ -33,6 +33,9 @@ import com.squareup.moshi.Json
  * @param costType 
  * @param minDays 
  * @param maxDays 
+ * @param carrier Buyer pays: calculated: the carrier and service token the label is bought with, and the handling fee inside `cents`.
+ * @param carrierService 
+ * @param handlingFeeCents 
  */
 
 data class GetBuyerCatalogListingShippingResponseServices (
@@ -56,7 +59,17 @@ data class GetBuyerCatalogListingShippingResponseServices (
     val minDays: java.math.BigDecimal? = null,
 
     @Json(name = "maxDays")
-    val maxDays: java.math.BigDecimal? = null
+    val maxDays: java.math.BigDecimal? = null,
+
+    /* Buyer pays: calculated: the carrier and service token the label is bought with, and the handling fee inside `cents`. */
+    @Json(name = "carrier")
+    val carrier: kotlin.String? = null,
+
+    @Json(name = "carrierService")
+    val carrierService: kotlin.String? = null,
+
+    @Json(name = "handlingFeeCents")
+    val handlingFeeCents: java.math.BigDecimal? = null
 
 )
 

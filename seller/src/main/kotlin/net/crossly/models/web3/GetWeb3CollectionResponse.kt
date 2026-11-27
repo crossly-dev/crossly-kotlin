@@ -53,15 +53,15 @@ data class GetWeb3CollectionResponse (
     /**
      * 
      *
-     * Values: SOLANA,ETHEREUM,BASE,POLYGON,ARBITRUM,OPTIMISM
+     * Values: ETHEREUM,BASE,POLYGON,ARBITRUM,OPTIMISM,SOLANA
      */
     enum class Chain(val value: kotlin.String) {
-        @Json(name = "solana") SOLANA("solana"),
         @Json(name = "ethereum") ETHEREUM("ethereum"),
         @Json(name = "base") BASE("base"),
         @Json(name = "polygon") POLYGON("polygon"),
         @Json(name = "arbitrum") ARBITRUM("arbitrum"),
-        @Json(name = "optimism") OPTIMISM("optimism");
+        @Json(name = "optimism") OPTIMISM("optimism"),
+        @Json(name = "solana") SOLANA("solana");
     }
 }
 

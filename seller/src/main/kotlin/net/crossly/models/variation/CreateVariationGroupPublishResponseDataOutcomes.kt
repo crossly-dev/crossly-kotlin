@@ -32,6 +32,10 @@ import com.squareup.moshi.Json
  * @param warnings 
  * @param listingId The marketplace listing id — the GROUP's on a grouped platform, absent on a separate one where each option has its own.
  * @param jobIds Dispatcher job ids, on the separate path.
+ * @param members Grouped: every option that went live, with its own id on the platform. publishGroupToPlatform records one platform_listings row per entry (variation-publish-members.ts), so a sale or delist acts on that option.
+ * @param failed Grouped: options that did not go live. Reported in `warnings`; the live ones are still recorded.
+ * @param afterRecorded Grouped: work that needs the option rows to exist (a POS stock base, markPosPushed), run right after they are recorded. Returns warnings for the seller; must not throw for one option.
+ * @param ownOptionRows The publisher tracks its options itself, not as platform_listings rows (Crossly: crossly_listing_variants with the member listing id, variation-publish-crossly.ts), so no `members` is not a gap.
  * @param error 
  */
 
@@ -57,6 +61,22 @@ data class CreateVariationGroupPublishResponseDataOutcomes (
     @Json(name = "jobIds")
     val jobIds: kotlin.collections.List<kotlin.String>? = null,
 
+    /* Grouped: every option that went live, with its own id on the platform. publishGroupToPlatform records one platform_listings row per entry (variation-publish-members.ts), so a sale or delist acts on that option. */
+    @Json(name = "members")
+    val members: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>? = null,
+
+    /* Grouped: options that did not go live. Reported in `warnings`; the live ones are still recorded. */
+    @Json(name = "failed")
+    val failed: kotlin.collections.List<kotlin.collections.Map<kotlin.String, kotlin.Any>>? = null,
+
+    /* Grouped: work that needs the option rows to exist (a POS stock base, markPosPushed), run right after they are recorded. Returns warnings for the seller; must not throw for one option. */
+    @Json(name = "afterRecorded")
+    val afterRecorded: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    /* The publisher tracks its options itself, not as platform_listings rows (Crossly: crossly_listing_variants with the member listing id, variation-publish-crossly.ts), so no `members` is not a gap. */
+    @Json(name = "ownOptionRows")
+    val ownOptionRows: kotlin.Boolean? = null,
+
     @Json(name = "error")
     val error: kotlin.String? = null
 
@@ -65,11 +85,11 @@ data class CreateVariationGroupPublishResponseDataOutcomes (
     /**
      * 
      *
-     * Values: GROUPED,SEPARATE
+     * Values: SEPARATE,GROUPED
      */
     enum class Mode(val value: kotlin.String) {
-        @Json(name = "grouped") GROUPED("grouped"),
-        @Json(name = "separate") SEPARATE("separate");
+        @Json(name = "separate") SEPARATE("separate"),
+        @Json(name = "grouped") GROUPED("grouped");
     }
 }
 

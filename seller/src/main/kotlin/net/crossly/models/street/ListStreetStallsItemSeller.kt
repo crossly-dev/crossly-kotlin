@@ -20,7 +20,7 @@
 
 package net.crossly.models.street
 
-import net.crossly.models.common.NameSlug
+import net.crossly.models.common.NameSlug2
 
 import com.squareup.moshi.Json
 
@@ -41,7 +41,7 @@ data class ListStreetStallsItemSeller (
     val level: java.math.BigDecimal,
 
     @Json(name = "shop")
-    val shop: NameSlug? = null
+    val shop: NameSlug2? = null
 
 )
 

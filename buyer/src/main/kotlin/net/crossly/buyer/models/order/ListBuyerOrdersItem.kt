@@ -30,6 +30,7 @@ import com.squareup.moshi.Json
  * @param status 
  * @param buyerPaidCents 
  * @param createdAt 
+ * @param orderNumber 
  */
 
 data class ListBuyerOrdersItem (
@@ -44,7 +45,10 @@ data class ListBuyerOrdersItem (
     val buyerPaidCents: java.math.BigDecimal,
 
     @Json(name = "createdAt")
-    val createdAt: java.time.OffsetDateTime
+    val createdAt: java.time.OffsetDateTime,
+
+    @Json(name = "orderNumber")
+    val orderNumber: kotlin.String? = null
 
 )
 

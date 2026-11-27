@@ -35,8 +35,9 @@ import com.squareup.moshi.Json
  * @param space A `portal` ref: the Space slug a click takes the visitor to.
  * @param found A purchase found in the world (Wave 8.6, provenance.ts): \"Found at Amber's stall, Night Market, Oct 2026\".
  * @param `object` The thing ITSELF as a 3D object in a case or on a shelf (shared listing-space.ts): never a flat photo. Not for NFTs.
- * @param market A `vault` ref: the unit's market (a book key), so a click opens /shop/vault/markets/<market>.
+ * @param market A `vault` ref: the unit's market (a book key), so a click opens /trading/<market>.
  * @param visitors A `vault` ref, to its OWNER only: visitors may see it (vm_home_display.visitors).
+ * @param tradePostId The owner's open Trade Block post for this same product (trade-posts.ts): \"Offer a trade\" opens it.
  */
 
 data class GetHomeResponseLayoutItem (
@@ -75,13 +76,17 @@ data class GetHomeResponseLayoutItem (
     @Json(name = "object")
     val `object`: kotlin.String? = null,
 
-    /* A `vault` ref: the unit's market (a book key), so a click opens /shop/vault/markets/<market>. */
+    /* A `vault` ref: the unit's market (a book key), so a click opens /trading/<market>. */
     @Json(name = "market")
     val market: kotlin.String? = null,
 
     /* A `vault` ref, to its OWNER only: visitors may see it (vm_home_display.visitors). */
     @Json(name = "visitors")
-    val visitors: kotlin.Boolean? = null
+    val visitors: kotlin.Boolean? = null,
+
+    /* The owner's open Trade Block post for this same product (trade-posts.ts): \"Offer a trade\" opens it. */
+    @Json(name = "tradePostId")
+    val tradePostId: kotlin.String? = null
 
 )
 

@@ -1,16 +1,10 @@
-group 'org.openapitools'
-version '1.0.0'
-
-wrapper {
-    gradleVersion = '6.8.3'
-    distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
-}
+// Finished by codegen/integrations/extras/kotlin/finish.mjs from the generator's build.gradle
+// (Gradle 6.8.3 + Kotlin 1.5.10 there); the dependency list is the generator's. Edits here are overwritten.
 
 buildscript {
-    ext.kotlin_version = '1.5.10'
-
+    ext.kotlin_version = '2.1.21'
     repositories {
-        maven { url "https://repo1.maven.org/maven2" }
+        mavenCentral()
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
@@ -18,20 +12,81 @@ buildscript {
 }
 
 apply plugin: 'kotlin'
+apply plugin: 'java-library'
+apply plugin: 'maven-publish'
+
+group = 'net.crossly'
+version = '0.2.0'
 
 repositories {
-    maven { url "https://repo1.maven.org/maven2" }
+    mavenCentral()
 }
 
-test {
-    useJUnitPlatform()
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+    withSourcesJar()
+    withJavadocJar()
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+    compilerOptions.jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_11)
+    // The generated models alone produce thousands of deprecation warnings.
+    compilerOptions.suppressWarnings.set(true)
+}
+
+jar {
+    manifest {
+        attributes('Implementation-Title': 'crossly-kotlin', 'Implementation-Version': project.version)
+    }
+}
+
+// A plain POM and no Gradle module metadata: dist/ holds exactly what Maven Central receives.
+tasks.withType(GenerateModuleMetadata).configureEach {
+    enabled = false
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
-    implementation "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
-    implementation "com.squareup.moshi:moshi-kotlin:1.12.0"
-    implementation "com.squareup.moshi:moshi-adapters:1.12.0"
-    implementation "com.squareup.okhttp3:okhttp:4.9.1"
-    testImplementation "io.kotlintest:kotlintest-runner-junit5:3.4.2"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-reflect:$kotlin_version"
+    api "com.squareup.moshi:moshi-kotlin:1.12.0"
+    api "com.squareup.moshi:moshi-adapters:1.12.0"
+    api "com.squareup.okhttp3:okhttp:4.9.1"
+    // Webhook plugin (net.crossly.webhooks.ktor) and the Flow pager: compiled against, never brought in.
+    compileOnly "io.ktor:ktor-server-core:3.1.3"
+    compileOnly "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.10.2"
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'crossly-kotlin'
+            from components.java
+            pom {
+                name = 'Crossly Kotlin SDK (seller)'
+                description = 'Official Kotlin client for the Crossly seller API (listings, crossposting, orders, analytics), generated from the public OpenAPI spec, with retries, auto-pagination and the webhook verifier.'
+                url = 'https://github.com/crossly-dev/crossly-kotlin'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://opensource.org/licenses/MIT'
+                        distribution = 'repo'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'crossly'
+                        name = 'Crossly'
+                        organization = 'Crossly'
+                        organizationUrl = 'https://crossly.net'
+                    }
+                }
+                scm {
+                    url = 'https://github.com/crossly-dev/crossly-kotlin'
+                    connection = 'scm:git:https://github.com/crossly-dev/crossly-kotlin.git'
+                    developerConnection = 'scm:git:https://github.com/crossly-dev/crossly-kotlin.git'
+                }
+            }
+        }
+    }
 }

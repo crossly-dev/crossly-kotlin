@@ -22,11 +22,25 @@ package net.crossly.apis
 
 import java.io.IOException
 
+import net.crossly.models.common.AnalyticExperimentResponse
+import net.crossly.models.common.DeleteStoryResponse
 import net.crossly.models.common.Error
 import net.crossly.models.analytic.GetAnalyticBookkeepingResponse
 import net.crossly.models.analytic.GetAnalyticByPlatformResponse
+import net.crossly.models.analytic.GetAnalyticCompareResponse
 import net.crossly.models.analytic.GetAnalyticDashboardResponse
+import net.crossly.models.analytic.GetAnalyticExperimentByIdResponse
+import net.crossly.models.analytic.GetAnalyticExperimentResponse
+import net.crossly.models.analytic.GetAnalyticInventoryResponse
+import net.crossly.models.analytic.GetAnalyticItemByListingIdResponse
 import net.crossly.models.analytic.GetAnalyticItemResponse
+import net.crossly.models.analytic.GetAnalyticMarketplaceByPlatformResponse
+import net.crossly.models.analytic.GetAnalyticMarketplaceResponse
+import net.crossly.models.analytic.GetAnalyticOverviewResponse
+import net.crossly.models.analytic.GetAnalyticPerformanceResponse
+import net.crossly.models.analytic.GetAnalyticProgramResponse
+import net.crossly.models.analytic.GetAnalyticSegmentByKeyResponse
+import net.crossly.models.analytic.GetAnalyticSegmentResponse
 import net.crossly.models.analytic.GetAnalyticSummaryResponse
 import net.crossly.models.analytic.GetAnalyticTimeseryResponse
 import net.crossly.models.analytic.GetAnalyticTodayResponse
@@ -53,6 +67,283 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
         val defaultBasePath: String by lazy {
             System.getProperties().getProperty(ApiClient.baseUrlKey, "https://crossly.net/api")
         }
+    }
+
+    /**
+    * Start a listing experiment. split: 2-4 live platform listings observed over the same window; sequential: one platform listing, before vs after changeAt (optionally applying a new price).
+    * 
+    * @return AnalyticExperimentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createAnalyticExperiment() : AnalyticExperimentResponse {
+        val localVarResponse = createAnalyticExperimentWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as AnalyticExperimentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Start a listing experiment. split: 2-4 live platform listings observed over the same window; sequential: one platform listing, before vs after changeAt (optionally applying a new price).
+    * 
+    * @return ApiResponse<AnalyticExperimentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createAnalyticExperimentWithHttpInfo() : ApiResponse<AnalyticExperimentResponse?> {
+        val localVariableConfig = createAnalyticExperimentRequestConfig()
+
+        return request<Unit, AnalyticExperimentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createAnalyticExperiment
+    *
+    * @return RequestConfig
+    */
+    fun createAnalyticExperimentRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/analytics/experiments",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Record the outcome: a winning arm, no difference, or inconclusive. Concludes the experiment.
+    * 
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return AnalyticExperimentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createAnalyticExperimentDeclare(id: kotlin.String) : AnalyticExperimentResponse {
+        val localVarResponse = createAnalyticExperimentDeclareWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as AnalyticExperimentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Record the outcome: a winning arm, no difference, or inconclusive. Concludes the experiment.
+    * 
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return ApiResponse<AnalyticExperimentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createAnalyticExperimentDeclareWithHttpInfo(id: kotlin.String) : ApiResponse<AnalyticExperimentResponse?> {
+        val localVariableConfig = createAnalyticExperimentDeclareRequestConfig(id = id)
+
+        return request<Unit, AnalyticExperimentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createAnalyticExperimentDeclare
+    *
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return RequestConfig
+    */
+    fun createAnalyticExperimentDeclareRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/analytics/experiments/{id}/declare".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Stop an experiment: no more data is counted after now.
+    * 
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return AnalyticExperimentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createAnalyticExperimentStop(id: kotlin.String) : AnalyticExperimentResponse {
+        val localVarResponse = createAnalyticExperimentStopWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as AnalyticExperimentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Stop an experiment: no more data is counted after now.
+    * 
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return ApiResponse<AnalyticExperimentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createAnalyticExperimentStopWithHttpInfo(id: kotlin.String) : ApiResponse<AnalyticExperimentResponse?> {
+        val localVariableConfig = createAnalyticExperimentStopRequestConfig(id = id)
+
+        return request<Unit, AnalyticExperimentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createAnalyticExperimentStop
+    *
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return RequestConfig
+    */
+    fun createAnalyticExperimentStopRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/analytics/experiments/{id}/stop".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Delete an experiment. The listings are untouched.
+    * 
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return DeleteStoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteAnalyticExperiment(id: kotlin.String) : DeleteStoryResponse {
+        val localVarResponse = deleteAnalyticExperimentWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteStoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Delete an experiment. The listings are untouched.
+    * 
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return ApiResponse<DeleteStoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteAnalyticExperimentWithHttpInfo(id: kotlin.String) : ApiResponse<DeleteStoryResponse?> {
+        val localVariableConfig = deleteAnalyticExperimentRequestConfig(id = id)
+
+        return request<Unit, DeleteStoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteAnalyticExperiment
+    *
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return RequestConfig
+    */
+    fun deleteAnalyticExperimentRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/analytics/experiments/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
     }
 
     /**
@@ -123,8 +414,10 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Sales + revenue grouped by platform for the last N days.
+    * Sales, net sales, fees and net profit by platform for the last N days.
     * 
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return GetAnalyticByPlatformResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -134,8 +427,8 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun getAnalyticByPlatform() : GetAnalyticByPlatformResponse {
-        val localVarResponse = getAnalyticByPlatformWithHttpInfo()
+    fun getAnalyticByPlatform(days: kotlin.Int?, tz: kotlin.String?) : GetAnalyticByPlatformResponse {
+        val localVarResponse = getAnalyticByPlatformWithHttpInfo(days = days, tz = tz)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticByPlatformResponse
@@ -153,16 +446,18 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Sales + revenue grouped by platform for the last N days.
+    * Sales, net sales, fees and net profit by platform for the last N days.
     * 
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return ApiResponse<GetAnalyticByPlatformResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun getAnalyticByPlatformWithHttpInfo() : ApiResponse<GetAnalyticByPlatformResponse?> {
-        val localVariableConfig = getAnalyticByPlatformRequestConfig()
+    fun getAnalyticByPlatformWithHttpInfo(days: kotlin.Int?, tz: kotlin.String?) : ApiResponse<GetAnalyticByPlatformResponse?> {
+        val localVariableConfig = getAnalyticByPlatformRequestConfig(days = days, tz = tz)
 
         return request<Unit, GetAnalyticByPlatformResponse>(
             localVariableConfig
@@ -172,17 +467,127 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     /**
     * To obtain the request config of the operation getAnalyticByPlatform
     *
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return RequestConfig
     */
-    fun getAnalyticByPlatformRequestConfig() : RequestConfig<Unit> {
+    fun getAnalyticByPlatformRequestConfig(days: kotlin.Int?, tz: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (days != null) {
+                    put("days", listOf(days.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/analytics/by-platform",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter align
+     */
+     enum class Align_getAnalyticCompare(val value: kotlin.String) {
+         @Json(name = "age") AGE("age"),
+         @Json(name = "calendar") CALENDAR("calendar"),
+         ;
+     }
+
+    /**
+    * Compare 2-4 of your listings: columns of price, quality, channels, views, favorites, offers and outcome, engagement curves, the fields that differ, and observational tests of favorite rate, view-to-offer rate and views per day.
+    * 
+    * @param ids Comma-separated listing ids, 2 to 4. The first is arm A. 
+    * @param align age &#x3D; x is days since first listed (default); calendar &#x3D; x is the date. (optional)
+    * @param platform Restrict engagement to one channel (platform id). (optional)
+    * @param tz IANA time zone. Default UTC. (optional)
+    * @return GetAnalyticCompareResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticCompare(ids: kotlin.String, align: Align_getAnalyticCompare?, platform: kotlin.String?, tz: kotlin.String?) : GetAnalyticCompareResponse {
+        val localVarResponse = getAnalyticCompareWithHttpInfo(ids = ids, align = align, platform = platform, tz = tz)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticCompareResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Compare 2-4 of your listings: columns of price, quality, channels, views, favorites, offers and outcome, engagement curves, the fields that differ, and observational tests of favorite rate, view-to-offer rate and views per day.
+    * 
+    * @param ids Comma-separated listing ids, 2 to 4. The first is arm A. 
+    * @param align age &#x3D; x is days since first listed (default); calendar &#x3D; x is the date. (optional)
+    * @param platform Restrict engagement to one channel (platform id). (optional)
+    * @param tz IANA time zone. Default UTC. (optional)
+    * @return ApiResponse<GetAnalyticCompareResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticCompareWithHttpInfo(ids: kotlin.String, align: Align_getAnalyticCompare?, platform: kotlin.String?, tz: kotlin.String?) : ApiResponse<GetAnalyticCompareResponse?> {
+        val localVariableConfig = getAnalyticCompareRequestConfig(ids = ids, align = align, platform = platform, tz = tz)
+
+        return request<Unit, GetAnalyticCompareResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticCompare
+    *
+    * @param ids Comma-separated listing ids, 2 to 4. The first is arm A. 
+    * @param align age &#x3D; x is days since first listed (default); calendar &#x3D; x is the date. (optional)
+    * @param platform Restrict engagement to one channel (platform id). (optional)
+    * @param tz IANA time zone. Default UTC. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticCompareRequestConfig(ids: kotlin.String, align: Align_getAnalyticCompare?, platform: kotlin.String?, tz: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                put("ids", listOf(ids.toString()))
+                if (align != null) {
+                    put("align", listOf(align.toString()))
+                }
+                if (platform != null) {
+                    put("platform", listOf(platform.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/compare",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -257,6 +662,350 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
+     * enum for parameter status
+     */
+     enum class Status_getAnalyticExperiment(val value: kotlin.String) {
+         @Json(name = "all") ALL("all"),
+         @Json(name = "running") RUNNING("running"),
+         @Json(name = "concluded") CONCLUDED("concluded"),
+         @Json(name = "draft") DRAFT("draft"),
+         ;
+     }
+
+    /**
+    * Your listing A/B experiments, newest first, with status, days running and the current verdict.
+    * 
+    * @param status Default all. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param size Rows per page. Default 20. (optional)
+    * @return GetAnalyticExperimentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticExperiment(status: Status_getAnalyticExperiment?, page: kotlin.Int?, size: kotlin.Int?) : GetAnalyticExperimentResponse {
+        val localVarResponse = getAnalyticExperimentWithHttpInfo(status = status, page = page, size = size)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticExperimentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your listing A/B experiments, newest first, with status, days running and the current verdict.
+    * 
+    * @param status Default all. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param size Rows per page. Default 20. (optional)
+    * @return ApiResponse<GetAnalyticExperimentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticExperimentWithHttpInfo(status: Status_getAnalyticExperiment?, page: kotlin.Int?, size: kotlin.Int?) : ApiResponse<GetAnalyticExperimentResponse?> {
+        val localVariableConfig = getAnalyticExperimentRequestConfig(status = status, page = page, size = size)
+
+        return request<Unit, GetAnalyticExperimentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticExperiment
+    *
+    * @param status Default all. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param size Rows per page. Default 20. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticExperimentRequestConfig(status: Status_getAnalyticExperiment?, page: kotlin.Int?, size: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (status != null) {
+                    put("status", listOf(status.toString()))
+                }
+                if (page != null) {
+                    put("page", listOf(page.toString()))
+                }
+                if (size != null) {
+                    put("size", listOf(size.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/experiments",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One experiment: arms with their windows, exposure and rates, the primary-metric test per arm against A, guardrail tests, the daily series and what to do next.
+    * 
+    * @param id The experiment id (a uuid). 
+    * @return GetAnalyticExperimentByIdResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticExperimentById(id: kotlin.String) : GetAnalyticExperimentByIdResponse {
+        val localVarResponse = getAnalyticExperimentByIdWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticExperimentByIdResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One experiment: arms with their windows, exposure and rates, the primary-metric test per arm against A, guardrail tests, the daily series and what to do next.
+    * 
+    * @param id The experiment id (a uuid). 
+    * @return ApiResponse<GetAnalyticExperimentByIdResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticExperimentByIdWithHttpInfo(id: kotlin.String) : ApiResponse<GetAnalyticExperimentByIdResponse?> {
+        val localVariableConfig = getAnalyticExperimentByIdRequestConfig(id = id)
+
+        return request<Unit, GetAnalyticExperimentByIdResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticExperimentById
+    *
+    * @param id The experiment id (a uuid). 
+    * @return RequestConfig
+    */
+    fun getAnalyticExperimentByIdRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/experiments/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter range
+     */
+     enum class Range_getAnalyticInventory(val value: kotlin.String) {
+         @Json(name = "7d") _7D("7d"),
+         @Json(name = "30d") _30D("30d"),
+         @Json(name = "90d") _90D("90d"),
+         @Json(name = "1y") _1Y("1y"),
+         @Json(name = "ytd") YTD("ytd"),
+         @Json(name = "all") ALL("all"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter compare
+     */
+     enum class Compare_getAnalyticInventory(val value: kotlin.String) {
+         @Json(name = "prev") PREV("prev"),
+         @Json(name = "yoy") YOY("yoy"),
+         @Json(name = "none") NONE("none"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter maturity
+     */
+     enum class Maturity_getAnalyticInventory(val value: kotlin.Int) {
+         @Json(name = "30") _30(30),
+         @Json(name = "60") _60(60),
+         @Json(name = "90") _90(90),
+         ;
+     }
+
+    /**
+    * Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param maturity Days an item has to sell within to count as sold in the cohort. Default 30. (optional)
+    * @return GetAnalyticInventoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticInventory(range: Range_getAnalyticInventory?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticInventory?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, maturity: Maturity_getAnalyticInventory?) : GetAnalyticInventoryResponse {
+        val localVarResponse = getAnalyticInventoryWithHttpInfo(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, maturity = maturity)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticInventoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param maturity Days an item has to sell within to count as sold in the cohort. Default 30. (optional)
+    * @return ApiResponse<GetAnalyticInventoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticInventoryWithHttpInfo(range: Range_getAnalyticInventory?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticInventory?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, maturity: Maturity_getAnalyticInventory?) : ApiResponse<GetAnalyticInventoryResponse?> {
+        val localVariableConfig = getAnalyticInventoryRequestConfig(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, maturity = maturity)
+
+        return request<Unit, GetAnalyticInventoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticInventory
+    *
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param maturity Days an item has to sell within to count as sold in the cohort. Default 30. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticInventoryRequestConfig(range: Range_getAnalyticInventory?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticInventory?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, maturity: Maturity_getAnalyticInventory?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (range != null) {
+                    put("range", listOf(range.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (compare != null) {
+                    put("compare", listOf(compare.toString()))
+                }
+                if (cmpFrom != null) {
+                    put("cmpFrom", listOf(cmpFrom.toString()))
+                }
+                if (cmpTo != null) {
+                    put("cmpTo", listOf(cmpTo.toString()))
+                }
+                if (labels != null) {
+                    put("labels", listOf(labels.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (brand != null) {
+                    put("brand", listOf(brand.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+                if (maturity != null) {
+                    put("maturity", listOf(maturity.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/inventory",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Per-item P&amp;L for sold inventory.
     * 
     * @return GetAnalyticItemResponse
@@ -324,9 +1073,1409 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Headline KPIs for the last N days.
+     * enum for parameter by
+     */
+     enum class By_getAnalyticItemByListingId(val value: kotlin.String) {
+         @Json(name = "listing") LISTING("listing"),
+         @Json(name = "inventory") INVENTORY("inventory"),
+         ;
+     }
+
+    /**
+    * One listing in depth: channels with views, favorites and offers, the merged timeline, engagement series, price history, comps, money waterfall, days on market, offers, messages, experiments and suggestions.
     * 
-    * @param days  (optional, default to 30)
+    * @param listingId A listings.id you own (or an inventory item id with by&#x3D;inventory). 
+    * @param by inventory &#x3D; the id is an inventory item id; the answer is { redirectListingId }. Default listing. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
+    * @return GetAnalyticItemByListingIdResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticItemByListingId(listingId: kotlin.String, by: By_getAnalyticItemByListingId?, tz: kotlin.String?) : GetAnalyticItemByListingIdResponse {
+        val localVarResponse = getAnalyticItemByListingIdWithHttpInfo(listingId = listingId, by = by, tz = tz)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticItemByListingIdResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One listing in depth: channels with views, favorites and offers, the merged timeline, engagement series, price history, comps, money waterfall, days on market, offers, messages, experiments and suggestions.
+    * 
+    * @param listingId A listings.id you own (or an inventory item id with by&#x3D;inventory). 
+    * @param by inventory &#x3D; the id is an inventory item id; the answer is { redirectListingId }. Default listing. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
+    * @return ApiResponse<GetAnalyticItemByListingIdResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticItemByListingIdWithHttpInfo(listingId: kotlin.String, by: By_getAnalyticItemByListingId?, tz: kotlin.String?) : ApiResponse<GetAnalyticItemByListingIdResponse?> {
+        val localVariableConfig = getAnalyticItemByListingIdRequestConfig(listingId = listingId, by = by, tz = tz)
+
+        return request<Unit, GetAnalyticItemByListingIdResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticItemByListingId
+    *
+    * @param listingId A listings.id you own (or an inventory item id with by&#x3D;inventory). 
+    * @param by inventory &#x3D; the id is an inventory item id; the answer is { redirectListingId }. Default listing. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticItemByListingIdRequestConfig(listingId: kotlin.String, by: By_getAnalyticItemByListingId?, tz: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (by != null) {
+                    put("by", listOf(by.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/items/{listingId}".replace("{"+"listingId"+"}", "$listingId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter range
+     */
+     enum class Range_getAnalyticMarketplace(val value: kotlin.String) {
+         @Json(name = "7d") _7D("7d"),
+         @Json(name = "30d") _30D("30d"),
+         @Json(name = "90d") _90D("90d"),
+         @Json(name = "1y") _1Y("1y"),
+         @Json(name = "ytd") YTD("ytd"),
+         @Json(name = "all") ALL("all"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter compare
+     */
+     enum class Compare_getAnalyticMarketplace(val value: kotlin.String) {
+         @Json(name = "prev") PREV("prev"),
+         @Json(name = "yoy") YOY("yoy"),
+         @Json(name = "none") NONE("none"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter sort
+     */
+     enum class Sort_getAnalyticMarketplace(val value: kotlin.String) {
+         @Json(name = "netSales") NET_SALES("netSales"),
+         @Json(name = "netProfit") NET_PROFIT("netProfit"),
+         @Json(name = "unitsSold") UNITS_SOLD("unitsSold"),
+         @Json(name = "asp") ASP("asp"),
+         @Json(name = "takeRate") TAKE_RATE("takeRate"),
+         @Json(name = "marginRate") MARGIN_RATE("marginRate"),
+         @Json(name = "shippingSubsidy") SHIPPING_SUBSIDY("shippingSubsidy"),
+         @Json(name = "medianDaysToSell") MEDIAN_DAYS_TO_SELL("medianDaysToSell"),
+         @Json(name = "sellThroughRate") SELL_THROUGH_RATE("sellThroughRate"),
+         @Json(name = "cancelRate") CANCEL_RATE("cancelRate"),
+         @Json(name = "returnRate") RETURN_RATE("returnRate"),
+         @Json(name = "offerAcceptRate") OFFER_ACCEPT_RATE("offerAcceptRate"),
+         @Json(name = "avgOfferPctOfAsk") AVG_OFFER_PCT_OF_ASK("avgOfferPctOfAsk"),
+         @Json(name = "viewsPerListingDay") VIEWS_PER_LISTING_DAY("viewsPerListingDay"),
+         @Json(name = "favoriteRate") FAVORITE_RATE("favoriteRate"),
+         @Json(name = "platform") PLATFORM("platform"),
+         @Json(name = "activeListings") ACTIVE_LISTINGS("activeListings"),
+         @Json(name = "staleListings") STALE_LISTINGS("staleListings"),
+         ;
+     }
+
+    /**
+     * enum for parameter dir
+     */
+     enum class Dir_getAnalyticMarketplace(val value: kotlin.String) {
+         @Json(name = "asc") ASC("asc"),
+         @Json(name = "desc") DESC("desc"),
+         ;
+     }
+
+    /**
+    * Every marketplace side by side: net sales and profit, units, ASP, take rate, margin, shipping subsidy, days to sell, sell-through, cancel and return rates, offers and engagement; with vs&#x3D;2-3 platforms, a head-to-head over listings live on all of them.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param vs Comma-separated 2-3 platform ids for the head-to-head. (optional)
+    * @param sort Default netSales. (optional)
+    * @param dir Default desc. (optional)
+    * @return GetAnalyticMarketplaceResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticMarketplace(range: Range_getAnalyticMarketplace?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticMarketplace?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, vs: kotlin.String?, sort: Sort_getAnalyticMarketplace?, dir: Dir_getAnalyticMarketplace?) : GetAnalyticMarketplaceResponse {
+        val localVarResponse = getAnalyticMarketplaceWithHttpInfo(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, vs = vs, sort = sort, dir = dir)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticMarketplaceResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Every marketplace side by side: net sales and profit, units, ASP, take rate, margin, shipping subsidy, days to sell, sell-through, cancel and return rates, offers and engagement; with vs&#x3D;2-3 platforms, a head-to-head over listings live on all of them.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param vs Comma-separated 2-3 platform ids for the head-to-head. (optional)
+    * @param sort Default netSales. (optional)
+    * @param dir Default desc. (optional)
+    * @return ApiResponse<GetAnalyticMarketplaceResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticMarketplaceWithHttpInfo(range: Range_getAnalyticMarketplace?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticMarketplace?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, vs: kotlin.String?, sort: Sort_getAnalyticMarketplace?, dir: Dir_getAnalyticMarketplace?) : ApiResponse<GetAnalyticMarketplaceResponse?> {
+        val localVariableConfig = getAnalyticMarketplaceRequestConfig(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, vs = vs, sort = sort, dir = dir)
+
+        return request<Unit, GetAnalyticMarketplaceResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticMarketplace
+    *
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param vs Comma-separated 2-3 platform ids for the head-to-head. (optional)
+    * @param sort Default netSales. (optional)
+    * @param dir Default desc. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticMarketplaceRequestConfig(range: Range_getAnalyticMarketplace?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticMarketplace?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, vs: kotlin.String?, sort: Sort_getAnalyticMarketplace?, dir: Dir_getAnalyticMarketplace?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (range != null) {
+                    put("range", listOf(range.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (compare != null) {
+                    put("compare", listOf(compare.toString()))
+                }
+                if (cmpFrom != null) {
+                    put("cmpFrom", listOf(cmpFrom.toString()))
+                }
+                if (cmpTo != null) {
+                    put("cmpTo", listOf(cmpTo.toString()))
+                }
+                if (labels != null) {
+                    put("labels", listOf(labels.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (brand != null) {
+                    put("brand", listOf(brand.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+                if (vs != null) {
+                    put("vs", listOf(vs.toString()))
+                }
+                if (sort != null) {
+                    put("sort", listOf(sort.toString()))
+                }
+                if (dir != null) {
+                    put("dir", listOf(dir.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/marketplaces",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter range
+     */
+     enum class Range_getAnalyticMarketplaceByPlatform(val value: kotlin.String) {
+         @Json(name = "7d") _7D("7d"),
+         @Json(name = "30d") _30D("30d"),
+         @Json(name = "90d") _90D("90d"),
+         @Json(name = "1y") _1Y("1y"),
+         @Json(name = "ytd") YTD("ytd"),
+         @Json(name = "all") ALL("all"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter compare
+     */
+     enum class Compare_getAnalyticMarketplaceByPlatform(val value: kotlin.String) {
+         @Json(name = "prev") PREV("prev"),
+         @Json(name = "yoy") YOY("yoy"),
+         @Json(name = "none") NONE("none"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+    * One marketplace in depth: its row, the money series, fee breakdown, days-to-sell and price-realization histograms, categories, top items, at-risk listings, a day-by-hour sales heatmap and offer stats.
+    * 
+    * @param platform A platform id, e.g. ebay, poshmark. 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @return GetAnalyticMarketplaceByPlatformResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticMarketplaceByPlatform(platform: kotlin.String, range: Range_getAnalyticMarketplaceByPlatform?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticMarketplaceByPlatform?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?) : GetAnalyticMarketplaceByPlatformResponse {
+        val localVarResponse = getAnalyticMarketplaceByPlatformWithHttpInfo(platform = platform, range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticMarketplaceByPlatformResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One marketplace in depth: its row, the money series, fee breakdown, days-to-sell and price-realization histograms, categories, top items, at-risk listings, a day-by-hour sales heatmap and offer stats.
+    * 
+    * @param platform A platform id, e.g. ebay, poshmark. 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @return ApiResponse<GetAnalyticMarketplaceByPlatformResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticMarketplaceByPlatformWithHttpInfo(platform: kotlin.String, range: Range_getAnalyticMarketplaceByPlatform?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticMarketplaceByPlatform?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?) : ApiResponse<GetAnalyticMarketplaceByPlatformResponse?> {
+        val localVariableConfig = getAnalyticMarketplaceByPlatformRequestConfig(platform = platform, range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz)
+
+        return request<Unit, GetAnalyticMarketplaceByPlatformResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticMarketplaceByPlatform
+    *
+    * @param platform A platform id, e.g. ebay, poshmark. 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticMarketplaceByPlatformRequestConfig(platform: kotlin.String, range: Range_getAnalyticMarketplaceByPlatform?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticMarketplaceByPlatform?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (range != null) {
+                    put("range", listOf(range.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (compare != null) {
+                    put("compare", listOf(compare.toString()))
+                }
+                if (cmpFrom != null) {
+                    put("cmpFrom", listOf(cmpFrom.toString()))
+                }
+                if (cmpTo != null) {
+                    put("cmpTo", listOf(cmpTo.toString()))
+                }
+                if (labels != null) {
+                    put("labels", listOf(labels.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (brand != null) {
+                    put("brand", listOf(brand.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/marketplaces/{platform}".replace("{"+"platform"+"}", "$platform"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter range
+     */
+     enum class Range_getAnalyticOverview(val value: kotlin.String) {
+         @Json(name = "7d") _7D("7d"),
+         @Json(name = "30d") _30D("30d"),
+         @Json(name = "90d") _90D("90d"),
+         @Json(name = "1y") _1Y("1y"),
+         @Json(name = "ytd") YTD("ytd"),
+         @Json(name = "all") ALL("all"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter compare
+     */
+     enum class Compare_getAnalyticOverview(val value: kotlin.String) {
+         @Json(name = "prev") PREV("prev"),
+         @Json(name = "yoy") YOY("yoy"),
+         @Json(name = "none") NONE("none"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+    * KPIs with deltas (net sales, net profit, units, ASP, margin, sell-through, median days to sell, active listings, take rate), the trend series, by-marketplace split, top categories, brands and items, sell-through cohort, data health and insights.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param stores Comma-separated store ids. (optional)
+    * @return GetAnalyticOverviewResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticOverview(range: Range_getAnalyticOverview?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticOverview?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, stores: kotlin.String?) : GetAnalyticOverviewResponse {
+        val localVarResponse = getAnalyticOverviewWithHttpInfo(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, stores = stores)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticOverviewResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * KPIs with deltas (net sales, net profit, units, ASP, margin, sell-through, median days to sell, active listings, take rate), the trend series, by-marketplace split, top categories, brands and items, sell-through cohort, data health and insights.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param stores Comma-separated store ids. (optional)
+    * @return ApiResponse<GetAnalyticOverviewResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticOverviewWithHttpInfo(range: Range_getAnalyticOverview?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticOverview?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, stores: kotlin.String?) : ApiResponse<GetAnalyticOverviewResponse?> {
+        val localVariableConfig = getAnalyticOverviewRequestConfig(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, stores = stores)
+
+        return request<Unit, GetAnalyticOverviewResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticOverview
+    *
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param stores Comma-separated store ids. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticOverviewRequestConfig(range: Range_getAnalyticOverview?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticOverview?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, stores: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (range != null) {
+                    put("range", listOf(range.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (compare != null) {
+                    put("compare", listOf(compare.toString()))
+                }
+                if (cmpFrom != null) {
+                    put("cmpFrom", listOf(cmpFrom.toString()))
+                }
+                if (cmpTo != null) {
+                    put("cmpTo", listOf(cmpTo.toString()))
+                }
+                if (labels != null) {
+                    put("labels", listOf(labels.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (brand != null) {
+                    put("brand", listOf(brand.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+                if (stores != null) {
+                    put("stores", listOf(stores.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/overview",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter range
+     */
+     enum class Range_getAnalyticPerformance(val value: kotlin.String) {
+         @Json(name = "7d") _7D("7d"),
+         @Json(name = "30d") _30D("30d"),
+         @Json(name = "90d") _90D("90d"),
+         @Json(name = "1y") _1Y("1y"),
+         @Json(name = "ytd") YTD("ytd"),
+         @Json(name = "all") ALL("all"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter compare
+     */
+     enum class Compare_getAnalyticPerformance(val value: kotlin.String) {
+         @Json(name = "prev") PREV("prev"),
+         @Json(name = "yoy") YOY("yoy"),
+         @Json(name = "none") NONE("none"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter status
+     */
+     enum class Status_getAnalyticPerformance(val value: kotlin.String) {
+         @Json(name = "all") ALL("all"),
+         @Json(name = "active") ACTIVE("active"),
+         @Json(name = "sold") SOLD("sold"),
+         @Json(name = "unsold") UNSOLD("unsold"),
+         @Json(name = "ended") ENDED("ended"),
+         ;
+     }
+
+    /**
+     * enum for parameter sort
+     */
+     enum class Sort_getAnalyticPerformance(val value: kotlin.String) {
+         @Json(name = "lastActivity") LAST_ACTIVITY("lastActivity"),
+         @Json(name = "title") TITLE("title"),
+         @Json(name = "price") PRICE("price"),
+         @Json(name = "daysListed") DAYS_LISTED("daysListed"),
+         @Json(name = "views") VIEWS("views"),
+         @Json(name = "favorites") FAVORITES("favorites"),
+         @Json(name = "offers") OFFERS("offers"),
+         @Json(name = "unitsSold") UNITS_SOLD("unitsSold"),
+         @Json(name = "netSales") NET_SALES("netSales"),
+         @Json(name = "netProfit") NET_PROFIT("netProfit"),
+         @Json(name = "margin") MARGIN("margin"),
+         @Json(name = "daysToSell") DAYS_TO_SELL("daysToSell"),
+         @Json(name = "health") HEALTH("health"),
+         ;
+     }
+
+    /**
+     * enum for parameter dir
+     */
+     enum class Dir_getAnalyticPerformance(val value: kotlin.String) {
+         @Json(name = "asc") ASC("asc"),
+         @Json(name = "desc") DESC("desc"),
+         ;
+     }
+
+    /**
+     * enum for parameter size
+     */
+     enum class PropertySize_getAnalyticPerformance(val value: kotlin.Int) {
+         @Json(name = "25") _25(25),
+         @Json(name = "50") _50(50),
+         @Json(name = "100") _100(100),
+         ;
+     }
+
+    /**
+    * Per-listing performance: channels, views, favorites, offers and conversations in the period, units sold, net sales and profit, margin, days to sell and a 0-100 health score, paged and sortable.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param status unsold &#x3D; listed at least minDays with no completed sale. (optional)
+    * @param q Title, SKU or brand contains. (optional)
+    * @param sort Default lastActivity. (optional)
+    * @param dir Default desc. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param size Rows per page. Default 50. (optional)
+    * @param minDays Minimum days listed (for status&#x3D;unsold). Default 0. (optional)
+    * @return GetAnalyticPerformanceResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticPerformance(range: Range_getAnalyticPerformance?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticPerformance?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, status: Status_getAnalyticPerformance?, q: kotlin.String?, sort: Sort_getAnalyticPerformance?, dir: Dir_getAnalyticPerformance?, page: kotlin.Int?, size: PropertySize_getAnalyticPerformance?, minDays: kotlin.Int?) : GetAnalyticPerformanceResponse {
+        val localVarResponse = getAnalyticPerformanceWithHttpInfo(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, status = status, q = q, sort = sort, dir = dir, page = page, size = size, minDays = minDays)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticPerformanceResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Per-listing performance: channels, views, favorites, offers and conversations in the period, units sold, net sales and profit, margin, days to sell and a 0-100 health score, paged and sortable.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param status unsold &#x3D; listed at least minDays with no completed sale. (optional)
+    * @param q Title, SKU or brand contains. (optional)
+    * @param sort Default lastActivity. (optional)
+    * @param dir Default desc. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param size Rows per page. Default 50. (optional)
+    * @param minDays Minimum days listed (for status&#x3D;unsold). Default 0. (optional)
+    * @return ApiResponse<GetAnalyticPerformanceResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticPerformanceWithHttpInfo(range: Range_getAnalyticPerformance?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticPerformance?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, status: Status_getAnalyticPerformance?, q: kotlin.String?, sort: Sort_getAnalyticPerformance?, dir: Dir_getAnalyticPerformance?, page: kotlin.Int?, size: PropertySize_getAnalyticPerformance?, minDays: kotlin.Int?) : ApiResponse<GetAnalyticPerformanceResponse?> {
+        val localVariableConfig = getAnalyticPerformanceRequestConfig(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, status = status, q = q, sort = sort, dir = dir, page = page, size = size, minDays = minDays)
+
+        return request<Unit, GetAnalyticPerformanceResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticPerformance
+    *
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param status unsold &#x3D; listed at least minDays with no completed sale. (optional)
+    * @param q Title, SKU or brand contains. (optional)
+    * @param sort Default lastActivity. (optional)
+    * @param dir Default desc. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param size Rows per page. Default 50. (optional)
+    * @param minDays Minimum days listed (for status&#x3D;unsold). Default 0. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticPerformanceRequestConfig(range: Range_getAnalyticPerformance?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticPerformance?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, status: Status_getAnalyticPerformance?, q: kotlin.String?, sort: Sort_getAnalyticPerformance?, dir: Dir_getAnalyticPerformance?, page: kotlin.Int?, size: PropertySize_getAnalyticPerformance?, minDays: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (range != null) {
+                    put("range", listOf(range.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (compare != null) {
+                    put("compare", listOf(compare.toString()))
+                }
+                if (cmpFrom != null) {
+                    put("cmpFrom", listOf(cmpFrom.toString()))
+                }
+                if (cmpTo != null) {
+                    put("cmpTo", listOf(cmpTo.toString()))
+                }
+                if (labels != null) {
+                    put("labels", listOf(labels.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (brand != null) {
+                    put("brand", listOf(brand.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+                if (status != null) {
+                    put("status", listOf(status.toString()))
+                }
+                if (q != null) {
+                    put("q", listOf(q.toString()))
+                }
+                if (sort != null) {
+                    put("sort", listOf(sort.toString()))
+                }
+                if (dir != null) {
+                    put("dir", listOf(dir.toString()))
+                }
+                if (page != null) {
+                    put("page", listOf(page.toString()))
+                }
+                if (size != null) {
+                    put("size", listOf(size.toString()))
+                }
+                if (minDays != null) {
+                    put("minDays", listOf(minDays.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/performance",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter program
+     */
+     enum class Program_getAnalyticProgram(val value: kotlin.String) {
+         @Json(name = "wholesale") WHOLESALE("wholesale"),
+         @Json(name = "ads") ADS("ads"),
+         @Json(name = "rentals") RENTALS("rentals"),
+         @Json(name = "branding") BRANDING("branding"),
+         @Json(name = "events") EVENTS("events"),
+         @Json(name = "drops") DROPS("drops"),
+         @Json(name = "discounts") DISCOUNTS("discounts"),
+         @Json(name = "market") MARKET("market"),
+         @Json(name = "worlds") WORLDS("worlds"),
+         @Json(name = "funding") FUNDING("funding"),
+         @Json(name = "vault") VAULT("vault"),
+         @Json(name = "team") TEAM("team"),
+         @Json(name = "referrals") REFERRALS("referrals"),
+         @Json(name = "developer-apps") DEVELOPER_MINUS_APPS("developer-apps"),
+         ;
+     }
+
+    /**
+    * One program&#39;s report over a date range (default the last 30 days, at most 366): KPIs, a daily trend and a breakdown table. Money in integer cents.
+    * 
+    * @param program  
+    * @param from First UTC day (YYYY-MM-DD), inclusive. (optional)
+    * @param to Last UTC day (YYYY-MM-DD), inclusive. Default today. (optional)
+    * @param by Breakdown dimension, when the program offers one (worlds: showroom, property, event). (optional)
+    * @return GetAnalyticProgramResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticProgram(program: Program_getAnalyticProgram, from: java.time.LocalDate?, to: java.time.LocalDate?, by: kotlin.String?) : GetAnalyticProgramResponse {
+        val localVarResponse = getAnalyticProgramWithHttpInfo(program = program, from = from, to = to, by = by)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticProgramResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One program&#39;s report over a date range (default the last 30 days, at most 366): KPIs, a daily trend and a breakdown table. Money in integer cents.
+    * 
+    * @param program  
+    * @param from First UTC day (YYYY-MM-DD), inclusive. (optional)
+    * @param to Last UTC day (YYYY-MM-DD), inclusive. Default today. (optional)
+    * @param by Breakdown dimension, when the program offers one (worlds: showroom, property, event). (optional)
+    * @return ApiResponse<GetAnalyticProgramResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticProgramWithHttpInfo(program: Program_getAnalyticProgram, from: java.time.LocalDate?, to: java.time.LocalDate?, by: kotlin.String?) : ApiResponse<GetAnalyticProgramResponse?> {
+        val localVariableConfig = getAnalyticProgramRequestConfig(program = program, from = from, to = to, by = by)
+
+        return request<Unit, GetAnalyticProgramResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticProgram
+    *
+    * @param program  
+    * @param from First UTC day (YYYY-MM-DD), inclusive. (optional)
+    * @param to Last UTC day (YYYY-MM-DD), inclusive. Default today. (optional)
+    * @param by Breakdown dimension, when the program offers one (worlds: showroom, property, event). (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticProgramRequestConfig(program: Program_getAnalyticProgram, from: java.time.LocalDate?, to: java.time.LocalDate?, by: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (from != null) {
+                    put("from", listOf(parseDateToQueryString(from)))
+                }
+                if (to != null) {
+                    put("to", listOf(parseDateToQueryString(to)))
+                }
+                if (by != null) {
+                    put("by", listOf(by.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/programs/{program}".replace("{"+"program"+"}", "$program"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter range
+     */
+     enum class Range_getAnalyticSegment(val value: kotlin.String) {
+         @Json(name = "7d") _7D("7d"),
+         @Json(name = "30d") _30D("30d"),
+         @Json(name = "90d") _90D("90d"),
+         @Json(name = "1y") _1Y("1y"),
+         @Json(name = "ytd") YTD("ytd"),
+         @Json(name = "all") ALL("all"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter compare
+     */
+     enum class Compare_getAnalyticSegment(val value: kotlin.String) {
+         @Json(name = "prev") PREV("prev"),
+         @Json(name = "yoy") YOY("yoy"),
+         @Json(name = "none") NONE("none"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter dim
+     */
+     enum class Dim_getAnalyticSegment(val value: kotlin.String) {
+         @Json(name = "category") CATEGORY("category"),
+         @Json(name = "subcategory") SUBCATEGORY("subcategory"),
+         @Json(name = "brand") BRAND("brand"),
+         @Json(name = "condition") CONDITION("condition"),
+         @Json(name = "size") SIZE("size"),
+         @Json(name = "source") SOURCE("source"),
+         @Json(name = "department") DEPARTMENT("department"),
+         @Json(name = "priceBand") PRICE_BAND("priceBand"),
+         @Json(name = "ageBand") AGE_BAND("ageBand"),
+         ;
+     }
+
+    /**
+     * enum for parameter sort
+     */
+     enum class Sort_getAnalyticSegment(val value: kotlin.String) {
+         @Json(name = "label") LABEL("label"),
+         @Json(name = "listedCount") LISTED_COUNT("listedCount"),
+         @Json(name = "activeCount") ACTIVE_COUNT("activeCount"),
+         @Json(name = "unitsSold") UNITS_SOLD("unitsSold"),
+         @Json(name = "sellThrough") SELL_THROUGH("sellThrough"),
+         @Json(name = "medianDaysToSell") MEDIAN_DAYS_TO_SELL("medianDaysToSell"),
+         @Json(name = "netSales") NET_SALES("netSales"),
+         @Json(name = "netProfit") NET_PROFIT("netProfit"),
+         @Json(name = "marginRate") MARGIN_RATE("marginRate"),
+         @Json(name = "margin") MARGIN("margin"),
+         @Json(name = "roi") ROI("roi"),
+         @Json(name = "asp") ASP("asp"),
+         @Json(name = "share") SHARE("share"),
+         ;
+     }
+
+    /**
+     * enum for parameter dir
+     */
+     enum class Dir_getAnalyticSegment(val value: kotlin.String) {
+         @Json(name = "asc") ASC("asc"),
+         @Json(name = "desc") DESC("desc"),
+         ;
+     }
+
+    /**
+    * Niches along one dimension: listed and active counts, units sold, cohort sell-through, median days to sell, net sales and profit, margin, ROI, ASP and discount from ask; rows under minN are flagged lowSample.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param dim category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+). (optional)
+    * @param sort Default netSales. (optional)
+    * @param dir Default desc. (optional)
+    * @param minN Minimum sample for a row to count as a winner or loser. Default 3. (optional)
+    * @param q Segment label contains. (optional)
+    * @return GetAnalyticSegmentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticSegment(range: Range_getAnalyticSegment?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticSegment?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, dim: Dim_getAnalyticSegment?, sort: Sort_getAnalyticSegment?, dir: Dir_getAnalyticSegment?, minN: kotlin.Int?, q: kotlin.String?) : GetAnalyticSegmentResponse {
+        val localVarResponse = getAnalyticSegmentWithHttpInfo(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, dim = dim, sort = sort, dir = dir, minN = minN, q = q)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticSegmentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Niches along one dimension: listed and active counts, units sold, cohort sell-through, median days to sell, net sales and profit, margin, ROI, ASP and discount from ask; rows under minN are flagged lowSample.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param dim category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+). (optional)
+    * @param sort Default netSales. (optional)
+    * @param dir Default desc. (optional)
+    * @param minN Minimum sample for a row to count as a winner or loser. Default 3. (optional)
+    * @param q Segment label contains. (optional)
+    * @return ApiResponse<GetAnalyticSegmentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticSegmentWithHttpInfo(range: Range_getAnalyticSegment?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticSegment?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, dim: Dim_getAnalyticSegment?, sort: Sort_getAnalyticSegment?, dir: Dir_getAnalyticSegment?, minN: kotlin.Int?, q: kotlin.String?) : ApiResponse<GetAnalyticSegmentResponse?> {
+        val localVariableConfig = getAnalyticSegmentRequestConfig(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, dim = dim, sort = sort, dir = dir, minN = minN, q = q)
+
+        return request<Unit, GetAnalyticSegmentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticSegment
+    *
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param dim category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+). (optional)
+    * @param sort Default netSales. (optional)
+    * @param dir Default desc. (optional)
+    * @param minN Minimum sample for a row to count as a winner or loser. Default 3. (optional)
+    * @param q Segment label contains. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticSegmentRequestConfig(range: Range_getAnalyticSegment?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticSegment?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, dim: Dim_getAnalyticSegment?, sort: Sort_getAnalyticSegment?, dir: Dir_getAnalyticSegment?, minN: kotlin.Int?, q: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (range != null) {
+                    put("range", listOf(range.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (compare != null) {
+                    put("compare", listOf(compare.toString()))
+                }
+                if (cmpFrom != null) {
+                    put("cmpFrom", listOf(cmpFrom.toString()))
+                }
+                if (cmpTo != null) {
+                    put("cmpTo", listOf(cmpTo.toString()))
+                }
+                if (labels != null) {
+                    put("labels", listOf(labels.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (brand != null) {
+                    put("brand", listOf(brand.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+                if (dim != null) {
+                    put("dim", listOf(dim.toString()))
+                }
+                if (sort != null) {
+                    put("sort", listOf(sort.toString()))
+                }
+                if (dir != null) {
+                    put("dir", listOf(dir.toString()))
+                }
+                if (minN != null) {
+                    put("minN", listOf(minN.toString()))
+                }
+                if (q != null) {
+                    put("q", listOf(q.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/segments",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter range
+     */
+     enum class Range_getAnalyticSegmentByKey(val value: kotlin.String) {
+         @Json(name = "7d") _7D("7d"),
+         @Json(name = "30d") _30D("30d"),
+         @Json(name = "90d") _90D("90d"),
+         @Json(name = "1y") _1Y("1y"),
+         @Json(name = "ytd") YTD("ytd"),
+         @Json(name = "all") ALL("all"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter compare
+     */
+     enum class Compare_getAnalyticSegmentByKey(val value: kotlin.String) {
+         @Json(name = "prev") PREV("prev"),
+         @Json(name = "yoy") YOY("yoy"),
+         @Json(name = "none") NONE("none"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+    * One niche in depth: its row, series, by-marketplace split, days-to-sell histogram, price bands, top items and the 10 oldest unsold listings in it.
+    * 
+    * @param dim One of category, subcategory, brand, condition, size, source, department, priceBand, ageBand. category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+). 
+    * @param key The segment key from a segments row (URL-encoded). A key with no data in scope is a 404. 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @return GetAnalyticSegmentByKeyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticSegmentByKey(dim: kotlin.String, key: kotlin.String, range: Range_getAnalyticSegmentByKey?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticSegmentByKey?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?) : GetAnalyticSegmentByKeyResponse {
+        val localVarResponse = getAnalyticSegmentByKeyWithHttpInfo(dim = dim, key = key, range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticSegmentByKeyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One niche in depth: its row, series, by-marketplace split, days-to-sell histogram, price bands, top items and the 10 oldest unsold listings in it.
+    * 
+    * @param dim One of category, subcategory, brand, condition, size, source, department, priceBand, ageBand. category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+). 
+    * @param key The segment key from a segments row (URL-encoded). A key with no data in scope is a 404. 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @return ApiResponse<GetAnalyticSegmentByKeyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticSegmentByKeyWithHttpInfo(dim: kotlin.String, key: kotlin.String, range: Range_getAnalyticSegmentByKey?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticSegmentByKey?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?) : ApiResponse<GetAnalyticSegmentByKeyResponse?> {
+        val localVariableConfig = getAnalyticSegmentByKeyRequestConfig(dim = dim, key = key, range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz)
+
+        return request<Unit, GetAnalyticSegmentByKeyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticSegmentByKey
+    *
+    * @param dim One of category, subcategory, brand, condition, size, source, department, priceBand, ageBand. category &#x3D; main category; subcategory &#x3D; main &gt; sub; brand; condition; size; source &#x3D; where you acquired it; department; priceBand &#x3D; ask in &lt;$10, $10-25, $25-50, $50-100, $100-250, $250+; ageBand &#x3D; days live at sale or now (&lt;7, 7-30, 30-90, 90+). 
+    * @param key The segment key from a segments row (URL-encoded). A key with no data in scope is a 404. 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticSegmentByKeyRequestConfig(dim: kotlin.String, key: kotlin.String, range: Range_getAnalyticSegmentByKey?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticSegmentByKey?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (range != null) {
+                    put("range", listOf(range.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (compare != null) {
+                    put("compare", listOf(compare.toString()))
+                }
+                if (cmpFrom != null) {
+                    put("cmpFrom", listOf(cmpFrom.toString()))
+                }
+                if (cmpTo != null) {
+                    put("cmpTo", listOf(cmpTo.toString()))
+                }
+                if (labels != null) {
+                    put("labels", listOf(labels.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (brand != null) {
+                    put("brand", listOf(brand.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/segments/{dim}/{key}".replace("{"+"dim"+"}", "$dim").replace("{"+"key"+"}", "$key"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Headline KPIs for the last N days (the same numbers as the analytics overview).
+    * 
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return GetAnalyticSummaryResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -336,8 +2485,8 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun getAnalyticSummary(days: kotlin.Int?) : GetAnalyticSummaryResponse {
-        val localVarResponse = getAnalyticSummaryWithHttpInfo(days = days)
+    fun getAnalyticSummary(days: kotlin.Int?, tz: kotlin.String?) : GetAnalyticSummaryResponse {
+        val localVarResponse = getAnalyticSummaryWithHttpInfo(days = days, tz = tz)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticSummaryResponse
@@ -355,17 +2504,18 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Headline KPIs for the last N days.
+    * Headline KPIs for the last N days (the same numbers as the analytics overview).
     * 
-    * @param days  (optional, default to 30)
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return ApiResponse<GetAnalyticSummaryResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun getAnalyticSummaryWithHttpInfo(days: kotlin.Int?) : ApiResponse<GetAnalyticSummaryResponse?> {
-        val localVariableConfig = getAnalyticSummaryRequestConfig(days = days)
+    fun getAnalyticSummaryWithHttpInfo(days: kotlin.Int?, tz: kotlin.String?) : ApiResponse<GetAnalyticSummaryResponse?> {
+        val localVariableConfig = getAnalyticSummaryRequestConfig(days = days, tz = tz)
 
         return request<Unit, GetAnalyticSummaryResponse>(
             localVariableConfig
@@ -375,15 +2525,19 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     /**
     * To obtain the request config of the operation getAnalyticSummary
     *
-    * @param days  (optional, default to 30)
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return RequestConfig
     */
-    fun getAnalyticSummaryRequestConfig(days: kotlin.Int?) : RequestConfig<Unit> {
+    fun getAnalyticSummaryRequestConfig(days: kotlin.Int?, tz: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (days != null) {
                     put("days", listOf(days.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -399,8 +2553,10 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Daily sales + revenue series for the last N days.
+    * Sales and net sales over the last N days, zero-filled, one row per calendar day.
     * 
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return GetAnalyticTimeseryResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -410,8 +2566,8 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun getAnalyticTimesery() : GetAnalyticTimeseryResponse {
-        val localVarResponse = getAnalyticTimeseryWithHttpInfo()
+    fun getAnalyticTimesery(days: kotlin.Int?, tz: kotlin.String?) : GetAnalyticTimeseryResponse {
+        val localVarResponse = getAnalyticTimeseryWithHttpInfo(days = days, tz = tz)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticTimeseryResponse
@@ -429,16 +2585,18 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Daily sales + revenue series for the last N days.
+    * Sales and net sales over the last N days, zero-filled, one row per calendar day.
     * 
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return ApiResponse<GetAnalyticTimeseryResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun getAnalyticTimeseryWithHttpInfo() : ApiResponse<GetAnalyticTimeseryResponse?> {
-        val localVariableConfig = getAnalyticTimeseryRequestConfig()
+    fun getAnalyticTimeseryWithHttpInfo(days: kotlin.Int?, tz: kotlin.String?) : ApiResponse<GetAnalyticTimeseryResponse?> {
+        val localVariableConfig = getAnalyticTimeseryRequestConfig(days = days, tz = tz)
 
         return request<Unit, GetAnalyticTimeseryResponse>(
             localVariableConfig
@@ -448,11 +2606,21 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     /**
     * To obtain the request config of the operation getAnalyticTimesery
     *
+    * @param days Calendar days back, today included. Larger values are clamped to 365. (optional, default to 30)
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return RequestConfig
     */
-    fun getAnalyticTimeseryRequestConfig() : RequestConfig<Unit> {
+    fun getAnalyticTimeseryRequestConfig(days: kotlin.Int?, tz: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (days != null) {
+                    put("days", listOf(days.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
@@ -533,8 +2701,9 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Platform velocity + margin insight (90-day window).
+    * Platform velocity + margin insight (90-day window): units, net sales, median days to sell, ASP and net after the real marketplace fees.
     * 
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return ListInsightByPlatformResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -544,8 +2713,8 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun listInsightByPlatform() : ListInsightByPlatformResponse {
-        val localVarResponse = listInsightByPlatformWithHttpInfo()
+    fun listInsightByPlatform(tz: kotlin.String?) : ListInsightByPlatformResponse {
+        val localVarResponse = listInsightByPlatformWithHttpInfo(tz = tz)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListInsightByPlatformResponse
@@ -563,16 +2732,17 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Platform velocity + margin insight (90-day window).
+    * Platform velocity + margin insight (90-day window): units, net sales, median days to sell, ASP and net after the real marketplace fees.
     * 
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return ApiResponse<ListInsightByPlatformResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun listInsightByPlatformWithHttpInfo() : ApiResponse<ListInsightByPlatformResponse?> {
-        val localVariableConfig = listInsightByPlatformRequestConfig()
+    fun listInsightByPlatformWithHttpInfo(tz: kotlin.String?) : ApiResponse<ListInsightByPlatformResponse?> {
+        val localVariableConfig = listInsightByPlatformRequestConfig(tz = tz)
 
         return request<Unit, ListInsightByPlatformResponse>(
             localVariableConfig
@@ -582,17 +2752,93 @@ class AnalyticsApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     /**
     * To obtain the request config of the operation listInsightByPlatform
     *
+    * @param tz IANA time zone for day boundaries. Default UTC. (optional)
     * @return RequestConfig
     */
-    fun listInsightByPlatformRequestConfig() : RequestConfig<Unit> {
+    fun listInsightByPlatformRequestConfig(tz: kotlin.String?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/insights/by-platform",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Rename an experiment or change its hypothesis, notes or planned end.
+    * 
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return AnalyticExperimentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateAnalyticExperiment(id: kotlin.String) : AnalyticExperimentResponse {
+        val localVarResponse = updateAnalyticExperimentWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as AnalyticExperimentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Rename an experiment or change its hypothesis, notes or planned end.
+    * 
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return ApiResponse<AnalyticExperimentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateAnalyticExperimentWithHttpInfo(id: kotlin.String) : ApiResponse<AnalyticExperimentResponse?> {
+        val localVariableConfig = updateAnalyticExperimentRequestConfig(id = id)
+
+        return request<Unit, AnalyticExperimentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateAnalyticExperiment
+    *
+    * @param id The experiment id (a uuid; any other id is a 404). 
+    * @return RequestConfig
+    */
+    fun updateAnalyticExperimentRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/analytics/experiments/{id}".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

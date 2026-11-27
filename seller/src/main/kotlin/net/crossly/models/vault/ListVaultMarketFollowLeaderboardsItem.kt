@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.ListVaultMarketFollowLeaderboardsItemPerson
 
 import com.squareup.moshi.Json
 
@@ -27,6 +28,7 @@ import com.squareup.moshi.Json
  * 
  *
  * @param rank 
+ * @param person 
  * @param returnBps 
  * @param volatilityBps 
  * @param riskAdjusted 
@@ -40,6 +42,9 @@ data class ListVaultMarketFollowLeaderboardsItem (
 
     @Json(name = "rank")
     val rank: java.math.BigDecimal,
+
+    @Json(name = "person")
+    val person: ListVaultMarketFollowLeaderboardsItemPerson,
 
     @Json(name = "returnBps")
     val returnBps: java.math.BigDecimal,

@@ -43,26 +43,26 @@ data class GetSpatialSceneResponseDataBreakdowns (
     /**
      * 
      *
-     * Values: brand,condition,size,status,label,title,valueOption,year,grade,game,set,franchise,team,era,genre,colour,age,exhibitor
+     * Values: brand,label,status,age,condition,size,title,valueOption,set,team,year,grade,game,franchise,era,genre,colour,exhibitor
      */
     enum class Facet(val value: kotlin.String) {
         @Json(name = "brand") brand("brand"),
+        @Json(name = "label") label("label"),
+        @Json(name = "status") status("status"),
+        @Json(name = "age") age("age"),
         @Json(name = "condition") condition("condition"),
         @Json(name = "size") size("size"),
-        @Json(name = "status") status("status"),
-        @Json(name = "label") label("label"),
         @Json(name = "title") title("title"),
         @Json(name = "value") valueOption("value"),
+        @Json(name = "set") set("set"),
+        @Json(name = "team") team("team"),
         @Json(name = "year") year("year"),
         @Json(name = "grade") grade("grade"),
         @Json(name = "game") game("game"),
-        @Json(name = "set") set("set"),
         @Json(name = "franchise") franchise("franchise"),
-        @Json(name = "team") team("team"),
         @Json(name = "era") era("era"),
         @Json(name = "genre") genre("genre"),
         @Json(name = "colour") colour("colour"),
-        @Json(name = "age") age("age"),
         @Json(name = "exhibitor") exhibitor("exhibitor");
     }
 }

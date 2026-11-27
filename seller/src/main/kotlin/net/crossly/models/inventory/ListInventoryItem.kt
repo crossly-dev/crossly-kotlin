@@ -20,7 +20,8 @@
 
 package net.crossly.models.inventory
 
-import net.crossly.models.grading.ListGradingSubmissionsItemGrading
+import net.crossly.models.bulk.CreateBulkBatchItemResponseGrading
+import net.crossly.models.inventory.ListInventoryItemSupplier
 import net.crossly.models.common.MainSub
 
 import com.squareup.moshi.Json
@@ -32,9 +33,12 @@ import com.squareup.moshi.Json
  * @param createdAt 
  * @param updatedAt 
  * @param userId 
+ * @param status 
+ * @param source 
  * @param quantity 
  * @param quantityAvailable 
  * @param quantityReserved 
+ * @param wholesaleReserve 
  * @param quantitySold 
  * @param color 
  * @param defaultTitle 
@@ -43,9 +47,8 @@ import com.squareup.moshi.Json
  * @param labels 
  * @param includeTaxInLanded 
  * @param floorIsNet 
- * @param status 
- * @param source 
  * @param brand 
+ * @param notes 
  * @param sku 
  * @param originalPrice 
  * @param condition 
@@ -59,7 +62,6 @@ import com.squareup.moshi.Json
  * @param sizeSystem 
  * @param videoUrl 
  * @param provenanceReceiptId 
- * @param notes 
  * @param customLabel 
  * @param warehouseLocation 
  * @param storageBin 
@@ -67,9 +69,11 @@ import com.squareup.moshi.Json
  * @param marketSkuId 
  * @param marketVariantId 
  * @param gradeKey 
+ * @param vaultSellFrom 
  * @param grading 
  * @param firstListedAt 
  * @param costBasisCents 
+ * @param supplier 
  * @param priceFloorCents 
  * @param acquiredAt 
  * @param acquiredSource 
@@ -78,6 +82,7 @@ import com.squareup.moshi.Json
  * @param dimensionLIn 
  * @param dimensionWIn 
  * @param dimensionHIn 
+ * @param allowanceAppId 
  * @param category 
  */
 
@@ -95,6 +100,12 @@ data class ListInventoryItem (
     @Json(name = "userId")
     val userId: kotlin.String,
 
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    @Json(name = "source")
+    val source: kotlin.String,
+
     @Json(name = "quantity")
     val quantity: java.math.BigDecimal,
 
@@ -103,6 +114,9 @@ data class ListInventoryItem (
 
     @Json(name = "quantityReserved")
     val quantityReserved: java.math.BigDecimal,
+
+    @Json(name = "wholesaleReserve")
+    val wholesaleReserve: java.math.BigDecimal,
 
     @Json(name = "quantitySold")
     val quantitySold: java.math.BigDecimal,
@@ -128,14 +142,11 @@ data class ListInventoryItem (
     @Json(name = "floorIsNet")
     val floorIsNet: kotlin.Boolean,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
-    @Json(name = "source")
-    val source: kotlin.String,
-
     @Json(name = "brand")
     val brand: kotlin.String? = null,
+
+    @Json(name = "notes")
+    val notes: kotlin.String? = null,
 
     @Json(name = "sku")
     val sku: kotlin.String? = null,
@@ -176,9 +187,6 @@ data class ListInventoryItem (
     @Json(name = "provenanceReceiptId")
     val provenanceReceiptId: kotlin.String? = null,
 
-    @Json(name = "notes")
-    val notes: kotlin.String? = null,
-
     @Json(name = "customLabel")
     val customLabel: kotlin.String? = null,
 
@@ -200,14 +208,20 @@ data class ListInventoryItem (
     @Json(name = "gradeKey")
     val gradeKey: kotlin.String? = null,
 
+    @Json(name = "vaultSellFrom")
+    val vaultSellFrom: ListInventoryItem.VaultSellFrom? = null,
+
     @Json(name = "grading")
-    val grading: ListGradingSubmissionsItemGrading? = null,
+    val grading: CreateBulkBatchItemResponseGrading? = null,
 
     @Json(name = "firstListedAt")
     val firstListedAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "costBasisCents")
     val costBasisCents: java.math.BigDecimal? = null,
+
+    @Json(name = "supplier")
+    val supplier: ListInventoryItemSupplier? = null,
 
     @Json(name = "priceFloorCents")
     val priceFloorCents: java.math.BigDecimal? = null,
@@ -233,8 +247,23 @@ data class ListInventoryItem (
     @Json(name = "dimensionHIn")
     val dimensionHIn: kotlin.String? = null,
 
+    @Json(name = "allowanceAppId")
+    val allowanceAppId: kotlin.String? = null,
+
     @Json(name = "category")
     val category: MainSub? = null
 
-)
+) {
+
+    /**
+     * 
+     *
+     * Values: VAULT_FIRST,WAREHOUSE_FIRST,CHEAPEST
+     */
+    enum class VaultSellFrom(val value: kotlin.String) {
+        @Json(name = "vault_first") VAULT_FIRST("vault_first"),
+        @Json(name = "warehouse_first") WAREHOUSE_FIRST("warehouse_first"),
+        @Json(name = "cheapest") CHEAPEST("cheapest");
+    }
+}
 

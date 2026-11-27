@@ -37,7 +37,7 @@ data class GetAnalyticDashboardResponseSalesByPlatform (
     val platform: kotlin.String,
 
     @Json(name = "count")
-    val count: kotlin.String,
+    val count: java.math.BigDecimal,
 
     @Json(name = "revenue")
     val revenue: java.math.BigDecimal

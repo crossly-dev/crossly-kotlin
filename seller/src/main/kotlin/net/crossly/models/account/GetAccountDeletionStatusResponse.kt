@@ -33,7 +33,7 @@ import com.squareup.moshi.Json
 data class GetAccountDeletionStatusResponse (
 
     @Json(name = "pending")
-    val pending: GetAccountDeletionStatusResponsePending
+    val pending: GetAccountDeletionStatusResponsePending? = null
 
 )
 

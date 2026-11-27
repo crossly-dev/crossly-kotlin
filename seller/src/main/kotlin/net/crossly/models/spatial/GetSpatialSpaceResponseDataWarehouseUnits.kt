@@ -62,14 +62,14 @@ data class GetSpatialSpaceResponseDataWarehouseUnits (
     /**
      * What this unit contributes to a location code. A rack contributes its number, a shelf its level. A zone contributes a letter.  `null` means the unit is scenery and adds nothing — a workbench or a door is part of the room without being part of an address.
      *
-     * Values: LEVEL,ZONE,AISLE,BAY,BIN
+     * Values: LEVEL,BIN,ZONE,AISLE,BAY
      */
     enum class SegmentKind(val value: kotlin.String) {
         @Json(name = "level") LEVEL("level"),
+        @Json(name = "bin") BIN("bin"),
         @Json(name = "zone") ZONE("zone"),
         @Json(name = "aisle") AISLE("aisle"),
-        @Json(name = "bay") BAY("bay"),
-        @Json(name = "bin") BIN("bin");
+        @Json(name = "bay") BAY("bay");
     }
 }
 

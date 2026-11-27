@@ -24,6 +24,7 @@ import net.crossly.models.vault.GetVaultMarketTodMyClaimResponseGate
 import net.crossly.models.vault.GetVaultMarketTodResponseBeneficiaries
 import net.crossly.models.vault.GetVaultMarketTodResponseClaims
 import net.crossly.models.vault.GetVaultMarketTodResponseUnits
+import net.crossly.models.vault.GetVaultMarketTodResponseVaultShares
 
 import com.squareup.moshi.Json
 
@@ -39,6 +40,7 @@ import com.squareup.moshi.Json
  * @param claims 
  * @param acceptedAt 
  * @param sharesProblem 
+ * @param vaultShares 
  */
 
 data class GetVaultMarketTodResponse (
@@ -68,7 +70,10 @@ data class GetVaultMarketTodResponse (
     val acceptedAt: kotlin.String? = null,
 
     @Json(name = "sharesProblem")
-    val sharesProblem: kotlin.String? = null
+    val sharesProblem: kotlin.String? = null,
+
+    @Json(name = "vaultShares")
+    val vaultShares: GetVaultMarketTodResponseVaultShares? = null
 
 )
 

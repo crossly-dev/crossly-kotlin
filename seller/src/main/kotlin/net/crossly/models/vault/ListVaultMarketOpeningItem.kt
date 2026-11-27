@@ -20,9 +20,9 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.vault.ListVaultMarketFeedItemMark
 import net.crossly.models.vault.ListVaultMarketOpeningItemEarlyAccess
 import net.crossly.models.vault.ListVaultMarketOpeningItemKey
+import net.crossly.models.vault.ListVaultMarketOpeningItemMark
 import net.crossly.models.vault.ListVaultMarketOpeningItemMe
 
 import com.squareup.moshi.Json
@@ -76,7 +76,7 @@ data class ListVaultMarketOpeningItem (
     val waitlist: java.math.BigDecimal,
 
     @Json(name = "mark")
-    val mark: ListVaultMarketFeedItemMark,
+    val mark: ListVaultMarketOpeningItemMark,
 
     @Json(name = "marketHref")
     val marketHref: kotlin.String,

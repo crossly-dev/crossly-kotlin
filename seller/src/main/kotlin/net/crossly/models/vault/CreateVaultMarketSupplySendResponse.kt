@@ -20,9 +20,7 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.vault.CreateVaultMarketPartnerBatchResponseLabel
-import net.crossly.models.vault.CreateVaultMarketSupplySendResponseCreated
-import net.crossly.models.vault.CreateVaultMarketSupplySendResponseSkipped
+import net.crossly.models.common.InventoryItemIdReason
 
 import com.squareup.moshi.Json
 
@@ -31,23 +29,31 @@ import com.squareup.moshi.Json
  *
  * @param created 
  * @param skipped 
+ * @param batchId 
  * @param label 
  * @param labelError 
+ * @param storefrontId 
  */
 
 data class CreateVaultMarketSupplySendResponse (
 
     @Json(name = "created")
-    val created: kotlin.collections.List<CreateVaultMarketSupplySendResponseCreated>,
+    val created: kotlin.Any?,
 
     @Json(name = "skipped")
-    val skipped: kotlin.collections.List<CreateVaultMarketSupplySendResponseSkipped>,
+    val skipped: kotlin.collections.List<InventoryItemIdReason>,
+
+    @Json(name = "batchId")
+    val batchId: kotlin.Any? = null,
 
     @Json(name = "label")
-    val label: CreateVaultMarketPartnerBatchResponseLabel? = null,
+    val label: kotlin.Any? = null,
 
     @Json(name = "labelError")
-    val labelError: kotlin.String? = null
+    val labelError: kotlin.Any? = null,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null
 
 )
 

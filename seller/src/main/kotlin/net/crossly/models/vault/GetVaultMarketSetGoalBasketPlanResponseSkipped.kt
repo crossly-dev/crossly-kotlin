@@ -55,11 +55,11 @@ data class GetVaultMarketSetGoalBasketPlanResponseSkipped (
     /**
      * 
      *
-     * Values: TOO_MANY,NO_PRICE,OVER_BUDGET,NOT_CHOSEN
+     * Values: NO_PRICE,TOO_MANY,OVER_BUDGET,NOT_CHOSEN
      */
     enum class Reason(val value: kotlin.String) {
-        @Json(name = "too_many") TOO_MANY("too_many"),
         @Json(name = "no_price") NO_PRICE("no_price"),
+        @Json(name = "too_many") TOO_MANY("too_many"),
         @Json(name = "over_budget") OVER_BUDGET("over_budget"),
         @Json(name = "not_chosen") NOT_CHOSEN("not_chosen");
     }

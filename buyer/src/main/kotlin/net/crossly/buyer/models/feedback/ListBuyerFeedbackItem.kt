@@ -27,18 +27,18 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
  * @param rating 
+ * @param createdAt 
  * @param body 
+ * @param revisedAt 
+ * @param sellerReply 
+ * @param sellerRepliedAt 
+ * @param sellerName 
+ * @param itemTitle 
+ * @param ratingAsDescribed 
  * @param ratingCommunication 
  * @param ratingShipSpeed 
  * @param ratingShipCost 
- * @param ratingAsDescribed 
- * @param sellerReply 
- * @param sellerRepliedAt 
- * @param revisedAt 
- * @param itemTitle 
- * @param sellerName 
  */
 
 data class ListBuyerFeedbackItem (
@@ -46,14 +46,32 @@ data class ListBuyerFeedbackItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
-
     @Json(name = "rating")
     val rating: java.math.BigDecimal,
 
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
+
     @Json(name = "body")
     val body: kotlin.String? = null,
+
+    @Json(name = "revisedAt")
+    val revisedAt: kotlin.String? = null,
+
+    @Json(name = "sellerReply")
+    val sellerReply: kotlin.String? = null,
+
+    @Json(name = "sellerRepliedAt")
+    val sellerRepliedAt: kotlin.String? = null,
+
+    @Json(name = "sellerName")
+    val sellerName: kotlin.String? = null,
+
+    @Json(name = "itemTitle")
+    val itemTitle: kotlin.String? = null,
+
+    @Json(name = "ratingAsDescribed")
+    val ratingAsDescribed: java.math.BigDecimal? = null,
 
     @Json(name = "ratingCommunication")
     val ratingCommunication: java.math.BigDecimal? = null,
@@ -62,25 +80,7 @@ data class ListBuyerFeedbackItem (
     val ratingShipSpeed: java.math.BigDecimal? = null,
 
     @Json(name = "ratingShipCost")
-    val ratingShipCost: java.math.BigDecimal? = null,
-
-    @Json(name = "ratingAsDescribed")
-    val ratingAsDescribed: java.math.BigDecimal? = null,
-
-    @Json(name = "sellerReply")
-    val sellerReply: kotlin.String? = null,
-
-    @Json(name = "sellerRepliedAt")
-    val sellerRepliedAt: kotlin.String? = null,
-
-    @Json(name = "revisedAt")
-    val revisedAt: kotlin.String? = null,
-
-    @Json(name = "itemTitle")
-    val itemTitle: kotlin.String? = null,
-
-    @Json(name = "sellerName")
-    val sellerName: kotlin.String? = null
+    val ratingShipCost: java.math.BigDecimal? = null
 
 )
 

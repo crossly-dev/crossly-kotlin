@@ -20,9 +20,10 @@
 
 package net.crossly.models.listing
 
-import net.crossly.models.inventory.GetInventoryResponsePlatformListingsDigitalFile
+import net.crossly.models.inventory.GetInventoryResponsePlatformListingsBundlePromo
 import net.crossly.models.inventory.GetInventoryResponsePlatformListingsMeasurements
 import net.crossly.models.inventory.GetInventoryResponsePlatformListingsPersonalization
+import net.crossly.models.listing.GetListingResponsePlatformListingsUnmatchedSale
 
 import com.squareup.moshi.Json
 
@@ -31,15 +32,16 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param userId 
- * @param quantity 
- * @param status 
  * @param platform 
- * @param listingId 
  * @param accountSlot 
- * @param platformListingId 
- * @param stockLocation 
+ * @param status 
+ * @param origin 
  * @param views 
  * @param favorites 
+ * @param quantity 
+ * @param listingId 
+ * @param platformListingId 
+ * @param stockLocation 
  * @param commentsCount 
  * @param isDraft 
  * @param isDutchAuction 
@@ -53,7 +55,6 @@ import com.squareup.moshi.Json
  * @param handlingTimeDays 
  * @param verificationFailed 
  * @param detailsPending 
- * @param errorMessage 
  * @param marketplaceId 
  * @param inventoryItemId 
  * @param currency 
@@ -64,10 +65,21 @@ import com.squareup.moshi.Json
  * @param sharedAt 
  * @param delistReason 
  * @param lastCheckedAt 
+ * @param impressions 
+ * @param ctrBps 
+ * @param viewsSemantics 
  * @param lastStatsSyncedAt 
+ * @param errorMessage 
+ * @param delistRequestedAt 
+ * @param delistRequestedReason 
+ * @param delistFailedAt 
+ * @param delistError 
+ * @param delistErrorCode 
  * @param listedPrice 
  * @param crosslyPriceUsdCents 
  * @param crosslyPriceFxAsOf 
+ * @param bundlePromo 
+ * @param storefrontId 
  * @param hashtags 
  * @param scheduledPublishAt 
  * @param dutchStartCents 
@@ -83,7 +95,6 @@ import com.squareup.moshi.Json
  * @param bestOfferAutoDeclineCents 
  * @param aestheticTags 
  * @param personalization 
- * @param digitalFile 
  * @param tryDays 
  * @param tryFeeCents 
  * @param subscribeDiscountBps 
@@ -115,6 +126,8 @@ import com.squareup.moshi.Json
  * @param lastDriftCheckedAt 
  * @param web3OrderId 
  * @param publishedOverrides 
+ * @param delistState 
+ * @param unmatchedSale 
  */
 
 data class GetListingResponsePlatformListings (
@@ -125,32 +138,35 @@ data class GetListingResponsePlatformListings (
     @Json(name = "userId")
     val userId: kotlin.String,
 
-    @Json(name = "quantity")
-    val quantity: java.math.BigDecimal,
-
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "platform")
     val platform: kotlin.String,
-
-    @Json(name = "listingId")
-    val listingId: kotlin.String,
 
     @Json(name = "accountSlot")
     val accountSlot: java.math.BigDecimal,
 
-    @Json(name = "platformListingId")
-    val platformListingId: kotlin.String,
+    @Json(name = "status")
+    val status: kotlin.String,
 
-    @Json(name = "stockLocation")
-    val stockLocation: kotlin.String,
+    @Json(name = "origin")
+    val origin: GetListingResponsePlatformListings.Origin,
 
     @Json(name = "views")
     val views: java.math.BigDecimal,
 
     @Json(name = "favorites")
     val favorites: java.math.BigDecimal,
+
+    @Json(name = "quantity")
+    val quantity: java.math.BigDecimal,
+
+    @Json(name = "listingId")
+    val listingId: kotlin.String,
+
+    @Json(name = "platformListingId")
+    val platformListingId: kotlin.String,
+
+    @Json(name = "stockLocation")
+    val stockLocation: kotlin.String,
 
     @Json(name = "commentsCount")
     val commentsCount: java.math.BigDecimal,
@@ -191,9 +207,6 @@ data class GetListingResponsePlatformListings (
     @Json(name = "detailsPending")
     val detailsPending: kotlin.Boolean,
 
-    @Json(name = "errorMessage")
-    val errorMessage: kotlin.String? = null,
-
     @Json(name = "marketplaceId")
     val marketplaceId: kotlin.String? = null,
 
@@ -224,8 +237,35 @@ data class GetListingResponsePlatformListings (
     @Json(name = "lastCheckedAt")
     val lastCheckedAt: java.time.OffsetDateTime? = null,
 
+    @Json(name = "impressions")
+    val impressions: java.math.BigDecimal? = null,
+
+    @Json(name = "ctrBps")
+    val ctrBps: java.math.BigDecimal? = null,
+
+    @Json(name = "viewsSemantics")
+    val viewsSemantics: GetListingResponsePlatformListings.ViewsSemantics? = null,
+
     @Json(name = "lastStatsSyncedAt")
     val lastStatsSyncedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "errorMessage")
+    val errorMessage: kotlin.String? = null,
+
+    @Json(name = "delistRequestedAt")
+    val delistRequestedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "delistRequestedReason")
+    val delistRequestedReason: kotlin.String? = null,
+
+    @Json(name = "delistFailedAt")
+    val delistFailedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "delistError")
+    val delistError: kotlin.String? = null,
+
+    @Json(name = "delistErrorCode")
+    val delistErrorCode: kotlin.String? = null,
 
     @Json(name = "listedPrice")
     val listedPrice: kotlin.String? = null,
@@ -235,6 +275,12 @@ data class GetListingResponsePlatformListings (
 
     @Json(name = "crosslyPriceFxAsOf")
     val crosslyPriceFxAsOf: kotlin.String? = null,
+
+    @Json(name = "bundlePromo")
+    val bundlePromo: GetInventoryResponsePlatformListingsBundlePromo? = null,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
 
     @Json(name = "hashtags")
     val hashtags: kotlin.collections.List<kotlin.String>? = null,
@@ -280,9 +326,6 @@ data class GetListingResponsePlatformListings (
 
     @Json(name = "personalization")
     val personalization: GetInventoryResponsePlatformListingsPersonalization? = null,
-
-    @Json(name = "digitalFile")
-    val digitalFile: GetInventoryResponsePlatformListingsDigitalFile? = null,
 
     @Json(name = "tryDays")
     val tryDays: java.math.BigDecimal? = null,
@@ -375,7 +418,47 @@ data class GetListingResponsePlatformListings (
     val web3OrderId: kotlin.String? = null,
 
     @Json(name = "publishedOverrides")
-    val publishedOverrides: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
+    val publishedOverrides: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
-)
+    @Json(name = "delistState")
+    val delistState: GetListingResponsePlatformListings.DelistState? = null,
+
+    @Json(name = "unmatchedSale")
+    val unmatchedSale: GetListingResponsePlatformListingsUnmatchedSale? = null
+
+) {
+
+    /**
+     * 
+     *
+     * Values: UNKNOWN,PUBLISHED,IMPORTED,EXTERNAL_STUB,APP_LINKED
+     */
+    enum class Origin(val value: kotlin.String) {
+        @Json(name = "unknown") UNKNOWN("unknown"),
+        @Json(name = "published") PUBLISHED("published"),
+        @Json(name = "imported") IMPORTED("imported"),
+        @Json(name = "external_stub") EXTERNAL_STUB("external_stub"),
+        @Json(name = "app_linked") APP_LINKED("app_linked");
+    }
+    /**
+     * 
+     *
+     * Values: LIFETIME,ROLLING7D,ROLLING30D,CLICKS
+     */
+    enum class ViewsSemantics(val value: kotlin.String) {
+        @Json(name = "lifetime") LIFETIME("lifetime"),
+        @Json(name = "rolling7d") ROLLING7D("rolling7d"),
+        @Json(name = "rolling30d") ROLLING30D("rolling30d"),
+        @Json(name = "clicks") CLICKS("clicks");
+    }
+    /**
+     * 
+     *
+     * Values: PENDING,FAILED
+     */
+    enum class DelistState(val value: kotlin.String) {
+        @Json(name = "pending") PENDING("pending"),
+        @Json(name = "failed") FAILED("failed");
+    }
+}
 

@@ -87,13 +87,13 @@ data class ListVaultMarketAgentWatchesItem (
     /**
      * 
      *
-     * Values: MARK,ASK,BID,LAST
+     * Values: ASK,LAST,MARK,BID
      */
     enum class Metric(val value: kotlin.String) {
-        @Json(name = "mark") MARK("mark"),
         @Json(name = "ask") ASK("ask"),
-        @Json(name = "bid") BID("bid"),
-        @Json(name = "last") LAST("last");
+        @Json(name = "last") LAST("last"),
+        @Json(name = "mark") MARK("mark"),
+        @Json(name = "bid") BID("bid");
     }
     /**
      * 

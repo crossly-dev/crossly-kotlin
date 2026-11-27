@@ -39,6 +39,8 @@ import com.squareup.moshi.Json
  * @param aiScamScore 
  * @param aiSuggestedReply 
  * @param aiTriagedAt 
+ * @param offerAmount 
+ * @param offerStatus 
  */
 
 data class GetInboxConversationMessageResponseMessages (
@@ -80,7 +82,27 @@ data class GetInboxConversationMessageResponseMessages (
     val aiSuggestedReply: kotlin.String? = null,
 
     @Json(name = "aiTriagedAt")
-    val aiTriagedAt: java.time.OffsetDateTime? = null
+    val aiTriagedAt: java.time.OffsetDateTime? = null,
 
-)
+    @Json(name = "offerAmount")
+    val offerAmount: kotlin.String? = null,
+
+    @Json(name = "offerStatus")
+    val offerStatus: GetInboxConversationMessageResponseMessages.OfferStatus? = null
+
+) {
+
+    /**
+     * 
+     *
+     * Values: PENDING,ACCEPTED,DECLINED,EXPIRED,VOIDED
+     */
+    enum class OfferStatus(val value: kotlin.String) {
+        @Json(name = "pending") PENDING("pending"),
+        @Json(name = "accepted") ACCEPTED("accepted"),
+        @Json(name = "declined") DECLINED("declined"),
+        @Json(name = "expired") EXPIRED("expired"),
+        @Json(name = "voided") VOIDED("voided");
+    }
+}
 

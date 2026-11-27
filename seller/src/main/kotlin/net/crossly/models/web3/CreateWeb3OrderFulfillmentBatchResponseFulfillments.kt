@@ -61,13 +61,13 @@ data class CreateWeb3OrderFulfillmentBatchResponseFulfillments (
     /**
      * 
      *
-     * Values: BUNDLE,LISTING,PRIVATE_LISTING,OFFER,COLLECTION_OFFER,TRAIT_OFFER
+     * Values: BUNDLE,OFFER,LISTING,PRIVATE_LISTING,COLLECTION_OFFER,TRAIT_OFFER
      */
     enum class Kind(val value: kotlin.String) {
         @Json(name = "bundle") BUNDLE("bundle"),
+        @Json(name = "offer") OFFER("offer"),
         @Json(name = "listing") LISTING("listing"),
         @Json(name = "private_listing") PRIVATE_LISTING("private_listing"),
-        @Json(name = "offer") OFFER("offer"),
         @Json(name = "collection_offer") COLLECTION_OFFER("collection_offer"),
         @Json(name = "trait_offer") TRAIT_OFFER("trait_offer");
     }

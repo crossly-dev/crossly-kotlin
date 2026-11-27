@@ -105,20 +105,20 @@ data class GetWorldJobResponseDataMineShifts (
     /**
      * 
      *
-     * Values: BUCKS,CBX
+     * Values: CBX,BUCKS
      */
     enum class Rail(val value: kotlin.String) {
-        @Json(name = "bucks") BUCKS("bucks"),
-        @Json(name = "cbx") CBX("cbx");
+        @Json(name = "cbx") CBX("cbx"),
+        @Json(name = "bucks") BUCKS("bucks");
     }
     /**
      * 
      *
-     * Values: OPEN,CANCELLED,PAID,CLAIMED,WORKED,MISSED
+     * Values: CANCELLED,OPEN,PAID,CLAIMED,WORKED,MISSED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "open") OPEN("open"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "open") OPEN("open"),
         @Json(name = "paid") PAID("paid"),
         @Json(name = "claimed") CLAIMED("claimed"),
         @Json(name = "worked") WORKED("worked"),

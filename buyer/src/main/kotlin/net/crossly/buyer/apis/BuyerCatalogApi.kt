@@ -887,9 +887,10 @@ class BuyerCatalogApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
 
     /**
     * Shipping services and prices to a destination.
-    * Lists every shipping service the seller offers to &#x60;country&#x60; (default: the seller’s own country) with its price for &#x60;quantity&#x60; units and its delivery window in business days (handling included). &#x60;zip&#x60; is required for a domestic quote. &#x60;shipsToCountry: false&#x60; means the seller does not ship there. Pass a service &#x60;id&#x60; as &#x60;shippingServiceId&#x60; to POST /api/v1/buyer/checkout, or in &#x60;shippingServiceBySeller&#x60; to POST /api/v1/buyer/cart/quote.
+    * Lists every shipping service the seller offers to &#x60;country&#x60; (default: the seller’s own country) with its price for &#x60;quantity&#x60; units and its delivery window in business days (handling included). &#x60;zip&#x60; is required for a domestic quote; &#x60;state&#x60; is optional. &#x60;shipsToCountry: false&#x60; means the seller does not ship there (&#x60;noShipMessage&#x60; says why); &#x60;partial: true&#x60; means a ZIP or postcode could change the answer. Pass a service &#x60;id&#x60; as &#x60;shippingServiceId&#x60; to POST /api/v1/buyer/checkout, or in &#x60;shippingServiceBySeller&#x60; to POST /api/v1/buyer/cart/quote. A seller on \&quot;buyer pays: calculated\&quot; prices each allowed carrier service from the live label rate for this parcel plus their handling fee (rates cached 15 minutes): those services carry &#x60;carrier&#x60; and &#x60;carrierService&#x60;, and &#x60;calculatedAtCheckout: true&#x60; means a ZIP is needed first.
     * @param slug  
     * @param zip  (optional)
+    * @param state  (optional)
     * @param country  (optional)
     * @param quantity  (optional)
     * @return GetBuyerCatalogListingShippingResponse
@@ -901,8 +902,8 @@ class BuyerCatalogApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun getBuyerCatalogListingShipping(slug: kotlin.String, zip: kotlin.String?, country: kotlin.String?, quantity: kotlin.Int?) : GetBuyerCatalogListingShippingResponse {
-        val localVarResponse = getBuyerCatalogListingShippingWithHttpInfo(slug = slug, zip = zip, country = country, quantity = quantity)
+    fun getBuyerCatalogListingShipping(slug: kotlin.String, zip: kotlin.String?, state: kotlin.String?, country: kotlin.String?, quantity: kotlin.Int?) : GetBuyerCatalogListingShippingResponse {
+        val localVarResponse = getBuyerCatalogListingShippingWithHttpInfo(slug = slug, zip = zip, state = state, country = country, quantity = quantity)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetBuyerCatalogListingShippingResponse
@@ -921,9 +922,10 @@ class BuyerCatalogApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
 
     /**
     * Shipping services and prices to a destination.
-    * Lists every shipping service the seller offers to &#x60;country&#x60; (default: the seller’s own country) with its price for &#x60;quantity&#x60; units and its delivery window in business days (handling included). &#x60;zip&#x60; is required for a domestic quote. &#x60;shipsToCountry: false&#x60; means the seller does not ship there. Pass a service &#x60;id&#x60; as &#x60;shippingServiceId&#x60; to POST /api/v1/buyer/checkout, or in &#x60;shippingServiceBySeller&#x60; to POST /api/v1/buyer/cart/quote.
+    * Lists every shipping service the seller offers to &#x60;country&#x60; (default: the seller’s own country) with its price for &#x60;quantity&#x60; units and its delivery window in business days (handling included). &#x60;zip&#x60; is required for a domestic quote; &#x60;state&#x60; is optional. &#x60;shipsToCountry: false&#x60; means the seller does not ship there (&#x60;noShipMessage&#x60; says why); &#x60;partial: true&#x60; means a ZIP or postcode could change the answer. Pass a service &#x60;id&#x60; as &#x60;shippingServiceId&#x60; to POST /api/v1/buyer/checkout, or in &#x60;shippingServiceBySeller&#x60; to POST /api/v1/buyer/cart/quote. A seller on \&quot;buyer pays: calculated\&quot; prices each allowed carrier service from the live label rate for this parcel plus their handling fee (rates cached 15 minutes): those services carry &#x60;carrier&#x60; and &#x60;carrierService&#x60;, and &#x60;calculatedAtCheckout: true&#x60; means a ZIP is needed first.
     * @param slug  
     * @param zip  (optional)
+    * @param state  (optional)
     * @param country  (optional)
     * @param quantity  (optional)
     * @return ApiResponse<GetBuyerCatalogListingShippingResponse?>
@@ -932,8 +934,8 @@ class BuyerCatalogApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun getBuyerCatalogListingShippingWithHttpInfo(slug: kotlin.String, zip: kotlin.String?, country: kotlin.String?, quantity: kotlin.Int?) : ApiResponse<GetBuyerCatalogListingShippingResponse?> {
-        val localVariableConfig = getBuyerCatalogListingShippingRequestConfig(slug = slug, zip = zip, country = country, quantity = quantity)
+    fun getBuyerCatalogListingShippingWithHttpInfo(slug: kotlin.String, zip: kotlin.String?, state: kotlin.String?, country: kotlin.String?, quantity: kotlin.Int?) : ApiResponse<GetBuyerCatalogListingShippingResponse?> {
+        val localVariableConfig = getBuyerCatalogListingShippingRequestConfig(slug = slug, zip = zip, state = state, country = country, quantity = quantity)
 
         return request<Unit, GetBuyerCatalogListingShippingResponse>(
             localVariableConfig
@@ -945,16 +947,20 @@ class BuyerCatalogApi(basePath: kotlin.String = defaultBasePath) : ApiClient(bas
     *
     * @param slug  
     * @param zip  (optional)
+    * @param state  (optional)
     * @param country  (optional)
     * @param quantity  (optional)
     * @return RequestConfig
     */
-    fun getBuyerCatalogListingShippingRequestConfig(slug: kotlin.String, zip: kotlin.String?, country: kotlin.String?, quantity: kotlin.Int?) : RequestConfig<Unit> {
+    fun getBuyerCatalogListingShippingRequestConfig(slug: kotlin.String, zip: kotlin.String?, state: kotlin.String?, country: kotlin.String?, quantity: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
                 if (zip != null) {
                     put("zip", listOf(zip.toString()))
+                }
+                if (state != null) {
+                    put("state", listOf(state.toString()))
                 }
                 if (country != null) {
                     put("country", listOf(country.toString()))

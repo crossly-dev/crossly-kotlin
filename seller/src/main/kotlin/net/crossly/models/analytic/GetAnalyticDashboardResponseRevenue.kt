@@ -20,6 +20,7 @@
 
 package net.crossly.models.analytic
 
+import net.crossly.models.analytic.GetAnalyticOverviewResponseDataKpisNetSalesDelta
 
 import com.squareup.moshi.Json
 
@@ -28,6 +29,7 @@ import com.squareup.moshi.Json
  *
  * @param current 
  * @param previous 
+ * @param delta 
  * @param pctChange 
  */
 
@@ -38,6 +40,9 @@ data class GetAnalyticDashboardResponseRevenue (
 
     @Json(name = "previous")
     val previous: java.math.BigDecimal,
+
+    @Json(name = "delta")
+    val delta: GetAnalyticOverviewResponseDataKpisNetSalesDelta,
 
     @Json(name = "pctChange")
     val pctChange: java.math.BigDecimal? = null

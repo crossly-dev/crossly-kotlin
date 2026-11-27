@@ -20,6 +20,7 @@
 
 package net.crossly.models.common
 
+import net.crossly.models.common.GetMileageSummaryResponseRates
 
 import com.squareup.moshi.Json
 
@@ -28,8 +29,10 @@ import com.squareup.moshi.Json
  *
  * @param year 
  * @param ratePerMile 
+ * @param rates 
  * @param totalMiles 
  * @param deduction 
+ * @param deductionCents 
  * @param entryCount 
  */
 
@@ -41,11 +44,17 @@ data class GetMileageSummaryResponse (
     @Json(name = "ratePerMile")
     val ratePerMile: java.math.BigDecimal,
 
+    @Json(name = "rates")
+    val rates: kotlin.collections.List<GetMileageSummaryResponseRates>,
+
     @Json(name = "totalMiles")
     val totalMiles: java.math.BigDecimal,
 
     @Json(name = "deduction")
     val deduction: java.math.BigDecimal,
+
+    @Json(name = "deductionCents")
+    val deductionCents: java.math.BigDecimal,
 
     @Json(name = "entryCount")
     val entryCount: java.math.BigDecimal

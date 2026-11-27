@@ -27,10 +27,10 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param kind message | offer | decision | state_change.
- * @param body 
  * @param authorRole buyer | seller | ops | system.
+ * @param body 
+ * @param kind message | offer | decision | state_change.
+ * @param createdAt 
  * @param attachmentUrls 
  */
 
@@ -39,19 +39,19 @@ data class GetBuyerCaseResponseDataMessages (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
+    /* buyer | seller | ops | system. */
+    @Json(name = "authorRole")
+    val authorRole: kotlin.String,
+
+    @Json(name = "body")
+    val body: kotlin.String,
 
     /* message | offer | decision | state_change. */
     @Json(name = "kind")
     val kind: kotlin.String,
 
-    @Json(name = "body")
-    val body: kotlin.String,
-
-    /* buyer | seller | ops | system. */
-    @Json(name = "authorRole")
-    val authorRole: kotlin.String,
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
 
     @Json(name = "attachmentUrls")
     val attachmentUrls: kotlin.collections.List<kotlin.String>? = null

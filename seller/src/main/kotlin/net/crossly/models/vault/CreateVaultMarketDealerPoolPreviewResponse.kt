@@ -61,25 +61,25 @@ data class CreateVaultMarketDealerPoolPreviewResponse (
     /**
      * Why a side has fewer levels than the depth (null = full).
      *
-     * Values: FLOOR,NO_UNITS,NO_CASH,CEILING,CURVE_END
+     * Values: FLOOR,CEILING,NO_UNITS,NO_CASH,CURVE_END
      */
     enum class BidLimit(val value: kotlin.String) {
         @Json(name = "floor") FLOOR("floor"),
+        @Json(name = "ceiling") CEILING("ceiling"),
         @Json(name = "no_units") NO_UNITS("no_units"),
         @Json(name = "no_cash") NO_CASH("no_cash"),
-        @Json(name = "ceiling") CEILING("ceiling"),
         @Json(name = "curve_end") CURVE_END("curve_end");
     }
     /**
      * 
      *
-     * Values: FLOOR,NO_UNITS,NO_CASH,CEILING,CURVE_END
+     * Values: FLOOR,CEILING,NO_UNITS,NO_CASH,CURVE_END
      */
     enum class AskLimit(val value: kotlin.String) {
         @Json(name = "floor") FLOOR("floor"),
+        @Json(name = "ceiling") CEILING("ceiling"),
         @Json(name = "no_units") NO_UNITS("no_units"),
         @Json(name = "no_cash") NO_CASH("no_cash"),
-        @Json(name = "ceiling") CEILING("ceiling"),
         @Json(name = "curve_end") CURVE_END("curve_end");
     }
 }

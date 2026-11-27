@@ -20,6 +20,7 @@
 
 package net.crossly.models.common
 
+import net.crossly.models.common.SpatialSceneResponseDataSettings
 
 import com.squareup.moshi.Json
 
@@ -27,14 +28,18 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
+ * @param userId 
+ * @param kind 'collection' | 'warehouse'  Same renderer, opposite contracts. A collection may be arranged for beauty; a warehouse must match the physical room or it is worse than no warehouse, because someone will walk to the wrong shelf.
+ * @param name 
+ * @param visibility 'private' | 'unlisted' | 'public'  Defaults CLOSED. A collection is the one surface in this product that routinely contains things which are not for sale and were never meant to be seen by anybody — that is most of what makes it a collection.
+ * @param settings 
+ * @param showroomPosition 1147 kind='shop': a store's showrooms in order; 0 = its primary (one per store, the unique index below).
+ * @param autoIncludeInventory 1147 kind='shop': opt-in, stand every live item automatically. Off = only what is pinned shows.
  * @param createdAt 
  * @param updatedAt 
- * @param inventoryItemId 
- * @param sceneId 
- * @param nodeId 
- * @param slotIndex 
- * @param pinned 
- * @param inventoryUnitId 
+ * @param categorySlug NULL for warehouses and for the generic catch-all room.
+ * @param publicSlug Public share handle. NULL until someone chooses to share.
+ * @param storefrontId kind='shop': the store this showroom belongs to (0830). NULL = a legacy row of the default store.
  */
 
 data class SpatialSceneResponseData (
@@ -42,29 +47,48 @@ data class SpatialSceneResponseData (
     @Json(name = "id")
     val id: kotlin.String,
 
+    @Json(name = "userId")
+    val userId: kotlin.String,
+
+    /* 'collection' | 'warehouse'  Same renderer, opposite contracts. A collection may be arranged for beauty; a warehouse must match the physical room or it is worse than no warehouse, because someone will walk to the wrong shelf. */
+    @Json(name = "kind")
+    val kind: kotlin.String,
+
+    @Json(name = "name")
+    val name: kotlin.String,
+
+    /* 'private' | 'unlisted' | 'public'  Defaults CLOSED. A collection is the one surface in this product that routinely contains things which are not for sale and were never meant to be seen by anybody — that is most of what makes it a collection. */
+    @Json(name = "visibility")
+    val visibility: kotlin.String,
+
+    @Json(name = "settings")
+    val settings: SpatialSceneResponseDataSettings,
+
+    /* 1147 kind='shop': a store's showrooms in order; 0 = its primary (one per store, the unique index below). */
+    @Json(name = "showroomPosition")
+    val showroomPosition: java.math.BigDecimal,
+
+    /* 1147 kind='shop': opt-in, stand every live item automatically. Off = only what is pinned shows. */
+    @Json(name = "autoIncludeInventory")
+    val autoIncludeInventory: kotlin.Boolean,
+
     @Json(name = "createdAt")
     val createdAt: java.time.OffsetDateTime,
 
     @Json(name = "updatedAt")
     val updatedAt: java.time.OffsetDateTime,
 
-    @Json(name = "inventoryItemId")
-    val inventoryItemId: kotlin.String,
+    /* NULL for warehouses and for the generic catch-all room. */
+    @Json(name = "categorySlug")
+    val categorySlug: kotlin.String? = null,
 
-    @Json(name = "sceneId")
-    val sceneId: kotlin.String,
+    /* Public share handle. NULL until someone chooses to share. */
+    @Json(name = "publicSlug")
+    val publicSlug: kotlin.String? = null,
 
-    @Json(name = "nodeId")
-    val nodeId: kotlin.String,
-
-    @Json(name = "slotIndex")
-    val slotIndex: java.math.BigDecimal,
-
-    @Json(name = "pinned")
-    val pinned: kotlin.Boolean,
-
-    @Json(name = "inventoryUnitId")
-    val inventoryUnitId: kotlin.String? = null
+    /* kind='shop': the store this showroom belongs to (0830). NULL = a legacy row of the default store. */
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null
 
 )
 

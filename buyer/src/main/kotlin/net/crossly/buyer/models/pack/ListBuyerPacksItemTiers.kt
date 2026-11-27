@@ -28,9 +28,9 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param name 
- * @param available 
  * @param weight 
  * @param oddsPct 
+ * @param available 
  * @param avgValueCents 
  * @param minValueCents 
  * @param maxValueCents 
@@ -44,14 +44,14 @@ data class ListBuyerPacksItemTiers (
     @Json(name = "name")
     val name: kotlin.String,
 
-    @Json(name = "available")
-    val available: java.math.BigDecimal,
-
     @Json(name = "weight")
     val weight: java.math.BigDecimal,
 
     @Json(name = "oddsPct")
     val oddsPct: java.math.BigDecimal,
+
+    @Json(name = "available")
+    val available: java.math.BigDecimal,
 
     @Json(name = "avgValueCents")
     val avgValueCents: java.math.BigDecimal,

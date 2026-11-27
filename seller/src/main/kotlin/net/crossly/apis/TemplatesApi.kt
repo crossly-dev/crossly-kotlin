@@ -27,6 +27,7 @@ import net.crossly.models.me.CreateMeTemplateRenderResponse
 import net.crossly.models.me.CreateMeTemplateShareResponse
 import net.crossly.models.common.Error
 import net.crossly.models.me.GetMeTemplateSuggestResponse
+import net.crossly.models.publics.GetPublicTemplateResponse
 import net.crossly.models.me.ListMeTemplatesItem
 import net.crossly.models.me.ListMeTemplatesResponse
 import net.crossly.models.common.OkResponse
@@ -600,6 +601,76 @@ class TemplatesApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/me/templates/suggest",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A shared template by its share token (public, no auth).
+    * 
+    * @param token  
+    * @return GetPublicTemplateResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getPublicTemplate(token: kotlin.String) : GetPublicTemplateResponse {
+        val localVarResponse = getPublicTemplateWithHttpInfo(token = token)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetPublicTemplateResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A shared template by its share token (public, no auth).
+    * 
+    * @param token  
+    * @return ApiResponse<GetPublicTemplateResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getPublicTemplateWithHttpInfo(token: kotlin.String) : ApiResponse<GetPublicTemplateResponse?> {
+        val localVariableConfig = getPublicTemplateRequestConfig(token = token)
+
+        return request<Unit, GetPublicTemplateResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getPublicTemplate
+    *
+    * @param token  
+    * @return RequestConfig
+    */
+    fun getPublicTemplateRequestConfig(token: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/public/templates/{token}".replace("{"+"token"+"}", "$token"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

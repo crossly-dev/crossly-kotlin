@@ -139,12 +139,12 @@ data class GetCustomerResponseProfiles (
     /**
      * 
      *
-     * Values: ERROR,UNSUPPORTED,OK,NOT_FOUND
+     * Values: ERROR,OK,UNSUPPORTED,NOT_FOUND
      */
     enum class FetchStatus(val value: kotlin.String) {
         @Json(name = "error") ERROR("error"),
-        @Json(name = "unsupported") UNSUPPORTED("unsupported"),
         @Json(name = "ok") OK("ok"),
+        @Json(name = "unsupported") UNSUPPORTED("unsupported"),
         @Json(name = "not_found") NOT_FOUND("not_found");
     }
 }

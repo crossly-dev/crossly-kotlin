@@ -38,7 +38,7 @@ import net.crossly.models.production.GetProductionLineResponse
 import net.crossly.models.production.GetProductionPoReconcileResponse
 import net.crossly.models.production.GetProductionPoResponse
 import net.crossly.models.production.GetProductionRunResponse
-import net.crossly.models.common.GetShopListingProvenanceResponse
+import net.crossly.models.shop.GetShopListingProvenanceResponse
 import net.crossly.models.production.UpdateProductionPoResponse
 
 import com.squareup.moshi.Json

@@ -47,11 +47,11 @@ data class GetWorldGameLeaderboardResponseDataScoring (
     /**
      * 
      *
-     * Values: WINS,POINTS,TIME
+     * Values: POINTS,WINS,TIME
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "wins") WINS("wins"),
         @Json(name = "points") POINTS("points"),
+        @Json(name = "wins") WINS("wins"),
         @Json(name = "time") TIME("time");
     }
     /**

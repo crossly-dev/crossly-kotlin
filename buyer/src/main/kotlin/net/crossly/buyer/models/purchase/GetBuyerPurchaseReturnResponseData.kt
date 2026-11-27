@@ -27,18 +27,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param reasons 
  * @param terms 
+ * @param reasons 
  * @param existing 
  */
 
 data class GetBuyerPurchaseReturnResponseData (
 
-    @Json(name = "reasons")
-    val reasons: kotlin.collections.List<GetBuyerPurchaseReturnResponseDataReasons>,
-
     @Json(name = "terms")
     val terms: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
+    @Json(name = "reasons")
+    val reasons: kotlin.collections.List<GetBuyerPurchaseReturnResponseDataReasons>,
 
     @Json(name = "existing")
     val existing: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null

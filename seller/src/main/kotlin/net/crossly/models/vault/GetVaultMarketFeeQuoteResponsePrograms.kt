@@ -51,11 +51,11 @@ data class GetVaultMarketFeeQuoteResponsePrograms (
     /**
      * 
      *
-     * Values: CLASSIC,PRO
+     * Values: PRO,CLASSIC
      */
     enum class MemberTier(val value: kotlin.String) {
-        @Json(name = "classic") CLASSIC("classic"),
-        @Json(name = "pro") PRO("pro");
+        @Json(name = "pro") PRO("pro"),
+        @Json(name = "classic") CLASSIC("classic");
     }
 }
 

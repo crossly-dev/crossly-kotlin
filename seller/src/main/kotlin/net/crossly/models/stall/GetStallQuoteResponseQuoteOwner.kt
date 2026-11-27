@@ -43,12 +43,12 @@ data class GetStallQuoteResponseQuoteOwner (
     /**
      * 
      *
-     * Values: PLATFORM,STREET,PLOT
+     * Values: PLATFORM,PLOT,STREET
      */
     enum class Kind(val value: kotlin.String) {
         @Json(name = "platform") PLATFORM("platform"),
-        @Json(name = "street") STREET("street"),
-        @Json(name = "plot") PLOT("plot");
+        @Json(name = "plot") PLOT("plot"),
+        @Json(name = "street") STREET("street");
     }
 }
 

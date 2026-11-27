@@ -43,12 +43,12 @@ data class CreateCbxSubjectSpendPlanResponseDataLegs (
     /**
      * 
      *
-     * Values: GRANTED,EARNED,CONNECTED
+     * Values: EARNED,CONNECTED,GRANTED
      */
     enum class Source(val value: kotlin.String) {
-        @Json(name = "granted") GRANTED("granted"),
         @Json(name = "earned") EARNED("earned"),
-        @Json(name = "connected") CONNECTED("connected");
+        @Json(name = "connected") CONNECTED("connected"),
+        @Json(name = "granted") GRANTED("granted");
     }
 }
 

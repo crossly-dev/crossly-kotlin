@@ -27,15 +27,15 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param label 
  * @param position 
+ * @param label 
  * @param taken 
  * @param mine 
  * @param heldByMe 
  * @param heldByOther 
  * @param heldUntil 
- * @param hits 
  * @param buyer 
+ * @param hits 
  */
 
 data class GetBuyerBreakResponseDataSpots (
@@ -43,11 +43,11 @@ data class GetBuyerBreakResponseDataSpots (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "label")
-    val label: kotlin.String,
-
     @Json(name = "position")
     val position: java.math.BigDecimal,
+
+    @Json(name = "label")
+    val label: kotlin.String,
 
     @Json(name = "taken")
     val taken: kotlin.Boolean,
@@ -64,11 +64,11 @@ data class GetBuyerBreakResponseDataSpots (
     @Json(name = "heldUntil")
     val heldUntil: kotlin.String? = null,
 
-    @Json(name = "hits")
-    val hits: kotlin.String? = null,
-
     @Json(name = "buyer")
-    val buyer: kotlin.String? = null
+    val buyer: kotlin.String? = null,
+
+    @Json(name = "hits")
+    val hits: kotlin.String? = null
 
 )
 

@@ -21,7 +21,7 @@
 package net.crossly.models.vault
 
 import net.crossly.models.vault.GetVaultMarketWidgetMarkResponsePoints
-import net.crossly.models.vault.ListVaultMarketFeedItemMark
+import net.crossly.models.vault.ListVaultMarketOpeningItemMark
 
 import com.squareup.moshi.Json
 
@@ -50,7 +50,7 @@ data class GetVaultMarketWidgetMarkResponse (
     val condition: kotlin.String,
 
     @Json(name = "mark")
-    val mark: ListVaultMarketFeedItemMark,
+    val mark: ListVaultMarketOpeningItemMark,
 
     @Json(name = "trades30d")
     val trades30d: java.math.BigDecimal,

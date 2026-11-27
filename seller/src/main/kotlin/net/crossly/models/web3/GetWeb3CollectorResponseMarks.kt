@@ -60,14 +60,14 @@ data class GetWeb3CollectorResponseMarks (
     /**
      * 
      *
-     * Values: CROSSLY,CARD,TENSOR,MAGIC_EDEN,RARIBLE
+     * Values: CROSSLY,CARD,RARIBLE,MAGIC_EDEN,TENSOR
      */
     enum class Source(val value: kotlin.String) {
         @Json(name = "crossly") CROSSLY("crossly"),
         @Json(name = "card") CARD("card"),
-        @Json(name = "tensor") TENSOR("tensor"),
+        @Json(name = "rarible") RARIBLE("rarible"),
         @Json(name = "magic_eden") MAGIC_EDEN("magic_eden"),
-        @Json(name = "rarible") RARIBLE("rarible");
+        @Json(name = "tensor") TENSOR("tensor");
     }
 }
 

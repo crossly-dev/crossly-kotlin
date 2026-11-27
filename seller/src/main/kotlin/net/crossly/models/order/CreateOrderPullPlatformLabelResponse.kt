@@ -26,25 +26,33 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param provenance 
  * @param url 
  * @param persisted 
  * @param expiresInSeconds 
- * @param provenance 
+ * @param shippingLabelUrl 
+ * @param trackingNumber 
  */
 
 data class CreateOrderPullPlatformLabelResponse (
 
+    @Json(name = "provenance")
+    val provenance: CreateOrderPullPlatformLabelResponse.Provenance,
+
     @Json(name = "url")
-    val url: kotlin.String,
+    val url: kotlin.String? = null,
 
     @Json(name = "persisted")
-    val persisted: kotlin.Boolean,
+    val persisted: kotlin.Boolean? = null,
 
     @Json(name = "expiresInSeconds")
-    val expiresInSeconds: java.math.BigDecimal,
+    val expiresInSeconds: java.math.BigDecimal? = null,
 
-    @Json(name = "provenance")
-    val provenance: CreateOrderPullPlatformLabelResponse.Provenance
+    @Json(name = "shippingLabelUrl")
+    val shippingLabelUrl: kotlin.String? = null,
+
+    @Json(name = "trackingNumber")
+    val trackingNumber: kotlin.String? = null
 
 ) {
 

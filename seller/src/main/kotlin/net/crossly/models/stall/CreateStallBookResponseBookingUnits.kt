@@ -31,6 +31,7 @@ import com.squareup.moshi.Json
  * @param endsAt 
  * @param cents 
  * @param externalId CBX only: the spend's external id for this unit (one spend per unit).
+ * @param paymentId CBX only, booked since gap 6: this unit's world_payments row (refunds go through refundWorld).
  */
 
 data class CreateStallBookResponseBookingUnits (
@@ -49,7 +50,11 @@ data class CreateStallBookResponseBookingUnits (
 
     /* CBX only: the spend's external id for this unit (one spend per unit). */
     @Json(name = "externalId")
-    val externalId: kotlin.String? = null
+    val externalId: kotlin.String? = null,
+
+    /* CBX only, booked since gap 6: this unit's world_payments row (refunds go through refundWorld). */
+    @Json(name = "paymentId")
+    val paymentId: kotlin.String? = null
 
 )
 

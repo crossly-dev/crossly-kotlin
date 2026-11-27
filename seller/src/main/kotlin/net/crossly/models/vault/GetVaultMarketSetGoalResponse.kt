@@ -33,23 +33,23 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param status 
- * @param title 
  * @param category 
+ * @param title 
  * @param options 
- * @param progress 
- * @param brandSlug 
- * @param modelSlug 
  * @param target 
- * @param held 
- * @param complete 
- * @param href 
  * @param total 
- * @param setFound 
+ * @param href 
+ * @param brandSlug 
+ * @param progress 
  * @param missing 
+ * @param held 
+ * @param modelSlug 
+ * @param pieces 
+ * @param complete 
+ * @param setFound 
  * @param priced 
  * @param missingMarkCents 
  * @param tooBig 
- * @param pieces 
  * @param cardSetHref 
  * @param completedAt 
  * @param basket 
@@ -66,44 +66,47 @@ data class GetVaultMarketSetGoalResponse (
     @Json(name = "status")
     val status: GetVaultMarketSetGoalResponse.Status,
 
-    @Json(name = "title")
-    val title: kotlin.String,
-
     @Json(name = "category")
     val category: kotlin.String,
+
+    @Json(name = "title")
+    val title: kotlin.String,
 
     @Json(name = "options")
     val options: GetVaultMarketSetGoalResponseOptions,
 
-    @Json(name = "progress")
-    val progress: kotlin.String,
-
-    @Json(name = "brandSlug")
-    val brandSlug: kotlin.String,
-
-    @Json(name = "modelSlug")
-    val modelSlug: kotlin.String,
-
     @Json(name = "target")
     val target: GetVaultMarketSetGoalResponseTarget,
-
-    @Json(name = "held")
-    val held: java.math.BigDecimal,
-
-    @Json(name = "complete")
-    val complete: kotlin.Boolean,
-
-    @Json(name = "href")
-    val href: kotlin.String,
 
     @Json(name = "total")
     val total: java.math.BigDecimal,
 
-    @Json(name = "setFound")
-    val setFound: kotlin.Boolean,
+    @Json(name = "href")
+    val href: kotlin.String,
+
+    @Json(name = "brandSlug")
+    val brandSlug: kotlin.String,
+
+    @Json(name = "progress")
+    val progress: kotlin.String,
 
     @Json(name = "missing")
     val missing: java.math.BigDecimal,
+
+    @Json(name = "held")
+    val held: java.math.BigDecimal,
+
+    @Json(name = "modelSlug")
+    val modelSlug: kotlin.String,
+
+    @Json(name = "pieces")
+    val pieces: kotlin.collections.List<GetVaultMarketSetGoalResponsePieces>,
+
+    @Json(name = "complete")
+    val complete: kotlin.Boolean,
+
+    @Json(name = "setFound")
+    val setFound: kotlin.Boolean,
 
     @Json(name = "priced")
     val priced: java.math.BigDecimal,
@@ -113,9 +116,6 @@ data class GetVaultMarketSetGoalResponse (
 
     @Json(name = "tooBig")
     val tooBig: kotlin.Boolean,
-
-    @Json(name = "pieces")
-    val pieces: kotlin.collections.List<GetVaultMarketSetGoalResponsePieces>,
 
     @Json(name = "cardSetHref")
     val cardSetHref: kotlin.String,
@@ -131,12 +131,12 @@ data class GetVaultMarketSetGoalResponse (
     /**
      * 
      *
-     * Values: ACTIVE,COMPLETE,ARCHIVED
+     * Values: ACTIVE,ARCHIVED,COMPLETE
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "active") ACTIVE("active"),
-        @Json(name = "complete") COMPLETE("complete"),
-        @Json(name = "archived") ARCHIVED("archived");
+        @Json(name = "archived") ARCHIVED("archived"),
+        @Json(name = "complete") COMPLETE("complete");
     }
 }
 

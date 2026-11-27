@@ -20,7 +20,7 @@
 
 package net.crossly.models.drop
 
-import net.crossly.models.common.NameSlug
+import net.crossly.models.common.NameSlug2
 
 import com.squareup.moshi.Json
 
@@ -37,7 +37,7 @@ data class ListDropMineItemSeller (
     val name: kotlin.String,
 
     @Json(name = "shop")
-    val shop: NameSlug? = null
+    val shop: NameSlug2? = null
 
 )
 

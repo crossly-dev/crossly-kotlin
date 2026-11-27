@@ -27,23 +27,22 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
  * @param userId 
  * @param status 
  * @param actionType 
- * @param errorMessage 
- * @param durationMs 
+ * @param summary 
+ * @param createdAt 
  * @param ruleId 
  * @param chainId 
+ * @param errorMessage 
+ * @param durationMs 
+ * @param workflowRunId Set for runs of the converted workflow.
  */
 
 data class ListAutomationRunsItem (
 
     @Json(name = "id")
     val id: kotlin.String,
-
-    @Json(name = "createdAt")
-    val createdAt: java.time.OffsetDateTime,
 
     @Json(name = "userId")
     val userId: kotlin.String,
@@ -54,17 +53,27 @@ data class ListAutomationRunsItem (
     @Json(name = "actionType")
     val actionType: kotlin.String,
 
+    @Json(name = "summary")
+    val summary: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
+    @Json(name = "createdAt")
+    val createdAt: java.time.OffsetDateTime,
+
+    @Json(name = "ruleId")
+    val ruleId: kotlin.String? = null,
+
+    @Json(name = "chainId")
+    val chainId: kotlin.String? = null,
+
     @Json(name = "errorMessage")
     val errorMessage: kotlin.String? = null,
 
     @Json(name = "durationMs")
     val durationMs: java.math.BigDecimal? = null,
 
-    @Json(name = "ruleId")
-    val ruleId: kotlin.String? = null,
-
-    @Json(name = "chainId")
-    val chainId: kotlin.String? = null
+    /* Set for runs of the converted workflow. */
+    @Json(name = "workflowRunId")
+    val workflowRunId: kotlin.String? = null
 
 )
 

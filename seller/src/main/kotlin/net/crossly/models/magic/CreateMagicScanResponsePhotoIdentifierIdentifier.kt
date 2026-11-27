@@ -43,11 +43,11 @@ data class CreateMagicScanResponsePhotoIdentifierIdentifier (
     /**
      * 
      *
-     * Values: STYLE_CODE,GTIN,LEGO_SET,TCGPLAYER,DISCOGS,ASIN
+     * Values: GTIN,STYLE_CODE,LEGO_SET,TCGPLAYER,DISCOGS,ASIN
      */
     enum class Namespace(val value: kotlin.String) {
-        @Json(name = "style_code") STYLE_CODE("style_code"),
         @Json(name = "gtin") GTIN("gtin"),
+        @Json(name = "style_code") STYLE_CODE("style_code"),
         @Json(name = "lego_set") LEGO_SET("lego_set"),
         @Json(name = "tcgplayer") TCGPLAYER("tcgplayer"),
         @Json(name = "discogs") DISCOGS("discogs"),

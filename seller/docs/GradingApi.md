@@ -4,60 +4,23 @@ All URIs are relative to *https://crossly.net/api*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
-[**createGradingDirect**](GradingApi.md#createGradingDirect) | **POST** /v1/grading/direct | Track a card you sent on your own grader account (Direct). Crossly takes no money; it verifies the cert when it comes back.
 [**createGradingRunReserve**](GradingApi.md#createGradingRunReserve) | **POST** /v1/grading/runs/{id}/reserve | Hold a slot in a Grading Run. Free now; charged on your saved card only if the run locks. Full-access token and Idempotency-Key required.
 [**createGradingSubmissionCancel**](GradingApi.md#createGradingSubmissionCancel) | **POST** /v1/grading/submissions/{id}/cancel | Pull a reserved card out of its run. Only while it is reserved; nothing was charged.
-[**createGradingSubmissionResult**](GradingApi.md#createGradingSubmissionResult) | **POST** /v1/grading/submissions/{id}/result | Direct only: enter the grade that came back. Writes it to the item and its listings, verified when the cert agrees.
 [**createGradingSubmissionShipped**](GradingApi.md#createGradingSubmissionShipped) | **POST** /v1/grading/submissions/{id}/shipped | Say you mailed a charged card to the hub, with optional tracking.
 [**createGradingVerifyCert**](GradingApi.md#createGradingVerifyCert) | **POST** /v1/grading/verify-cert | Look a cert number up with its grader. found&#x3D;false when the grader has no record.
+[**createVaultMarketGradingOrder**](GradingApi.md#createVaultMarketGradingOrder) | **POST** /v1/vault-markets/grading/orders | Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
+[**createVaultMarketGradingOrderCancel**](GradingApi.md#createVaultMarketGradingOrderCancel) | **POST** /v1/vault-markets/grading/orders/{id}/cancel | Cancel a draft submission; its vault units go back on their shelf. A paid submission cannot be cancelled here.
+[**createVaultMarketGradingOrderPay**](GradingApi.md#createVaultMarketGradingOrderPay) | **POST** /v1/vault-markets/grading/orders/{id}/pay | Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
+[**createVaultMarketGradingOrderPayConfirm**](GradingApi.md#createVaultMarketGradingOrderPayConfirm) | **POST** /v1/vault-markets/grading/orders/{id}/pay/confirm | After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
+[**getGradingPriceBook**](GradingApi.md#getGradingPriceBook) | **GET** /v1/grading/price-book | The grading price book: every grader, its services (per-card price, minimum cards, max declared value, turnaround) and add-ons, plus Crossly handling. The same data the dashboard prices from.
 [**getGradingWorth**](GradingApi.md#getGradingWorth) | **GET** /v1/grading/worth/{inventoryItemId} | Worth grading? Raw value vs what each grade is worth at each grader, against the cost. Never predicts the grade.
+[**getVaultMarketGradingOrder**](GradingApi.md#getVaultMarketGradingOrder) | **GET** /v1/vault-markets/grading/orders/{id} | One grading submission: its timeline, every card with its grade, cert number and photos, the costs and the tracking.
 [**listGradingRateCard**](GradingApi.md#listGradingRateCard) | **GET** /v1/grading/rate-card | Every grader and tier Crossly can send to, with the per-card price in cents (null &#x3D; paused at the grader).
 [**listGradingRuns**](GradingApi.md#listGradingRuns) | **GET** /v1/grading/runs | Grading Runs taking reservations now, soonest cutoff first. meta.open is false while runs are switched off.
 [**listGradingSubmissions**](GradingApi.md#listGradingSubmissions) | **GET** /v1/grading/submissions | Your cards out for grading (runs and Direct), newest first. active&#x3D;1 keeps only the ones still in flight.
+[**listVaultMarketGradingCandidates**](GradingApi.md#listVaultMarketGradingCandidates) | **GET** /v1/vault-markets/grading/candidates | What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
+[**listVaultMarketGradingOrders**](GradingApi.md#listVaultMarketGradingOrders) | **GET** /v1/vault-markets/grading/orders | Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
 
-
-<a name="createGradingDirect"></a>
-# **createGradingDirect**
-> IdResponse createGradingDirect()
-
-Track a card you sent on your own grader account (Direct). Crossly takes no money; it verifies the cert when it comes back.
-
-### Example
-```kotlin
-// Import classes:
-//import net.crossly.infrastructure.*
-//import net.crossly.models.*
-
-val apiInstance = GradingApi()
-try {
-    val result : IdResponse = apiInstance.createGradingDirect()
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling GradingApi#createGradingDirect")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling GradingApi#createGradingDirect")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-This endpoint does not need any parameter.
-
-### Return type
-
-**IdResponse**
-
-### Authorization
-
-
-Configure PersonalAccessToken:
-    ApiClient.accessToken = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
 
 <a name="createGradingRunReserve"></a>
 # **createGradingRunReserve**
@@ -141,53 +104,6 @@ Name | Type | Description  | Notes
 ### Return type
 
 **OkResponse**
-
-### Authorization
-
-
-Configure PersonalAccessToken:
-    ApiClient.accessToken = ""
-
-### HTTP request headers
-
- - **Content-Type**: Not defined
- - **Accept**: application/json
-
-<a name="createGradingSubmissionResult"></a>
-# **createGradingSubmissionResult**
-> CreateGradingSubmissionResultResponse createGradingSubmissionResult(id)
-
-Direct only: enter the grade that came back. Writes it to the item and its listings, verified when the cert agrees.
-
-### Example
-```kotlin
-// Import classes:
-//import net.crossly.infrastructure.*
-//import net.crossly.models.*
-
-val apiInstance = GradingApi()
-val id : kotlin.String = id_example // kotlin.String | 
-try {
-    val result : CreateGradingSubmissionResultResponse = apiInstance.createGradingSubmissionResult(id)
-    println(result)
-} catch (e: ClientException) {
-    println("4xx response calling GradingApi#createGradingSubmissionResult")
-    e.printStackTrace()
-} catch (e: ServerException) {
-    println("5xx response calling GradingApi#createGradingSubmissionResult")
-    e.printStackTrace()
-}
-```
-
-### Parameters
-
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **id** | **kotlin.String**|  |
-
-### Return type
-
-**CreateGradingSubmissionResultResponse**
 
 ### Authorization
 
@@ -290,6 +206,233 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createVaultMarketGradingOrder"></a>
+# **createVaultMarketGradingOrder**
+> CreateVaultMarketGradingOrderResponse createVaultMarketGradingOrder()
+
+Start a grading submission: cards (vault units or inventory items) to one grader at one service. Priced from the price book; vault units are held. Nothing is charged until you pay.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = GradingApi()
+try {
+    val result : CreateVaultMarketGradingOrderResponse = apiInstance.createVaultMarketGradingOrder()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GradingApi#createVaultMarketGradingOrder")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GradingApi#createVaultMarketGradingOrder")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketGradingOrderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketGradingOrderCancel"></a>
+# **createVaultMarketGradingOrderCancel**
+> StatusResponse createVaultMarketGradingOrderCancel(id)
+
+Cancel a draft submission; its vault units go back on their shelf. A paid submission cannot be cancelled here.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = GradingApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : StatusResponse = apiInstance.createVaultMarketGradingOrderCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GradingApi#createVaultMarketGradingOrderCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GradingApi#createVaultMarketGradingOrderCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**StatusResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketGradingOrderPay"></a>
+# **createVaultMarketGradingOrderPay**
+> CreateVaultMarketGradingOrderPayResponse createVaultMarketGradingOrderPay(id)
+
+Pay for a draft submission. savedCard: true charges your saved card (paid, or requires_action with a client secret for 3-D Secure). Full-access token and Idempotency-Key required.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = GradingApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketGradingOrderPayResponse = apiInstance.createVaultMarketGradingOrderPay(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GradingApi#createVaultMarketGradingOrderPay")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GradingApi#createVaultMarketGradingOrderPay")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketGradingOrderPayResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketGradingOrderPayConfirm"></a>
+# **createVaultMarketGradingOrderPayConfirm**
+> StatusResponse createVaultMarketGradingOrderPayConfirm(id)
+
+After a 3-D Secure step or a card form: confirm the PaymentIntent with Stripe and mark the submission paid.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = GradingApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : StatusResponse = apiInstance.createVaultMarketGradingOrderPayConfirm(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GradingApi#createVaultMarketGradingOrderPayConfirm")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GradingApi#createVaultMarketGradingOrderPayConfirm")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**StatusResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getGradingPriceBook"></a>
+# **getGradingPriceBook**
+> GetGradingPriceBookResponse getGradingPriceBook()
+
+The grading price book: every grader, its services (per-card price, minimum cards, max declared value, turnaround) and add-ons, plus Crossly handling. The same data the dashboard prices from.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = GradingApi()
+try {
+    val result : GetGradingPriceBookResponse = apiInstance.getGradingPriceBook()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GradingApi#getGradingPriceBook")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GradingApi#getGradingPriceBook")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetGradingPriceBookResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getGradingWorth"></a>
 # **getGradingWorth**
 > GetGradingWorthResponse getGradingWorth(inventoryItemId)
@@ -325,6 +468,53 @@ Name | Type | Description  | Notes
 ### Return type
 
 **GetGradingWorthResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketGradingOrder"></a>
+# **getVaultMarketGradingOrder**
+> GetVaultMarketGradingOrderResponse getVaultMarketGradingOrder(id)
+
+One grading submission: its timeline, every card with its grade, cert number and photos, the costs and the tracking.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = GradingApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketGradingOrderResponse = apiInstance.getVaultMarketGradingOrder(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GradingApi#getVaultMarketGradingOrder")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GradingApi#getVaultMarketGradingOrder")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketGradingOrderResponse**
 
 ### Authorization
 
@@ -458,6 +648,92 @@ Name | Type | Description  | Notes
 ### Return type
 
 **ListGradingSubmissionsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketGradingCandidates"></a>
+# **listVaultMarketGradingCandidates**
+> ListVaultMarketGradingCandidatesResponse listVaultMarketGradingCandidates()
+
+What you can send to grading: raw units already in your vault and inventory items, each with a declared value to start from and the reason when one cannot go.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = GradingApi()
+try {
+    val result : ListVaultMarketGradingCandidatesResponse = apiInstance.listVaultMarketGradingCandidates()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GradingApi#listVaultMarketGradingCandidates")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GradingApi#listVaultMarketGradingCandidates")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketGradingCandidatesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketGradingOrders"></a>
+# **listVaultMarketGradingOrders**
+> ListVaultMarketGradingOrdersResponse listVaultMarketGradingOrders()
+
+Your grading submissions, newest first. Filter by status, active, grader, tier and dates; q searches the number, card names and cert numbers.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = GradingApi()
+try {
+    val result : ListVaultMarketGradingOrdersResponse = apiInstance.listVaultMarketGradingOrders()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling GradingApi#listVaultMarketGradingOrders")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling GradingApi#listVaultMarketGradingOrders")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketGradingOrdersResponse**
 
 ### Authorization
 

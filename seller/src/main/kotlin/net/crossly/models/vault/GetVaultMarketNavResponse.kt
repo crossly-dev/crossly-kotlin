@@ -22,6 +22,7 @@ package net.crossly.models.vault
 
 import net.crossly.models.vault.CreateVaultMarketPortfolioMarginEnrollResponseOneOfAccount
 import net.crossly.models.vault.GetVaultMarketNavResponseHoldings
+import net.crossly.models.vault.GetVaultMarketNavResponseOptions
 import net.crossly.models.vault.GetVaultMarketNavResponseTotals
 
 import com.squareup.moshi.Json
@@ -35,6 +36,7 @@ import com.squareup.moshi.Json
  * @param totals 
  * @param holdings 
  * @param policy 
+ * @param options 
  */
 
 data class GetVaultMarketNavResponse (
@@ -55,7 +57,10 @@ data class GetVaultMarketNavResponse (
     val holdings: kotlin.collections.List<GetVaultMarketNavResponseHoldings>,
 
     @Json(name = "policy")
-    val policy: kotlin.collections.List<kotlin.String>
+    val policy: kotlin.collections.List<kotlin.String>,
+
+    @Json(name = "options")
+    val options: GetVaultMarketNavResponseOptions? = null
 
 )
 

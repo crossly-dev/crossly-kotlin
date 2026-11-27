@@ -61,22 +61,22 @@ data class CreateVaultMarketPaperMissionMarkCheckResponse (
     /**
      * 
      *
-     * Values: A,B,C
+     * Values: C,A,B
      */
     enum class Answer(val value: kotlin.String) {
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
-        @Json(name = "B") B("B"),
-        @Json(name = "C") C("C");
+        @Json(name = "B") B("B");
     }
     /**
      * 
      *
-     * Values: A,B,C
+     * Values: C,A,B
      */
     enum class Quality(val value: kotlin.String) {
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
-        @Json(name = "B") B("B"),
-        @Json(name = "C") C("C");
+        @Json(name = "B") B("B");
     }
 }
 

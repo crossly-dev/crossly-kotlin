@@ -26,9 +26,9 @@ import net.crossly.models.catalog.CreateCatalogMatchConfirmResponse
 import net.crossly.models.inventory.CreateInventoryBulkArchiveResponse
 import net.crossly.models.inventory.CreateInventoryBulkDeleteResponse
 import net.crossly.models.inventory.CreateInventoryBulkQuantityResponse
+import net.crossly.models.inventory.CreateInventoryBulkRestoreResponse
 import net.crossly.models.inventory.CreateInventoryCatalogMatchRefreshResponse
 import net.crossly.models.inventory.CreateInventoryCsvImportResponse
-import net.crossly.models.inventory.CreateInventoryLabelRenameResponse
 import net.crossly.models.inventory.CreateInventoryMergeResponse
 import net.crossly.models.inventory.CreateInventoryResponse
 import net.crossly.models.inventory.CreateInventoryUnitIdentifierResponse
@@ -37,7 +37,6 @@ import net.crossly.models.listing.CreateListingBulkUpdateResponse
 import net.crossly.models.spatial.CreateSpatialPropertyDeedLeaseResponse
 import net.crossly.models.spatial.CreateSpatialPropertyDeedListResponse
 import net.crossly.models.spatial.CreateSpatialPropertyDeedMaintenanceResponse
-import net.crossly.models.spatial.CreateSpatialPropertyLeaseAcceptResponse
 import net.crossly.models.spatial.CreateSpatialPropertyLeaseEndResponse
 import net.crossly.models.spatial.CreateSpatialPropertyLeaseRentResponse
 import net.crossly.models.spatial.CreateSpatialPropertyListingBuyResponse
@@ -46,9 +45,13 @@ import net.crossly.models.spatial.CreateSpatialStreetClaimResponse
 import net.crossly.models.spatial.CreateSpatialStreetOwnedUpkeepResponse
 import net.crossly.models.spatial.CreateSpatialStreetPlotBuyResponse
 import net.crossly.models.world.CreateWorldCrewLeaveResponse
+import net.crossly.models.world.CreateWorldMarketPlotRentResponse
 import net.crossly.models.world.CreateWorldPartyWishlistResponse
 import net.crossly.models.world.DeleteWorldJobShiftResponse
 import net.crossly.models.common.Error
+import net.crossly.models.analytic.GetAnalyticInventoryResponse
+import net.crossly.models.game.GetGameEventSummaryResponse
+import net.crossly.models.game.GetGameHuntBuildResponse
 import net.crossly.models.game.GetGameLeaderboardResponse
 import net.crossly.models.home.GetHomeResponse
 import net.crossly.models.inventory.GetInventoryAgingResponse
@@ -78,12 +81,14 @@ import net.crossly.models.spatial.GetSpatialShopStaffResponse
 import net.crossly.models.spatial.GetSpatialStreetFoundingResponse
 import net.crossly.models.spatial.GetSpatialStreetPlotQuoteResponse
 import net.crossly.models.spatial.GetSpatialStreetResponse
+import net.crossly.models.world.GetWorldPulseResponse
 import net.crossly.models.world.GetWorldRoomFunnelResponse
 import net.crossly.models.world.GetWorldShelfResponse
 import net.crossly.models.world.GetWorldSkusCheapestResponse
 import net.crossly.models.catalog.ListCatalogMatchesResponse
 import net.crossly.models.common.ListFestivalsResponse
 import net.crossly.models.game.ListGameBreakUpcomingResponse
+import net.crossly.models.game.ListGameHuntMineResponse
 import net.crossly.models.game.ListGameHuntsResponse
 import net.crossly.models.game.ListGameResultMineResponse
 import net.crossly.models.home.ListHomeMineBuildersResponse
@@ -116,6 +121,7 @@ import net.crossly.models.common.OkResponse
 import net.crossly.models.common.SpatialStreetResponse
 import net.crossly.models.spatial.UpdateSpatialEmployeeConfigResponse
 import net.crossly.models.spatial.UpdateSpatialShopStaffWageResponse
+import net.crossly.models.common.UpdatedResponse
 
 import com.squareup.moshi.Json
 
@@ -549,8 +555,8 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Set / add / subtract stock across many items, syncing live listings.
-    * 
+    * Set / add / subtract stock across many items, or set a stock per item; syncs live listings.
+    * Two bodies. {ids, mode: \&quot;set\&quot;|\&quot;increase\&quot;|\&quot;decrease\&quot;, value, syncMarketplaces?} applies one value to every id. {mode: \&quot;set\&quot;, items: [{id, quantity}], syncMarketplaces?} sets each item to its own quantity (1-5000 items, each id once; a repeated id, more than 5000 items, or a body mixing items with ids/value is a 400 naming both shapes). The value is the AVAILABLE stock (reserved units of open orders are kept). Stock changes at once; live listings are pushed in the background against the returned bulkJobId (anything dropping to 0 is delisted). Response: {affected, skipped, bulkJobId?}: skipped &#x3D; ids that did not move (already at that number, or not yours). Send an Idempotency-Key to retry safely.
     * @return CreateInventoryBulkQuantityResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -579,8 +585,8 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Set / add / subtract stock across many items, syncing live listings.
-    * 
+    * Set / add / subtract stock across many items, or set a stock per item; syncs live listings.
+    * Two bodies. {ids, mode: \&quot;set\&quot;|\&quot;increase\&quot;|\&quot;decrease\&quot;, value, syncMarketplaces?} applies one value to every id. {mode: \&quot;set\&quot;, items: [{id, quantity}], syncMarketplaces?} sets each item to its own quantity (1-5000 items, each id once; a repeated id, more than 5000 items, or a body mixing items with ids/value is a 400 naming both shapes). The value is the AVAILABLE stock (reserved units of open orders are kept). Stock changes at once; live listings are pushed in the background against the returned bulkJobId (anything dropping to 0 is delisted). Response: {affected, skipped, bulkJobId?}: skipped &#x3D; ids that did not move (already at that number, or not yours). Send an Idempotency-Key to retry safely.
     * @return ApiResponse<CreateInventoryBulkQuantityResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -609,6 +615,73 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/inventory/bulk-quantity",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Restore archived inventory items (status returns to active, or sold_out when no stock).
+    * 
+    * @return CreateInventoryBulkRestoreResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createInventoryBulkRestore() : CreateInventoryBulkRestoreResponse {
+        val localVarResponse = createInventoryBulkRestoreWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateInventoryBulkRestoreResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Restore archived inventory items (status returns to active, or sold_out when no stock).
+    * 
+    * @return ApiResponse<CreateInventoryBulkRestoreResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createInventoryBulkRestoreWithHttpInfo() : ApiResponse<CreateInventoryBulkRestoreResponse?> {
+        val localVariableConfig = createInventoryBulkRestoreRequestConfig()
+
+        return request<Unit, CreateInventoryBulkRestoreResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createInventoryBulkRestore
+    *
+    * @return RequestConfig
+    */
+    fun createInventoryBulkRestoreRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/inventory/bulk-restore",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -822,7 +895,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     /**
     * Rename a label across every inventory item.
     * 
-    * @return CreateInventoryLabelRenameResponse
+    * @return UpdatedResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -831,11 +904,11 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createInventoryLabelRename() : CreateInventoryLabelRenameResponse {
+    fun createInventoryLabelRename() : UpdatedResponse {
         val localVarResponse = createInventoryLabelRenameWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateInventoryLabelRenameResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdatedResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -852,16 +925,16 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     /**
     * Rename a label across every inventory item.
     * 
-    * @return ApiResponse<CreateInventoryLabelRenameResponse?>
+    * @return ApiResponse<UpdatedResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createInventoryLabelRenameWithHttpInfo() : ApiResponse<CreateInventoryLabelRenameResponse?> {
+    fun createInventoryLabelRenameWithHttpInfo() : ApiResponse<UpdatedResponse?> {
         val localVariableConfig = createInventoryLabelRenameRequestConfig()
 
-        return request<Unit, CreateInventoryLabelRenameResponse>(
+        return request<Unit, UpdatedResponse>(
             localVariableConfig
         )
     }
@@ -1304,7 +1377,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     * Take a plot on lease.
     * Pays the first week to the owner from your EARNED CBX and moves your (public) shop onto the plot.
     * @param id  
-    * @return CreateSpatialPropertyLeaseAcceptResponse
+    * @return CreateWorldMarketPlotRentResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -1313,11 +1386,11 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createSpatialPropertyLeaseAccept(id: kotlin.String) : CreateSpatialPropertyLeaseAcceptResponse {
+    fun createSpatialPropertyLeaseAccept(id: kotlin.String) : CreateWorldMarketPlotRentResponse {
         val localVarResponse = createSpatialPropertyLeaseAcceptWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateSpatialPropertyLeaseAcceptResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldMarketPlotRentResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -1335,16 +1408,16 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     * Take a plot on lease.
     * Pays the first week to the owner from your EARNED CBX and moves your (public) shop onto the plot.
     * @param id  
-    * @return ApiResponse<CreateSpatialPropertyLeaseAcceptResponse?>
+    * @return ApiResponse<CreateWorldMarketPlotRentResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createSpatialPropertyLeaseAcceptWithHttpInfo(id: kotlin.String) : ApiResponse<CreateSpatialPropertyLeaseAcceptResponse?> {
+    fun createSpatialPropertyLeaseAcceptWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldMarketPlotRentResponse?> {
         val localVariableConfig = createSpatialPropertyLeaseAcceptRequestConfig(id = id)
 
-        return request<Unit, CreateSpatialPropertyLeaseAcceptResponse>(
+        return request<Unit, CreateWorldMarketPlotRentResponse>(
             localVariableConfig
         )
     }
@@ -1372,7 +1445,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
 
     /**
     * End a lease (owner or tenant).
-    * The tenant&#39;s shop gets a free Main Street address again.
+    * The tenant&#39;s showroom leaves the plot.
     * @param id  
     * @return CreateSpatialPropertyLeaseEndResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -1403,7 +1476,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
 
     /**
     * End a lease (owner or tenant).
-    * The tenant&#39;s shop gets a free Main Street address again.
+    * The tenant&#39;s showroom leaves the plot.
     * @param id  
     * @return ApiResponse<CreateSpatialPropertyLeaseEndResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -2211,6 +2284,322 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
+     * enum for parameter range
+     */
+     enum class Range_getAnalyticInventory(val value: kotlin.String) {
+         @Json(name = "7d") _7D("7d"),
+         @Json(name = "30d") _30D("30d"),
+         @Json(name = "90d") _90D("90d"),
+         @Json(name = "1y") _1Y("1y"),
+         @Json(name = "ytd") YTD("ytd"),
+         @Json(name = "all") ALL("all"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter compare
+     */
+     enum class Compare_getAnalyticInventory(val value: kotlin.String) {
+         @Json(name = "prev") PREV("prev"),
+         @Json(name = "yoy") YOY("yoy"),
+         @Json(name = "none") NONE("none"),
+         @Json(name = "custom") CUSTOM("custom"),
+         ;
+     }
+
+    /**
+     * enum for parameter maturity
+     */
+     enum class Maturity_getAnalyticInventory(val value: kotlin.Int) {
+         @Json(name = "30") _30(30),
+         @Json(name = "60") _60(60),
+         @Json(name = "90") _90(90),
+         ;
+     }
+
+    /**
+    * Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param maturity Days an item has to sell within to count as sold in the cohort. Default 30. (optional)
+    * @return GetAnalyticInventoryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAnalyticInventory(range: Range_getAnalyticInventory?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticInventory?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, maturity: Maturity_getAnalyticInventory?) : GetAnalyticInventoryResponse {
+        val localVarResponse = getAnalyticInventoryWithHttpInfo(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, maturity = maturity)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAnalyticInventoryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Unsold stock: aging buckets with cost, listed value and market value, the 20 listings most in need of attention, shelf value over time, cohort sell-through at the chosen maturity, listed vs sold velocity and data health.
+    * 
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param maturity Days an item has to sell within to count as sold in the cohort. Default 30. (optional)
+    * @return ApiResponse<GetAnalyticInventoryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAnalyticInventoryWithHttpInfo(range: Range_getAnalyticInventory?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticInventory?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, maturity: Maturity_getAnalyticInventory?) : ApiResponse<GetAnalyticInventoryResponse?> {
+        val localVariableConfig = getAnalyticInventoryRequestConfig(range = range, from = from, to = to, compare = compare, cmpFrom = cmpFrom, cmpTo = cmpTo, labels = labels, platforms = platforms, category = category, brand = brand, tz = tz, maturity = maturity)
+
+        return request<Unit, GetAnalyticInventoryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAnalyticInventory
+    *
+    * @param range Reporting window. Default 30d. custom needs from and to. (optional)
+    * @param from YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param to YYYY-MM-DD, inclusive, in tz. Only with range&#x3D;custom. (optional)
+    * @param compare Comparison window for deltas: prev (same length just before), yoy, none, custom (cmpFrom/cmpTo). (optional)
+    * @param cmpFrom YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param cmpTo YYYY-MM-DD. Only with compare&#x3D;custom. (optional)
+    * @param labels Comma-separated inventory labels (any of them). (optional)
+    * @param platforms Comma-separated platform ids. (optional)
+    * @param category Canonical main-category key. (optional)
+    * @param brand Brand name. (optional)
+    * @param tz IANA time zone for day boundaries. Default UTC. An invalid name is a 400. (optional)
+    * @param maturity Days an item has to sell within to count as sold in the cohort. Default 30. (optional)
+    * @return RequestConfig
+    */
+    fun getAnalyticInventoryRequestConfig(range: Range_getAnalyticInventory?, from: kotlin.String?, to: kotlin.String?, compare: Compare_getAnalyticInventory?, cmpFrom: kotlin.String?, cmpTo: kotlin.String?, labels: kotlin.String?, platforms: kotlin.String?, category: kotlin.String?, brand: kotlin.String?, tz: kotlin.String?, maturity: Maturity_getAnalyticInventory?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (range != null) {
+                    put("range", listOf(range.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (compare != null) {
+                    put("compare", listOf(compare.toString()))
+                }
+                if (cmpFrom != null) {
+                    put("cmpFrom", listOf(cmpFrom.toString()))
+                }
+                if (cmpTo != null) {
+                    put("cmpTo", listOf(cmpTo.toString()))
+                }
+                if (labels != null) {
+                    put("labels", listOf(labels.toString()))
+                }
+                if (platforms != null) {
+                    put("platforms", listOf(platforms.toString()))
+                }
+                if (category != null) {
+                    put("category", listOf(category.toString()))
+                }
+                if (brand != null) {
+                    put("brand", listOf(brand.toString()))
+                }
+                if (tz != null) {
+                    put("tz", listOf(tz.toString()))
+                }
+                if (maturity != null) {
+                    put("maturity", listOf(maturity.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/analytics/inventory",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The results of one of your metaverse events (a Branding event of type scavenger_hunt or pack_break): for a hunt -- status, place, coins and clues, players, finishers, winners (place, masked name, when) and the rewards paid or failed per kind; for a pack break -- status, whether it is live on the stage, spots, spots sold and hits revealed. 404 for an event that is not a World event of yours.
+    * 
+    * @param eventId  
+    * @return GetGameEventSummaryResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getGameEventSummary(eventId: java.util.UUID) : GetGameEventSummaryResponse {
+        val localVarResponse = getGameEventSummaryWithHttpInfo(eventId = eventId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetGameEventSummaryResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The results of one of your metaverse events (a Branding event of type scavenger_hunt or pack_break): for a hunt -- status, place, coins and clues, players, finishers, winners (place, masked name, when) and the rewards paid or failed per kind; for a pack break -- status, whether it is live on the stage, spots, spots sold and hits revealed. 404 for an event that is not a World event of yours.
+    * 
+    * @param eventId  
+    * @return ApiResponse<GetGameEventSummaryResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getGameEventSummaryWithHttpInfo(eventId: java.util.UUID) : ApiResponse<GetGameEventSummaryResponse?> {
+        val localVariableConfig = getGameEventSummaryRequestConfig(eventId = eventId)
+
+        return request<Unit, GetGameEventSummaryResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getGameEventSummary
+    *
+    * @param eventId  
+    * @return RequestConfig
+    */
+    fun getGameEventSummaryRequestConfig(eventId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/games/events/{eventId}/summary".replace("{"+"eventId"+"}", "$eventId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One of your scavenger hunts as the in-world builder sees it: place, rules (days, time limit, hints, winners, ordered), rewards, the build document (coins and clue signs with positions), what still blocks publishing, and buildLink -- the Worlds app link that opens the builder. Read-only: coins are placed in the World.
+    * 
+    * @param id  
+    * @return GetGameHuntBuildResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getGameHuntBuild(id: java.util.UUID) : GetGameHuntBuildResponse {
+        val localVarResponse = getGameHuntBuildWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetGameHuntBuildResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One of your scavenger hunts as the in-world builder sees it: place, rules (days, time limit, hints, winners, ordered), rewards, the build document (coins and clue signs with positions), what still blocks publishing, and buildLink -- the Worlds app link that opens the builder. Read-only: coins are placed in the World.
+    * 
+    * @param id  
+    * @return ApiResponse<GetGameHuntBuildResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getGameHuntBuildWithHttpInfo(id: java.util.UUID) : ApiResponse<GetGameHuntBuildResponse?> {
+        val localVariableConfig = getGameHuntBuildRequestConfig(id = id)
+
+        return request<Unit, GetGameHuntBuildResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getGameHuntBuild
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getGameHuntBuildRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/games/hunts/{id}/build".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Game leaderboards: for each of Price Guess (wins, then points), scavenger hunts (finished) and speed trades (won), the top ten this week (Monday 00:00 UTC on) under week and of all time under all -- rank, name, named, value and, for Price Guess, score. A name appears only for somebody who chose to be seen by name in Crossly World; everyone else is \&quot;A player\&quot; in their place.
     * 
     * @return GetGameLeaderboardResponse
@@ -2485,7 +2874,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Unsold stock by age (0-7, 7-30, 30-90, 90+ days, unlisted), each bucket with a recommendation.
+    * Unsold stock by days since first listed (unlisted, 0-7, 7-30, 30-90, 90+), each bucket with items, units, known cost (items without a cost counted separately) and listed value.
     * 
     * @return GetInventoryAgingResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -2515,7 +2904,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Unsold stock by age (0-7, 7-30, 30-90, 90+ days, unlisted), each bucket with a recommendation.
+    * Unsold stock by days since first listed (unlisted, 0-7, 7-30, 30-90, 90+), each bucket with items, units, known cost (items without a cost counted separately) and listed value.
     * 
     * @return ApiResponse<GetInventoryAgingResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -2823,7 +3212,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Cohort sell-through for a window (default: the 30 days ending 30 days ago) against the previous window of the same length.
+    * Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
     * 
     * @return GetInventorySellThroughResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -2853,7 +3242,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Cohort sell-through for a window (default: the 30 days ending 30 days ago) against the previous window of the same length.
+    * Cohort sell-through: of the items first listed in the window (default 30-60 days ago), the share sold within 30 days of listing, with n, immature items left out, and the change vs the previous window in percentage points (pp).
     * 
     * @return ApiResponse<GetInventorySellThroughResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -2963,7 +3352,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Portfolio value of unsold stock over time, oldest first (one point per nightly snapshot).
+    * Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
     * 
     * @return GetInventoryValueHistoryResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -2993,7 +3382,7 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
-    * Portfolio value of unsold stock over time, oldest first (one point per nightly snapshot).
+    * Cost and listed value of unsold stock over time, oldest first (one point per nightly snapshot).
     * 
     * @return ApiResponse<GetInventoryValueHistoryResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -4275,6 +4664,73 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
+    * Crossly World&#39;s pulse, aggregated with no people in it: the public world shops that made a sale today (slugs only -- never counts, amounts or buyers), the times the world&#39;s shops passed each sales milestone today (each fires a fireworks show), and what Crossly Cares took in this month against the Commons fountain&#39;s mark.
+    * 
+    * @return GetWorldPulseResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldPulse() : GetWorldPulseResponse {
+        val localVarResponse = getWorldPulseWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldPulseResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Crossly World&#39;s pulse, aggregated with no people in it: the public world shops that made a sale today (slugs only -- never counts, amounts or buyers), the times the world&#39;s shops passed each sales milestone today (each fires a fireworks show), and what Crossly Cares took in this month against the Commons fountain&#39;s mark.
+    * 
+    * @return ApiResponse<GetWorldPulseResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldPulseWithHttpInfo() : ApiResponse<GetWorldPulseResponse?> {
+        val localVariableConfig = getWorldPulseRequestConfig()
+
+        return request<Unit, GetWorldPulseResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldPulse
+    *
+    * @return RequestConfig
+    */
+    fun getWorldPulseRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/pulse",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Your room&#39;s funnel over the last &#x60;days&#x60; (1-35, default 30): visitors (people, once a day), looks, items opened, checkouts started from the room, paid sales and revenueCents. Sales count only lines the room itself put in a cart.
     * 
     * @param sceneId  
@@ -4708,6 +5164,73 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
+    * Your scavenger hunts (spec WD6: made from Branding events, built in Crossly World), newest first: title, place slug, the event it belongs to (eventId), your discount code if it rewards one, whether it is a draft (not yet built and published), live or ended, its coins, and how many people finished.
+    * 
+    * @return ListGameHuntMineResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listGameHuntMine() : ListGameHuntMineResponse {
+        val localVarResponse = listGameHuntMineWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListGameHuntMineResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your scavenger hunts (spec WD6: made from Branding events, built in Crossly World), newest first: title, place slug, the event it belongs to (eventId), your discount code if it rewards one, whether it is a draft (not yet built and published), live or ended, its coins, and how many people finished.
+    * 
+    * @return ApiResponse<ListGameHuntMineResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listGameHuntMineWithHttpInfo() : ApiResponse<ListGameHuntMineResponse?> {
+        val localVariableConfig = listGameHuntMineRequestConfig()
+
+        return request<Unit, ListGameHuntMineResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listGameHuntMine
+    *
+    * @return RequestConfig
+    */
+    fun listGameHuntMineRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/games/hunts/mine",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Scavenger hunts running now in Crossly World shops and pop-up stalls, ending soonest first: title, shop (name and slug -- for a hunt at a stall, the street slug, with stall.bookingId set), how many tokens, what finishing unlocks (\&quot;10% off\&quot; -- never the code), when it ends and how many people have finished. Optional place filters to one shop or street slug.
     * 
     * @param place  (optional)
@@ -5011,6 +5534,8 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     * @param kind Physical goods or Web3 assets (NFTs). Omit for both. (optional)
     * @param platforms Comma-separated marketplaces, e.g. \&quot;ebay,vinted\&quot;. Items live (an active listing) on any of them. (optional)
     * @param platformMode \&quot;not_listed\&quot; inverts &#x60;platforms&#x60;: items live on none of them. Default \&quot;listed\&quot;. (optional)
+    * @param sku Exact SKU match: look up the row a supplier product maps to. (optional)
+    * @param updatedSince Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw. (optional)
     * @return ListInventoryResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -5020,8 +5545,8 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun listInventory(page: kotlin.Int?, limit: kotlin.Int?, search: kotlin.String?, status: kotlin.String?, kind: Kind_listInventory?, platforms: kotlin.String?, platformMode: PlatformMode_listInventory?) : ListInventoryResponse {
-        val localVarResponse = listInventoryWithHttpInfo(page = page, limit = limit, search = search, status = status, kind = kind, platforms = platforms, platformMode = platformMode)
+    fun listInventory(page: kotlin.Int?, limit: kotlin.Int?, search: kotlin.String?, status: kotlin.String?, kind: Kind_listInventory?, platforms: kotlin.String?, platformMode: PlatformMode_listInventory?, sku: kotlin.String?, updatedSince: java.time.OffsetDateTime?) : ListInventoryResponse {
+        val localVarResponse = listInventoryWithHttpInfo(page = page, limit = limit, search = search, status = status, kind = kind, platforms = platforms, platformMode = platformMode, sku = sku, updatedSince = updatedSince)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListInventoryResponse
@@ -5048,14 +5573,16 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     * @param kind Physical goods or Web3 assets (NFTs). Omit for both. (optional)
     * @param platforms Comma-separated marketplaces, e.g. \&quot;ebay,vinted\&quot;. Items live (an active listing) on any of them. (optional)
     * @param platformMode \&quot;not_listed\&quot; inverts &#x60;platforms&#x60;: items live on none of them. Default \&quot;listed\&quot;. (optional)
+    * @param sku Exact SKU match: look up the row a supplier product maps to. (optional)
+    * @param updatedSince Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw. (optional)
     * @return ApiResponse<ListInventoryResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun listInventoryWithHttpInfo(page: kotlin.Int?, limit: kotlin.Int?, search: kotlin.String?, status: kotlin.String?, kind: Kind_listInventory?, platforms: kotlin.String?, platformMode: PlatformMode_listInventory?) : ApiResponse<ListInventoryResponse?> {
-        val localVariableConfig = listInventoryRequestConfig(page = page, limit = limit, search = search, status = status, kind = kind, platforms = platforms, platformMode = platformMode)
+    fun listInventoryWithHttpInfo(page: kotlin.Int?, limit: kotlin.Int?, search: kotlin.String?, status: kotlin.String?, kind: Kind_listInventory?, platforms: kotlin.String?, platformMode: PlatformMode_listInventory?, sku: kotlin.String?, updatedSince: java.time.OffsetDateTime?) : ApiResponse<ListInventoryResponse?> {
+        val localVariableConfig = listInventoryRequestConfig(page = page, limit = limit, search = search, status = status, kind = kind, platforms = platforms, platformMode = platformMode, sku = sku, updatedSince = updatedSince)
 
         return request<Unit, ListInventoryResponse>(
             localVariableConfig
@@ -5072,9 +5599,11 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     * @param kind Physical goods or Web3 assets (NFTs). Omit for both. (optional)
     * @param platforms Comma-separated marketplaces, e.g. \&quot;ebay,vinted\&quot;. Items live (an active listing) on any of them. (optional)
     * @param platformMode \&quot;not_listed\&quot; inverts &#x60;platforms&#x60;: items live on none of them. Default \&quot;listed\&quot;. (optional)
+    * @param sku Exact SKU match: look up the row a supplier product maps to. (optional)
+    * @param updatedSince Only rows created or changed at or after this time (ISO 8601), oldest change first. Poll with the updatedAt of the last row you saw. (optional)
     * @return RequestConfig
     */
-    fun listInventoryRequestConfig(page: kotlin.Int?, limit: kotlin.Int?, search: kotlin.String?, status: kotlin.String?, kind: Kind_listInventory?, platforms: kotlin.String?, platformMode: PlatformMode_listInventory?) : RequestConfig<Unit> {
+    fun listInventoryRequestConfig(page: kotlin.Int?, limit: kotlin.Int?, search: kotlin.String?, status: kotlin.String?, kind: Kind_listInventory?, platforms: kotlin.String?, platformMode: PlatformMode_listInventory?, sku: kotlin.String?, updatedSince: java.time.OffsetDateTime?) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
             .apply {
@@ -5098,6 +5627,12 @@ class InventoryApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
                 }
                 if (platformMode != null) {
                     put("platformMode", listOf(platformMode.toString()))
+                }
+                if (sku != null) {
+                    put("sku", listOf(sku.toString()))
+                }
+                if (updatedSince != null) {
+                    put("updatedSince", listOf(parseDateToQueryString(updatedSince)))
                 }
             }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()

@@ -31,13 +31,13 @@ import com.squareup.moshi.Json
  * @param itemUrl 
  * @param legacyItemId 
  * @param brand 
- * @param priceCents Normalized cents. eBay returns string + currency on `price.value`.
+ * @param priceCents Integer cents.
  * @param currency 
  * @param condition 
- * @param categoryId Top-level category eBay assigned to the match (id + path).
+ * @param categoryId The category the marketplace filed the match under (id + path), when the provider returns it.
  * @param categoryPath 
  * @param thumbnailUrl 
- * @param aspects Loosely-typed aspect bag — Brand, Color, Material, etc. when eBay inlines them. Always inspected defensively by the synthesizer.
+ * @param aspects Item specifics, when the provider returns them. Always read defensively.
  */
 
 data class CreateMagicScanResponseEbayHits (
@@ -57,7 +57,7 @@ data class CreateMagicScanResponseEbayHits (
     @Json(name = "brand")
     val brand: kotlin.String? = null,
 
-    /* Normalized cents. eBay returns string + currency on `price.value`. */
+    /* Integer cents. */
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal? = null,
 
@@ -67,7 +67,7 @@ data class CreateMagicScanResponseEbayHits (
     @Json(name = "condition")
     val condition: kotlin.String? = null,
 
-    /* Top-level category eBay assigned to the match (id + path). */
+    /* The category the marketplace filed the match under (id + path), when the provider returns it. */
     @Json(name = "categoryId")
     val categoryId: kotlin.String? = null,
 
@@ -77,7 +77,7 @@ data class CreateMagicScanResponseEbayHits (
     @Json(name = "thumbnailUrl")
     val thumbnailUrl: kotlin.String? = null,
 
-    /* Loosely-typed aspect bag — Brand, Color, Material, etc. when eBay inlines them. Always inspected defensively by the synthesizer. */
+    /* Item specifics, when the provider returns them. Always read defensively. */
     @Json(name = "aspects")
     val aspects: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null
 

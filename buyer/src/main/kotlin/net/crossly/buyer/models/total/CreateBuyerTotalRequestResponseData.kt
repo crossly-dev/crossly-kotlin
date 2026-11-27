@@ -26,17 +26,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param id 
  * @param ok 
+ * @param id 
  */
 
 data class CreateBuyerTotalRequestResponseData (
 
-    @Json(name = "id")
-    val id: kotlin.String,
-
     @Json(name = "ok")
-    val ok: kotlin.Boolean
+    val ok: kotlin.Boolean,
+
+    @Json(name = "id")
+    val id: kotlin.String
 
 )
 

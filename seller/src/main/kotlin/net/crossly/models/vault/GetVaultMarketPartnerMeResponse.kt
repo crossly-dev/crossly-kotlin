@@ -20,6 +20,7 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.GetVaultMarketPartnerMeResponseIdentity
 import net.crossly.models.vault.GetVaultMarketPartnerMeResponsePartnership
 
 import com.squareup.moshi.Json
@@ -27,10 +28,14 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param identity 
  * @param partnership 
  */
 
 data class GetVaultMarketPartnerMeResponse (
+
+    @Json(name = "identity")
+    val identity: GetVaultMarketPartnerMeResponseIdentity,
 
     @Json(name = "partnership")
     val partnership: GetVaultMarketPartnerMeResponsePartnership? = null

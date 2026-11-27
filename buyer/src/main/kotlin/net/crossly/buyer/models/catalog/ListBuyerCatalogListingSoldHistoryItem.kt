@@ -26,22 +26,22 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param priceCents Per-unit item price the buyer paid, in cents — excludes shipping and tax.
  * @param quantity 
  * @param soldAt 
- * @param priceCents Per-unit item price the buyer paid, in cents — excludes shipping and tax.
  */
 
 data class ListBuyerCatalogListingSoldHistoryItem (
+
+    /* Per-unit item price the buyer paid, in cents — excludes shipping and tax. */
+    @Json(name = "priceCents")
+    val priceCents: java.math.BigDecimal,
 
     @Json(name = "quantity")
     val quantity: java.math.BigDecimal,
 
     @Json(name = "soldAt")
-    val soldAt: kotlin.String,
-
-    /* Per-unit item price the buyer paid, in cents — excludes shipping and tax. */
-    @Json(name = "priceCents")
-    val priceCents: java.math.BigDecimal
+    val soldAt: kotlin.String
 
 )
 

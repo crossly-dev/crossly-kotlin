@@ -87,12 +87,12 @@ data class CreateVaultMarketPortfolioMarginEnrollResponseOneOfCurrent (
     /**
      * 
      *
-     * Values: BUY_IN,HEALTHY,CALL
+     * Values: HEALTHY,CALL,BUY_IN
      */
     enum class State(val value: kotlin.String) {
-        @Json(name = "buy_in") BUY_IN("buy_in"),
         @Json(name = "healthy") HEALTHY("healthy"),
-        @Json(name = "call") CALL("call");
+        @Json(name = "call") CALL("call"),
+        @Json(name = "buy_in") BUY_IN("buy_in");
     }
 }
 

@@ -104,32 +104,32 @@ data class ListVaultMarketPositionsRiskItem (
     /**
      * 
      *
-     * Values: LONG,SHORT
+     * Values: SHORT,LONG
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "long") LONG("long"),
-        @Json(name = "short") SHORT("short");
+        @Json(name = "short") SHORT("short"),
+        @Json(name = "long") LONG("long");
     }
     /**
      * 
      *
-     * Values: STANDARD,CLOSED,DEEP,THIN
+     * Values: CLOSED,STANDARD,DEEP,THIN
      */
     enum class Tier(val value: kotlin.String) {
-        @Json(name = "standard") STANDARD("standard"),
         @Json(name = "closed") CLOSED("closed"),
+        @Json(name = "standard") STANDARD("standard"),
         @Json(name = "deep") DEEP("deep"),
         @Json(name = "thin") THIN("thin");
     }
     /**
      * 
      *
-     * Values: BUY_IN,HEALTHY,CALL
+     * Values: HEALTHY,CALL,BUY_IN
      */
     enum class MarginState(val value: kotlin.String) {
-        @Json(name = "buy_in") BUY_IN("buy_in"),
         @Json(name = "healthy") HEALTHY("healthy"),
-        @Json(name = "call") CALL("call");
+        @Json(name = "call") CALL("call"),
+        @Json(name = "buy_in") BUY_IN("buy_in");
     }
 }
 

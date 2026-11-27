@@ -94,14 +94,14 @@ data class GetVaultReceiptResponse (
     /**
      * 
      *
-     * Values: PLEDGED,ISSUED,TRANSFERRED,SURRENDERED,VOID
+     * Values: VOID,PLEDGED,ISSUED,TRANSFERRED,SURRENDERED
      */
     enum class Status(val value: kotlin.String) {
+        @Json(name = "void") VOID("void"),
         @Json(name = "pledged") PLEDGED("pledged"),
         @Json(name = "issued") ISSUED("issued"),
         @Json(name = "transferred") TRANSFERRED("transferred"),
-        @Json(name = "surrendered") SURRENDERED("surrendered"),
-        @Json(name = "void") VOID("void");
+        @Json(name = "surrendered") SURRENDERED("surrendered");
     }
 }
 

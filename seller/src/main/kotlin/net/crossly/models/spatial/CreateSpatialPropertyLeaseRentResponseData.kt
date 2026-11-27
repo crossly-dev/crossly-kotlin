@@ -26,6 +26,9 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param requiresAction 
+ * @param paymentId 
+ * @param clientSecret 
  * @param paidThrough 
  * @param waived 
  * @param paidCents 
@@ -33,14 +36,23 @@ import com.squareup.moshi.Json
 
 data class CreateSpatialPropertyLeaseRentResponseData (
 
+    @Json(name = "requiresAction")
+    val requiresAction: kotlin.Boolean? = null,
+
+    @Json(name = "paymentId")
+    val paymentId: kotlin.String? = null,
+
+    @Json(name = "clientSecret")
+    val clientSecret: kotlin.String? = null,
+
     @Json(name = "paidThrough")
-    val paidThrough: kotlin.String,
+    val paidThrough: kotlin.String? = null,
 
     @Json(name = "waived")
-    val waived: kotlin.Boolean,
+    val waived: kotlin.Boolean? = null,
 
     @Json(name = "paidCents")
-    val paidCents: java.math.BigDecimal
+    val paidCents: java.math.BigDecimal? = null
 
 )
 

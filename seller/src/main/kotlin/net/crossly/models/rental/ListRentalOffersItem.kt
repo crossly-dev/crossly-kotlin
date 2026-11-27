@@ -20,6 +20,7 @@
 
 package net.crossly.models.rental
 
+import net.crossly.models.common.StartEnd
 
 import com.squareup.moshi.Json
 
@@ -33,16 +34,21 @@ import com.squareup.moshi.Json
  * @param createdAt 
  * @param updatedAt 
  * @param active 
+ * @param quantity 
  * @param platformListingId 
+ * @param options 
  * @param sellerUserId 
  * @param depositCents 
- * @param dailyCents 
  * @param minDays 
  * @param maxDays 
+ * @param dailyCents 
  * @param bufferDays 
  * @param rentOnly 
  * @param requireApproval 
+ * @param blackoutRanges 
+ * @param storefrontId 
  * @param weeklyCents 
+ * @param returnPolicy 
  */
 
 data class ListRentalOffersItem (
@@ -68,8 +74,14 @@ data class ListRentalOffersItem (
     @Json(name = "active")
     val active: kotlin.Boolean,
 
+    @Json(name = "quantity")
+    val quantity: java.math.BigDecimal,
+
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String,
+
+    @Json(name = "options")
+    val options: kotlin.collections.Map<kotlin.String, kotlin.Any>,
 
     @Json(name = "sellerUserId")
     val sellerUserId: kotlin.String,
@@ -77,14 +89,14 @@ data class ListRentalOffersItem (
     @Json(name = "depositCents")
     val depositCents: java.math.BigDecimal,
 
-    @Json(name = "dailyCents")
-    val dailyCents: java.math.BigDecimal,
-
     @Json(name = "minDays")
     val minDays: java.math.BigDecimal,
 
     @Json(name = "maxDays")
     val maxDays: java.math.BigDecimal,
+
+    @Json(name = "dailyCents")
+    val dailyCents: java.math.BigDecimal,
 
     @Json(name = "bufferDays")
     val bufferDays: java.math.BigDecimal,
@@ -95,8 +107,17 @@ data class ListRentalOffersItem (
     @Json(name = "requireApproval")
     val requireApproval: kotlin.Boolean,
 
+    @Json(name = "blackoutRanges")
+    val blackoutRanges: kotlin.collections.List<StartEnd>,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
+
     @Json(name = "weeklyCents")
-    val weeklyCents: java.math.BigDecimal? = null
+    val weeklyCents: java.math.BigDecimal? = null,
+
+    @Json(name = "returnPolicy")
+    val returnPolicy: kotlin.String? = null
 
 )
 

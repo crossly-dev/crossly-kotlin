@@ -51,6 +51,8 @@ import com.squareup.moshi.Json
  * @param refundedCents 
  * @param cancellable 
  * @param listingIds 
+ * @param boothKind 
+ * @param capacity 
  * @param attendant 
  * @param createdAt 
  * @param drawnBooth 
@@ -115,6 +117,12 @@ data class ListStallMineItem (
     @Json(name = "listingIds")
     val listingIds: kotlin.collections.List<kotlin.String>,
 
+    @Json(name = "boothKind")
+    val boothKind: ListStallMineItem.BoothKind,
+
+    @Json(name = "capacity")
+    val capacity: java.math.BigDecimal,
+
     @Json(name = "attendant")
     val attendant: kotlin.Boolean,
 
@@ -138,11 +146,11 @@ data class ListStallMineItem (
     /**
      * 
      *
-     * Values: EVENT,DAY
+     * Values: DAY,EVENT
      */
     enum class Unit(val value: kotlin.String) {
-        @Json(name = "event") EVENT("event"),
-        @Json(name = "day") DAY("day");
+        @Json(name = "day") DAY("day"),
+        @Json(name = "event") EVENT("event");
     }
     /**
      * 
@@ -158,12 +166,22 @@ data class ListStallMineItem (
     /**
      * 
      *
-     * Values: CARD,BUCKS,CBX
+     * Values: CARD,CBX,BUCKS
      */
     enum class Rail(val value: kotlin.String) {
         @Json(name = "card") CARD("card"),
-        @Json(name = "bucks") BUCKS("bucks"),
-        @Json(name = "cbx") CBX("cbx");
+        @Json(name = "cbx") CBX("cbx"),
+        @Json(name = "bucks") BUCKS("bucks");
+    }
+    /**
+     * 
+     *
+     * Values: BOOTH,CART,PAVILION
+     */
+    enum class BoothKind(val value: kotlin.String) {
+        @Json(name = "booth") BOOTH("booth"),
+        @Json(name = "cart") CART("cart"),
+        @Json(name = "pavilion") PAVILION("pavilion");
     }
 }
 

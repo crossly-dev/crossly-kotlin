@@ -22,6 +22,7 @@ package net.crossly.models.vault
 
 import net.crossly.models.vault.GetVaultMarketPortfolioResponseHoldings
 import net.crossly.models.vault.GetVaultMarketPortfolioResponseOnLoan
+import net.crossly.models.vault.GetVaultMarketPortfolioResponseShares
 import net.crossly.models.vault.GetVaultMarketPortfolioResponseTotals
 
 import com.squareup.moshi.Json
@@ -30,6 +31,7 @@ import com.squareup.moshi.Json
  * 
  *
  * @param holdings 
+ * @param shares 
  * @param onLoan 
  * @param totals 
  */
@@ -38,6 +40,9 @@ data class GetVaultMarketPortfolioResponse (
 
     @Json(name = "holdings")
     val holdings: kotlin.collections.List<GetVaultMarketPortfolioResponseHoldings>,
+
+    @Json(name = "shares")
+    val shares: GetVaultMarketPortfolioResponseShares,
 
     @Json(name = "onLoan")
     val onLoan: kotlin.collections.List<GetVaultMarketPortfolioResponseOnLoan>,

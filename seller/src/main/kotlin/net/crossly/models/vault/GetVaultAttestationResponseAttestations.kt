@@ -123,14 +123,14 @@ data class GetVaultAttestationResponseAttestations (
     /**
      * 
      *
-     * Values: PHYSICAL_COUNT,INSURANCE_CERTIFICATE,SOC1_TYPE2,SOC2,OTHER
+     * Values: OTHER,PHYSICAL_COUNT,INSURANCE_CERTIFICATE,SOC1_TYPE2,SOC2
      */
     enum class Kind(val value: kotlin.String) {
+        @Json(name = "other") OTHER("other"),
         @Json(name = "physical_count") PHYSICAL_COUNT("physical_count"),
         @Json(name = "insurance_certificate") INSURANCE_CERTIFICATE("insurance_certificate"),
         @Json(name = "soc1_type2") SOC1_TYPE2("soc1_type2"),
-        @Json(name = "soc2") SOC2("soc2"),
-        @Json(name = "other") OTHER("other");
+        @Json(name = "soc2") SOC2("soc2");
     }
 }
 

@@ -26,18 +26,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param refunded false only for an order paid entirely with credit, which has no card charge to refund.
  * @param ok 
+ * @param refunded false only for an order paid entirely with credit, which has no card charge to refund.
  */
 
 data class CreateBuyerOrderCancelResponseData (
 
+    @Json(name = "ok")
+    val ok: kotlin.Boolean,
+
     /* false only for an order paid entirely with credit, which has no card charge to refund. */
     @Json(name = "refunded")
-    val refunded: kotlin.Boolean,
-
-    @Json(name = "ok")
-    val ok: kotlin.Boolean
+    val refunded: kotlin.Boolean
 
 )
 

@@ -20,8 +20,8 @@
 
 package net.crossly.models.spatial
 
-import net.crossly.models.spatial.CreateSpatialPropertyDeedLeaseResponseData
 import net.crossly.models.spatial.GetSpatialPropertyResponseDataDeeds
+import net.crossly.models.spatial.GetSpatialPropertyResponseDataTenancies
 
 import com.squareup.moshi.Json
 
@@ -42,7 +42,7 @@ data class GetSpatialPropertyResponseData (
     val deeds: kotlin.collections.List<GetSpatialPropertyResponseDataDeeds>,
 
     @Json(name = "tenancies")
-    val tenancies: kotlin.collections.List<CreateSpatialPropertyDeedLeaseResponseData>
+    val tenancies: kotlin.collections.List<GetSpatialPropertyResponseDataTenancies>
 
 )
 

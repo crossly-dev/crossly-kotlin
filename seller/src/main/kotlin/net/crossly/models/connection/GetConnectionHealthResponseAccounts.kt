@@ -100,14 +100,14 @@ data class GetConnectionHealthResponseAccounts (
     /**
      * 
      *
-     * Values: STALE,UNKNOWN,HEALTHY,UNMONITORED,DISCONNECTED,PARTIAL_BLANK,BLANK_CREDENTIAL,SIGNED_OUT,ANCHOR_DRIFT,NO_COOKIES
+     * Values: UNKNOWN,UNMONITORED,DISCONNECTED,HEALTHY,STALE,PARTIAL_BLANK,BLANK_CREDENTIAL,SIGNED_OUT,ANCHOR_DRIFT,NO_COOKIES
      */
     enum class State(val value: kotlin.String) {
-        @Json(name = "stale") STALE("stale"),
         @Json(name = "unknown") UNKNOWN("unknown"),
-        @Json(name = "healthy") HEALTHY("healthy"),
         @Json(name = "unmonitored") UNMONITORED("unmonitored"),
         @Json(name = "disconnected") DISCONNECTED("disconnected"),
+        @Json(name = "healthy") HEALTHY("healthy"),
+        @Json(name = "stale") STALE("stale"),
         @Json(name = "partial_blank") PARTIAL_BLANK("partial_blank"),
         @Json(name = "blank_credential") BLANK_CREDENTIAL("blank_credential"),
         @Json(name = "signed_out") SIGNED_OUT("signed_out"),
@@ -117,14 +117,14 @@ data class GetConnectionHealthResponseAccounts (
     /**
      * 
      *
-     * Values: ERROR,UNKNOWN,OK,WARN,INFO
+     * Values: INFO,UNKNOWN,ERROR,WARN,OK
      */
     enum class Severity(val value: kotlin.String) {
-        @Json(name = "error") ERROR("error"),
+        @Json(name = "info") INFO("info"),
         @Json(name = "unknown") UNKNOWN("unknown"),
-        @Json(name = "ok") OK("ok"),
+        @Json(name = "error") ERROR("error"),
         @Json(name = "warn") WARN("warn"),
-        @Json(name = "info") INFO("info");
+        @Json(name = "ok") OK("ok");
     }
     /**
      * 

@@ -21,6 +21,7 @@
 package net.crossly.models.vault
 
 import net.crossly.models.vault.CreateVaultMarketValuationStatementResponseAccount
+import net.crossly.models.vault.CreateVaultMarketValuationStatementResponseShares
 import net.crossly.models.vault.CreateVaultMarketValuationStatementResponseTotals
 import net.crossly.models.vault.CreateVaultMarketValuationStatementResponseUnits
 
@@ -48,6 +49,7 @@ import com.squareup.moshi.Json
  * @param preparedFor 
  * @param policyRef 
  * @param verifyUrl 
+ * @param shares 
  */
 
 data class GetVaultMarketValuationStatementPreviewResponse (
@@ -107,18 +109,21 @@ data class GetVaultMarketValuationStatementPreviewResponse (
     val policyRef: kotlin.String? = null,
 
     @Json(name = "verifyUrl")
-    val verifyUrl: kotlin.String? = null
+    val verifyUrl: kotlin.String? = null,
+
+    @Json(name = "shares")
+    val shares: CreateVaultMarketValuationStatementResponseShares? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: INSURANCE,APPRAISAL
+     * Values: APPRAISAL,INSURANCE
      */
     enum class Purpose(val value: kotlin.String) {
-        @Json(name = "insurance") INSURANCE("insurance"),
-        @Json(name = "appraisal") APPRAISAL("appraisal");
+        @Json(name = "appraisal") APPRAISAL("appraisal"),
+        @Json(name = "insurance") INSURANCE("insurance");
     }
 }
 

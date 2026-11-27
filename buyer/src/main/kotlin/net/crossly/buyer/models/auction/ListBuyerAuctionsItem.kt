@@ -28,13 +28,13 @@ import com.squareup.moshi.Json
  *
  * @param title 
  * @param bidCount 
- * @param paid 
  * @param leading 
- * @param status 
- * @param endsAt 
+ * @param paid 
  * @param slug 
- * @param currentCents Current high bid, in cents.
  * @param thumbnail 
+ * @param endsAt 
+ * @param status 
+ * @param currentCents Current high bid, in cents.
  * @param myMaxCents Your highest maximum (proxy) bid, in cents.
  * @param winningCents Hammer price once the auction closed, in cents.
  */
@@ -47,27 +47,27 @@ data class ListBuyerAuctionsItem (
     @Json(name = "bidCount")
     val bidCount: java.math.BigDecimal,
 
-    @Json(name = "paid")
-    val paid: kotlin.Boolean,
-
     @Json(name = "leading")
     val leading: kotlin.Boolean,
 
-    @Json(name = "status")
-    val status: kotlin.String? = null,
-
-    @Json(name = "endsAt")
-    val endsAt: kotlin.String? = null,
+    @Json(name = "paid")
+    val paid: kotlin.Boolean,
 
     @Json(name = "slug")
     val slug: kotlin.String? = null,
 
+    @Json(name = "thumbnail")
+    val thumbnail: kotlin.String? = null,
+
+    @Json(name = "endsAt")
+    val endsAt: kotlin.String? = null,
+
+    @Json(name = "status")
+    val status: kotlin.String? = null,
+
     /* Current high bid, in cents. */
     @Json(name = "currentCents")
     val currentCents: java.math.BigDecimal? = null,
-
-    @Json(name = "thumbnail")
-    val thumbnail: kotlin.String? = null,
 
     /* Your highest maximum (proxy) bid, in cents. */
     @Json(name = "myMaxCents")

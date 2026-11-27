@@ -29,6 +29,7 @@ import com.squareup.moshi.Json
  * @param id 
  * @param scheduledFor 
  * @param graceDays 
+ * @param subscriptionsEnding 
  */
 
 data class CreateAccountRequestDeletionResponse (
@@ -40,7 +41,10 @@ data class CreateAccountRequestDeletionResponse (
     val scheduledFor: java.time.OffsetDateTime,
 
     @Json(name = "graceDays")
-    val graceDays: java.math.BigDecimal
+    val graceDays: java.math.BigDecimal,
+
+    @Json(name = "subscriptionsEnding")
+    val subscriptionsEnding: java.math.BigDecimal
 
 )
 

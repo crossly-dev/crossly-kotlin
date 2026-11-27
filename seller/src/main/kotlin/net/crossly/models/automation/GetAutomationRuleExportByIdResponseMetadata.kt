@@ -26,21 +26,21 @@ import com.squareup.moshi.Json
 /**
  * Community-library metadata. Server ignores; UI may render.
  *
- * @param tags 
- * @param sourceUrl 
  * @param author 
+ * @param sourceUrl 
+ * @param tags 
  */
 
 data class GetAutomationRuleExportByIdResponseMetadata (
 
-    @Json(name = "tags")
-    val tags: kotlin.collections.List<kotlin.String>? = null,
+    @Json(name = "author")
+    val author: kotlin.String? = null,
 
     @Json(name = "sourceUrl")
     val sourceUrl: kotlin.String? = null,
 
-    @Json(name = "author")
-    val author: kotlin.String? = null
+    @Json(name = "tags")
+    val tags: kotlin.collections.List<kotlin.String>? = null
 
 )
 

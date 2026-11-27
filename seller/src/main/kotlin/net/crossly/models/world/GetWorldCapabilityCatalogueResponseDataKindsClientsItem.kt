@@ -26,22 +26,22 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: WEB,APP,GODOT,API,RUNNER
+ * Values: APP,API,WEB,GODOT,RUNNER
  */
 
 enum class GetWorldCapabilityCatalogueResponseDataKindsClientsItem(val value: kotlin.String) {
 
-    @Json(name = "web")
-    WEB("web"),
-
     @Json(name = "app")
     APP("app"),
 
-    @Json(name = "godot")
-    GODOT("godot"),
-
     @Json(name = "api")
     API("api"),
+
+    @Json(name = "web")
+    WEB("web"),
+
+    @Json(name = "godot")
+    GODOT("godot"),
 
     @Json(name = "runner")
     RUNNER("runner");

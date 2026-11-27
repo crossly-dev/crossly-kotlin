@@ -20,8 +20,9 @@
 
 package net.crossly.models.vault
 
+import net.crossly.models.vault.GetVaultMarketGradingSignalResponseCta
+import net.crossly.models.vault.GetVaultMarketGradingSignalResponseGraded
 import net.crossly.models.vault.GetVaultMarketGradingSignalResponseGraders
-import net.crossly.models.vault.GetVaultMarketKeyStatResponse
 
 import com.squareup.moshi.Json
 
@@ -37,6 +38,7 @@ import com.squareup.moshi.Json
  * @param myUnits Units of yours it pays to grade (none when no grade pays).
  * @param myRawUnits 
  * @param rawMarkCents 
+ * @param cta 
  */
 
 data class GetVaultMarketGradingSignalResponse (
@@ -48,7 +50,7 @@ data class GetVaultMarketGradingSignalResponse (
     val rawMarkQuality: GetVaultMarketGradingSignalResponse.RawMarkQuality,
 
     @Json(name = "graded")
-    val graded: kotlin.collections.List<GetVaultMarketKeyStatResponse>,
+    val graded: kotlin.collections.List<GetVaultMarketGradingSignalResponseGraded>,
 
     @Json(name = "graders")
     val graders: kotlin.collections.List<GetVaultMarketGradingSignalResponseGraders>,
@@ -67,29 +69,32 @@ data class GetVaultMarketGradingSignalResponse (
     val myRawUnits: java.math.BigDecimal,
 
     @Json(name = "rawMarkCents")
-    val rawMarkCents: java.math.BigDecimal? = null
+    val rawMarkCents: java.math.BigDecimal? = null,
+
+    @Json(name = "cta")
+    val cta: GetVaultMarketGradingSignalResponseCta? = null
 
 ) {
 
     /**
      * 
      *
-     * Values: NONE,A,B,C
+     * Values: NONE,C,A,B
      */
     enum class RawMarkQuality(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
-        @Json(name = "B") B("B"),
-        @Json(name = "C") C("C");
+        @Json(name = "B") B("B");
     }
     /**
      * 
      *
-     * Values: STANDARD,CLOSED,DEEP,THIN
+     * Values: CLOSED,STANDARD,DEEP,THIN
      */
     enum class RawTier(val value: kotlin.String) {
-        @Json(name = "standard") STANDARD("standard"),
         @Json(name = "closed") CLOSED("closed"),
+        @Json(name = "standard") STANDARD("standard"),
         @Json(name = "deep") DEEP("deep"),
         @Json(name = "thin") THIN("thin");
     }

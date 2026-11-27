@@ -27,9 +27,9 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param status 
  * @param listingId 
+ * @param status 
+ * @param createdAt 
  * @param resultUrl 
  * @param listingTitle 
  */
@@ -39,14 +39,14 @@ data class ListBuyerTryOnsItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
+    @Json(name = "listingId")
+    val listingId: kotlin.String,
 
     @Json(name = "status")
     val status: kotlin.String,
 
-    @Json(name = "listingId")
-    val listingId: kotlin.String,
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
 
     @Json(name = "resultUrl")
     val resultUrl: kotlin.String? = null,

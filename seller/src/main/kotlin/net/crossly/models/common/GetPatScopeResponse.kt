@@ -20,7 +20,7 @@
 
 package net.crossly.models.common
 
-import net.crossly.models.common.GetPatScopeResponseScopes
+import net.crossly.models.app.ListAppsItemCapabilities
 
 import com.squareup.moshi.Json
 
@@ -33,7 +33,7 @@ import com.squareup.moshi.Json
 data class GetPatScopeResponse (
 
     @Json(name = "scopes")
-    val scopes: kotlin.collections.List<GetPatScopeResponseScopes>
+    val scopes: kotlin.collections.List<ListAppsItemCapabilities>
 
 )
 

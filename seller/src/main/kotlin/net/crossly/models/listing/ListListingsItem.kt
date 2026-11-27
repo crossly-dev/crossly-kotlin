@@ -20,7 +20,8 @@
 
 package net.crossly.models.listing
 
-import net.crossly.models.grading.ListGradingSubmissionsItemGrading
+import net.crossly.models.bulk.CreateBulkBatchItemResponseGrading
+import net.crossly.models.listing.ListListingsItemPricing
 
 import com.squareup.moshi.Json
 
@@ -29,17 +30,18 @@ import com.squareup.moshi.Json
  *
  * @param aiMedia 
  * @param aiMediaDetected 
+ * @param pricing 
  * @param id 
  * @param createdAt 
  * @param updatedAt 
  * @param userId 
+ * @param status 
+ * @param source 
  * @param quantity 
  * @param quantityAvailable 
  * @param color 
  * @param tags 
  * @param floorIsNet 
- * @param status 
- * @param source 
  * @param aiMediaUrls 
  * @param aiMediaDeclared 
  * @param aiMediaDetectedUrls 
@@ -49,8 +51,11 @@ import com.squareup.moshi.Json
  * @param automationBlockedRuleIds 
  * @param automationAssignedChainIds 
  * @param automationBlockedChainIds 
+ * @param workflowBlockedIds 
+ * @param workflowAssignedIds 
  * @param brand 
  * @param name 
+ * @param description 
  * @param sku 
  * @param condition 
  * @param propertySize 
@@ -71,7 +76,6 @@ import com.squareup.moshi.Json
  * @param dimensionLIn 
  * @param dimensionWIn 
  * @param dimensionHIn 
- * @param description 
  * @param title 
  * @param descriptionHtml 
  * @param price 
@@ -87,6 +91,9 @@ import com.squareup.moshi.Json
  * @param ebayAttributesEnrichedAt 
  * @param duplicateOfListingId 
  * @param clientDraftId 
+ * @param attributedOauthAppId 
+ * @param attributedGrantId 
+ * @param quotaBucket 
  */
 
 data class ListListingsItem (
@@ -96,6 +103,9 @@ data class ListListingsItem (
 
     @Json(name = "aiMediaDetected")
     val aiMediaDetected: kotlin.Boolean,
+
+    @Json(name = "pricing")
+    val pricing: ListListingsItemPricing,
 
     @Json(name = "id")
     val id: kotlin.String,
@@ -108,6 +118,12 @@ data class ListListingsItem (
 
     @Json(name = "userId")
     val userId: kotlin.String,
+
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    @Json(name = "source")
+    val source: kotlin.String,
 
     @Json(name = "quantity")
     val quantity: java.math.BigDecimal,
@@ -123,12 +139,6 @@ data class ListListingsItem (
 
     @Json(name = "floorIsNet")
     val floorIsNet: kotlin.Boolean,
-
-    @Json(name = "status")
-    val status: kotlin.String,
-
-    @Json(name = "source")
-    val source: kotlin.String,
 
     @Json(name = "aiMediaUrls")
     val aiMediaUrls: kotlin.collections.List<kotlin.String>,
@@ -157,11 +167,20 @@ data class ListListingsItem (
     @Json(name = "automationBlockedChainIds")
     val automationBlockedChainIds: kotlin.collections.List<kotlin.String>,
 
+    @Json(name = "workflowBlockedIds")
+    val workflowBlockedIds: kotlin.collections.List<kotlin.String>,
+
+    @Json(name = "workflowAssignedIds")
+    val workflowAssignedIds: kotlin.collections.List<kotlin.String>,
+
     @Json(name = "brand")
     val brand: kotlin.String? = null,
 
     @Json(name = "name")
     val name: kotlin.String? = null,
+
+    @Json(name = "description")
+    val description: kotlin.String? = null,
 
     @Json(name = "sku")
     val sku: kotlin.String? = null,
@@ -203,7 +222,7 @@ data class ListListingsItem (
     val gradeKey: kotlin.String? = null,
 
     @Json(name = "grading")
-    val grading: ListGradingSubmissionsItemGrading? = null,
+    val grading: CreateBulkBatchItemResponseGrading? = null,
 
     @Json(name = "priceFloorCents")
     val priceFloorCents: java.math.BigDecimal? = null,
@@ -222,9 +241,6 @@ data class ListListingsItem (
 
     @Json(name = "dimensionHIn")
     val dimensionHIn: kotlin.String? = null,
-
-    @Json(name = "description")
-    val description: kotlin.String? = null,
 
     @Json(name = "title")
     val title: kotlin.String? = null,
@@ -269,7 +285,16 @@ data class ListListingsItem (
     val duplicateOfListingId: kotlin.String? = null,
 
     @Json(name = "clientDraftId")
-    val clientDraftId: kotlin.String? = null
+    val clientDraftId: kotlin.String? = null,
+
+    @Json(name = "attributedOauthAppId")
+    val attributedOauthAppId: kotlin.String? = null,
+
+    @Json(name = "attributedGrantId")
+    val attributedGrantId: kotlin.String? = null,
+
+    @Json(name = "quotaBucket")
+    val quotaBucket: kotlin.String? = null
 
 ) {
 

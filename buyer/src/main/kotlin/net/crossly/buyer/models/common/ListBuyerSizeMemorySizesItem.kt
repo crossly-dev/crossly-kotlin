@@ -63,13 +63,13 @@ data class ListBuyerSizeMemorySizesItem (
     /**
      * 
      *
-     * Values: MEN,WOMEN,KIDS,UNISEX
+     * Values: UNISEX,MEN,WOMEN,KIDS
      */
     enum class Department(val value: kotlin.String) {
+        @Json(name = "unisex") UNISEX("unisex"),
         @Json(name = "men") MEN("men"),
         @Json(name = "women") WOMEN("women"),
-        @Json(name = "kids") KIDS("kids"),
-        @Json(name = "unisex") UNISEX("unisex");
+        @Json(name = "kids") KIDS("kids");
     }
 }
 

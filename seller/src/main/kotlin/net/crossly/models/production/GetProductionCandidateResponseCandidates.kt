@@ -32,17 +32,17 @@ import com.squareup.moshi.Json
  * @param createdAt 
  * @param updatedAt 
  * @param status 
+ * @param cosmeticId 
  * @param merchantId 
  * @param creatorSubjectId 
- * @param cosmeticId 
  * @param designerRoyaltyBps 
  * @param fundingAtEligibleCents 
  * @param distinctHoldersAtEligible 
  * @param holderPriority 
  * @param retailPriceCents 
- * @param creatorUserId 
- * @param completedAt 
  * @param acceptedAt 
+ * @param completedAt 
+ * @param creatorUserId 
  * @param editionSize 
  * @param unitCostCents 
  * @param runCostCents 
@@ -68,14 +68,14 @@ data class GetProductionCandidateResponseCandidates (
     @Json(name = "status")
     val status: kotlin.String,
 
+    @Json(name = "cosmeticId")
+    val cosmeticId: kotlin.String,
+
     @Json(name = "merchantId")
     val merchantId: kotlin.String,
 
     @Json(name = "creatorSubjectId")
     val creatorSubjectId: kotlin.String,
-
-    @Json(name = "cosmeticId")
-    val cosmeticId: kotlin.String,
 
     @Json(name = "designerRoyaltyBps")
     val designerRoyaltyBps: java.math.BigDecimal,
@@ -92,14 +92,14 @@ data class GetProductionCandidateResponseCandidates (
     @Json(name = "retailPriceCents")
     val retailPriceCents: java.math.BigDecimal? = null,
 
-    @Json(name = "creatorUserId")
-    val creatorUserId: kotlin.String? = null,
+    @Json(name = "acceptedAt")
+    val acceptedAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "completedAt")
     val completedAt: java.time.OffsetDateTime? = null,
 
-    @Json(name = "acceptedAt")
-    val acceptedAt: java.time.OffsetDateTime? = null,
+    @Json(name = "creatorUserId")
+    val creatorUserId: kotlin.String? = null,
 
     @Json(name = "editionSize")
     val editionSize: java.math.BigDecimal? = null,

@@ -99,12 +99,12 @@ data class ListListingAiDetectionsItem (
     /**
      * 'flagged' | 'review' | 'disputed' | 'cleared' | 'clear' — one word for a UI chip.
      *
-     * Values: FLAGGED,REVIEW,CLEAR,DISPUTED,CLEARED
+     * Values: REVIEW,CLEAR,FLAGGED,DISPUTED,CLEARED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "flagged") FLAGGED("flagged"),
         @Json(name = "review") REVIEW("review"),
         @Json(name = "clear") CLEAR("clear"),
+        @Json(name = "flagged") FLAGGED("flagged"),
         @Json(name = "disputed") DISPUTED("disputed"),
         @Json(name = "cleared") CLEARED("cleared");
     }

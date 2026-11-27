@@ -38,6 +38,8 @@ import com.squareup.moshi.Json
  * @param contact 
  * @param profiles 
  * @param stats 
+ * @param notes 
+ * @param notesUpdatedAt 
  */
 
 data class GetCustomerResponse (
@@ -64,7 +66,13 @@ data class GetCustomerResponse (
     val profiles: kotlin.collections.List<GetCustomerResponseProfiles>,
 
     @Json(name = "stats")
-    val stats: GetCustomerResponseStats
+    val stats: GetCustomerResponseStats,
+
+    @Json(name = "notes")
+    val notes: kotlin.String,
+
+    @Json(name = "notesUpdatedAt")
+    val notesUpdatedAt: kotlin.String? = null
 
 )
 

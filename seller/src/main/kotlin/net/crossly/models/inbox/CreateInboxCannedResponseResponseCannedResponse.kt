@@ -30,8 +30,9 @@ import com.squareup.moshi.Json
  * @param name 
  * @param createdAt 
  * @param userId 
- * @param surface 
  * @param body 
+ * @param surface 
+ * @param sortOrder 
  * @param title 
  */
 
@@ -49,11 +50,14 @@ data class CreateInboxCannedResponseResponseCannedResponse (
     @Json(name = "userId")
     val userId: kotlin.String,
 
+    @Json(name = "body")
+    val body: kotlin.String,
+
     @Json(name = "surface")
     val surface: kotlin.String,
 
-    @Json(name = "body")
-    val body: kotlin.String,
+    @Json(name = "sortOrder")
+    val sortOrder: java.math.BigDecimal,
 
     @Json(name = "title")
     val title: kotlin.String? = null

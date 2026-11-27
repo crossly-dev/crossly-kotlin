@@ -27,12 +27,12 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param status 
  * @param title 
- * @param priceCents 
  * @param format 
- * @param seedCommit 
+ * @param status 
+ * @param priceCents 
  * @param spotsLeft 
+ * @param seedCommit 
  * @param slug 
  * @param seed 
  */
@@ -42,23 +42,23 @@ data class GetBuyerListingBreakResponseData (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "title")
     val title: kotlin.String,
-
-    @Json(name = "priceCents")
-    val priceCents: java.math.BigDecimal,
 
     @Json(name = "format")
     val format: kotlin.String,
 
-    @Json(name = "seedCommit")
-    val seedCommit: kotlin.String,
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    @Json(name = "priceCents")
+    val priceCents: java.math.BigDecimal,
 
     @Json(name = "spotsLeft")
     val spotsLeft: java.math.BigDecimal,
+
+    @Json(name = "seedCommit")
+    val seedCommit: kotlin.String,
 
     @Json(name = "slug")
     val slug: kotlin.String? = null,

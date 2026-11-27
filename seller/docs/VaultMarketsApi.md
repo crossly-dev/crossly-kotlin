@@ -16,6 +16,8 @@ Method | HTTP request | Description
 [**createVaultMarketAuctionLot**](VaultMarketsApi.md#createVaultMarketAuctionLot) | **POST** /v1/vault-markets/auctions/lots | Consign a stored, authenticated unit to the next weekly or premier event, with an optional opening price and reserve. The unit is held until the close. Returns &#x60;{ lotId, eventId, endsAt }&#x60;.
 [**createVaultMarketAuctionLotBid**](VaultMarketsApi.md#createVaultMarketAuctionLotBid) | **POST** /v1/vault-markets/auctions/lots/{id}/bids | Leave or raise your maximum on a lot; the system bids for you up to it. A bid in the last 2 minutes extends the lot by 2 minutes. The winner&#39;s saved card is charged at the close through the order book. ID needed above $10,000.
 [**createVaultMarketAuctionLotWithdraw**](VaultMarketsApi.md#createVaultMarketAuctionLotWithdraw) | **POST** /v1/vault-markets/auctions/lots/{id}/withdraw | Withdraw your lot before any bid; the unit goes back on your shelf. Returns &#x60;{ ok }&#x60;.
+[**createVaultMarketAutoBuyPause**](VaultMarketsApi.md#createVaultMarketAutoBuyPause) | **POST** /v1/vault-markets/auto-buy/pause | Pause Auto-buy with payouts: the budget and want list stay; no payouts are counted and nothing is bought.
+[**createVaultMarketAutoBuyResume**](VaultMarketsApi.md#createVaultMarketAutoBuyResume) | **POST** /v1/vault-markets/auto-buy/resume | Resume Auto-buy with payouts: payouts released from now on count.
 [**createVaultMarketBlock**](VaultMarketsApi.md#createVaultMarketBlock) | **POST** /v1/vault-markets/blocks | Place a block buy for an entity: one order booked to the first sub-account in &#x60;plan&#x60; (it pays from its custodian account), split across every sub-account in the plan at the average price, fees included, once it is done and the custodian confirmed each payment. Each share&#39;s cash moves between the entity&#39;s own custodian accounts; its units move only after that settles. Every sub-account must be one you may trade, and its share must fit its limits.
 [**createVaultMarketBlockAllocate**](VaultMarketsApi.md#createVaultMarketBlockAllocate) | **POST** /v1/vault-markets/blocks/{orderId}/allocate | Allocate a done block now (the keeper does it too). Returns &#x60;{ outcome, block }&#x60;: allocated, waiting (a payment or transfer is not settled yet), nothing_filled or none.
 [**createVaultMarketBullionFamilyPeg**](VaultMarketsApi.md#createVaultMarketBullionFamilyPeg) | **POST** /v1/vault-markets/bullion/family-pegs | Set a family-wide spot-pegged quote: one \&quot;any 1 oz gold coin\&quot; quote resting on each product book of a bullion family at the chosen condition (DS, VNDS or Used). When any leg fills it comes off the others and goes back on only for what is left; two fills at once are settled one at a time against what is left. A bid pays from your custodian account. Replaces your live family quote on the same family, condition and side. ID required.
@@ -93,6 +95,32 @@ Method | HTTP request | Description
 [**createVaultMarketMmMassCancel**](VaultMarketsApi.md#createVaultMarketMmMassCancel) | **POST** /v1/vault-markets/mm/mass-cancel | Cancel every open order (one key, or only quotes) and every resting leg in one statement: nothing fills between the first cancel and the last.
 [**createVaultMarketMmMmpReset**](VaultMarketsApi.md#createVaultMarketMmMmpReset) | **POST** /v1/vault-markets/mm/mmp/reset | End a market-maker protection freeze early.
 [**createVaultMarketOpeningWaitlist**](VaultMarketsApi.md#createVaultMarketOpeningWaitlist) | **POST** /v1/vault-markets/opening/{slug}/waitlist | Join a key&#39;s waitlist, optionally with a friend&#39;s invite code (&#x60;ref&#x60;). Inviting moves you up the queue; nobody is paid. Returns your place and your own code.
+[**createVaultMarketOptionCombo**](VaultMarketsApi.md#createVaultMarketOptionCombo) | **POST** /v1/vault-markets/options/combos | Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs&#39; own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+[**createVaultMarketOptionComboCancel**](VaultMarketsApi.md#createVaultMarketOptionComboCancel) | **POST** /v1/vault-markets/options/combos/{id}/cancel | Cancel a working strategy.
+[**createVaultMarketOptionComboRfq**](VaultMarketsApi.md#createVaultMarketOptionComboRfq) | **POST** /v1/vault-markets/options/combos/rfq | Ask makers for a firm net price on a whole strategy (legs, quantity, an optional limit that is never shown). Crossly venue only.
+[**createVaultMarketOptionComboRfqAccept**](VaultMarketsApi.md#createVaultMarketOptionComboRfqAccept) | **POST** /v1/vault-markets/options/combos/rfq/{id}/accept | Take a live, firm answer: both strategies go through the normal path (margin, pre-trade risk), every leg at once.
+[**createVaultMarketOptionComboRfqCancel**](VaultMarketsApi.md#createVaultMarketOptionComboRfqCancel) | **POST** /v1/vault-markets/options/combos/rfq/{id}/cancel | Cancel your open strategy quote request.
+[**createVaultMarketOptionComboRfqRespond**](VaultMarketsApi.md#createVaultMarketOptionComboRfqRespond) | **POST** /v1/vault-markets/options/combos/rfq/{id}/respond | Answer a strategy quote request with a firm net price per unit in the canonical terms, good for 60 seconds; a new answer replaces your last.
+[**createVaultMarketOptionComboRfqResponseWithdraw**](VaultMarketsApi.md#createVaultMarketOptionComboRfqResponseWithdraw) | **POST** /v1/vault-markets/options/combos/rfq/responses/{id}/withdraw | Withdraw your live answer to a strategy quote request.
+[**createVaultMarketOptionCoveredCall**](VaultMarketsApi.md#createVaultMarketOptionCoveredCall) | **POST** /v1/vault-markets/options/covered-calls | Write a covered call: lock a stored vault unit (&#x60;vaultItemId&#x60;) as collateral and sell up to one call on its own key (&#x60;contractId&#x60;, &#x60;quantity&#x60; &lt;&#x3D; 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+[**createVaultMarketOptionCoveredCallRelease**](VaultMarketsApi.md#createVaultMarketOptionCoveredCallRelease) | **POST** /v1/vault-markets/options/covered-calls/{id}/release | Free a covered call&#39;s vault unit once the call it covers is closed (or covered by other units).
+[**createVaultMarketOptionMmHeartbeat**](VaultMarketsApi.md#createVaultMarketOptionMmHeartbeat) | **POST** /v1/vault-markets/options/mm/heartbeat | Keep your option quotes alive (cancel-on-disconnect pulls them after 30 s without a heartbeat).
+[**createVaultMarketOptionMmQuote**](VaultMarketsApi.md#createVaultMarketOptionMmQuote) | **POST** /v1/vault-markets/options/mm/quotes | Set (replace) a two-sided quote on an option contract: &#x60;bid&#x60; and / or &#x60;ask&#x60; each { priceCents, quantity in contracts }, posted as post-only GTC orders on the Crossly venue. Market-maker protection counts their fills; a quote inside 20% of its mid earns liquidity rewards (CBX).
+[**createVaultMarketOptionMmQuotePull**](VaultMarketsApi.md#createVaultMarketOptionMmQuotePull) | **POST** /v1/vault-markets/options/mm/quotes/pull | Pull your option quotes on one contract (&#x60;contractId&#x60;) or all of them.
+[**createVaultMarketOptionOrder**](VaultMarketsApi.md#createVaultMarketOptionOrder) | **POST** /v1/vault-markets/options/orders | Place an options order: &#x60;contractId&#x60;, &#x60;side&#x60;, &#x60;quantity&#x60; in contracts (three decimals), a &#x60;priceCents&#x60; or an &#x60;iv&#x60; (&#x60;quoteMode&#x60;), &#x60;tif&#x60; gtc / gtd (with &#x60;expiresAt&#x60;) / ioc, &#x60;postOnly&#x60;. Idempotent on &#x60;clientOrderId&#x60;. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its &#x60;termsVersion&#x60;). &#x60;subaccountId&#x60; trades for a firm sub-account you may trade.
+[**createVaultMarketOptionOrderCancel**](VaultMarketsApi.md#createVaultMarketOptionOrderCancel) | **POST** /v1/vault-markets/options/orders/{id}/cancel | Cancel a working options order (on the partner venue it is cancelled there first). A liquidation order cannot be cancelled.
+[**createVaultMarketOptionPracticeCombo**](VaultMarketsApi.md#createVaultMarketOptionPracticeCombo) | **POST** /v1/vault-markets/options/practice/combos | A practice strategy (play money): the same ticket as a real one, filled at the practice maker&#39;s quotes when the net is inside the limit.
+[**createVaultMarketOptionPracticeOrder**](VaultMarketsApi.md#createVaultMarketOptionPracticeOrder) | **POST** /v1/vault-markets/options/practice/orders | Place a practice options order (the same ticket as a real one; fills against the practice maker at the reference vol). Play money only.
+[**createVaultMarketOptionPracticeOrderCancel**](VaultMarketsApi.md#createVaultMarketOptionPracticeOrderCancel) | **POST** /v1/vault-markets/options/practice/orders/{id}/cancel | Cancel a working practice options order.
+[**createVaultMarketOptionPracticeReset**](VaultMarketsApi.md#createVaultMarketOptionPracticeReset) | **POST** /v1/vault-markets/options/practice/reset | Start the options practice account again with $10,000: positions and working orders are cleared.
+[**createVaultMarketOptionQuote**](VaultMarketsApi.md#createVaultMarketOptionQuote) | **POST** /v1/vault-markets/options/quote | Price a ticket without placing it: give a price per contract or an implied vol (&#x60;quoteMode&#x60;), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+[**createVaultMarketOptionRfq**](VaultMarketsApi.md#createVaultMarketOptionRfq) | **POST** /v1/vault-markets/options/rfq | Ask for a quote on an option contract: &#x60;side&#x60;, &#x60;quantity&#x60; in contracts, an optional &#x60;limitCents&#x60; (never shown). Makers quoting the series, the underlying&#39;s DMM and LPs and approved dealers are told anonymously; answers are firm for 60 s.
+[**createVaultMarketOptionRfqAccept**](VaultMarketsApi.md#createVaultMarketOptionRfqAccept) | **POST** /v1/vault-markets/options/rfq/{id}/accept | Take a live answer (&#x60;responseId&#x60;) to your option quote request: it trades through the options book at that price or better, with margin and self-trade prevention.
+[**createVaultMarketOptionRfqCancel**](VaultMarketsApi.md#createVaultMarketOptionRfqCancel) | **POST** /v1/vault-markets/options/rfq/{id}/cancel | Cancel your open option quote request.
+[**createVaultMarketOptionRfqRespond**](VaultMarketsApi.md#createVaultMarketOptionRfqRespond) | **POST** /v1/vault-markets/options/rfq/{id}/respond | Answer an option quote request with a firm price per contract for its full size (good for 60 s; a new answer replaces your last).
+[**createVaultMarketOptionRfqResponseWithdraw**](VaultMarketsApi.md#createVaultMarketOptionRfqResponseWithdraw) | **POST** /v1/vault-markets/options/rfq/responses/{id}/withdraw | Withdraw your live answer to an option quote request.
+[**createVaultMarketOptionRoll**](VaultMarketsApi.md#createVaultMarketOptionRoll) | **POST** /v1/vault-markets/options/roll | Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. &#x60;practice&#x60; rolls a practice position.
+[**createVaultMarketOptionStrategyPreview**](VaultMarketsApi.md#createVaultMarketOptionStrategyPreview) | **POST** /v1/vault-markets/options/strategies/preview | Preview a strategy before placing it: by template (underlying, kind, direction, strikes, expiries) or by legs. Returns each leg at its bid / ask, the net per unit (+ debit, - credit), the payoff at the first expiry, max profit and max loss (null &#x3D; unbounded), breakevens, net Greeks, and the scenario margin of the whole strategy next to its legs margined one by one.
 [**createVaultMarketP2pLoanCall**](VaultMarketsApi.md#createVaultMarketP2pLoanCall) | **POST** /v1/vault-markets/p2p/loans/{id}/call | Lender: call the loan (once it is a day old). A refinancing auction runs for about 30 hours, the rate a new lender gets climbing to the ceiling; repaid or refinanced, you are paid in full; neither by the end, the unit moves to your vault.
 [**createVaultMarketP2pLoanCancelCall**](VaultMarketsApi.md#createVaultMarketP2pLoanCancelCall) | **POST** /v1/vault-markets/p2p/loans/{id}/cancel-call | Lender: take back your call before any other lender has taken the loan over. The refinancing auction stops and the loan carries on as before on its terms.
 [**createVaultMarketP2pLoanRefiAuction**](VaultMarketsApi.md#createVaultMarketP2pLoanRefiAuction) | **POST** /v1/vault-markets/p2p/loans/{id}/refi-auction | Borrower: look for a cheaper lender. A refinancing auction runs for &#x60;hours&#x60; (1-72, default 24); the rate a new lender gets climbs from &#x60;startAprBps&#x60; (default half the loan rate) to just under the loan rate now. The first lender to take it pays your lender off and the loan carries on at that lower rate. Nobody by the end: nothing changes.
@@ -117,6 +145,34 @@ Method | HTTP request | Description
 [**createVaultMarketPositionClose**](VaultMarketsApi.md#createVaultMarketPositionClose) | **POST** /v1/vault-markets/positions/{id}/close | Close a leveraged long: all its units, or &#x60;units&#x60; of them, each sold for at least &#x60;minCents&#x60;; each sale repays the pool first.
 [**createVaultMarketPositionCollateral**](VaultMarketsApi.md#createVaultMarketPositionCollateral) | **POST** /v1/vault-markets/positions/{id}/collateral | Answer a margin call: a short posts more collateral (USD, or CBX at half value); a leveraged long pays down its pool loan. Returns the position.
 [**createVaultMarketPositionCover**](VaultMarketsApi.md#createVaultMarketPositionCover) | **POST** /v1/vault-markets/positions/{id}/cover | Cover a short: all its units, or &#x60;units&#x60; of them, each buying any unit of the key into the vault for up to &#x60;maxCents&#x60;; each goes back to its lender.
+[**createVaultMarketPredictionAccount**](VaultMarketsApi.md#createVaultMarketPredictionAccount) | **POST** /v1/vault-markets/predictions/account | Open your account at the live prediction venue (the partner DCM, or your own segregated account at the settlement bank). Returns &#x60;{ venue, status, opened }&#x60;.
+[**createVaultMarketPredictionAlert**](VaultMarketsApi.md#createVaultMarketPredictionAlert) | **POST** /v1/vault-markets/predictions/alerts | Tell me when a market&#39;s probability crosses a level: &#x60;{ marketId, levelPercent, direction }&#x60;. Returns the alert.
+[**createVaultMarketPredictionCard**](VaultMarketsApi.md#createVaultMarketPredictionCard) | **POST** /v1/vault-markets/predictions/cards | Make an \&quot;I called it\&quot; share card for a position of yours that settled in your favour (&#x60;showAmounts&#x60; to include what you paid and won). Returns the card with its public URL.
+[**createVaultMarketPredictionComboRfq**](VaultMarketsApi.md#createVaultMarketPredictionComboRfq) | **POST** /v1/vault-markets/predictions/combos/rfqs | Ask makers for a price on a combo: 2 to 6 legs (a market and a side each) on different underlyings, a size, and an optional limit makers never see. Pays $1 a contract if every leg comes true. &#x60;venue&#x60; paper or live.
+[**createVaultMarketPredictionComboRfqAccept**](VaultMarketsApi.md#createVaultMarketPredictionComboRfqAccept) | **POST** /v1/vault-markets/predictions/combos/rfqs/{id}/accept | Take one live, firm answer to your combo request (&#x60;quoteId&#x60;): both stakes are locked and the combo opens. Returns the combo.
+[**createVaultMarketPredictionComboRfqCancel**](VaultMarketsApi.md#createVaultMarketPredictionComboRfqCancel) | **POST** /v1/vault-markets/predictions/combos/rfqs/{id}/cancel | Withdraw your combo request; its answers are withdrawn too.
+[**createVaultMarketPredictionComboRfqQuote**](VaultMarketsApi.md#createVaultMarketPredictionComboRfqQuote) | **POST** /v1/vault-markets/predictions/combos/rfqs/{id}/quotes | Answer a combo request with a firm price a contract for the full size (good for 30 seconds; a new answer replaces yours). Real money needs an active prediction maker programme or approved dealer status.
+[**createVaultMarketPredictionComment**](VaultMarketsApi.md#createVaultMarketPredictionComment) | **POST** /v1/vault-markets/predictions/comments | Comment on a market or a series, or reply to a comment (&#x60;parentId&#x60;). Moderated like every comment on Crossly.
+[**createVaultMarketPredictionCommentReport**](VaultMarketsApi.md#createVaultMarketPredictionCommentReport) | **POST** /v1/vault-markets/predictions/comments/{id}/report | Report a comment with a reason; enough reports hide it until ops look.
+[**createVaultMarketPredictionConversion**](VaultMarketsApi.md#createVaultMarketPredictionConversion) | **POST** /v1/vault-markets/predictions/conversions | Split ($1 a set buys one Yes in every bucket of an expiry), merge (one Yes in every bucket gives back $1 a set before settlement) or convert (No in one bucket becomes Yes in every other) on a full bucket set. &#x60;venue&#x60; paper or live. Returns the conversion and the event after it.
+[**createVaultMarketPredictionForecast**](VaultMarketsApi.md#createVaultMarketPredictionForecast) | **POST** /v1/vault-markets/predictions/forecasts | Forecast a market: &#x60;probabilityPercent&#x60; 0 to 100. The one standing when trading closes is scored (Brier).
+[**createVaultMarketPredictionForecasterFollow**](VaultMarketsApi.md#createVaultMarketPredictionForecasterFollow) | **POST** /v1/vault-markets/predictions/forecasters/{id}/follow | Follow a public forecaster: you are told when they open a position or forecast (copy-watch only; nothing is ever traded for you).
+[**createVaultMarketPredictionMaker**](VaultMarketsApi.md#createVaultMarketPredictionMaker) | **POST** /v1/vault-markets/predictions/makers | Apply to make markets in prediction ladders (one series, or all with &#x60;seriesId&#x60; null). Needs the ID check; ops approve. Returns the application.
+[**createVaultMarketPredictionMakerQuote**](VaultMarketsApi.md#createVaultMarketPredictionMakerQuote) | **POST** /v1/vault-markets/predictions/makers/quotes | Mass quote: replace your resting maker quotes on up to 50 markets with one Yes bid and one Yes ask each (post-only; an ask rests as a No bid at 100 minus it). Live quotes need an active maker programme. Returns what rests.
+[**createVaultMarketPredictionOrder**](VaultMarketsApi.md#createVaultMarketPredictionOrder) | **POST** /v1/vault-markets/predictions/orders | Place a prediction order: buy_yes, sell_yes, buy_no or sell_no; limit (priceCents 1-99 in the action&#39;s own terms) or market (IOC 10 cents through the best price); GTC, GTD (expiresAt) or IOC; post-only. Sells only what you hold. &#x60;venue&#x60; paper (practice) or live (503 until a venue is registered). Returns the order with its fills.
+[**createVaultMarketPredictionOrderAmend**](VaultMarketsApi.md#createVaultMarketPredictionOrderAmend) | **POST** /v1/vault-markets/predictions/orders/{id}/amend | Amend a resting order&#39;s price (in its own terms) and/or whole size. It keeps its place in the queue only when the size goes down at the same price; otherwise it is re-queued and may trade at once. Returns the order with &#x60;keptPriority&#x60;.
+[**createVaultMarketPredictionOrderBatch**](VaultMarketsApi.md#createVaultMarketPredictionOrderBatch) | **POST** /v1/vault-markets/predictions/orders/batch | Place up to 20 orders in one call; each answers on its own (&#x60;results[]&#x60;), one refused never stops the rest.
+[**createVaultMarketPredictionOrderBatchCancel**](VaultMarketsApi.md#createVaultMarketPredictionOrderBatchCancel) | **POST** /v1/vault-markets/predictions/orders/batch-cancel | Cancel up to 20 orders in one call; each answers on its own.
+[**createVaultMarketPredictionOrderCancel**](VaultMarketsApi.md#createVaultMarketPredictionOrderCancel) | **POST** /v1/vault-markets/predictions/orders/{id}/cancel | Cancel a working prediction order; the money (or practice money) it locked comes back. Returns the order.
+[**createVaultMarketPredictionOrderCancelAll**](VaultMarketsApi.md#createVaultMarketPredictionOrderCancelAll) | **POST** /v1/vault-markets/predictions/orders/cancel-all | Cancel every working prediction order you have, or only those on one market (&#x60;marketId&#x60;). Returns &#x60;{ cancelled }&#x60;.
+[**createVaultMarketPredictionPaperReset**](VaultMarketsApi.md#createVaultMarketPredictionPaperReset) | **POST** /v1/vault-markets/predictions/paper/reset | Reset your practice prediction account to $1,000 of play money: working practice orders cancelled, practice positions cleared. Once a day.
+[**createVaultMarketPredictionPositionClose**](VaultMarketsApi.md#createVaultMarketPredictionPositionClose) | **POST** /v1/vault-markets/predictions/positions/close | Close a position: your resting sells on the market are cancelled and everything you hold is sold now (market, 10-cent band) or at &#x60;priceCents&#x60;. Returns the sell order.
+[**createVaultMarketPredictionPositionCloseAll**](VaultMarketsApi.md#createVaultMarketPredictionPositionCloseAll) | **POST** /v1/vault-markets/predictions/positions/close-all | Sell all: close every open position on a venue, or only one event&#39;s (&#x60;eventId&#x60;). Each answers on its own.
+[**createVaultMarketPredictionProposal**](VaultMarketsApi.md#createVaultMarketPredictionProposal) | **POST** /v1/vault-markets/predictions/proposals | Propose a market: an index slug or a book key, a shape (close at or above / at or below, between, touch), its strike(s) and an expiry. Ops review it; once listed you earn the creator share of Crossly&#39;s take on its fees.
+[**createVaultMarketPredictionProposalCheck**](VaultMarketsApi.md#createVaultMarketPredictionProposalCheck) | **POST** /v1/vault-markets/predictions/proposals/check | Check a market proposal without sending it: whether the underlying may carry markets (a built-in index or a tier A key), and what is wrong with the strike or expiry.
+[**createVaultMarketPredictionProposalWithdraw**](VaultMarketsApi.md#createVaultMarketPredictionProposalWithdraw) | **POST** /v1/vault-markets/predictions/proposals/{id}/withdraw | Withdraw a proposal still waiting for review.
+[**createVaultMarketPredictionSettlementDispute**](VaultMarketsApi.md#createVaultMarketPredictionSettlementDispute) | **POST** /v1/vault-markets/predictions/settlements/{id}/dispute | Dispute a settlement inside its 24-hour review window (you must hold a position in the market). Payout waits for the venue&#39;s decision. Returns &#x60;{ settlementId, status }&#x60;.
+[**createVaultMarketPredictionTerm**](VaultMarketsApi.md#createVaultMarketPredictionTerm) | **POST** /v1/vault-markets/predictions/terms | Accept the current prediction-market contract terms (PREDICTION_TERMS_VERSION), needed for every real-money order. Returns &#x60;{ termsVersion, venue }&#x60;.
 [**createVaultMarketPriceWidget**](VaultMarketsApi.md#createVaultMarketPriceWidget) | **POST** /v1/vault-markets/price-widgets | Make a price widget for one vault market (&#x60;kind&#x60; mark + &#x60;bookKey&#x60;) or one public index (&#x60;kind&#x60; index + &#x60;indexSlug&#x60;): range, layout (compact or chart), theme (auto, light, dark), optionally your own affiliate code for the link back and the sites allowed to show it (empty &#x3D; any). Returns the widget with its snippets.
 [**createVaultMarketPriceWidgetPreview**](VaultMarketsApi.md#createVaultMarketPriceWidgetPreview) | **POST** /v1/vault-markets/price-widgets/preview | What a widget would show before you save it: &#x60;view&#x60; (value, move, quality, n, as-of, link back) and &#x60;html&#x60;, the exact page the iframe serves. Nothing is stored.
 [**createVaultMarketProBracket**](VaultMarketsApi.md#createVaultMarketProBracket) | **POST** /v1/vault-markets/pro/brackets | A buy order with a take-profit and/or stop-loss attached; the exits arm as an OCO pair for what the entry fills.
@@ -139,11 +195,43 @@ Method | HTTP request | Description
 [**createVaultMarketSetGoal**](VaultMarketsApi.md#createVaultMarketSetGoal) | **POST** /v1/vault-markets/set-goals | Start a goal on a catalogue set (category, brandSlug, modelSlug from the set search), optionally with a target: one condition, and any grade, ungraded, or one exact grade. One live goal per set.
 [**createVaultMarketSetGoalBasket**](VaultMarketsApi.md#createVaultMarketSetGoalBasket) | **POST** /v1/vault-markets/set-goals/{id}/basket | Place the \&quot;complete my set\&quot; basket bid: one GTC limit buy per missing piece, under a hard budget, paid by one of your saved cards or your custodian account. Every leg passes pre-trade risk and the ID line like any order. Idempotent on clientBasketId. One working basket per goal; its legs are cancelled once the set is complete.
 [**createVaultMarketSetGoalBasketCancel**](VaultMarketsApi.md#createVaultMarketSetGoalBasketCancel) | **POST** /v1/vault-markets/set-goals/{id}/basket/cancel | Cancel the goal working basket bid: every working leg comes off the book; what already filled stays in your vault.
+[**createVaultMarketShareAutoInvest**](VaultMarketsApi.md#createVaultMarketShareAutoInvest) | **POST** /v1/vault-markets/shares/auto-invest | Start auto-invest: &#x60;amountCents&#x60; ($5-$10,000) &#x60;every&#x60; week or month into &#x60;seriesIds&#x60; (equal weights) or &#x60;targets&#x60; (seriesId + weightBps summing to 10,000) or a &#x60;basketId&#x60; (with &#x60;rebalance&#x60; to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to &#x60;maxPremiumBps&#x60; over the indicative value. &#x60;practice&#x60; runs it on paper.
+[**createVaultMarketShareAutoInvestRun**](VaultMarketsApi.md#createVaultMarketShareAutoInvestRun) | **POST** /v1/vault-markets/shares/auto-invest/{id}/run | Run a plan now (once a minute at most); the schedule does not move.
+[**createVaultMarketShareAutoInvestUpdate**](VaultMarketsApi.md#createVaultMarketShareAutoInvestUpdate) | **POST** /v1/vault-markets/shares/auto-invest/{id}/update | Change a plan (amount, cadence, series or weights, cap, rebalance) or set its &#x60;status&#x60; active, paused or cancelled.
+[**createVaultMarketShareBasketBuy**](VaultMarketsApi.md#createVaultMarketShareBasketBuy) | **POST** /v1/vault-markets/shares/baskets/{id}/buy | Buy a basket once: &#x60;amountCents&#x60; split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to &#x60;maxPremiumBps&#x60;). &#x60;practice&#x60; buys on paper.
+[**createVaultMarketShareBuyoutFund**](VaultMarketsApi.md#createVaultMarketShareBuyoutFund) | **POST** /v1/vault-markets/shares/buyouts/{id}/fund | Your whole-unit bid reached the reserve: fund the price through your investor account within 72 hours to buy the item from its holders (no vote).
+[**createVaultMarketShareBuyoutVote**](VaultMarketsApi.md#createVaultMarketShareBuyoutVote) | **POST** /v1/vault-markets/shares/buyouts/{id}/vote | Vote &#x60;yes&#x60; or &#x60;no&#x60; on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
+[**createVaultMarketShareBuyoutWithdraw**](VaultMarketsApi.md#createVaultMarketShareBuyoutWithdraw) | **POST** /v1/vault-markets/shares/buyouts/{id}/withdraw | Withdraw your buyout bid before its vote opens; the escrow is refunded.
 [**createVaultMarketShareCard**](VaultMarketsApi.md#createVaultMarketShareCard) | **POST** /v1/vault-markets/share-cards | Make a verified share card of a position, a vault unit, a public index or your portfolio (&#x60;kind&#x60;, &#x60;refId&#x60;). The % on it is the price move since your real fill; amounts stay hidden unless &#x60;showAmounts&#x60;.
+[**createVaultMarketShareGiftAccept**](VaultMarketsApi.md#createVaultMarketShareGiftAccept) | **POST** /v1/vault-markets/shares/gifts/{id}/accept | Accept a share gift. Needs your own verified Vault Shares investor account; the venue then moves the shares to you on the register.
+[**createVaultMarketShareGiftCancel**](VaultMarketsApi.md#createVaultMarketShareGiftCancel) | **POST** /v1/vault-markets/shares/gifts/{id}/cancel | Cancel a gift you offered, before it is accepted: the shares are free again.
+[**createVaultMarketShareGiftDecline**](VaultMarketsApi.md#createVaultMarketShareGiftDecline) | **POST** /v1/vault-markets/shares/gifts/{id}/decline | Decline a share gift offered to you.
+[**createVaultMarketShareInvestor**](VaultMarketsApi.md#createVaultMarketShareInvestor) | **POST** /v1/vault-markets/shares/investor | Open or update your investor account at the venue: accept the current investor terms (&#x60;acceptTerms&#x60;), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+[**createVaultMarketShareOrderCancel**](VaultMarketsApi.md#createVaultMarketShareOrderCancel) | **POST** /v1/vault-markets/shares/orders/{id}/cancel | Cancel one of your open share-book orders.
+[**createVaultMarketSharePaperOrderCancel**](VaultMarketsApi.md#createVaultMarketSharePaperOrderCancel) | **POST** /v1/vault-markets/shares/paper/orders/{id}/cancel | Cancel an open practice order.
+[**createVaultMarketSharePaperReset**](VaultMarketsApi.md#createVaultMarketSharePaperReset) | **POST** /v1/vault-markets/shares/paper/reset | Start the practice account over with fresh play money (once a day).
+[**createVaultMarketSharePaperSeryOrder**](VaultMarketsApi.md#createVaultMarketSharePaperSeryOrder) | **POST** /v1/vault-markets/shares/paper/series/{id}/orders | Place a practice order (play money) with the same rules as the real share book.
+[**createVaultMarketSharePaperSerySubscribe**](VaultMarketsApi.md#createVaultMarketSharePaperSerySubscribe) | **POST** /v1/vault-markets/shares/paper/series/{id}/subscribe | Subscribe with play money to a practice series’ offering.
+[**createVaultMarketShareRoomHide**](VaultMarketsApi.md#createVaultMarketShareRoomHide) | **POST** /v1/vault-markets/shares/room/{id}/hide | Take down one of your own holder-room posts (&#x60;reason&#x60;).
+[**createVaultMarketShareSery**](VaultMarketsApi.md#createVaultMarketShareSery) | **POST** /v1/vault-markets/shares/series | Propose a Vault Shares series for one of your units (&#x60;vaultItemId&#x60;), keeping &#x60;retainedShares&#x60; (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass &#x60;requestId&#x60; to make a retry safe.
+[**createVaultMarketShareSeryBuyout**](VaultMarketsApi.md#createVaultMarketShareSeryBuyout) | **POST** /v1/vault-markets/shares/series/{id}/buyouts | Bid for the whole item (&#x60;offerCents&#x60;, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
+[**createVaultMarketShareSeryGift**](VaultMarketsApi.md#createVaultMarketShareSeryGift) | **POST** /v1/vault-markets/shares/series/{id}/gifts | Give whole &#x60;shares&#x60; of a series to someone (&#x60;to&#x60;: their @handle, email or user id), with an optional &#x60;message&#x60;. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
+[**createVaultMarketShareSeryOrder**](VaultMarketsApi.md#createVaultMarketShareSeryOrder) | **POST** /v1/vault-markets/shares/series/{id}/orders | Place an order on a series’ share book: &#x60;side&#x60;, &#x60;type&#x60; limit or market (immediate-or-cancel inside a 10% band), &#x60;tif&#x60; gtc / gtd (&#x60;expiresAt&#x60;) / ioc, whole &#x60;shares&#x60; or a buy’s &#x60;amountCents&#x60; (turned into whole shares at the most it could pay), integer &#x60;limitCents&#x60; a share, &#x60;postOnly&#x60;. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass &#x60;requestId&#x60; to make a retry safe.
+[**createVaultMarketShareSeryRecombine**](VaultMarketsApi.md#createVaultMarketShareSeryRecombine) | **POST** /v1/vault-markets/shares/series/{id}/recombine | You hold every share: take the item back whole. With &#x60;withdraw&#x60;, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
+[**createVaultMarketShareSeryRoom**](VaultMarketsApi.md#createVaultMarketShareSeryRoom) | **POST** /v1/vault-markets/shares/series/{id}/room | Post in the holder room (shareholders only), up to 1,000 characters.
+[**createVaultMarketShareSerySubscribe**](VaultMarketsApi.md#createVaultMarketShareSerySubscribe) | **POST** /v1/vault-markets/shares/series/{id}/subscribe | Subscribe for whole &#x60;shares&#x60; in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass &#x60;jointVaultId&#x60;. Pass &#x60;requestId&#x60; to make a retry safe.
+[**createVaultMarketShareSeryUnwatch**](VaultMarketsApi.md#createVaultMarketShareSeryUnwatch) | **POST** /v1/vault-markets/shares/series/{id}/unwatch | Stop being told about a drop (&#x60;kind&#x60; notify) or leave its waitlist (&#x60;kind&#x60; waitlist).
+[**createVaultMarketShareSeryUpdate**](VaultMarketsApi.md#createVaultMarketShareSeryUpdate) | **POST** /v1/vault-markets/shares/series/{id}/updates | Post an update on your own item’s series (you are its originator): &#x60;kind&#x60; story, provenance, condition, appraisal, exhibition or event, a &#x60;title&#x60;, a &#x60;body&#x60;, an optional https &#x60;mediaUrl&#x60;, &#x60;holdersOnly&#x60;. Holders are told.
+[**createVaultMarketShareSeryWatch**](VaultMarketsApi.md#createVaultMarketShareSeryWatch) | **POST** /v1/vault-markets/shares/series/{id}/watch | Ask to be told about a drop (&#x60;kind&#x60; notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (&#x60;kind&#x60; waitlist, with the &#x60;shares&#x60; you want).
+[**createVaultMarketShareSeryWithdrawProposal**](VaultMarketsApi.md#createVaultMarketShareSeryWithdrawProposal) | **POST** /v1/vault-markets/shares/series/{id}/withdraw-proposal | Withdraw your own proposal before its offering opens.
+[**createVaultMarketShareSubscriptionCancel**](VaultMarketsApi.md#createVaultMarketShareSubscriptionCancel) | **POST** /v1/vault-markets/shares/subscriptions/{id}/cancel | Cancel an escrowed subscription while its offering is still open: the escrow is refunded.
+[**createVaultMarketShareViewingBook**](VaultMarketsApi.md#createVaultMarketShareViewingBook) | **POST** /v1/vault-markets/shares/viewings/{id}/book | Book a place on a viewing day (shareholders only), with up to the day’s &#x60;guests&#x60;. Bookings close a day before; booking again changes your guests.
+[**createVaultMarketShareViewingBookingCancel**](VaultMarketsApi.md#createVaultMarketShareViewingBookingCancel) | **POST** /v1/vault-markets/shares/viewing-bookings/{id}/cancel | Cancel your viewing-day booking.
 [**createVaultMarketShort**](VaultMarketsApi.md#createVaultMarketShort) | **POST** /v1/vault-markets/shorts | Short a book key: borrow &#x60;units&#x60; lent units (default 1; at most 25/10/3/1 by liquidity tier A/B/C/D) and sell each at &#x60;limitCents&#x60; or better, posting collateral for all of them (50% of the mark each; CBX counts at half, up to 30%). All units are borrowed or none unless &#x60;allowPartial&#x60;. A partial sale opens with the units sold. Returns &#x60;{ positionId, matched, units }&#x60;.
 [**createVaultMarketSupplyBatchLabel**](VaultMarketsApi.md#createVaultMarketSupplyBatchLabel) | **POST** /v1/vault-markets/supply/batches/{id}/label | Buy a box&#39;s prepaid label again after it failed (for example once a ship-from address is saved). A box that has a label keeps it.
 [**createVaultMarketSupplyInvite**](VaultMarketsApi.md#createVaultMarketSupplyInvite) | **POST** /v1/vault-markets/supply/invites/{id} | Accept or decline a Market Open invite (&#x60;accept&#x60;).
 [**createVaultMarketSupplySend**](VaultMarketsApi.md#createVaultMarketSupplySend) | **POST** /v1/vault-markets/supply/send | Send inventory items matched to a catalogue variant to the vault as one box: each becomes an inbound vault unit, and the box gets one prepaid inbound label (a PDF to print). Optional: auto-list each unit in the vault book at a share of the mark once stored, and lend when idle. Items that cannot go say why. Crosslisted listings stay live.
+[**createVaultMarketSupplySendIn**](VaultMarketsApi.md#createVaultMarketSupplySendIn) | **POST** /v1/vault-markets/supply/send-in | Send inventory items to the vault: &#x60;method: label&#x60; (one box on a prepaid label) or &#x60;dropoff&#x60; at a partner (&#x60;partnerId&#x60;, from the finder; you get a counter code). Each item can carry its declared value; &#x60;insured&#x60; insures the box for it.
 [**createVaultMarketTerm**](VaultMarketsApi.md#createVaultMarketTerm) | **POST** /v1/vault-markets/terms | Accept the current lending terms (needed to lend or short). Returns &#x60;{ termsVersion }&#x60;.
 [**createVaultMarketTodClaimObject**](VaultMarketsApi.md#createVaultMarketTodClaimObject) | **POST** /v1/vault-markets/tod/claims/{id}/object | Stop a transfer-on-death claim made on your own account. Returns &#x60;{ id, status, estateUnlocked }&#x60;.
 [**createVaultMarketTodMyClaim**](VaultMarketsApi.md#createVaultMarketTodMyClaim) | **POST** /v1/vault-markets/tod/my-claims | Start a claim as a named beneficiary (ID first), naming the account holder by @username or email. It stays a draft until you add documents and submit. Returns &#x60;{ id, status, existing }&#x60;.
@@ -163,6 +251,7 @@ Method | HTTP request | Description
 [**createVaultReceiptTokenWalletAllow**](VaultMarketsApi.md#createVaultReceiptTokenWalletAllow) | **POST** /v1/vault/receipt-tokens/wallets/allow | Put one of your verified Solana wallets (&#x60;wallet&#x60;) on the receipt-token allow-list so it can hold and receive receipt tokens. Returns a base64 transaction already signed by the receipts authority: the wallet pays the small rent (about 0.001 SOL) and must sign and send it within about two minutes. Needs a verified ID and a wallet that passes the sanctions screen.
 [**deleteVaultMarketAgentWatch**](VaultMarketsApi.md#deleteVaultMarketAgentWatch) | **DELETE** /v1/vault-markets/agent/watches/{id} | Cancel a live price watch. Returns the watch.
 [**deleteVaultMarketAlert**](VaultMarketsApi.md#deleteVaultMarketAlert) | **DELETE** /v1/vault-markets/alerts/{id} | Delete a price alert. Returns &#x60;{ ok }&#x60;.
+[**deleteVaultMarketAutoBuy**](VaultMarketsApi.md#deleteVaultMarketAutoBuy) | **DELETE** /v1/vault-markets/auto-buy | Stop Auto-buy with payouts. The history stays.
 [**deleteVaultMarketBullionFamilyPeg**](VaultMarketsApi.md#deleteVaultMarketBullionFamilyPeg) | **DELETE** /v1/vault-markets/bullion/family-pegs/{id} | Stop a family-wide quote: every leg order comes off the book; what filled stays filled.
 [**deleteVaultMarketBullionPeg**](VaultMarketsApi.md#deleteVaultMarketBullionPeg) | **DELETE** /v1/vault-markets/bullion/pegs/{id} | Stop a spot-pegged quote: its resting order comes off the book; what filled stays filled.
 [**deleteVaultMarketDealerBand**](VaultMarketsApi.md#deleteVaultMarketDealerBand) | **DELETE** /v1/vault-markets/dealer/bands | Stop a band on a key; its standing bid comes off.
@@ -171,6 +260,10 @@ Method | HTTP request | Description
 [**deleteVaultMarketIndex**](VaultMarketsApi.md#deleteVaultMarketIndex) | **DELETE** /v1/vault-markets/indexes/{slug} | Delete an index of your own. Returns &#x60;{ ok }&#x60;.
 [**deleteVaultMarketLocate**](VaultMarketsApi.md#deleteVaultMarketLocate) | **DELETE** /v1/vault-markets/locates/{id} | Release a live locate before it lapses.
 [**deleteVaultMarketOpeningWaitlist**](VaultMarketsApi.md#deleteVaultMarketOpeningWaitlist) | **DELETE** /v1/vault-markets/opening/{slug}/waitlist | Leave a key&#39;s waitlist.
+[**deleteVaultMarketPredictionAlert**](VaultMarketsApi.md#deleteVaultMarketPredictionAlert) | **DELETE** /v1/vault-markets/predictions/alerts/{id} | Remove a probability alert. Returns &#x60;{ ok }&#x60;.
+[**deleteVaultMarketPredictionCard**](VaultMarketsApi.md#deleteVaultMarketPredictionCard) | **DELETE** /v1/vault-markets/predictions/cards/{id} | Take an \&quot;I called it\&quot; card down; its link stops working. Returns &#x60;{ ok }&#x60;.
+[**deleteVaultMarketPredictionComment**](VaultMarketsApi.md#deleteVaultMarketPredictionComment) | **DELETE** /v1/vault-markets/predictions/comments/{id} | Delete your comment.
+[**deleteVaultMarketPredictionForecasterFollow**](VaultMarketsApi.md#deleteVaultMarketPredictionForecasterFollow) | **DELETE** /v1/vault-markets/predictions/forecasters/{id}/follow | Stop following a forecaster.
 [**deleteVaultMarketPriceWidget**](VaultMarketsApi.md#deleteVaultMarketPriceWidget) | **DELETE** /v1/vault-markets/price-widgets/{id} | Delete a widget. Pages that still paste it show that it is no longer available. Returns &#x60;{ id, archived }&#x60;.
 [**deleteVaultMarketProQuote**](VaultMarketsApi.md#deleteVaultMarketProQuote) | **DELETE** /v1/vault-markets/pro/quotes | Pull your quote on a book key, or every quote. Returns &#x60;{ pulled }&#x60;.
 [**deleteVaultMarketProfileFollow**](VaultMarketsApi.md#deleteVaultMarketProfileFollow) | **DELETE** /v1/vault-markets/profiles/{handle}/follow | Stop following someone.
@@ -191,6 +284,7 @@ Method | HTTP request | Description
 [**getVaultMarketAlertPref**](VaultMarketsApi.md#getVaultMarketAlertPref) | **GET** /v1/vault-markets/alert-prefs | Your vault alert settings: every kind (price, fill, margin_call, adl, p2p_loan, auction, market_open, receipt_token, set_goal, follow, account), every channel (push, telegram, terminal, email, webhook) with whether it is set up, the full on/off grid, the locked switches (a critical kind always pushes) and quiet hours.
 [**getVaultMarketAuctionLot**](VaultMarketsApi.md#getVaultMarketAuctionLot) | **GET** /v1/vault-markets/auctions/lots/{id} | One lot: the price showing, the next minimum bid, whether a reserve exists and is met, the end (extended by late bids), the bid history and your standing.
 [**getVaultMarketAuctionMine**](VaultMarketsApi.md#getVaultMarketAuctionMine) | **GET** /v1/vault-markets/auctions/mine | Lots you consigned (with your reserve) and lots you bid on (with your maximum and whether you lead).
+[**getVaultMarketAutoBuy**](VaultMarketsApi.md#getVaultMarketAutoBuy) | **GET** /v1/vault-markets/auto-buy | Auto-buy with payouts: the share of each payout set aside as a vault buying budget, the budget, your want list with max prices, the purchase history and whether it is paused. &#x60;autoBuy&#x60; is null when it is not set up.
 [**getVaultMarketBlock**](VaultMarketsApi.md#getVaultMarketBlock) | **GET** /v1/vault-markets/blocks/{orderId} | One block order: its order, plan lines (planned and allocated units, average price, cash share, status).
 [**getVaultMarketBullionFor**](VaultMarketsApi.md#getVaultMarketBullionFor) | **GET** /v1/vault-markets/bullion/for | The bullion key families one book key belongs to, with spot for its metal as a labelled reference and its melt value at that spot. Empty families when the item is not keyed bullion.
 [**getVaultMarketBullionKey**](VaultMarketsApi.md#getVaultMarketBullionKey) | **GET** /v1/vault-markets/bullion/keys/{slug} | One bullion key family: its catalogue products, every live book key with best bid, best ask, vault units and its mark (from the book only), live pegged quote counts, and spot as a labelled reference.
@@ -229,6 +323,8 @@ Method | HTTP request | Description
 [**getVaultMarketHallLoan**](VaultMarketsApi.md#getVaultMarketHallLoan) | **GET** /v1/vault-markets/hall/loans | Your Hall of Grails desk: this week&#39;s exhibition, the rules (maxLive loans, shownPerHolder per exhibition, repPoints per exhibition shown), reputation (exhibitions finished), your loans (status active, ending or ended; onShowNow, showingUntil, exhibitions, the next exhibition it fits, the Lent to the Hall badge) and the vault units you could lend (canLend, or the blocker in words, and the next exhibition each fits). Display only.
 [**getVaultMarketHealth**](VaultMarketsApi.md#getVaultMarketHealth) | **GET** /v1/vault-markets/health | Portfolio health of your vault holdings at Crossly marks: concentration by single item, category, grade and grader (shares, HHI on 0 to 10000, its band and effective number of holdings), value by liquidity tier, the stress grid (each category and everything down 10, 20 and 30 percent), value by mark quality, plain observations, and the held items a what-if can run on. Information only, not advice.
 [**getVaultMarketHealthWhatIf**](VaultMarketsApi.md#getVaultMarketHealthWhatIf) | **GET** /v1/vault-markets/health/what-if | What if one held item moved by moveBps (-10000 to 10000 basis points of its mark): the item, your vault total, the item and its category share of the vault, and the single-item HHI, before and after. A scenario on the mark, not a price you could sell at.
+[**getVaultMarketHoldingInventoryItem**](VaultMarketsApi.md#getVaultMarketHoldingInventoryItem) | **GET** /v1/vault-markets/holdings/{id}/inventory-item | The inventory item a vault unit of yours came from (null for a unit bought on the book).
+[**getVaultMarketHoldingWithdrawQuote**](VaultMarketsApi.md#getVaultMarketHoldingWithdrawQuote) | **GET** /v1/vault-markets/holdings/{id}/withdraw-quote | What shipping one unit you own home would charge now, for &#x60;standard&#x60; and &#x60;expedited&#x60;: shipping, the storage it owes and the early-withdrawal fee (within 90 days of arriving), and the total. Read-only; ship it home with POST /api/v1/buyer/vault/:id/withdraw.
 [**getVaultMarketHomeUnit**](VaultMarketsApi.md#getVaultMarketHomeUnit) | **GET** /v1/vault-markets/home/units | \&quot;Show my vault\&quot;: the vault units you hold, the ones standing in your Crossly World home first. Each: vaultItemId, title, grade, imageUrl, bookKey (its market), inHome, visitors (visitors to your home see it). Also your home (slug, privacy, path), max units one home shows, shown, visitorsSee and a note on who sees what. Your home is made on first read. No prices.
 [**getVaultMarketIndex**](VaultMarketsApi.md#getVaultMarketIndex) | **GET** /v1/vault-markets/indexes/{slug} | One index with its daily closes (oldest first) and its level now.
 [**getVaultMarketIndexCalendar**](VaultMarketsApi.md#getVaultMarketIndexCalendar) | **GET** /v1/vault-markets/index-calendar | The next four quarterly reviews: reference day (2nd Friday of Mar/Jun/Sep/Dec), announcement day, last close under the old membership and the effective day; June and December also review the Blue-chip 50.
@@ -240,6 +336,7 @@ Method | HTTP request | Description
 [**getVaultMarketIndexLicenceUsage**](VaultMarketsApi.md#getVaultMarketIndexLicenceUsage) | **GET** /v1/vault-markets/index-licence/usage | Your licensed index feed reads over &#x60;days&#x60;, per index and endpoint (licence-usage report).
 [**getVaultMarketIndexMethodology**](VaultMarketsApi.md#getVaultMarketIndexMethodology) | **GET** /v1/vault-markets/index-methodology | The index method in machine-readable form: version (semver), inputs, weightings and caps, the family and its screens, the engines and their publication gate, revisions and the settlement series, the calendar, governance and limitations.
 [**getVaultMarketInstantExit**](VaultMarketsApi.md#getVaultMarketInstantExit) | **GET** /v1/vault-markets/instant-exit | The Instant Exit quote for one vault unit you hold: the best resting bid on its book key (anyone&#39;s, dealers&#39; included), its share of the mark, the bid depth, and whether it can be taken now.
+[**getVaultMarketItemLocation**](VaultMarketsApi.md#getVaultMarketItemLocation) | **GET** /v1/vault-markets/items/{inventoryItemId}/location | Where one inventory item&#39;s units are: in your own stock (warehouse) and in the vault per location, each vault unit&#39;s status (in transit, received, authenticated, graded, listed, shipped out), its Sell from first choice and whether it can be sent to the vault now (with the reason when not).
 [**getVaultMarketJoint**](VaultMarketsApi.md#getVaultMarketJoint) | **GET** /v1/vault-markets/joint | Your joint vaults and the invitations waiting for you, with the gate (open, missing env), the joint terms in words and what each right allows. A JointVaultsHome object, not a collection.
 [**getVaultMarketJointById**](VaultMarketsApi.md#getVaultMarketJointById) | **GET** /v1/vault-markets/joint/{id} | One joint vault (active members only): members and rights, the units in it at the mark with each owner of record, totals, recent joint trades, and the activity from the audit trail.
 [**getVaultMarketKeyStat**](VaultMarketsApi.md#getVaultMarketKeyStat) | **GET** /v1/vault-markets/key-stats/{bookKey} | Everything derived about one book key in one read: the Crossly Estimate, the liquidity score, risk statistics and the gem rate. A part that cannot be read is &#x60;{ error }&#x60;.
@@ -262,6 +359,23 @@ Method | HTTP request | Description
 [**getVaultMarketNav**](VaultMarketsApi.md#getVaultMarketNav) | **GET** /v1/vault-markets/nav | Mark NAV, bid NAV (the resting bids) and liquidation NAV (the bids at 20% of ADV for 10 days), holding by holding, each with its ASC 820 level, mark quality and source, and your administrator&#39;s price when uploaded.
 [**getVaultMarketNavFile**](VaultMarketsApi.md#getVaultMarketNavFile) | **GET** /v1/vault-markets/nav/file/{format} | The NAV as a csv, pdf or json file.
 [**getVaultMarketOpening**](VaultMarketsApi.md#getVaultMarketOpening) | **GET** /v1/vault-markets/opening/{slug} | One opening key.
+[**getVaultMarketOption**](VaultMarketsApi.md#getVaultMarketOption) | **GET** /v1/vault-markets/options | Fractional options: the venue mode (self &#x3D; Crossly is the venue and clearing house, partner &#x3D; routed to the index DCM, paper &#x3D; practice only) with the env each mode still needs, the active series and the rule book in force.
+[**getVaultMarketOptionAnalytic**](VaultMarketsApi.md#getVaultMarketOptionAnalytic) | **GET** /v1/vault-markets/options/analytics/{underlying} | Options analytics on an underlying: the vol surface (expiry x moneyness) and one expiry&#39;s smile (&#x60;expiry&#x60;), IV rank and percentile against the series&#39; own year, open interest and volume by strike and expiry, put/call ratios, the expected move to each expiry, and the historical vol of the underlying&#39;s own published series. Every implied vol is derived and display only.
+[**getVaultMarketOptionAutoClose**](VaultMarketsApi.md#getVaultMarketOptionAutoClose) | **GET** /v1/vault-markets/options/auto-close | Your auto-close rule: close positions (or only in-the-money ones) a set time before expiry with a marketable limit.
+[**getVaultMarketOptionChain**](VaultMarketsApi.md#getVaultMarketOptionChain) | **GET** /v1/vault-markets/options/chain/{underlying} | The option chain for an underlying (index slug or book key): its expiries, and for one expiry (&#x60;expiry&#x60;, default the nearest) each strike&#39;s call and put with best bid / ask, last, open interest, the theoretical price at the reference vol, the implied vol of the mid (display only, never a mark) and the Greeks. Prices are cents per contract.
+[**getVaultMarketOptionComboBook**](VaultMarketsApi.md#getVaultMarketOptionComboBook) | **GET** /v1/vault-markets/options/combos/book | One strategy&#39;s combo book by its canonical key (&#x60;key&#x60;, from the preview or an order): bids and asks by net price and recent strategy trades.
+[**getVaultMarketOptionComboRfq**](VaultMarketsApi.md#getVaultMarketOptionComboRfq) | **GET** /v1/vault-markets/options/combos/rfq/{id} | One strategy quote request and its answers (all of them to the requester, your own to a responder).
+[**getVaultMarketOptionContract**](VaultMarketsApi.md#getVaultMarketOptionContract) | **GET** /v1/vault-markets/options/contracts/{id} | One option contract: its terms, the self-venue book and tape, its published daily settlement prices and, once settled, its settlement (value, source, flagged, and the hash chained to the previous settlement).
+[**getVaultMarketOptionContractBook**](VaultMarketsApi.md#getVaultMarketOptionContractBook) | **GET** /v1/vault-markets/options/contracts/{id}/book | A contract&#39;s order book on the Crossly venue (&#x60;levels&#x60;, default 20): bids and asks by price with milli-contract sizes, and the last 50 prints.
+[**getVaultMarketOptionContractSettlement**](VaultMarketsApi.md#getVaultMarketOptionContractSettlement) | **GET** /v1/vault-markets/options/contracts/{id}/settlement | A settled contract&#39;s settlement: the value (cents per unit of the underlying), its source (the index&#39;s frozen 7-day TWAP, the item&#39;s expiry-day A/B mark, or the last reliable value, flagged), and the hash chained to the previous settlement. Null until it settles.
+[**getVaultMarketOptionHedge**](VaultMarketsApi.md#getVaultMarketOptionHedge) | **GET** /v1/vault-markets/options/hedges | Your hedges: long puts protecting vault units you hold (protective puts) and the vault units locked as collateral for calls you wrote (covered calls).
+[**getVaultMarketOptionIv**](VaultMarketsApi.md#getVaultMarketOptionIv) | **GET** /v1/vault-markets/options/iv/{underlying} | The at-the-money implied volatility of the nearest expiry on an underlying, for display on its page: derived from the options book, quality C, never written as a mark.
+[**getVaultMarketOptionMargin**](VaultMarketsApi.md#getVaultMarketOptionMargin) | **GET** /v1/vault-markets/options/margin | Your options margin: the scenario requirement (worst loss over a +/-40% price x +/-50% vol grid, with offsets from vault units and positions you hold), initial margin, equity and state (ok / call / liquidate) per underlying. Authoritative on the Crossly venue; on the partner venue the partner&#39;s figure decides and this is an estimate.
+[**getVaultMarketOptionPayoff**](VaultMarketsApi.md#getVaultMarketOptionPayoff) | **GET** /v1/vault-markets/options/payoff | Your whole options position on one &#x60;underlying&#x60; at expiry: the P&amp;L curve over 50%..150% of spot, breakevens, and the maximum gain and loss (null when unbounded).
+[**getVaultMarketOptionPosition**](VaultMarketsApi.md#getVaultMarketOptionPosition) | **GET** /v1/vault-markets/options/positions | Your options positions: signed milli-contracts, average open price, the price it is settled to (Crossly venue), the theoretical mark, unrealised and realised P&amp;L in cents, the Greeks for your size, the protective-put flag and your auto-deleveraging queue lights. &#x60;status&#x60; open (default) / all, &#x60;subaccountId&#x60;.
+[**getVaultMarketOptionPractice**](VaultMarketsApi.md#getVaultMarketOptionPractice) | **GET** /v1/vault-markets/options/practice | Your options practice account (play money only, $10,000 to start): cash, positions at the practice maker&#39;s price, equity and P&amp;L.
+[**getVaultMarketOptionRfq**](VaultMarketsApi.md#getVaultMarketOptionRfq) | **GET** /v1/vault-markets/options/rfq/{id} | One option quote request: yours with every answer, or one you were sent with your own answer.
+[**getVaultMarketOptionRisk**](VaultMarketsApi.md#getVaultMarketOptionRisk) | **GET** /v1/vault-markets/options/risk | Your options portfolio&#39;s Greeks (per underlying and total, with dollar delta and 1% gamma), a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;), a price x vol P&amp;L grid, and the beta-weighted delta against an index (&#x60;betaIndex&#x60;, default the deepest). &#x60;book&#x60; live (default) or practice.
 [**getVaultMarketOracle**](VaultMarketsApi.md#getVaultMarketOracle) | **GET** /v1/vault-markets/oracle | Crossly as an oracle publisher (needs CROSSLY_ORACLE_PUBLISHER_KEY + CROSSLY_ORACLE_NETWORK): the network (pyth or switchboard), the ed25519 key every value is signed with, each published index feed with its latest attempt, and 24 h counts of published, skipped and failed. Only built-in indexes priced from A/B marks are published; Crossly never reads its own feed back.
 [**getVaultMarketOracleBySlug**](VaultMarketsApi.md#getVaultMarketOracleBySlug) | **GET** /v1/vault-markets/oracle/{slug} | The latest published oracle value for an index: level, fixed-point price and confidence at the feed exponent, confidence in bps, staleness in seconds, coverage, the exact signed message and its ed25519 signature with the signer key, and whether it is fresh.
 [**getVaultMarketOrderHandling**](VaultMarketsApi.md#getVaultMarketOrderHandling) | **GET** /v1/vault-markets/order-handling | How orders are handled (the 606/607-style disclosure): one book, self-trade prevention, protected market orders, liquidations by auction, halts, dealers and fees.
@@ -269,7 +383,7 @@ Method | HTTP request | Description
 [**getVaultMarketP2pLoan**](VaultMarketsApi.md#getVaultMarketP2pLoan) | **GET** /v1/vault-markets/p2p/loans/{id} | One P2P loan with its money log (fund, repay, refinance). A loan in a running refinancing auction can be read by any lender, without the log.
 [**getVaultMarketPaper**](VaultMarketsApi.md#getVaultMarketPaper) | **GET** /v1/vault-markets/paper | Your paper trading account (play money only, never real or convertible; opened at $10,000 the first time): play cash, buying power, paper positions at the real marks, P&amp;L, working paper orders, recent paper fills and this week on the leaderboard.
 [**getVaultMarketPaperQuote**](VaultMarketsApi.md#getVaultMarketPaperQuote) | **GET** /v1/vault-markets/paper/quote | What a paper order would fill against the real book now, without placing it: units fillable inside the limit (a market order uses the 5% protection band around the mark), average price, simulated fee, and the queue ahead of any rest.
-[**getVaultMarketPartnerMe**](VaultMarketsApi.md#getVaultMarketPartnerMe) | **GET** /v1/vault-markets/partners/me | Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, totals and batches.
+[**getVaultMarketPartnerMe**](VaultMarketsApi.md#getVaultMarketPartnerMe) | **GET** /v1/vault-markets/partners/me | Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, finder profile, totals and batches; and whether your one-time ID check is done.
 [**getVaultMarketPool**](VaultMarketsApi.md#getVaultMarketPool) | **GET** /v1/vault-markets/pool | The CBX market staking pool: size, value, what it lends, utilisation, rate, insurance fund.
 [**getVaultMarketPopReport**](VaultMarketsApi.md#getVaultMarketPopReport) | **GET** /v1/vault-markets/pop-reports | Grading population report for one market (&#x60;bookKey&#x60;): focus (on a graded market: its grade, pop &#x3D; copies graded at exactly that grade, higher &#x3D; copies graded better by the same grader, total, asOf and source), graders (each grader ladder for the card, best grade first, from one report: the newest, the population feed over a hand entry on the same date), provider.connected, and status (ok, not_synced, no_report or no_source) with explain, which says in plain words what is missing. source is provider (the population feed) or ops (entered by Crossly from the grader published report). Counts only, never a price.
 [**getVaultMarketPortfolio**](VaultMarketsApi.md#getVaultMarketPortfolio) | **GET** /v1/vault-markets/portfolio | Your vault holdings at the market price, with cost and P&amp;L, and units you have out on loan.
@@ -278,6 +392,30 @@ Method | HTTP request | Description
 [**getVaultMarketPosition**](VaultMarketsApi.md#getVaultMarketPosition) | **GET** /v1/vault-markets/positions/{id} | One position with its loans, auctions and custodian instruction log.
 [**getVaultMarketPositionExit**](VaultMarketsApi.md#getVaultMarketPositionExit) | **GET** /v1/vault-markets/positions/{id}/exits | A position&#39;s take-profit / stop-loss, if set.
 [**getVaultMarketPositionRisk**](VaultMarketsApi.md#getVaultMarketPositionRisk) | **GET** /v1/vault-markets/positions/{id}/risk | One position&#39;s call and liquidation marks.
+[**getVaultMarketPrediction**](VaultMarketsApi.md#getVaultMarketPrediction) | **GET** /v1/vault-markets/predictions | The prediction markets home: the busiest and soonest-expiring \&quot;Will it hit?\&quot; markets with their probability (each market&#39;s own price, display only), the underlyings with markets, which venue is live, and how many positions you hold.
+[**getVaultMarketPredictionAccount**](VaultMarketsApi.md#getVaultMarketPredictionAccount) | **GET** /v1/vault-markets/predictions/account | Your prediction-market account: the live venue, your account there and the terms you accepted, whether you may trade real money (region, age, self-exclusion) and why not, your self-set limits, and the practice account line.
+[**getVaultMarketPredictionBoard**](VaultMarketsApi.md#getVaultMarketPredictionBoard) | **GET** /v1/vault-markets/predictions/board | The prediction board the Trading Floor and the Market Open plank show: the busiest open markets and their odds. Anonymous: never who holds what.
+[**getVaultMarketPredictionCombo**](VaultMarketsApi.md#getVaultMarketPredictionCombo) | **GET** /v1/vault-markets/predictions/combos/{id} | One of your combos.
+[**getVaultMarketPredictionComboRfq**](VaultMarketsApi.md#getVaultMarketPredictionComboRfq) | **GET** /v1/vault-markets/predictions/combos/rfqs/{id} | One combo request: its legs and size, and the answers you can see (all of them if you asked; yours if you quoted).
+[**getVaultMarketPredictionDailyPrice**](VaultMarketsApi.md#getVaultMarketPredictionDailyPrice) | **GET** /v1/vault-markets/predictions/daily-prices | The published daily settlement price of every listed market for a day (default yesterday): the last hour&#39;s volume-weighted Yes price, else the book mid, else the prior day&#39;s, with volume and open interest.
+[**getVaultMarketPredictionEvent**](VaultMarketsApi.md#getVaultMarketPredictionEvent) | **GET** /v1/vault-markets/predictions/events/{id} | One expiry of a series (an event): its markets, what you hold in each, the real worst and best case of your holdings across them (what your limit counts), and, for a full bucket set, how many sets you could merge. &#x60;venue&#x60; paper or live.
+[**getVaultMarketPredictionForecaster**](VaultMarketsApi.md#getVaultMarketPredictionForecaster) | **GET** /v1/vault-markets/predictions/forecaster | Your forecaster profile: display name, whether it is public (opt-in) and since when, and your followers.
+[**getVaultMarketPredictionForecasterById**](VaultMarketsApi.md#getVaultMarketPredictionForecasterById) | **GET** /v1/vault-markets/predictions/forecasters/{id} | A public forecaster: scores (all time and this month), open sides (never sizes), recent settled calls, followers. 404 when private.
+[**getVaultMarketPredictionLeaderboard**](VaultMarketsApi.md#getVaultMarketPredictionLeaderboard) | **GET** /v1/vault-markets/predictions/leaderboard | Opt-in forecaster leaderboards: &#x60;period&#x60; week, month or all; &#x60;metric&#x60; pnl, accuracy or brier; &#x60;venue&#x60; live or paper (practice has its own board).
+[**getVaultMarketPredictionLimit**](VaultMarketsApi.md#getVaultMarketPredictionLimit) | **GET** /v1/vault-markets/predictions/limits | Your self-set prediction limits: daily loss limit, self-exclusion, a raise waiting its 24 hours, and any hold the venue placed.
+[**getVaultMarketPredictionMarket**](VaultMarketsApi.md#getVaultMarketPredictionMarket) | **GET** /v1/vault-markets/predictions/markets/{id} | One prediction market: its terms, the Yes ladder of the live venue and of the practice book, recent trades, settlement history (outcome, value, hash, review), the series rules text and hash, and your positions in it.
+[**getVaultMarketPredictionMarketForecast**](VaultMarketsApi.md#getVaultMarketPredictionMarketForecast) | **GET** /v1/vault-markets/predictions/markets/{id}/forecasts | How many people forecast a market and their median probability (no names).
+[**getVaultMarketPredictionMarketHistory**](VaultMarketsApi.md#getVaultMarketPredictionMarketHistory) | **GET** /v1/vault-markets/predictions/markets/{id}/history | A market&#39;s history: probability points (display only, never a mark), candles on the Yes price, volume and open interest over &#x60;range&#x60; 1d, 1w, 1m or all; &#x60;venue&#x60; live or paper.
+[**getVaultMarketPredictionMarketStream**](VaultMarketsApi.md#getVaultMarketPredictionMarketStream) | **GET** /v1/vault-markets/predictions/markets/{id}/stream | A server-sent event stream for one prediction market: &#x60;snapshot&#x60; first, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60; as they change.
+[**getVaultMarketPredictionMarketTrade**](VaultMarketsApi.md#getVaultMarketPredictionMarketTrade) | **GET** /v1/vault-markets/predictions/markets/{id}/trades | The trade tape, newest first: Yes price, size, which side took, venue. Page with &#x60;before&#x60; (the last &#x60;seq&#x60;).
+[**getVaultMarketPredictionMeStream**](VaultMarketsApi.md#getVaultMarketPredictionMeStream) | **GET** /v1/vault-markets/predictions/me/stream | A server-sent event stream of your own prediction events: &#x60;pm_order&#x60; (placed, filled, amended, cancelled, expired), &#x60;pm_fill&#x60; (your side, price and fee), &#x60;pm_position&#x60;, &#x60;pm_combo&#x60; and &#x60;pm_conversion&#x60;.
+[**getVaultMarketPredictionMission**](VaultMarketsApi.md#getVaultMarketPredictionMission) | **GET** /v1/vault-markets/predictions/missions | The two \&quot;Will it hit?\&quot; practice missions (your first call; see one settle), whether the server saw each done, and the pin they lead to. Pins only.
+[**getVaultMarketPredictionPaper**](VaultMarketsApi.md#getVaultMarketPredictionPaper) | **GET** /v1/vault-markets/predictions/paper | Your practice prediction account (play money only, $1,000 to start, never real or convertible): cash, money locked by working orders, positions and working orders.
+[**getVaultMarketPredictionQuote**](VaultMarketsApi.md#getVaultMarketPredictionQuote) | **GET** /v1/vault-markets/predictions/quote | What an order would do now without placing it: contracts fillable inside the limit (a market order uses the 10-cent band), average price, estimated fee (Kalshi&#39;s formula), the money it would lock, and the most it could pay out.
+[**getVaultMarketPredictionRulebook**](VaultMarketsApi.md#getVaultMarketPredictionRulebook) | **GET** /v1/vault-markets/predictions/rulebook | The prediction venue&#39;s rule book now and every version, each hashed and chained to the one before (&#x60;chainOk&#x60;).
+[**getVaultMarketPredictionStream**](VaultMarketsApi.md#getVaultMarketPredictionStream) | **GET** /v1/vault-markets/predictions/stream | A server-sent event stream for up to 50 markets (&#x60;markets&#x60;&#x3D;id,id): &#x60;ready&#x60;, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60;, each carrying its marketId.
+[**getVaultMarketPredictionVenue**](VaultMarketsApi.md#getVaultMarketPredictionVenue) | **GET** /v1/vault-markets/predictions/venue | Which prediction venue is live: self (Crossly as the DCM, money at the segregated settlement bank), partner (a partner DCM) or paper (practice only), who runs the book, where money sits, and the env each real mode still needs.
+[**getVaultMarketPredictionWillItHit**](VaultMarketsApi.md#getVaultMarketPredictionWillItHit) | **GET** /v1/vault-markets/predictions/will-it-hit | The \&quot;Will it hit?\&quot; panel for a key (&#x60;bookKey&#x60;) or an index (&#x60;index&#x60; slug): its open markets grouped by expiry, each with its probability. &#x60;eligible&#x60; is false when nothing is listed on it.
 [**getVaultMarketPress**](VaultMarketsApi.md#getVaultMarketPress) | **GET** /v1/vault-markets/press | The press kit: each built-in index with level, quality, n, CSV link and a \&quot;cite as\&quot; line, plus the methodology links.
 [**getVaultMarketPriceWidget**](VaultMarketsApi.md#getVaultMarketPriceWidget) | **GET** /v1/vault-markets/price-widgets/{id} | One of your price widgets, with its iframe and script-tag snippets and URLs.
 [**getVaultMarketProDepth**](VaultMarketsApi.md#getVaultMarketProDepth) | **GET** /v1/vault-markets/pro/depth | The L2 depth ladder: price levels and units per side, best first; asks show how many units are authenticated vault stock.
@@ -297,17 +435,34 @@ Method | HTTP request | Description
 [**getVaultMarketRiskStat**](VaultMarketsApi.md#getVaultMarketRiskStat) | **GET** /v1/vault-markets/risk-stats/{bookKey} | Risk statistics for a book key (weekly returns from A-quality marks only) or an index slug (its closes): annualised volatility raw and Geltner-desmoothed (labelled), max drawdown and beta to the Composite. Needs 26 weekly returns, else no numbers.
 [**getVaultMarketSetGoal**](VaultMarketsApi.md#getVaultMarketSetGoal) | **GET** /v1/vault-markets/set-goals/{id} | One set goal: every piece in the set order, held (with the vault unit) or missing (with the cheapest marked book key that meets the target and its mark), the conditions and grades seen, and the working basket bid with its legs.
 [**getVaultMarketSetGoalBasketPlan**](VaultMarketsApi.md#getVaultMarketSetGoalBasketPlan) | **GET** /v1/vault-markets/set-goals/{id}/basket-plan | What a basket bid would place now, without placing it: one leg per missing piece (cheapest first, the mark plus maxBpsOverMark as the limit), the pieces skipped and why, and the most it can cost (limits plus the worst-case buyer fee), never more than budgetCents.
+[**getVaultMarketSetting**](VaultMarketsApi.md#getVaultMarketSetting) | **GET** /v1/vault-markets/settings | Your vault defaults: Sell from first, new-inventory suggestions, the insurance rule and the default grading service.
+[**getVaultMarketShare**](VaultMarketsApi.md#getVaultMarketShare) | **GET** /v1/vault-markets/shares | Vault Shares at a glance: the venue mode in force (self, partner or paper) and the env it still needs, the rules (about $5 a share, 100 to 100,000 shares, originator keeps 0-50%, 3% origination, maker 0 / taker 100 bps, 90-day lockup, buyouts at the mark x 1.10 with a two-thirds vote) and the disclosure.
+[**getVaultMarketShareBasket**](VaultMarketsApi.md#getVaultMarketShareBasket) | **GET** /v1/vault-markets/shares/baskets/{id} | One theme basket (id or slug): its series, target and live weights, prices, and your own holdings against the weights.
 [**getVaultMarketShareCard**](VaultMarketsApi.md#getVaultMarketShareCard) | **GET** /v1/vault-markets/share-cards/{id} | One share card as the public sees it, with its image and link paths.
+[**getVaultMarketShareInvestor**](VaultMarketsApi.md#getVaultMarketShareInvestor) | **GET** /v1/vault-markets/shares/investor | Your investor account at the venue in force: its status, the investor terms you accepted, and your Reg A+ limit for one offering (10% of the greater of income and net worth unless accredited).
+[**getVaultMarketShareMe**](VaultMarketsApi.md#getVaultMarketShareMe) | **GET** /v1/vault-markets/shares/me | Your Vault Shares: shares and percent of each item, cost, implied value at the last price, your subscriptions and the payouts you were sent.
+[**getVaultMarketSharePaper**](VaultMarketsApi.md#getVaultMarketSharePaper) | **GET** /v1/vault-markets/shares/paper | Your practice account for Vault Shares (play money only, never real, never convertible): cash, practice holdings, open practice orders, recent practice fills.
+[**getVaultMarketSharePaperSeryBook**](VaultMarketsApi.md#getVaultMarketSharePaperSeryBook) | **GET** /v1/vault-markets/shares/paper/series/{id}/book | A series’ practice book: practice orders and the house quote 1% either side of the reference price.
+[**getVaultMarketSharePreview**](VaultMarketsApi.md#getVaultMarketSharePreview) | **GET** /v1/vault-markets/shares/preview | Fractionalize instead: whether one of your vault units can become a Vault Shares series now (stored, tier A or B, reliable mark of $1,000 or more, declared and insured, free) and the offering terms it would get.
+[**getVaultMarketShareSery**](VaultMarketsApi.md#getVaultMarketShareSery) | **GET** /v1/vault-markets/shares/series/{id} | One series: the offering, the share book depth, the latest fills, holders as share percentages (nobody named), buyouts and your vote, your orders and subscriptions.
+[**getVaultMarketShareSeryBook**](VaultMarketsApi.md#getVaultMarketShareSeryBook) | **GET** /v1/vault-markets/shares/series/{id}/book | A share book’s depth: whole shares per price level (integer cents a share), best first.
+[**getVaultMarketShareSeryHistory**](VaultMarketsApi.md#getVaultMarketShareSeryHistory) | **GET** /v1/vault-markets/shares/series/{id}/history | A series’ full price history: OHLC candles of every share-book fill (&#x60;interval&#x60; 1h, 1d or 1w), the offering price, the change since the offering, and the appraisal history beside it. Share prices are display only, never a mark.
+[**getVaultMarketShareSeryPerk**](VaultMarketsApi.md#getVaultMarketShareSeryPerk) | **GET** /v1/vault-markets/shares/series/{id}/perks | Holder perks on a series: whether you hold it, your holder badge, the links to visit the item in the world vault room and in AR, the viewing days with places left and your bookings.
+[**getVaultMarketShareSeryRoom**](VaultMarketsApi.md#getVaultMarketShareSeryRoom) | **GET** /v1/vault-markets/shares/series/{id}/room | The holder room for a series (shareholders only): posts newest first under per-series aliases, never account names. &#x60;before&#x60; pages back.
 [**getVaultMarketStatement**](VaultMarketsApi.md#getVaultMarketStatement) | **GET** /v1/vault-markets/statements | The last 24 months with whether each statement is issued (frozen, with its sha256).
 [**getVaultMarketStatementByMonth**](VaultMarketsApi.md#getVaultMarketStatementByMonth) | **GET** /v1/vault-markets/statements/{month} | A monthly statement (&#x60;month&#x60; like 2026-10): units held at month end, loans, pledges, positions, fills, fees, storage, and cash quoted from the custodian and labelled as its record. Issued (frozen) once the month ends.
 [**getVaultMarketStatementFile**](VaultMarketsApi.md#getVaultMarketStatementFile) | **GET** /v1/vault-markets/statements/{month}/file/{format} | A monthly statement as a csv, pdf or json file.
 [**getVaultMarketSupply**](VaultMarketsApi.md#getVaultMarketSupply) | **GET** /v1/vault-markets/supply | A book key&#39;s units in the vault and authentications passed, by day (oldest first, today live).
 [**getVaultMarketSupplyBatch**](VaultMarketsApi.md#getVaultMarketSupplyBatch) | **GET** /v1/vault-markets/supply/batches/{id} | A box sent to the vault: its prepaid label and tracking, or why it has no label.
 [**getVaultMarketSupplyRoundUp**](VaultMarketsApi.md#getVaultMarketSupplyRoundUp) | **GET** /v1/vault-markets/supply/round-up | Your seller round-up: the share of each payout that sets a vault buy&#39;s budget, the budget so far and what it is doing. &#x60;roundUp&#x60; is null when none is set.
+[**getVaultMarketSupplyShipment**](VaultMarketsApi.md#getVaultMarketSupplyShipment) | **GET** /v1/vault-markets/supply/shipments/{id} | One shipment into the vault, with each unit and whether it was received.
 [**getVaultMarketTax**](VaultMarketsApi.md#getVaultMarketTax) | **GET** /v1/vault-markets/tax | Your tax year on the vault markets: units bought and sold with cost, proceeds, gain and term; lending fees, staking interest (estimate), market-maker rewards; closed positions. Links to the CSV and PDF.
 [**getVaultMarketTaxCsv**](VaultMarketsApi.md#getVaultMarketTaxCsv) | **GET** /v1/vault-markets/tax.csv | The tax year as a CSV: one row per sale, purchase, gift, income line and closed position.
 [**getVaultMarketTaxLossSuggestion**](VaultMarketsApi.md#getVaultMarketTaxLossSuggestion) | **GET** /v1/vault-markets/tax/loss-suggestions | Tax-loss suggestions: the units you hold whose mark is below your cost, each with its lot (acquired when and how, cost in cents), short or long term if sold today and the day a short lot turns long, the estimated loss at the mark before selling fees, mark quality, what stops a sale, and a link to the ordinary sell ticket. With totals by term, the gains realised so far this year, and a not-tax-advice disclosure. Never sells.
+[**getVaultMarketTaxOption**](VaultMarketsApi.md#getVaultMarketTaxOption) | **GET** /v1/vault-markets/tax/options | Your fractional options tax lots for a calendar year (&#x60;year&#x60;, default this year): FIFO disposals (closed or settled) with proceeds, cost, gain in cents and holding term, each flagged as a possible Section 1256 contract, the totals with the 60/40 split, and the positions open at year end. Real fills only; practice never appears. Not tax advice.
 [**getVaultMarketTaxPdf**](VaultMarketsApi.md#getVaultMarketTaxPdf) | **GET** /v1/vault-markets/tax.pdf | The tax year as a PDF summary.
+[**getVaultMarketTaxPrediction**](VaultMarketsApi.md#getVaultMarketTaxPrediction) | **GET** /v1/vault-markets/tax/predictions | Your prediction-market results for a calendar year (&#x60;year&#x60;), as the venue reports them: each settled or voided real-money position with its venue, cost, fees, payout, refund, closing-trade gains and net in cents, and the totals. Practice never appears. Not tax advice.
+[**getVaultMarketTaxShare**](VaultMarketsApi.md#getVaultMarketTaxShare) | **GET** /v1/vault-markets/tax/shares | Your Vault Shares tax lots for a calendar year (&#x60;year&#x60;): disposals (share-book sales, exit payouts) with holding periods, proceeds, cost and gain in cents, the open lots and the totals. The broker-dealer issues the 1099-B; not tax advice.
 [**getVaultMarketTca**](VaultMarketsApi.md#getVaultMarketTca) | **GET** /v1/vault-markets/tca | Your pro orders in a window (&#x60;from&#x60;, &#x60;to&#x60;; default 90 days) with arrival mark and mid, average fill, implementation shortfall, slippage, fill rate and time to fill.
 [**getVaultMarketTcaByOrderId**](VaultMarketsApi.md#getVaultMarketTcaByOrderId) | **GET** /v1/vault-markets/tca/{orderId} | One order&#39;s TCA, including slippage against the VWAP of eligible trades while it worked.
 [**getVaultMarketTod**](VaultMarketsApi.md#getVaultMarketTod) | **GET** /v1/vault-markets/tod | Your transfer-on-death setup: the gate and terms, whether you accepted them, your beneficiaries and shares, units with their designations and who the plan gives them to today, and open claims on your account (which you can stop). A TodOverview object, not a collection.
@@ -326,6 +481,7 @@ Method | HTTP request | Description
 [**getVaultMarketWidgetMark**](VaultMarketsApi.md#getVaultMarketWidgetMark) | **GET** /v1/vault-markets/widgets/mark | What the &lt;crossly-mark&gt; widget shows for &#x60;bookKey&#x60;: mark, quality, trades over 30 days, as-of, sparkline, or &#x60;insufficient&#x60;.
 [**getVaultMarketWidgetSummary**](VaultMarketsApi.md#getVaultMarketWidgetSummary) | **GET** /v1/vault-markets/widget/summary | The home-screen widget summary: portfolio value at the mark with its move since the previous marks (cents and bps) and the share resting on reliable A/B marks, the three biggest movers among what you hold (the market movers when you hold nothing; &#x60;movers.source&#x60; says which), and one watchlist key (&#x60;?key&#x3D;&#x60; a book key on your watchlist; else your newest watch) with a 14-day sparkline. Every price is from the Crossly order book and carries its mark quality (A, B, C or none). Cached for five minutes.
 [**getVaultMarketWorldFloor**](VaultMarketsApi.md#getVaultMarketWorldFloor) | **GET** /v1/vault-markets/world/floor | The Trading Floor in Crossly World: trades (the newest trades on every vault book in the last day, at most 40, newest first: bookKey, name, priceCents, priceText, side -- buy when a buyer took an ask, sell when a seller hit a bid, cross for an auction -- and ageS), tickers (the big board: the most-traded markets, each with its last trade price, the change from the last trade before today in basis points, trades today and the display mark with its quality), bell (Market Open: ringing for ten minutes after a new key opens, with the key and its market link, and what opens next) and trades24h. Every price is a trade on the Crossly order book; it never shows who traded. Nothing can be traded in the room.
+[**getVaultMarketWorldFloorBoard**](VaultMarketsApi.md#getVaultMarketWorldFloorBoard) | **GET** /v1/vault-markets/world/floor/boards | The Trading Floor boards for the round-13 products: odds (the probability ladder: the busiest open \&quot;Will it hit?\&quot; markets with probabilityBps, the market’s own price as a probability, display only), heat (option-chain heat: per listed underlying, open interest and the last day’s volume in milli-contracts in strike buckets around the underlying, a 0..1 heat per bucket and the at-the-money implied vol, display only) and shares (Vault Shares tickers: last share price in cents, changeBps from the last fill before today, shares traded today and the implied item value, display only). quality is always C: none of these is ever a mark. It never shows who traded.
 [**getVaultMarketWorldLounge**](VaultMarketsApi.md#getVaultMarketWorldLounge) | **GET** /v1/vault-markets/world/lounge | The Vault Holders Lounge: the rule to join (held value at reliable marks, or a unit count), whether you may join now and what you hold toward it. Anyone may look in; only holders are seen there. No perks, nothing to trade.
 [**getVaultMarketWorldPlaceVaultGate**](VaultMarketsApi.md#getVaultMarketWorldPlaceVaultGate) | **GET** /v1/vault-markets/world/places/{place}/vault-gate | The vault-holder door on a Crossly World room or Space, by its presence slug (a room share slug, or space-&lt;slug&gt;): the rule (minValueCents held at reliable A/B marks and/or minUnits units, mode any or all, optionally one product, bullion family or category), the rule in words, and whether you may join now with what you hold toward it. gate is null when the place has no vault door. Anyone may look in; only holders join.
 [**getVaultMarketWorth**](VaultMarketsApi.md#getVaultMarketWorth) | **GET** /v1/vault-markets/worth | What one book key (variantId:condition:gradeKey, &#x60;bookKey&#x60;) is worth: the mark in cents with its quality (A from trades, B from firm quotes, C indicative, none) and band, what Instant Exit would pay for one unit now from the best resting bid (yours left out), and your units: how many you hold, how many are free to sell, their value at the mark and what selling every free one now would fetch from today’s bids. Plain-words &#x60;headline&#x60; and &#x60;lines&#x60;. Read only.
@@ -368,6 +524,7 @@ Method | HTTP request | Description
 [**listVaultMarketGradeToVault**](VaultMarketsApi.md#listVaultMarketGradeToVault) | **GET** /v1/vault-markets/grade-to-vault | Your Grade to Vault flows, newest first, each brought up to date: its step, the grading submission, the unit, the grade, the market for it, and the ask once listed. &#x60;live&#x3D;1&#x60; for those still going.
 [**listVaultMarketGrading**](VaultMarketsApi.md#listVaultMarketGrading) | **GET** /v1/vault-markets/grading | Your vault units sent to grading: where each card is in its run, and the grade once it is back.
 [**listVaultMarketHallLenders**](VaultMarketsApi.md#listVaultMarketHallLenders) | **GET** /v1/vault-markets/hall/lenders | The vault units lent to this week&#39;s Hall of Grails exhibition and on show now, in plinth order: the item (skuId, name, imageUrl, grade), the lender as the plate names them (a display name, or \&quot;a collector\&quot;), the plate lines and how many exhibitions the unit has stood in. meta.exhibition is the week (key, title, endsAt). Names no ids and no amounts.
+[**listVaultMarketHoldings**](VaultMarketsApi.md#listVaultMarketHoldings) | **GET** /v1/vault-markets/holdings | Everything you own in the Crossly vault, newest activity first: each unit with its status (inbound, stored, listed, withdraw_requested…) and situation (lent, pledged, in_grading…), what it is worth (&#x60;valueCents&#x60; with &#x60;valueSource&#x60; mark | last_sale | declared | none), declared and insured value, storage owed, its open ask, the deposit toggles when you sent it in, and what you may do with it now (&#x60;actions&#x60;). Units sold or shipped home in the last 90 days have &#x60;past: true&#x60;. &#x60;meta&#x60; carries the totals (units, value, declared, insured, storage owed), your recent boxes and their labels, the ship-home prices and the lending gate.
 [**listVaultMarketIndexCommitteeMinutes**](VaultMarketsApi.md#listVaultMarketIndexCommitteeMinutes) | **GET** /v1/vault-markets/index-committee/minutes | Published Index Committee minutes, newest first: attendees (names and roles), quorum, agenda, minutes and decisions.
 [**listVaultMarketIndexComplaints**](VaultMarketsApi.md#listVaultMarketIndexComplaints) | **GET** /v1/vault-markets/index-complaints | Your complaints and their answers, newest first.
 [**listVaultMarketIndexConstituents**](VaultMarketsApi.md#listVaultMarketIndexConstituents) | **GET** /v1/vault-markets/indexes/{slug}/constituents | The book keys in an index with their weight, move since the last close and contribution to the index&#39;s move (basis points).
@@ -392,6 +549,20 @@ Method | HTTP request | Description
 [**listVaultMarketNavHistory**](VaultMarketsApi.md#listVaultMarketNavHistory) | **GET** /v1/vault-markets/nav/history | Daily NAV snapshots (mark, bid, liquidation, Level 2 / Level 3).
 [**listVaultMarketOffers**](VaultMarketsApi.md#listVaultMarketOffers) | **GET** /v1/vault-markets/offers | The offers inbox: for each book key you hold, the best bid from someone else, units at it, the top bid levels, the mark, and your alert.
 [**listVaultMarketOpening**](VaultMarketsApi.md#listVaultMarketOpening) | **GET** /v1/vault-markets/opening | Keys opening soon on the vault book (and just opened): units on the shelf, dealers quoting, the waitlist, the mark when the book has one, and your place.
+[**listVaultMarketOptionComboRfq**](VaultMarketsApi.md#listVaultMarketOptionComboRfq) | **GET** /v1/vault-markets/options/combos/rfq | Your strategy quote requests, newest first.
+[**listVaultMarketOptionComboRfqInbox**](VaultMarketsApi.md#listVaultMarketOptionComboRfqInbox) | **GET** /v1/vault-markets/options/combos/rfq/inbox | Open strategy quote requests you may answer (never your own; the requester stays anonymous).
+[**listVaultMarketOptionCombos**](VaultMarketsApi.md#listVaultMarketOptionCombos) | **GET** /v1/vault-markets/options/combos | Your strategies: &#x60;status&#x60; working (default), done or all, with their legs as you hold them, net per unit, filled size and status.
+[**listVaultMarketOptionContractDaily**](VaultMarketsApi.md#listVaultMarketOptionContractDaily) | **GET** /v1/vault-markets/options/contracts/{id}/daily | A contract&#39;s published daily settlement prices, newest first (&#x60;days&#x60;, default 30): the price, how it was set (volume-weighted fills, the mid, or Black-Scholes at the reference vol), its implied vol, the underlying, open interest and volume, and each row&#39;s chain hash.
+[**listVaultMarketOptionMmQuotes**](VaultMarketsApi.md#listVaultMarketOptionMmQuotes) | **GET** /v1/vault-markets/options/mm/quotes | Your two-sided option quotes: the contract, the bid and ask orders behind them, cancel-on-disconnect and the last heartbeat.
+[**listVaultMarketOptionNotices**](VaultMarketsApi.md#listVaultMarketOptionNotices) | **GET** /v1/vault-markets/options/notices | Your options notices, newest first: expiry warnings, auto-closes, exercises (a long settled in the money), assignments (a short settled in the money), expiries worthless and rolls.
+[**listVaultMarketOptionOrders**](VaultMarketsApi.md#listVaultMarketOptionOrders) | **GET** /v1/vault-markets/options/orders | Your options orders, newest first: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;, &#x60;subaccountId&#x60;.
+[**listVaultMarketOptionPracticeCombos**](VaultMarketsApi.md#listVaultMarketOptionPracticeCombos) | **GET** /v1/vault-markets/options/practice/combos | Your practice strategies.
+[**listVaultMarketOptionPracticeFills**](VaultMarketsApi.md#listVaultMarketOptionPracticeFills) | **GET** /v1/vault-markets/options/practice/fills | Your practice options fills, newest first (&#x60;limit&#x60;).
+[**listVaultMarketOptionPracticeOrders**](VaultMarketsApi.md#listVaultMarketOptionPracticeOrders) | **GET** /v1/vault-markets/options/practice/orders | Your practice options orders: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;.
+[**listVaultMarketOptionRfq**](VaultMarketsApi.md#listVaultMarketOptionRfq) | **GET** /v1/vault-markets/options/rfq | Your option quote requests, newest first.
+[**listVaultMarketOptionRfqInbox**](VaultMarketsApi.md#listVaultMarketOptionRfqInbox) | **GET** /v1/vault-markets/options/rfq/inbox | Open option quote requests you can answer.
+[**listVaultMarketOptionSeries**](VaultMarketsApi.md#listVaultMarketOptionSeries) | **GET** /v1/vault-markets/options/series | Every options series: its underlying (a Crossly index, or a tier A item key with 90 days of reliable marks), status and the eligibility snapshot it last passed. &#x60;status&#x60;: active (default) or all.
+[**listVaultMarketOptionStrategies**](VaultMarketsApi.md#listVaultMarketOptionStrategies) | **GET** /v1/vault-markets/options/strategies | The strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar): how many strikes and expiries each takes, whether it needs calls or puts, and what it does in plain words.
 [**listVaultMarketOracleHistory**](VaultMarketsApi.md#listVaultMarketOracleHistory) | **GET** /v1/vault-markets/oracle/{slug}/history | Recent publish attempts for an index over 30 days, newest first: published, skipped (with the reason: too few items priced, stale marks, confidence too wide...) or failed (with the error). Filter with &#x60;status&#x60;, cap with &#x60;limit&#x60; (default 100).
 [**listVaultMarketP2pAuctions**](VaultMarketsApi.md#listVaultMarketP2pAuctions) | **GET** /v1/vault-markets/p2p/auctions | Running refinancing auctions, soonest to end first: lenders calls (&#x60;auction&#x60;) and borrowers looking for a cheaper lender (&#x60;refiAuction&#x60;). The payoff now, the rate a new lender gets now, when it ends, and the item.
 [**listVaultMarketP2pLoans**](VaultMarketsApi.md#listVaultMarketP2pLoans) | **GET** /v1/vault-markets/p2p/loans | Your P2P loans as borrower and/or lender (&#x60;role&#x60;), live by default (&#x60;status&#x60;): what is owed now, daily interest, the refinancing auction when called, and the item mark for information only (it never triggers anything).
@@ -403,11 +574,26 @@ Method | HTTP request | Description
 [**listVaultMarketPaperMissions**](VaultMarketsApi.md#listVaultMarketPaperMissions) | **GET** /v1/vault-markets/paper/missions | Your paper-trading missions (play money only): each mission with what to do, your count toward its target, whether it is done and when, plus a suggested market for the \&quot;Read the mark\&quot; mission. Progress is observed by the server from your paper orders and fills, price watches, set goals and graded mark checks. Missions earn world quest progress and cosmetic pins, never money.
 [**listVaultMarketPaperOrders**](VaultMarketsApi.md#listVaultMarketPaperOrders) | **GET** /v1/vault-markets/paper/orders | Your paper orders since your last reset, newest first: working, done (filled, cancelled, expired) or all. Play money only.
 [**listVaultMarketPartnerAccruals**](VaultMarketsApi.md#listVaultMarketPartnerAccruals) | **GET** /v1/vault-markets/partners/accruals | Your partner fee shares, newest first: accrued on a unit&#39;s first sale, paid in Bucks once the sale is final, void if it was refunded.
+[**listVaultMarketPartnerFinder**](VaultMarketsApi.md#listVaultMarketPartnerFinder) | **GET** /v1/vault-markets/partners/finder | Vault drop-off partners near a &#x60;postalCode&#x60;, optionally offering a &#x60;service&#x60;: address, hours and services.
 [**listVaultMarketPoolStakes**](VaultMarketsApi.md#listVaultMarketPoolStakes) | **GET** /v1/vault-markets/pool/stakes | Your stakes in the market pool and what each redeems for now.
 [**listVaultMarketPortfolioMarginHistory**](VaultMarketsApi.md#listVaultMarketPortfolioMarginHistory) | **GET** /v1/vault-markets/portfolio-margin/history | The 5-minute portfolio margin recalculations for a firm sub-account over the last &#x60;hours&#x60; (default 24, at most 720), newest first: equity, requirement, excess, scenario and floor figures, gross and state.
 [**listVaultMarketPositionUnits**](VaultMarketsApi.md#listVaultMarketPositionUnits) | **GET** /v1/vault-markets/positions/{id}/units | The vault units of one of your positions that you hold (a leveraged long&#39;s collateral), each with its story link.
 [**listVaultMarketPositions**](VaultMarketsApi.md#listVaultMarketPositions) | **GET** /v1/vault-markets/positions | Your positions, live (default) or closed.
 [**listVaultMarketPositionsRisk**](VaultMarketsApi.md#listVaultMarketPositionsRisk) | **GET** /v1/vault-markets/positions-risk | For each live position: its tier, health, margin state, the mark at which it is called and the mark at which it is liquidated, and the distance to it.
+[**listVaultMarketPredictionAlerts**](VaultMarketsApi.md#listVaultMarketPredictionAlerts) | **GET** /v1/vault-markets/predictions/alerts | Your probability alerts: a market, a level (percent) and a direction; each fires once through the alerts hub (kind prediction_odds).
+[**listVaultMarketPredictionComboMyRfqs**](VaultMarketsApi.md#listVaultMarketPredictionComboMyRfqs) | **GET** /v1/vault-markets/predictions/combos/my-rfqs | Your combo requests with every answer they got.
+[**listVaultMarketPredictionComboRfqs**](VaultMarketsApi.md#listVaultMarketPredictionComboRfqs) | **GET** /v1/vault-markets/predictions/combos/rfqs | Open combo requests makers can answer: legs, size and the legs&#39; own combined price; never who asked. Your own answers are shown on them.
+[**listVaultMarketPredictionCombos**](VaultMarketsApi.md#listVaultMarketPredictionCombos) | **GET** /v1/vault-markets/predictions/combos | Your combos, as buyer or maker: legs and their outcomes, stakes, the pot, any reprice after a voided leg, and how each settled.
+[**listVaultMarketPredictionComments**](VaultMarketsApi.md#listVaultMarketPredictionComments) | **GET** /v1/vault-markets/predictions/comments | A discussion thread on a market (&#x60;marketId&#x60;) or a series (&#x60;seriesId&#x60;): comments newest first with their replies. A commenter&#39;s side shows only when their forecaster profile is public.
+[**listVaultMarketPredictionConversions**](VaultMarketsApi.md#listVaultMarketPredictionConversions) | **GET** /v1/vault-markets/predictions/conversions | Your bucket-set conversions (split, merge, convert), newest first.
+[**listVaultMarketPredictionFollowing**](VaultMarketsApi.md#listVaultMarketPredictionFollowing) | **GET** /v1/vault-markets/predictions/following | The forecasters you follow.
+[**listVaultMarketPredictionForecasts**](VaultMarketsApi.md#listVaultMarketPredictionForecasts) | **GET** /v1/vault-markets/predictions/forecasts | Your forecasts (a probability you attached to a market, money or not) and how the markets came out.
+[**listVaultMarketPredictionMakers**](VaultMarketsApi.md#listVaultMarketPredictionMakers) | **GET** /v1/vault-markets/predictions/makers | Your prediction maker programme applications and their status (applied, active, suspended, revoked) and rebate.
+[**listVaultMarketPredictionMarkets**](VaultMarketsApi.md#listVaultMarketPredictionMarkets) | **GET** /v1/vault-markets/predictions/markets | Prediction markets, filtered by a book key, an index slug, an underlying kind (index | book_key | category_pair), a status (open | closed | settled | all), an expiry day or text. Each with its strike, expiry, best Yes bid and ask, last price, volume, open interest and probability.
+[**listVaultMarketPredictionOrders**](VaultMarketsApi.md#listVaultMarketPredictionOrders) | **GET** /v1/vault-markets/predictions/orders | Your prediction orders, newest first: working, done or all; practice, live or all.
+[**listVaultMarketPredictionPositions**](VaultMarketsApi.md#listVaultMarketPredictionPositions) | **GET** /v1/vault-markets/predictions/positions | Your prediction positions (practice, live or all; open, settled or all): side, contracts, cost, value at the last price, fees, realised P&amp;L, payout or refund once settled, and the share card if you made one.
+[**listVaultMarketPredictionProposalListed**](VaultMarketsApi.md#listVaultMarketPredictionProposalListed) | **GET** /v1/vault-markets/predictions/proposals/listed | The markets you proposed that are listed: volume, status and what the creator share has earned you.
+[**listVaultMarketPredictionProposals**](VaultMarketsApi.md#listVaultMarketPredictionProposals) | **GET** /v1/vault-markets/predictions/proposals | Your market proposals and where each stands (pending, listed, rejected, withdrawn).
 [**listVaultMarketPriceWidgets**](VaultMarketsApi.md#listVaultMarketPriceWidgets) | **GET** /v1/vault-markets/price-widgets | Your price widgets, newest first, each with its iframe and script-tag snippets. &#x60;meta.codes&#x60; lists your affiliate codes a widget can link through; &#x60;meta.max&#x60; is the cap on live widgets.
 [**listVaultMarketProCandles**](VaultMarketsApi.md#listVaultMarketProCandles) | **GET** /v1/vault-markets/pro/candles | OHLCV candles (1m, 5m, 15m, 1h, 4h, 1d) from the trades on a book key.
 [**listVaultMarketProEvents**](VaultMarketsApi.md#listVaultMarketProEvents) | **GET** /v1/vault-markets/pro/events | Your order event log after a sequence number (new, leg, fill, replaced, cancelled, expired, done): a replayable drop copy.
@@ -426,9 +612,24 @@ Method | HTTP request | Description
 [**listVaultMarketSetGoalBaskets**](VaultMarketsApi.md#listVaultMarketSetGoalBaskets) | **GET** /v1/vault-markets/set-goals/{id}/baskets | A set goal basket bids, newest first, each with its budget, what it committed and spent, and every leg (piece, book key, limit, pro order id, status).
 [**listVaultMarketSetGoalSets**](VaultMarketsApi.md#listVaultMarketSetGoalSets) | **GET** /v1/vault-markets/set-goals/sets | Sets to start a goal on. With q (2+ characters): a word-start search of every catalogue set. Without: the sets you hold pieces of in the vault, then the collections you are building. Each with your live goal on it, if any.
 [**listVaultMarketSetGoals**](VaultMarketsApi.md#listVaultMarketSetGoals) | **GET** /v1/vault-markets/set-goals | Your set goals: the set, the target a piece must meet, pieces held of the total (from your vault), and the working basket bid.
+[**listVaultMarketShareAutoInvest**](VaultMarketsApi.md#listVaultMarketShareAutoInvest) | **GET** /v1/vault-markets/shares/auto-invest | Your recurring auto-invest plans: amount, weekly or monthly, the series and weights or the basket, what rolled over (budget too small for a whole share; your money stays at the venue), the next run.
+[**listVaultMarketShareAutoInvestRuns**](VaultMarketsApi.md#listVaultMarketShareAutoInvestRuns) | **GET** /v1/vault-markets/shares/auto-invest/{id}/runs | A plan’s runs, newest first: the budget, what each series bought, what was spent and what rolled over; rebalances too.
+[**listVaultMarketShareBaskets**](VaultMarketsApi.md#listVaultMarketShareBaskets) | **GET** /v1/vault-markets/shares/baskets | Theme baskets: curated model portfolios of Vault Shares series with target weights. You buy and own every share directly in your own name; a basket is never a fund.
 [**listVaultMarketShareCards**](VaultMarketsApi.md#listVaultMarketShareCards) | **GET** /v1/vault-markets/share-cards | Your share cards (not taken down), each as the public sees it.
+[**listVaultMarketShareDrops**](VaultMarketsApi.md#listVaultMarketShareDrops) | **GET** /v1/vault-markets/shares/drops | The Vault Shares drops calendar: announced and open offerings, soonest first, each with its phase (announced, early_access, requests, open), the countdown, the allocation (fcfs, pro_rata or lottery with a per-person cap), your Crossly One early-access time (it moves when you may ask, never the price) and whether you asked to be told.
+[**listVaultMarketShareGifts**](VaultMarketsApi.md#listVaultMarketShareGifts) | **GET** /v1/vault-markets/shares/gifts | Your share gifts, sent and received, newest first, with where each stands (offered, instructed, settled, declined, cancelled, expired, rejected).
+[**listVaultMarketShareOrders**](VaultMarketsApi.md#listVaultMarketShareOrders) | **GET** /v1/vault-markets/shares/orders | Your share-book orders, newest first; &#x60;seriesId&#x60; and &#x60;open&#x60; narrow it.
+[**listVaultMarketShareSeries**](VaultMarketsApi.md#listVaultMarketShareSeries) | **GET** /v1/vault-markets/shares/series | Vault Shares series: open offerings first, then trading, then the rest. &#x60;status&#x60; and &#x60;bookKey&#x60; narrow it. Each with its terms, progress, last share price and implied item value (display only, never a mark), and your holding.
+[**listVaultMarketShareSeryAppraisals**](VaultMarketsApi.md#listVaultMarketShareSeryAppraisals) | **GET** /v1/vault-markets/shares/series/{id}/appraisals | The item’s appraisal history: the offering valuation (sealed valuation statement), independent and insurance appraisals, and any buyout or exit price.
+[**listVaultMarketShareSeryTape**](VaultMarketsApi.md#listVaultMarketShareSeryTape) | **GET** /v1/vault-markets/shares/series/{id}/tape | The latest fills on a share book, newest first, with which side made the market.
+[**listVaultMarketShareSeryUpdates**](VaultMarketsApi.md#listVaultMarketShareSeryUpdates) | **GET** /v1/vault-markets/shares/series/{id}/updates | The item’s story, provenance, condition reports, appraisals and exhibitions, newest first. Holders also see holders-only updates.
+[**listVaultMarketShareSubscriptions**](VaultMarketsApi.md#listVaultMarketShareSubscriptions) | **GET** /v1/vault-markets/shares/subscriptions | Your offering subscriptions, newest first, with where each stands (pending, escrowed, allocated, refunded).
+[**listVaultMarketShareWorld**](VaultMarketsApi.md#listVaultMarketShareWorld) | **GET** /v1/vault-markets/shares/world | The world vault home’s fractional tiles: each item you own a share of, with \&quot;you own 3.2%\&quot;.
+[**listVaultMarketSupplyDeclaredValues**](VaultMarketsApi.md#listVaultMarketSupplyDeclaredValues) | **GET** /v1/vault-markets/supply/declared-values | What each item&#39;s declared value starts at, by your insurance rule (market, cost or price). &#x60;inventoryItemIds&#x60; comma-separated.
 [**listVaultMarketSupplyDeposits**](VaultMarketsApi.md#listVaultMarketSupplyDeposits) | **GET** /v1/vault-markets/supply/deposits | Your units sent to the vault, newest first, each with its state and its key&#39;s Instant Exit line (\&quot;Instant Exit now: $X (N% of mark)\&quot; or \&quot;No market yet\&quot;). Filter with &#x60;inventoryItemIds&#x60; (comma-separated).
+[**listVaultMarketSupplyEligibility**](VaultMarketsApi.md#listVaultMarketSupplyEligibility) | **GET** /v1/vault-markets/supply/eligibility | Can these inventory items (&#x60;inventoryItemIds&#x60;, comma-separated, or every item linked to &#x60;listingId&#x60;) be sent to the vault now? Each says why not.
 [**listVaultMarketSupplyInvites**](VaultMarketsApi.md#listVaultMarketSupplyInvites) | **GET** /v1/vault-markets/supply/invites | Market Open invites to you as a dealer: keys Crossly is opening and asks you to quote.
+[**listVaultMarketSupplyShipments**](VaultMarketsApi.md#listVaultMarketSupplyShipments) | **GET** /v1/vault-markets/supply/shipments | Your shipments into the vault, newest first: method, label or drop-off code, tracking and how many units were received.
 [**listVaultMarketValuationStatements**](VaultMarketsApi.md#listVaultMarketValuationStatements) | **GET** /v1/vault-markets/valuation-statements | The insurance and appraisal statements you issued, newest first: purpose, date, units, total at the marks, hash and verify link.
 [**listVaultMarketVaultSuggestions**](VaultMarketsApi.md#listVaultMarketVaultSuggestions) | **GET** /v1/vault-markets/vault-suggestions | What to send to the vault: your inventory items whose book key has a liquid vault market (tier A, B or C), best first. Each has a score (0 to 100) and its reasons, the market (tier, mark and its quality, best bid, best vault ask, spread), Instant Exit now, your list price, days listed without selling, and the vault fee. &#x60;meta.summary&#x60; counts what was left out and why. Inform only; send with POST /api/v1/vault-markets/supply/send.
 [**listVaultMarketWatchlist**](VaultMarketsApi.md#listVaultMarketWatchlist) | **GET** /v1/vault-markets/watchlist | Your watched book keys with mark, 24 h and 7 d change, and the last 30 daily marks (sparkline).
@@ -441,6 +642,7 @@ Method | HTTP request | Description
 [**listVaultReceipts**](VaultMarketsApi.md#listVaultReceipts) | **GET** /v1/vault/receipts | Your warehouse receipts (documents of title for your vault units), live first. meta.receipts says whether receipts are registered (VAULT_WAREHOUSE_ISSUER) and their terms version.
 [**listVaultUnitList**](VaultMarketsApi.md#listVaultUnitList) | **GET** /v1/vault/unit-list | The published unit list (bar-list equivalent): every unit on a vault shelf with its warehouse receipt number (when receipts are registered), book key, shelf location code, insured value, status, pledged / on-loan flags and a per-receipt hashed holder (never a name or id). Filter with &#x60;bookKey&#x60;; pages with &#x60;page&#x60; / &#x60;limit&#x60;.
 [**updateVaultMarketAlertPref**](VaultMarketsApi.md#updateVaultMarketAlertPref) | **PUT** /v1/vault-markets/alert-prefs | Change vault alert settings: &#x60;matrix&#x60; ({ kind: { channel: true|false } }, merged onto what is set), &#x60;quietHours&#x60; ({ start: \&quot;HH:MM\&quot;, end: \&quot;HH:MM\&quot;, tz } or null to clear) and &#x60;telegram&#x60; (the Telegram master switch). Locked switches are ignored. Returns the new settings.
+[**updateVaultMarketAutoBuy**](VaultMarketsApi.md#updateVaultMarketAutoBuy) | **PUT** /v1/vault-markets/auto-buy | Set up or change Auto-buy with payouts: &#x60;shareBps&#x60; (1–50%) and the whole want list in order, each with an optional &#x60;maxPriceCents&#x60; (fee included).
 [**updateVaultMarketBlockAllocation**](VaultMarketsApi.md#updateVaultMarketBlockAllocation) | **PUT** /v1/vault-markets/blocks/{orderId}/allocation | Post-trade allocation: set or replace the plan for a buy you placed for one of the entity&#39;s sub-accounts (that sub-account leads). Refused once any share has moved.
 [**updateVaultMarketChannel**](VaultMarketsApi.md#updateVaultMarketChannel) | **PUT** /v1/vault-markets/channels | Change the switches: &#x60;telegramAlerts&#x60;, &#x60;telegramDigest&#x60;, &#x60;pushCapPerDay&#x60; (0 to 20). Margin calls and recalls are never capped. Returns the new view.
 [**updateVaultMarketDealerBand**](VaultMarketsApi.md#updateVaultMarketDealerBand) | **PUT** /v1/vault-markets/dealer/bands | Commit to an Instant Exit band on a key: a standing bid for &#x60;units&#x60; kept at &#x60;bandBps&#x60; of the mark, never above &#x60;maxPriceCents&#x60;, re-quoted as the mark moves.
@@ -452,16 +654,23 @@ Method | HTTP request | Description
 [**updateVaultMarketFollowSharing**](VaultMarketsApi.md#updateVaultMarketFollowSharing) | **PUT** /v1/vault-markets/follows/sharing | Turn sharing switches on or off (&#x60;isPublic&#x60;, &#x60;showBuys&#x60;, &#x60;deposits&#x60;, &#x60;sales&#x60;, &#x60;hallLoans&#x60;, &#x60;orders&#x60;, &#x60;leaderboard&#x60;). A switch shows only what happens after it goes on; all but the profile itself need the profile public.
 [**updateVaultMarketHomeUnit**](VaultMarketsApi.md#updateVaultMarketHomeUnit) | **PUT** /v1/vault-markets/home/units | Show exactly these vault units in your Crossly World home: { units: [{ vaultItemId, visitors }] }. Units left out come out of their cases; units already standing stay where they are; new ones go into a free display-case or shelf slot, else a glass case of their own along a wall. visitors: true lets people who may enter your home see that unit (default false: only you). Returns placed, unplaced (no free case: the home is full), refused (with why) and the desk. Display only: nothing moves.
 [**updateVaultMarketIndex**](VaultMarketsApi.md#updateVaultMarketIndex) | **PATCH** /v1/vault-markets/indexes/{slug} | Rename, re-weight, share or change the keys of an index of your own; its level carries on.
+[**updateVaultMarketItemSellFrom**](VaultMarketsApi.md#updateVaultMarketItemSellFrom) | **PUT** /v1/vault-markets/items/{inventoryItemId}/sell-from | Set which unit a sale of this item ships first: &#x60;vault_first&#x60;, &#x60;warehouse_first&#x60; or &#x60;cheapest&#x60; (to ship); null &#x3D; your default. Quantities stay the same on every channel: only who ships changes.
 [**updateVaultMarketLendingElection**](VaultMarketsApi.md#updateVaultMarketLendingElection) | **PUT** /v1/vault-markets/lending/election | Change your lender election (applies to loans opened after the change). Needs lending.
 [**updateVaultMarketMmMmp**](VaultMarketsApi.md#updateVaultMarketMmMmp) | **PUT** /v1/vault-markets/mm/mmp | Set market-maker protection: N units or $X filled on your quotes within T seconds pulls every quote and freezes quoting for a set time.
 [**updateVaultMarketMode**](VaultMarketsApi.md#updateVaultMarketMode) | **PUT** /v1/vault-markets/mode | Choose your Vault Markets mode: &#x60;mode&#x60; simple or pro. Remembered for you on the web and in the app. A display preference only: it places nothing and moves no money.
 [**updateVaultMarketOfferAlert**](VaultMarketsApi.md#updateVaultMarketOfferAlert) | **PUT** /v1/vault-markets/offers/alert | Set (or clear with null) the bid price that should always notify you on a key you hold, and mute or unmute offer notices on it.
+[**updateVaultMarketOptionAutoClose**](VaultMarketsApi.md#updateVaultMarketOptionAutoClose) | **PUT** /v1/vault-markets/options/auto-close | Set your auto-close rule: &#x60;enabled&#x60;, &#x60;minutesBefore&#x60; (30 to 10080), &#x60;onlyItm&#x60;, &#x60;maxSlippageBps&#x60; (0 to 2000).
 [**updateVaultMarketPaperLeaderboard**](VaultMarketsApi.md#updateVaultMarketPaperLeaderboard) | **PUT** /v1/vault-markets/paper/leaderboard | Join or leave the weekly paper leaderboard. Joining needs a display name (2 to 24 letters, numbers, spaces, dots, dashes or underscores), never your real name. Returns &#x60;{ optIn, displayName }&#x60;.
+[**updateVaultMarketPartnerMe**](VaultMarketsApi.md#updateVaultMarketPartnerMe) | **PATCH** /v1/vault-markets/partners/me | Your drop-off partnership&#39;s finder profile: postal code, opening hours, services and whether you are listed.
 [**updateVaultMarketPositionExit**](VaultMarketsApi.md#updateVaultMarketPositionExit) | **PUT** /v1/vault-markets/positions/{id}/exits | Set a position&#39;s take-profit / stop-loss: a long is closed, a short covered, when the last trade reaches one. Both null clears them.
+[**updateVaultMarketPredictionComment**](VaultMarketsApi.md#updateVaultMarketPredictionComment) | **PATCH** /v1/vault-markets/predictions/comments/{id} | Edit your comment.
+[**updateVaultMarketPredictionForecaster**](VaultMarketsApi.md#updateVaultMarketPredictionForecaster) | **PUT** /v1/vault-markets/predictions/forecaster | Go public under a display name (&#x60;public: true&#x60;), rename, or go private (&#x60;public: false&#x60;: nothing is shown again).
+[**updateVaultMarketPredictionLimit**](VaultMarketsApi.md#updateVaultMarketPredictionLimit) | **PUT** /v1/vault-markets/predictions/limits | Set your daily loss limit (&#x60;dailyLossLimitCents&#x60;, null &#x3D; none) or exclude yourself (&#x60;excludeDays&#x60;, &#x60;excludedUntil&#x60; or \&quot;forever\&quot;). Tighter takes effect at once; looser waits 24 hours.
 [**updateVaultMarketPriceWidget**](VaultMarketsApi.md#updateVaultMarketPriceWidget) | **PATCH** /v1/vault-markets/price-widgets/{id} | Change a widget: name, range, layout, theme, affiliate code (null for none) or allowed sites. The market or index it shows never changes: make a new widget for another.
 [**updateVaultMarketProfile**](VaultMarketsApi.md#updateVaultMarketProfile) | **PUT** /v1/vault-markets/profile | Turn your public vault profile on or off (&#x60;isPublic&#x60;) and whether followers see your new buys (&#x60;showBuys&#x60;). It shows weights by market, never dollars.
 [**updateVaultMarketRecurring**](VaultMarketsApi.md#updateVaultMarketRecurring) | **PATCH** /v1/vault-markets/recurring/{id} | Change a recurring buy&#39;s schedule, caps, cards or auto-lend, or pause / resume it.
 [**updateVaultMarketSetGoal**](VaultMarketsApi.md#updateVaultMarketSetGoal) | **PATCH** /v1/vault-markets/set-goals/{id} | Change what a piece must be to count (condition, grade mode, grade). Refused while a basket bid works: cancel it first.
+[**updateVaultMarketSetting**](VaultMarketsApi.md#updateVaultMarketSetting) | **PUT** /v1/vault-markets/settings | Change your vault defaults; send only the fields you change.
 [**updateVaultMarketShareCard**](VaultMarketsApi.md#updateVaultMarketShareCard) | **PATCH** /v1/vault-markets/share-cards/{id} | Show or hide the dollar amounts on one of your share cards (&#x60;showAmounts&#x60;).
 [**updateVaultMarketSupplyDeposit**](VaultMarketsApi.md#updateVaultMarketSupplyDeposit) | **PATCH** /v1/vault-markets/supply/deposits/{id} | Change a deposit&#39;s toggles: &#x60;autoListBps&#x60; (list at that share of the mark once stored; null &#x3D; do not) and &#x60;lendWhenIdle&#x60;.
 [**updateVaultMarketSupplyRoundUp**](VaultMarketsApi.md#updateVaultMarketSupplyRoundUp) | **PUT** /v1/vault-markets/supply/round-up | Set the round-up: &#x60;shareBps&#x60; (1%-50%) of each payout released to you adds to a budget; when it covers the cheapest vault unit on &#x60;bookKey&#x60;, one unit is bought with your saved card, never above the budget.
@@ -995,6 +1204,92 @@ Name | Type | Description  | Notes
 ### Return type
 
 **OkResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketAutoBuyPause"></a>
+# **createVaultMarketAutoBuyPause**
+> CreateVaultMarketAutoBuyPauseResponse createVaultMarketAutoBuyPause()
+
+Pause Auto-buy with payouts: the budget and want list stay; no payouts are counted and nothing is bought.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketAutoBuyPauseResponse = apiInstance.createVaultMarketAutoBuyPause()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketAutoBuyPause")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketAutoBuyPause")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketAutoBuyPauseResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketAutoBuyResume"></a>
+# **createVaultMarketAutoBuyResume**
+> CreateVaultMarketAutoBuyResumeResponse createVaultMarketAutoBuyResume()
+
+Resume Auto-buy with payouts: payouts released from now on count.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketAutoBuyResumeResponse = apiInstance.createVaultMarketAutoBuyResume()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketAutoBuyResume")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketAutoBuyResume")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketAutoBuyResumeResponse**
 
 ### Authorization
 
@@ -4512,6 +4807,1172 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createVaultMarketOptionCombo"></a>
+# **createVaultMarketOptionCombo**
+> CreateVaultMarketOptionComboResponse createVaultMarketOptionCombo()
+
+Place a strategy: 2 to 4 legs on one underlying with ratios, a quantity (units, three decimals) and ONE signed net limit per unit (+ the most you pay, - the least credit you take). Margined on the combined scenario loss of all its legs; matched against the combo book, then the legs&#39; own books; every leg fills at once or none does. Crossly venue only (409 combos_self_venue_only on the partner venue).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionComboResponse = apiInstance.createVaultMarketOptionCombo()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionCombo")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionCombo")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionComboResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionComboCancel"></a>
+# **createVaultMarketOptionComboCancel**
+> ListVaultMarketOptionCombosItem createVaultMarketOptionComboCancel(id)
+
+Cancel a working strategy.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketOptionCombosItem = apiInstance.createVaultMarketOptionComboCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionComboCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionComboCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketOptionCombosItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionComboRfq"></a>
+# **createVaultMarketOptionComboRfq**
+> CreateVaultMarketOptionComboRfqResponse createVaultMarketOptionComboRfq()
+
+Ask makers for a firm net price on a whole strategy (legs, quantity, an optional limit that is never shown). Crossly venue only.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionComboRfqResponse = apiInstance.createVaultMarketOptionComboRfq()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionComboRfq")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionComboRfq")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionComboRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionComboRfqAccept"></a>
+# **createVaultMarketOptionComboRfqAccept**
+> CreateVaultMarketOptionComboRfqAcceptResponse createVaultMarketOptionComboRfqAccept(id)
+
+Take a live, firm answer: both strategies go through the normal path (margin, pre-trade risk), every leg at once.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketOptionComboRfqAcceptResponse = apiInstance.createVaultMarketOptionComboRfqAccept(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionComboRfqAccept")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionComboRfqAccept")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketOptionComboRfqAcceptResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionComboRfqCancel"></a>
+# **createVaultMarketOptionComboRfqCancel**
+> IdStatusResponse createVaultMarketOptionComboRfqCancel(id)
+
+Cancel your open strategy quote request.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : IdStatusResponse = apiInstance.createVaultMarketOptionComboRfqCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionComboRfqCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionComboRfqCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**IdStatusResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionComboRfqRespond"></a>
+# **createVaultMarketOptionComboRfqRespond**
+> CreateVaultMarketOptionRfqRespondResponse createVaultMarketOptionComboRfqRespond(id)
+
+Answer a strategy quote request with a firm net price per unit in the canonical terms, good for 60 seconds; a new answer replaces your last.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketOptionRfqRespondResponse = apiInstance.createVaultMarketOptionComboRfqRespond(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionComboRfqRespond")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionComboRfqRespond")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketOptionRfqRespondResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionComboRfqResponseWithdraw"></a>
+# **createVaultMarketOptionComboRfqResponseWithdraw**
+> IdStatusResponse createVaultMarketOptionComboRfqResponseWithdraw(id)
+
+Withdraw your live answer to a strategy quote request.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : IdStatusResponse = apiInstance.createVaultMarketOptionComboRfqResponseWithdraw(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionComboRfqResponseWithdraw")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionComboRfqResponseWithdraw")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**IdStatusResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionCoveredCall"></a>
+# **createVaultMarketOptionCoveredCall**
+> CreateVaultMarketOptionCoveredCallResponse createVaultMarketOptionCoveredCall()
+
+Write a covered call: lock a stored vault unit (&#x60;vaultItemId&#x60;) as collateral and sell up to one call on its own key (&#x60;contractId&#x60;, &#x60;quantity&#x60; &lt;&#x3D; 1) at a price or an implied vol. The unit cannot be sold, moved, lent or withdrawn until the call is bought back or expires; if assigned you pay cash, or the unit sells at the vault auction to cover.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionCoveredCallResponse = apiInstance.createVaultMarketOptionCoveredCall()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionCoveredCall")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionCoveredCall")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionCoveredCallResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionCoveredCallRelease"></a>
+# **createVaultMarketOptionCoveredCallRelease**
+> CreateVaultMarketOptionCoveredCallReleaseResponse createVaultMarketOptionCoveredCallRelease(id)
+
+Free a covered call&#39;s vault unit once the call it covers is closed (or covered by other units).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketOptionCoveredCallReleaseResponse = apiInstance.createVaultMarketOptionCoveredCallRelease(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionCoveredCallRelease")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionCoveredCallRelease")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketOptionCoveredCallReleaseResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionMmHeartbeat"></a>
+# **createVaultMarketOptionMmHeartbeat**
+> CreateVaultMarketOptionMmHeartbeatResponse createVaultMarketOptionMmHeartbeat()
+
+Keep your option quotes alive (cancel-on-disconnect pulls them after 30 s without a heartbeat).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionMmHeartbeatResponse = apiInstance.createVaultMarketOptionMmHeartbeat()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionMmHeartbeat")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionMmHeartbeat")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionMmHeartbeatResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionMmQuote"></a>
+# **createVaultMarketOptionMmQuote**
+> CreateVaultMarketOptionMmQuoteResponse createVaultMarketOptionMmQuote()
+
+Set (replace) a two-sided quote on an option contract: &#x60;bid&#x60; and / or &#x60;ask&#x60; each { priceCents, quantity in contracts }, posted as post-only GTC orders on the Crossly venue. Market-maker protection counts their fills; a quote inside 20% of its mid earns liquidity rewards (CBX).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionMmQuoteResponse = apiInstance.createVaultMarketOptionMmQuote()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionMmQuote")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionMmQuote")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionMmQuoteResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionMmQuotePull"></a>
+# **createVaultMarketOptionMmQuotePull**
+> DeleteVaultMarketProQuoteResponse createVaultMarketOptionMmQuotePull()
+
+Pull your option quotes on one contract (&#x60;contractId&#x60;) or all of them.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : DeleteVaultMarketProQuoteResponse = apiInstance.createVaultMarketOptionMmQuotePull()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionMmQuotePull")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionMmQuotePull")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**DeleteVaultMarketProQuoteResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionOrder"></a>
+# **createVaultMarketOptionOrder**
+> CreateVaultMarketOptionOrderResponse createVaultMarketOptionOrder()
+
+Place an options order: &#x60;contractId&#x60;, &#x60;side&#x60;, &#x60;quantity&#x60; in contracts (three decimals), a &#x60;priceCents&#x60; or an &#x60;iv&#x60; (&#x60;quoteMode&#x60;), &#x60;tif&#x60; gtc / gtd (with &#x60;expiresAt&#x60;) / ioc, &#x60;postOnly&#x60;. Idempotent on &#x60;clientOrderId&#x60;. On the Crossly venue it matches price-time with self-trade prevention after a scenario-margin check; on the partner venue it routes to the partner (accept its &#x60;termsVersion&#x60;). &#x60;subaccountId&#x60; trades for a firm sub-account you may trade.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionOrderResponse = apiInstance.createVaultMarketOptionOrder()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionOrder")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionOrder")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionOrderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionOrderCancel"></a>
+# **createVaultMarketOptionOrderCancel**
+> CreateVaultMarketOptionOrderCancelResponse createVaultMarketOptionOrderCancel(id)
+
+Cancel a working options order (on the partner venue it is cancelled there first). A liquidation order cannot be cancelled.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketOptionOrderCancelResponse = apiInstance.createVaultMarketOptionOrderCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionOrderCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionOrderCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketOptionOrderCancelResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionPracticeCombo"></a>
+# **createVaultMarketOptionPracticeCombo**
+> CreateVaultMarketOptionPracticeComboResponse createVaultMarketOptionPracticeCombo()
+
+A practice strategy (play money): the same ticket as a real one, filled at the practice maker&#39;s quotes when the net is inside the limit.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionPracticeComboResponse = apiInstance.createVaultMarketOptionPracticeCombo()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionPracticeCombo")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionPracticeCombo")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionPracticeComboResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionPracticeOrder"></a>
+# **createVaultMarketOptionPracticeOrder**
+> CreateVaultMarketOptionPracticeOrderResponse createVaultMarketOptionPracticeOrder()
+
+Place a practice options order (the same ticket as a real one; fills against the practice maker at the reference vol). Play money only.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionPracticeOrderResponse = apiInstance.createVaultMarketOptionPracticeOrder()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionPracticeOrder")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionPracticeOrder")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionPracticeOrderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionPracticeOrderCancel"></a>
+# **createVaultMarketOptionPracticeOrderCancel**
+> ListVaultMarketOptionPracticeOrdersItem createVaultMarketOptionPracticeOrderCancel(id)
+
+Cancel a working practice options order.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketOptionPracticeOrdersItem = apiInstance.createVaultMarketOptionPracticeOrderCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionPracticeOrderCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionPracticeOrderCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketOptionPracticeOrdersItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionPracticeReset"></a>
+# **createVaultMarketOptionPracticeReset**
+> GetVaultMarketOptionPracticeResponse createVaultMarketOptionPracticeReset()
+
+Start the options practice account again with $10,000: positions and working orders are cleared.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionPracticeResponse = apiInstance.createVaultMarketOptionPracticeReset()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionPracticeReset")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionPracticeReset")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionPracticeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionQuote"></a>
+# **createVaultMarketOptionQuote**
+> CreateVaultMarketOptionQuoteResponse createVaultMarketOptionQuote()
+
+Price a ticket without placing it: give a price per contract or an implied vol (&#x60;quoteMode&#x60;), get the other back, the premium and fee, the Greeks for your size, the payoff at expiry and the margin it would need on your account (authoritative on the Crossly venue, an estimate when the partner clears). A bad entry is reported, not thrown.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionQuoteResponse = apiInstance.createVaultMarketOptionQuote()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionQuote")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionQuote")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionQuoteResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionRfq"></a>
+# **createVaultMarketOptionRfq**
+> CreateVaultMarketRfqResponse createVaultMarketOptionRfq()
+
+Ask for a quote on an option contract: &#x60;side&#x60;, &#x60;quantity&#x60; in contracts, an optional &#x60;limitCents&#x60; (never shown). Makers quoting the series, the underlying&#39;s DMM and LPs and approved dealers are told anonymously; answers are firm for 60 s.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketRfqResponse = apiInstance.createVaultMarketOptionRfq()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionRfq")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionRfq")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionRfqAccept"></a>
+# **createVaultMarketOptionRfqAccept**
+> CreateVaultMarketOptionRfqAcceptResponse createVaultMarketOptionRfqAccept(id)
+
+Take a live answer (&#x60;responseId&#x60;) to your option quote request: it trades through the options book at that price or better, with margin and self-trade prevention.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketOptionRfqAcceptResponse = apiInstance.createVaultMarketOptionRfqAccept(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionRfqAccept")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionRfqAccept")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketOptionRfqAcceptResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionRfqCancel"></a>
+# **createVaultMarketOptionRfqCancel**
+> IdStatusResponse createVaultMarketOptionRfqCancel(id)
+
+Cancel your open option quote request.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : IdStatusResponse = apiInstance.createVaultMarketOptionRfqCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionRfqCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionRfqCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**IdStatusResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionRfqRespond"></a>
+# **createVaultMarketOptionRfqRespond**
+> CreateVaultMarketOptionRfqRespondResponse createVaultMarketOptionRfqRespond(id)
+
+Answer an option quote request with a firm price per contract for its full size (good for 60 s; a new answer replaces your last).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketOptionRfqRespondResponse = apiInstance.createVaultMarketOptionRfqRespond(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionRfqRespond")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionRfqRespond")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketOptionRfqRespondResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionRfqResponseWithdraw"></a>
+# **createVaultMarketOptionRfqResponseWithdraw**
+> IdStatusResponse createVaultMarketOptionRfqResponseWithdraw(id)
+
+Withdraw your live answer to an option quote request.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : IdStatusResponse = apiInstance.createVaultMarketOptionRfqResponseWithdraw(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionRfqResponseWithdraw")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionRfqResponseWithdraw")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**IdStatusResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionRoll"></a>
+# **createVaultMarketOptionRoll**
+> CreateVaultMarketOptionRollResponse createVaultMarketOptionRoll()
+
+Roll a position to another contract as one strategy order at one net price (+ you pay, - you receive): the close and the open fill together or not at all. &#x60;practice&#x60; rolls a practice position.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionRollResponse = apiInstance.createVaultMarketOptionRoll()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionRoll")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionRoll")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionRollResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketOptionStrategyPreview"></a>
+# **createVaultMarketOptionStrategyPreview**
+> CreateVaultMarketOptionStrategyPreviewResponse createVaultMarketOptionStrategyPreview()
+
+Preview a strategy before placing it: by template (underlying, kind, direction, strikes, expiries) or by legs. Returns each leg at its bid / ask, the net per unit (+ debit, - credit), the payoff at the first expiry, max profit and max loss (null &#x3D; unbounded), breakevens, net Greeks, and the scenario margin of the whole strategy next to its legs margined one by one.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketOptionStrategyPreviewResponse = apiInstance.createVaultMarketOptionStrategyPreview()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketOptionStrategyPreview")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketOptionStrategyPreview")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketOptionStrategyPreviewResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="createVaultMarketP2pLoanCall"></a>
 # **createVaultMarketP2pLoanCall**
 > GetVaultMarketP2pLoanResponse createVaultMarketP2pLoanCall(id)
@@ -5600,6 +7061,1246 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createVaultMarketPredictionAccount"></a>
+# **createVaultMarketPredictionAccount**
+> CreateVaultMarketPredictionAccountResponse createVaultMarketPredictionAccount()
+
+Open your account at the live prediction venue (the partner DCM, or your own segregated account at the settlement bank). Returns &#x60;{ venue, status, opened }&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionAccountResponse = apiInstance.createVaultMarketPredictionAccount()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionAccount")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionAccount")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionAccountResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionAlert"></a>
+# **createVaultMarketPredictionAlert**
+> CreateVaultMarketPredictionAlertResponse createVaultMarketPredictionAlert()
+
+Tell me when a market&#39;s probability crosses a level: &#x60;{ marketId, levelPercent, direction }&#x60;. Returns the alert.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionAlertResponse = apiInstance.createVaultMarketPredictionAlert()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionAlert")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionAlert")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionAlertResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionCard"></a>
+# **createVaultMarketPredictionCard**
+> CreateVaultMarketPredictionCardResponse createVaultMarketPredictionCard()
+
+Make an \&quot;I called it\&quot; share card for a position of yours that settled in your favour (&#x60;showAmounts&#x60; to include what you paid and won). Returns the card with its public URL.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionCardResponse = apiInstance.createVaultMarketPredictionCard()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionCard")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionCard")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionCardResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionComboRfq"></a>
+# **createVaultMarketPredictionComboRfq**
+> CreateVaultMarketPredictionComboRfqResponse createVaultMarketPredictionComboRfq()
+
+Ask makers for a price on a combo: 2 to 6 legs (a market and a side each) on different underlyings, a size, and an optional limit makers never see. Pays $1 a contract if every leg comes true. &#x60;venue&#x60; paper or live.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionComboRfqResponse = apiInstance.createVaultMarketPredictionComboRfq()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionComboRfq")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionComboRfq")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionComboRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionComboRfqAccept"></a>
+# **createVaultMarketPredictionComboRfqAccept**
+> ListVaultMarketPredictionCombosItem createVaultMarketPredictionComboRfqAccept(id)
+
+Take one live, firm answer to your combo request (&#x60;quoteId&#x60;): both stakes are locked and the combo opens. Returns the combo.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketPredictionCombosItem = apiInstance.createVaultMarketPredictionComboRfqAccept(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionComboRfqAccept")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionComboRfqAccept")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketPredictionCombosItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionComboRfqCancel"></a>
+# **createVaultMarketPredictionComboRfqCancel**
+> ListVaultMarketPredictionComboRfqsItem createVaultMarketPredictionComboRfqCancel(id)
+
+Withdraw your combo request; its answers are withdrawn too.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketPredictionComboRfqsItem = apiInstance.createVaultMarketPredictionComboRfqCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionComboRfqCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionComboRfqCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketPredictionComboRfqsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionComboRfqQuote"></a>
+# **createVaultMarketPredictionComboRfqQuote**
+> CreateVaultMarketPredictionComboRfqQuoteResponse createVaultMarketPredictionComboRfqQuote(id)
+
+Answer a combo request with a firm price a contract for the full size (good for 30 seconds; a new answer replaces yours). Real money needs an active prediction maker programme or approved dealer status.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketPredictionComboRfqQuoteResponse = apiInstance.createVaultMarketPredictionComboRfqQuote(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionComboRfqQuote")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionComboRfqQuote")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketPredictionComboRfqQuoteResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionComment"></a>
+# **createVaultMarketPredictionComment**
+> CreateVaultMarketPredictionCommentResponse createVaultMarketPredictionComment()
+
+Comment on a market or a series, or reply to a comment (&#x60;parentId&#x60;). Moderated like every comment on Crossly.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionCommentResponse = apiInstance.createVaultMarketPredictionComment()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionComment")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionComment")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionCommentResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionCommentReport"></a>
+# **createVaultMarketPredictionCommentReport**
+> CreateVaultMarketPredictionCommentReportResponse createVaultMarketPredictionCommentReport(id)
+
+Report a comment with a reason; enough reports hide it until ops look.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketPredictionCommentReportResponse = apiInstance.createVaultMarketPredictionCommentReport(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionCommentReport")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionCommentReport")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketPredictionCommentReportResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionConversion"></a>
+# **createVaultMarketPredictionConversion**
+> CreateVaultMarketPredictionConversionResponse createVaultMarketPredictionConversion()
+
+Split ($1 a set buys one Yes in every bucket of an expiry), merge (one Yes in every bucket gives back $1 a set before settlement) or convert (No in one bucket becomes Yes in every other) on a full bucket set. &#x60;venue&#x60; paper or live. Returns the conversion and the event after it.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionConversionResponse = apiInstance.createVaultMarketPredictionConversion()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionConversion")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionConversion")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionConversionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionForecast"></a>
+# **createVaultMarketPredictionForecast**
+> CreateVaultMarketPredictionForecastResponse createVaultMarketPredictionForecast()
+
+Forecast a market: &#x60;probabilityPercent&#x60; 0 to 100. The one standing when trading closes is scored (Brier).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionForecastResponse = apiInstance.createVaultMarketPredictionForecast()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionForecast")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionForecast")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionForecastResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionForecasterFollow"></a>
+# **createVaultMarketPredictionForecasterFollow**
+> CreateVaultMarketPredictionForecasterFollowResponse createVaultMarketPredictionForecasterFollow(id)
+
+Follow a public forecaster: you are told when they open a position or forecast (copy-watch only; nothing is ever traded for you).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketPredictionForecasterFollowResponse = apiInstance.createVaultMarketPredictionForecasterFollow(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionForecasterFollow")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionForecasterFollow")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketPredictionForecasterFollowResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionMaker"></a>
+# **createVaultMarketPredictionMaker**
+> ListVaultMarketPredictionMakersItem createVaultMarketPredictionMaker()
+
+Apply to make markets in prediction ladders (one series, or all with &#x60;seriesId&#x60; null). Needs the ID check; ops approve. Returns the application.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionMakersItem = apiInstance.createVaultMarketPredictionMaker()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionMaker")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionMaker")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionMakersItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionMakerQuote"></a>
+# **createVaultMarketPredictionMakerQuote**
+> CreateVaultMarketPredictionMakerQuoteResponse createVaultMarketPredictionMakerQuote()
+
+Mass quote: replace your resting maker quotes on up to 50 markets with one Yes bid and one Yes ask each (post-only; an ask rests as a No bid at 100 minus it). Live quotes need an active maker programme. Returns what rests.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionMakerQuoteResponse = apiInstance.createVaultMarketPredictionMakerQuote()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionMakerQuote")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionMakerQuote")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionMakerQuoteResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionOrder"></a>
+# **createVaultMarketPredictionOrder**
+> CreateVaultMarketPredictionOrderResponse createVaultMarketPredictionOrder()
+
+Place a prediction order: buy_yes, sell_yes, buy_no or sell_no; limit (priceCents 1-99 in the action&#39;s own terms) or market (IOC 10 cents through the best price); GTC, GTD (expiresAt) or IOC; post-only. Sells only what you hold. &#x60;venue&#x60; paper (practice) or live (503 until a venue is registered). Returns the order with its fills.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionOrderResponse = apiInstance.createVaultMarketPredictionOrder()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionOrder")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionOrder")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionOrderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionOrderAmend"></a>
+# **createVaultMarketPredictionOrderAmend**
+> CreateVaultMarketPredictionOrderAmendResponse createVaultMarketPredictionOrderAmend(id)
+
+Amend a resting order&#39;s price (in its own terms) and/or whole size. It keeps its place in the queue only when the size goes down at the same price; otherwise it is re-queued and may trade at once. Returns the order with &#x60;keptPriority&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketPredictionOrderAmendResponse = apiInstance.createVaultMarketPredictionOrderAmend(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionOrderAmend")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionOrderAmend")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketPredictionOrderAmendResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionOrderBatch"></a>
+# **createVaultMarketPredictionOrderBatch**
+> CreateVaultMarketPredictionOrderBatchResponse createVaultMarketPredictionOrderBatch()
+
+Place up to 20 orders in one call; each answers on its own (&#x60;results[]&#x60;), one refused never stops the rest.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionOrderBatchResponse = apiInstance.createVaultMarketPredictionOrderBatch()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionOrderBatch")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionOrderBatch")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionOrderBatchResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionOrderBatchCancel"></a>
+# **createVaultMarketPredictionOrderBatchCancel**
+> CreateVaultMarketPredictionOrderBatchCancelResponse createVaultMarketPredictionOrderBatchCancel()
+
+Cancel up to 20 orders in one call; each answers on its own.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionOrderBatchCancelResponse = apiInstance.createVaultMarketPredictionOrderBatchCancel()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionOrderBatchCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionOrderBatchCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionOrderBatchCancelResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionOrderCancel"></a>
+# **createVaultMarketPredictionOrderCancel**
+> CreateVaultMarketPredictionOrderResponse createVaultMarketPredictionOrderCancel(id)
+
+Cancel a working prediction order; the money (or practice money) it locked comes back. Returns the order.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketPredictionOrderResponse = apiInstance.createVaultMarketPredictionOrderCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionOrderCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionOrderCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketPredictionOrderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionOrderCancelAll"></a>
+# **createVaultMarketPredictionOrderCancelAll**
+> CreateVaultMarketProOrderCancelAllResponse createVaultMarketPredictionOrderCancelAll()
+
+Cancel every working prediction order you have, or only those on one market (&#x60;marketId&#x60;). Returns &#x60;{ cancelled }&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketProOrderCancelAllResponse = apiInstance.createVaultMarketPredictionOrderCancelAll()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionOrderCancelAll")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionOrderCancelAll")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketProOrderCancelAllResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionPaperReset"></a>
+# **createVaultMarketPredictionPaperReset**
+> CreateVaultMarketPredictionPaperResetResponse createVaultMarketPredictionPaperReset()
+
+Reset your practice prediction account to $1,000 of play money: working practice orders cancelled, practice positions cleared. Once a day.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionPaperResetResponse = apiInstance.createVaultMarketPredictionPaperReset()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionPaperReset")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionPaperReset")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionPaperResetResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionPositionClose"></a>
+# **createVaultMarketPredictionPositionClose**
+> CreateVaultMarketPredictionOrderResponse createVaultMarketPredictionPositionClose()
+
+Close a position: your resting sells on the market are cancelled and everything you hold is sold now (market, 10-cent band) or at &#x60;priceCents&#x60;. Returns the sell order.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionOrderResponse = apiInstance.createVaultMarketPredictionPositionClose()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionPositionClose")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionPositionClose")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionOrderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionPositionCloseAll"></a>
+# **createVaultMarketPredictionPositionCloseAll**
+> CreateVaultMarketPredictionPositionCloseAllResponse createVaultMarketPredictionPositionCloseAll()
+
+Sell all: close every open position on a venue, or only one event&#39;s (&#x60;eventId&#x60;). Each answers on its own.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionPositionCloseAllResponse = apiInstance.createVaultMarketPredictionPositionCloseAll()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionPositionCloseAll")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionPositionCloseAll")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionPositionCloseAllResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionProposal"></a>
+# **createVaultMarketPredictionProposal**
+> ListVaultMarketPredictionProposalsItem createVaultMarketPredictionProposal()
+
+Propose a market: an index slug or a book key, a shape (close at or above / at or below, between, touch), its strike(s) and an expiry. Ops review it; once listed you earn the creator share of Crossly&#39;s take on its fees.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionProposalsItem = apiInstance.createVaultMarketPredictionProposal()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionProposal")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionProposal")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionProposalsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionProposalCheck"></a>
+# **createVaultMarketPredictionProposalCheck**
+> CreateVaultMarketPredictionProposalCheckResponse createVaultMarketPredictionProposalCheck()
+
+Check a market proposal without sending it: whether the underlying may carry markets (a built-in index or a tier A key), and what is wrong with the strike or expiry.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionProposalCheckResponse = apiInstance.createVaultMarketPredictionProposalCheck()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionProposalCheck")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionProposalCheck")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionProposalCheckResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionProposalWithdraw"></a>
+# **createVaultMarketPredictionProposalWithdraw**
+> ListVaultMarketPredictionProposalsItem createVaultMarketPredictionProposalWithdraw(id)
+
+Withdraw a proposal still waiting for review.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketPredictionProposalsItem = apiInstance.createVaultMarketPredictionProposalWithdraw(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionProposalWithdraw")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionProposalWithdraw")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketPredictionProposalsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionSettlementDispute"></a>
+# **createVaultMarketPredictionSettlementDispute**
+> CreateVaultMarketPredictionSettlementDisputeResponse createVaultMarketPredictionSettlementDispute(id)
+
+Dispute a settlement inside its 24-hour review window (you must hold a position in the market). Payout waits for the venue&#39;s decision. Returns &#x60;{ settlementId, status }&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketPredictionSettlementDisputeResponse = apiInstance.createVaultMarketPredictionSettlementDispute(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionSettlementDispute")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionSettlementDispute")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketPredictionSettlementDisputeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketPredictionTerm"></a>
+# **createVaultMarketPredictionTerm**
+> CreateVaultMarketPredictionTermResponse createVaultMarketPredictionTerm()
+
+Accept the current prediction-market contract terms (PREDICTION_TERMS_VERSION), needed for every real-money order. Returns &#x60;{ termsVersion, venue }&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketPredictionTermResponse = apiInstance.createVaultMarketPredictionTerm()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketPredictionTerm")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketPredictionTerm")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketPredictionTermResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="createVaultMarketPriceWidget"></a>
 # **createVaultMarketPriceWidget**
 > ListVaultMarketPriceWidgetsItem createVaultMarketPriceWidget()
@@ -6044,7 +8745,7 @@ Configure PersonalAccessToken:
 
 <a name="createVaultMarketProQuoteHeartbeat"></a>
 # **createVaultMarketProQuoteHeartbeat**
-> CreateVaultMarketProQuoteHeartbeatResponse createVaultMarketProQuoteHeartbeat()
+> CreateVaultMarketOptionMmHeartbeatResponse createVaultMarketProQuoteHeartbeat()
 
 Keep your quotes alive (cancel-on-disconnect). Returns &#x60;{ quotes, at }&#x60;.
 
@@ -6056,7 +8757,7 @@ Keep your quotes alive (cancel-on-disconnect). Returns &#x60;{ quotes, at }&#x60
 
 val apiInstance = VaultMarketsApi()
 try {
-    val result : CreateVaultMarketProQuoteHeartbeatResponse = apiInstance.createVaultMarketProQuoteHeartbeat()
+    val result : CreateVaultMarketOptionMmHeartbeatResponse = apiInstance.createVaultMarketProQuoteHeartbeat()
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling VaultMarketsApi#createVaultMarketProQuoteHeartbeat")
@@ -6072,7 +8773,7 @@ This endpoint does not need any parameter.
 
 ### Return type
 
-**CreateVaultMarketProQuoteHeartbeatResponse**
+**CreateVaultMarketOptionMmHeartbeatResponse**
 
 ### Authorization
 
@@ -6586,6 +9287,331 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createVaultMarketShareAutoInvest"></a>
+# **createVaultMarketShareAutoInvest**
+> ListVaultMarketShareAutoInvestItem createVaultMarketShareAutoInvest()
+
+Start auto-invest: &#x60;amountCents&#x60; ($5-$10,000) &#x60;every&#x60; week or month into &#x60;seriesIds&#x60; (equal weights) or &#x60;targets&#x60; (seriesId + weightBps summing to 10,000) or a &#x60;basketId&#x60; (with &#x60;rebalance&#x60; to keep your own shares on its weights). Whole shares only; the rest rolls over. Offerings are subscribed at their price; trading books are bought at the best ask up to &#x60;maxPremiumBps&#x60; over the indicative value. &#x60;practice&#x60; runs it on paper.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareAutoInvestItem = apiInstance.createVaultMarketShareAutoInvest()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareAutoInvest")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareAutoInvest")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareAutoInvestItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareAutoInvestRun"></a>
+# **createVaultMarketShareAutoInvestRun**
+> CreateVaultMarketShareAutoInvestRunResponse createVaultMarketShareAutoInvestRun(id)
+
+Run a plan now (once a minute at most); the schedule does not move.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareAutoInvestRunResponse = apiInstance.createVaultMarketShareAutoInvestRun(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareAutoInvestRun")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareAutoInvestRun")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareAutoInvestRunResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareAutoInvestUpdate"></a>
+# **createVaultMarketShareAutoInvestUpdate**
+> ListVaultMarketShareAutoInvestItem createVaultMarketShareAutoInvestUpdate(id)
+
+Change a plan (amount, cadence, series or weights, cap, rebalance) or set its &#x60;status&#x60; active, paused or cancelled.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareAutoInvestItem = apiInstance.createVaultMarketShareAutoInvestUpdate(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareAutoInvestUpdate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareAutoInvestUpdate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareAutoInvestItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareBasketBuy"></a>
+# **createVaultMarketShareBasketBuy**
+> CreateVaultMarketShareBasketBuyResponse createVaultMarketShareBasketBuy(id)
+
+Buy a basket once: &#x60;amountCents&#x60; split by its live weights into whole shares of each series, in your own name (offerings subscribed, trading books at the best ask up to &#x60;maxPremiumBps&#x60;). &#x60;practice&#x60; buys on paper.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareBasketBuyResponse = apiInstance.createVaultMarketShareBasketBuy(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareBasketBuy")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareBasketBuy")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareBasketBuyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareBuyoutFund"></a>
+# **createVaultMarketShareBuyoutFund**
+> CreateVaultMarketShareBuyoutFundResponse createVaultMarketShareBuyoutFund(id)
+
+Your whole-unit bid reached the reserve: fund the price through your investor account within 72 hours to buy the item from its holders (no vote).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareBuyoutFundResponse = apiInstance.createVaultMarketShareBuyoutFund(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareBuyoutFund")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareBuyoutFund")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareBuyoutFundResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareBuyoutVote"></a>
+# **createVaultMarketShareBuyoutVote**
+> CreateVaultMarketShareBuyoutFundResponse createVaultMarketShareBuyoutVote(id)
+
+Vote &#x60;yes&#x60; or &#x60;no&#x60; on a buyout with the shares you held when the vote opened. You can change your vote while it is open.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareBuyoutFundResponse = apiInstance.createVaultMarketShareBuyoutVote(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareBuyoutVote")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareBuyoutVote")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareBuyoutFundResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareBuyoutWithdraw"></a>
+# **createVaultMarketShareBuyoutWithdraw**
+> CreateVaultMarketShareBuyoutFundResponse createVaultMarketShareBuyoutWithdraw(id)
+
+Withdraw your buyout bid before its vote opens; the escrow is refunded.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareBuyoutFundResponse = apiInstance.createVaultMarketShareBuyoutWithdraw(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareBuyoutWithdraw")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareBuyoutWithdraw")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareBuyoutFundResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="createVaultMarketShareCard"></a>
 # **createVaultMarketShareCard**
 > ListVaultMarketShareCardsItem createVaultMarketShareCard()
@@ -6617,6 +9643,1122 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListVaultMarketShareCardsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareGiftAccept"></a>
+# **createVaultMarketShareGiftAccept**
+> ListVaultMarketShareGiftsItem createVaultMarketShareGiftAccept(id)
+
+Accept a share gift. Needs your own verified Vault Shares investor account; the venue then moves the shares to you on the register.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareGiftsItem = apiInstance.createVaultMarketShareGiftAccept(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareGiftAccept")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareGiftAccept")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareGiftsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareGiftCancel"></a>
+# **createVaultMarketShareGiftCancel**
+> ListVaultMarketShareGiftsItem createVaultMarketShareGiftCancel(id)
+
+Cancel a gift you offered, before it is accepted: the shares are free again.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareGiftsItem = apiInstance.createVaultMarketShareGiftCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareGiftCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareGiftCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareGiftsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareGiftDecline"></a>
+# **createVaultMarketShareGiftDecline**
+> ListVaultMarketShareGiftsItem createVaultMarketShareGiftDecline(id)
+
+Decline a share gift offered to you.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareGiftsItem = apiInstance.createVaultMarketShareGiftDecline(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareGiftDecline")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareGiftDecline")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareGiftsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareInvestor"></a>
+# **createVaultMarketShareInvestor**
+> GetVaultMarketShareInvestorResponse createVaultMarketShareInvestor()
+
+Open or update your investor account at the venue: accept the current investor terms (&#x60;acceptTerms&#x60;), and state accredited status or your annual income and net worth for the Reg A+ limit. Needs a verified ID.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketShareInvestorResponse = apiInstance.createVaultMarketShareInvestor()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareInvestor")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareInvestor")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketShareInvestorResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareOrderCancel"></a>
+# **createVaultMarketShareOrderCancel**
+> ListVaultMarketShareOrdersItem createVaultMarketShareOrderCancel(id)
+
+Cancel one of your open share-book orders.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareOrdersItem = apiInstance.createVaultMarketShareOrderCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareOrderCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareOrderCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareOrdersItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketSharePaperOrderCancel"></a>
+# **createVaultMarketSharePaperOrderCancel**
+> CreateVaultMarketSharePaperSeryOrderResponse createVaultMarketSharePaperOrderCancel(id)
+
+Cancel an open practice order.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketSharePaperSeryOrderResponse = apiInstance.createVaultMarketSharePaperOrderCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketSharePaperOrderCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketSharePaperOrderCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketSharePaperSeryOrderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketSharePaperReset"></a>
+# **createVaultMarketSharePaperReset**
+> GetVaultMarketSharePaperResponse createVaultMarketSharePaperReset()
+
+Start the practice account over with fresh play money (once a day).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketSharePaperResponse = apiInstance.createVaultMarketSharePaperReset()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketSharePaperReset")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketSharePaperReset")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketSharePaperResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketSharePaperSeryOrder"></a>
+# **createVaultMarketSharePaperSeryOrder**
+> CreateVaultMarketSharePaperSeryOrderResponse createVaultMarketSharePaperSeryOrder(id)
+
+Place a practice order (play money) with the same rules as the real share book.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketSharePaperSeryOrderResponse = apiInstance.createVaultMarketSharePaperSeryOrder(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketSharePaperSeryOrder")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketSharePaperSeryOrder")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketSharePaperSeryOrderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketSharePaperSerySubscribe"></a>
+# **createVaultMarketSharePaperSerySubscribe**
+> GetVaultMarketSharePaperResponse createVaultMarketSharePaperSerySubscribe(id)
+
+Subscribe with play money to a practice series’ offering.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketSharePaperResponse = apiInstance.createVaultMarketSharePaperSerySubscribe(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketSharePaperSerySubscribe")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketSharePaperSerySubscribe")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketSharePaperResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareRoomHide"></a>
+# **createVaultMarketShareRoomHide**
+> CreateVaultMarketShareRoomHideResponse createVaultMarketShareRoomHide(id)
+
+Take down one of your own holder-room posts (&#x60;reason&#x60;).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareRoomHideResponse = apiInstance.createVaultMarketShareRoomHide(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareRoomHide")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareRoomHide")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareRoomHideResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSery"></a>
+# **createVaultMarketShareSery**
+> ListVaultMarketShareSeriesItem createVaultMarketShareSery()
+
+Propose a Vault Shares series for one of your units (&#x60;vaultItemId&#x60;), keeping &#x60;retainedShares&#x60; (0-50%), with an optional minimum raise, offering length (7-60 days) and reserve. Ops then qualify it, attach the offering circular and open the offering. With no venue it is a practice series. Pass &#x60;requestId&#x60; to make a retry safe.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareSeriesItem = apiInstance.createVaultMarketShareSery()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSery")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSery")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareSeriesItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryBuyout"></a>
+# **createVaultMarketShareSeryBuyout**
+> CreateVaultMarketShareBuyoutFundResponse createVaultMarketShareSeryBuyout(id)
+
+Bid for the whole item (&#x60;offerCents&#x60;, at least the mark x 1.10). The bid is escrowed at the venue, then holders vote by shares: two-thirds yes accepts, a majority against rejects, 14 days with no majority against accepts. Accepted, the item is yours and the price is paid out pro rata after storage and insurance.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareBuyoutFundResponse = apiInstance.createVaultMarketShareSeryBuyout(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryBuyout")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryBuyout")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareBuyoutFundResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryGift"></a>
+# **createVaultMarketShareSeryGift**
+> ListVaultMarketShareGiftsItem createVaultMarketShareSeryGift(id)
+
+Give whole &#x60;shares&#x60; of a series to someone (&#x60;to&#x60;: their @handle, email or user id), with an optional &#x60;message&#x60;. The shares are set aside until they accept (14 days). On acceptance the broker-dealer or transfer agent verifies them and moves the shares on the register: no money moves, and your cost basis and holding date carry over.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareGiftsItem = apiInstance.createVaultMarketShareSeryGift(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryGift")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryGift")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareGiftsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryOrder"></a>
+# **createVaultMarketShareSeryOrder**
+> ListVaultMarketShareOrdersItem createVaultMarketShareSeryOrder(id)
+
+Place an order on a series’ share book: &#x60;side&#x60;, &#x60;type&#x60; limit or market (immediate-or-cancel inside a 10% band), &#x60;tif&#x60; gtc / gtd (&#x60;expiresAt&#x60;) / ioc, whole &#x60;shares&#x60; or a buy’s &#x60;amountCents&#x60; (turned into whole shares at the most it could pay), integer &#x60;limitCents&#x60; a share, &#x60;postOnly&#x60;. Fees: maker 0, taker 100 bps plus the broker-dealer pass-through. Self-trades are prevented. Pass &#x60;requestId&#x60; to make a retry safe.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareOrdersItem = apiInstance.createVaultMarketShareSeryOrder(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryOrder")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryOrder")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareOrdersItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryRecombine"></a>
+# **createVaultMarketShareSeryRecombine**
+> CreateVaultMarketShareSeryRecombineResponse createVaultMarketShareSeryRecombine(id)
+
+You hold every share: take the item back whole. With &#x60;withdraw&#x60;, it ships home at once (any receipt token is burned as it leaves). Storage and insurance the series owed stay with the unit.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareSeryRecombineResponse = apiInstance.createVaultMarketShareSeryRecombine(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryRecombine")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryRecombine")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareSeryRecombineResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryRoom"></a>
+# **createVaultMarketShareSeryRoom**
+> CreateVaultMarketShareSeryRoomResponse createVaultMarketShareSeryRoom(id)
+
+Post in the holder room (shareholders only), up to 1,000 characters.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareSeryRoomResponse = apiInstance.createVaultMarketShareSeryRoom(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryRoom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryRoom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareSeryRoomResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSerySubscribe"></a>
+# **createVaultMarketShareSerySubscribe**
+> ListVaultMarketShareSubscriptionsItem createVaultMarketShareSerySubscribe(id)
+
+Subscribe for whole &#x60;shares&#x60; in an open offering at its fixed price. The money goes into the venue’s escrow in your own name and is refunded if the offering misses its minimum. Reg A+ limits apply. A joint vault member with trade rights may pass &#x60;jointVaultId&#x60;. Pass &#x60;requestId&#x60; to make a retry safe.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareSubscriptionsItem = apiInstance.createVaultMarketShareSerySubscribe(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSerySubscribe")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSerySubscribe")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareSubscriptionsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryUnwatch"></a>
+# **createVaultMarketShareSeryUnwatch**
+> CreateVaultMarketShareSeryWatchResponse createVaultMarketShareSeryUnwatch(id)
+
+Stop being told about a drop (&#x60;kind&#x60; notify) or leave its waitlist (&#x60;kind&#x60; waitlist).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareSeryWatchResponse = apiInstance.createVaultMarketShareSeryUnwatch(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryUnwatch")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryUnwatch")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareSeryWatchResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryUpdate"></a>
+# **createVaultMarketShareSeryUpdate**
+> IdResponse createVaultMarketShareSeryUpdate(id)
+
+Post an update on your own item’s series (you are its originator): &#x60;kind&#x60; story, provenance, condition, appraisal, exhibition or event, a &#x60;title&#x60;, a &#x60;body&#x60;, an optional https &#x60;mediaUrl&#x60;, &#x60;holdersOnly&#x60;. Holders are told.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : IdResponse = apiInstance.createVaultMarketShareSeryUpdate(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryUpdate")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryUpdate")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**IdResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryWatch"></a>
+# **createVaultMarketShareSeryWatch**
+> CreateVaultMarketShareSeryWatchResponse createVaultMarketShareSeryWatch(id)
+
+Ask to be told about a drop (&#x60;kind&#x60; notify: when your early access opens and when it opens to everyone) or join the waitlist of a sold-out first-come offering (&#x60;kind&#x60; waitlist, with the &#x60;shares&#x60; you want).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareSeryWatchResponse = apiInstance.createVaultMarketShareSeryWatch(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryWatch")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryWatch")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareSeryWatchResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSeryWithdrawProposal"></a>
+# **createVaultMarketShareSeryWithdrawProposal**
+> ListVaultMarketShareSeriesItem createVaultMarketShareSeryWithdrawProposal(id)
+
+Withdraw your own proposal before its offering opens.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareSeriesItem = apiInstance.createVaultMarketShareSeryWithdrawProposal(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSeryWithdrawProposal")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSeryWithdrawProposal")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareSeriesItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareSubscriptionCancel"></a>
+# **createVaultMarketShareSubscriptionCancel**
+> ListVaultMarketShareSubscriptionsItem createVaultMarketShareSubscriptionCancel(id)
+
+Cancel an escrowed subscription while its offering is still open: the escrow is refunded.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareSubscriptionsItem = apiInstance.createVaultMarketShareSubscriptionCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareSubscriptionCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareSubscriptionCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareSubscriptionsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareViewingBook"></a>
+# **createVaultMarketShareViewingBook**
+> CreateVaultMarketShareViewingBookResponse createVaultMarketShareViewingBook(id)
+
+Book a place on a viewing day (shareholders only), with up to the day’s &#x60;guests&#x60;. Bookings close a day before; booking again changes your guests.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareViewingBookResponse = apiInstance.createVaultMarketShareViewingBook(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareViewingBook")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareViewingBook")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareViewingBookResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketShareViewingBookingCancel"></a>
+# **createVaultMarketShareViewingBookingCancel**
+> CreateVaultMarketShareViewingBookingCancelResponse createVaultMarketShareViewingBookingCancel(id)
+
+Cancel your viewing-day booking.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketShareViewingBookingCancelResponse = apiInstance.createVaultMarketShareViewingBookingCancel(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketShareViewingBookingCancel")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketShareViewingBookingCancel")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketShareViewingBookingCancelResponse**
 
 ### Authorization
 
@@ -6797,6 +10939,49 @@ This endpoint does not need any parameter.
 ### Return type
 
 **CreateVaultMarketSupplySendResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="createVaultMarketSupplySendIn"></a>
+# **createVaultMarketSupplySendIn**
+> CreateVaultMarketSupplySendInResponse createVaultMarketSupplySendIn()
+
+Send inventory items to the vault: &#x60;method: label&#x60; (one box on a prepaid label) or &#x60;dropoff&#x60; at a partner (&#x60;partnerId&#x60;, from the finder; you get a counter code). Each item can carry its declared value; &#x60;insured&#x60; insures the box for it.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : CreateVaultMarketSupplySendInResponse = apiInstance.createVaultMarketSupplySendIn()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#createVaultMarketSupplySendIn")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#createVaultMarketSupplySendIn")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**CreateVaultMarketSupplySendInResponse**
 
 ### Authorization
 
@@ -7670,6 +11855,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="deleteVaultMarketAutoBuy"></a>
+# **deleteVaultMarketAutoBuy**
+> DeleteVaultMarketAutoBuyResponse deleteVaultMarketAutoBuy()
+
+Stop Auto-buy with payouts. The history stays.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : DeleteVaultMarketAutoBuyResponse = apiInstance.deleteVaultMarketAutoBuy()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#deleteVaultMarketAutoBuy")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#deleteVaultMarketAutoBuy")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**DeleteVaultMarketAutoBuyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="deleteVaultMarketBullionFamilyPeg"></a>
 # **deleteVaultMarketBullionFamilyPeg**
 > ListVaultMarketBullionFamilyPegsItem deleteVaultMarketBullionFamilyPeg(id)
@@ -8032,6 +12260,194 @@ Name | Type | Description  | Notes
 ### Return type
 
 **DeleteVaultMarketOpeningWaitlistResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteVaultMarketPredictionAlert"></a>
+# **deleteVaultMarketPredictionAlert**
+> OkResponse deleteVaultMarketPredictionAlert(id)
+
+Remove a probability alert. Returns &#x60;{ ok }&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : OkResponse = apiInstance.deleteVaultMarketPredictionAlert(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#deleteVaultMarketPredictionAlert")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#deleteVaultMarketPredictionAlert")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**OkResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteVaultMarketPredictionCard"></a>
+# **deleteVaultMarketPredictionCard**
+> OkResponse deleteVaultMarketPredictionCard(id)
+
+Take an \&quot;I called it\&quot; card down; its link stops working. Returns &#x60;{ ok }&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : OkResponse = apiInstance.deleteVaultMarketPredictionCard(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#deleteVaultMarketPredictionCard")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#deleteVaultMarketPredictionCard")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**OkResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteVaultMarketPredictionComment"></a>
+# **deleteVaultMarketPredictionComment**
+> OkResponse deleteVaultMarketPredictionComment(id)
+
+Delete your comment.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : OkResponse = apiInstance.deleteVaultMarketPredictionComment(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#deleteVaultMarketPredictionComment")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#deleteVaultMarketPredictionComment")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**OkResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="deleteVaultMarketPredictionForecasterFollow"></a>
+# **deleteVaultMarketPredictionForecasterFollow**
+> CreateVaultMarketPredictionForecasterFollowResponse deleteVaultMarketPredictionForecasterFollow(id)
+
+Stop following a forecaster.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketPredictionForecasterFollowResponse = apiInstance.deleteVaultMarketPredictionForecasterFollow(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#deleteVaultMarketPredictionForecasterFollow")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#deleteVaultMarketPredictionForecasterFollow")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketPredictionForecasterFollowResponse**
 
 ### Authorization
 
@@ -8934,6 +13350,49 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetVaultMarketAuctionMineResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketAutoBuy"></a>
+# **getVaultMarketAutoBuy**
+> GetVaultMarketAutoBuyResponse getVaultMarketAutoBuy()
+
+Auto-buy with payouts: the share of each payout set aside as a vault buying budget, the budget, your want list with max prices, the purchase history and whether it is paused. &#x60;autoBuy&#x60; is null when it is not set up.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketAutoBuyResponse = apiInstance.getVaultMarketAutoBuy()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketAutoBuy")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketAutoBuy")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketAutoBuyResponse**
 
 ### Authorization
 
@@ -10642,6 +15101,100 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getVaultMarketHoldingInventoryItem"></a>
+# **getVaultMarketHoldingInventoryItem**
+> GetVaultMarketHoldingInventoryItemResponse getVaultMarketHoldingInventoryItem(id)
+
+The inventory item a vault unit of yours came from (null for a unit bought on the book).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketHoldingInventoryItemResponse = apiInstance.getVaultMarketHoldingInventoryItem(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketHoldingInventoryItem")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketHoldingInventoryItem")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketHoldingInventoryItemResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketHoldingWithdrawQuote"></a>
+# **getVaultMarketHoldingWithdrawQuote**
+> GetVaultMarketHoldingWithdrawQuoteResponse getVaultMarketHoldingWithdrawQuote(id)
+
+What shipping one unit you own home would charge now, for &#x60;standard&#x60; and &#x60;expedited&#x60;: shipping, the storage it owes and the early-withdrawal fee (within 90 days of arriving), and the total. Read-only; ship it home with POST /api/v1/buyer/vault/:id/withdraw.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketHoldingWithdrawQuoteResponse = apiInstance.getVaultMarketHoldingWithdrawQuote(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketHoldingWithdrawQuote")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketHoldingWithdrawQuote")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketHoldingWithdrawQuoteResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getVaultMarketHomeUnit"></a>
 # **getVaultMarketHomeUnit**
 > GetVaultMarketHomeUnitResponse getVaultMarketHomeUnit()
@@ -11127,6 +15680,53 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetVaultMarketInstantExitResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketItemLocation"></a>
+# **getVaultMarketItemLocation**
+> GetVaultMarketItemLocationResponse getVaultMarketItemLocation(inventoryItemId)
+
+Where one inventory item&#39;s units are: in your own stock (warehouse) and in the vault per location, each vault unit&#39;s status (in transit, received, authenticated, graded, listed, shipped out), its Sell from first choice and whether it can be sent to the vault now (with the reason when not).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val inventoryItemId : kotlin.String = inventoryItemId_example // kotlin.String | 
+try {
+    val result : GetVaultMarketItemLocationResponse = apiInstance.getVaultMarketItemLocation(inventoryItemId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketItemLocation")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketItemLocation")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inventoryItemId** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketItemLocationResponse**
 
 ### Authorization
 
@@ -12123,6 +16723,769 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getVaultMarketOption"></a>
+# **getVaultMarketOption**
+> GetVaultMarketOptionResponse getVaultMarketOption()
+
+Fractional options: the venue mode (self &#x3D; Crossly is the venue and clearing house, partner &#x3D; routed to the index DCM, paper &#x3D; practice only) with the env each mode still needs, the active series and the rule book in force.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionResponse = apiInstance.getVaultMarketOption()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOption")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOption")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionAnalytic"></a>
+# **getVaultMarketOptionAnalytic**
+> GetVaultMarketOptionAnalyticResponse getVaultMarketOptionAnalytic(underlying)
+
+Options analytics on an underlying: the vol surface (expiry x moneyness) and one expiry&#39;s smile (&#x60;expiry&#x60;), IV rank and percentile against the series&#39; own year, open interest and volume by strike and expiry, put/call ratios, the expected move to each expiry, and the historical vol of the underlying&#39;s own published series. Every implied vol is derived and display only.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val underlying : kotlin.String = underlying_example // kotlin.String | 
+try {
+    val result : GetVaultMarketOptionAnalyticResponse = apiInstance.getVaultMarketOptionAnalytic(underlying)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionAnalytic")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionAnalytic")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **underlying** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketOptionAnalyticResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionAutoClose"></a>
+# **getVaultMarketOptionAutoClose**
+> GetVaultMarketOptionAutoCloseResponse getVaultMarketOptionAutoClose()
+
+Your auto-close rule: close positions (or only in-the-money ones) a set time before expiry with a marketable limit.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionAutoCloseResponse = apiInstance.getVaultMarketOptionAutoClose()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionAutoClose")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionAutoClose")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionAutoCloseResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionChain"></a>
+# **getVaultMarketOptionChain**
+> GetVaultMarketOptionChainResponse getVaultMarketOptionChain(underlying)
+
+The option chain for an underlying (index slug or book key): its expiries, and for one expiry (&#x60;expiry&#x60;, default the nearest) each strike&#39;s call and put with best bid / ask, last, open interest, the theoretical price at the reference vol, the implied vol of the mid (display only, never a mark) and the Greeks. Prices are cents per contract.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val underlying : kotlin.String = underlying_example // kotlin.String | 
+try {
+    val result : GetVaultMarketOptionChainResponse = apiInstance.getVaultMarketOptionChain(underlying)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionChain")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionChain")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **underlying** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketOptionChainResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionComboBook"></a>
+# **getVaultMarketOptionComboBook**
+> GetVaultMarketOptionComboBookResponse getVaultMarketOptionComboBook()
+
+One strategy&#39;s combo book by its canonical key (&#x60;key&#x60;, from the preview or an order): bids and asks by net price and recent strategy trades.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionComboBookResponse = apiInstance.getVaultMarketOptionComboBook()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionComboBook")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionComboBook")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionComboBookResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionComboRfq"></a>
+# **getVaultMarketOptionComboRfq**
+> GetVaultMarketOptionComboRfqResponse getVaultMarketOptionComboRfq(id)
+
+One strategy quote request and its answers (all of them to the requester, your own to a responder).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketOptionComboRfqResponse = apiInstance.getVaultMarketOptionComboRfq(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionComboRfq")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionComboRfq")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketOptionComboRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionContract"></a>
+# **getVaultMarketOptionContract**
+> GetVaultMarketOptionContractResponse getVaultMarketOptionContract(id)
+
+One option contract: its terms, the self-venue book and tape, its published daily settlement prices and, once settled, its settlement (value, source, flagged, and the hash chained to the previous settlement).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketOptionContractResponse = apiInstance.getVaultMarketOptionContract(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionContract")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionContract")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketOptionContractResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionContractBook"></a>
+# **getVaultMarketOptionContractBook**
+> GetVaultMarketOptionContractBookResponse getVaultMarketOptionContractBook(id)
+
+A contract&#39;s order book on the Crossly venue (&#x60;levels&#x60;, default 20): bids and asks by price with milli-contract sizes, and the last 50 prints.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketOptionContractBookResponse = apiInstance.getVaultMarketOptionContractBook(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionContractBook")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionContractBook")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketOptionContractBookResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionContractSettlement"></a>
+# **getVaultMarketOptionContractSettlement**
+> GetVaultMarketOptionContractSettlementResponse getVaultMarketOptionContractSettlement(id)
+
+A settled contract&#39;s settlement: the value (cents per unit of the underlying), its source (the index&#39;s frozen 7-day TWAP, the item&#39;s expiry-day A/B mark, or the last reliable value, flagged), and the hash chained to the previous settlement. Null until it settles.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketOptionContractSettlementResponse = apiInstance.getVaultMarketOptionContractSettlement(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionContractSettlement")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionContractSettlement")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketOptionContractSettlementResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionHedge"></a>
+# **getVaultMarketOptionHedge**
+> GetVaultMarketOptionHedgeResponse getVaultMarketOptionHedge()
+
+Your hedges: long puts protecting vault units you hold (protective puts) and the vault units locked as collateral for calls you wrote (covered calls).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionHedgeResponse = apiInstance.getVaultMarketOptionHedge()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionHedge")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionHedge")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionHedgeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionIv"></a>
+# **getVaultMarketOptionIv**
+> GetVaultMarketOptionIvResponse getVaultMarketOptionIv(underlying)
+
+The at-the-money implied volatility of the nearest expiry on an underlying, for display on its page: derived from the options book, quality C, never written as a mark.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val underlying : kotlin.String = underlying_example // kotlin.String | 
+try {
+    val result : GetVaultMarketOptionIvResponse = apiInstance.getVaultMarketOptionIv(underlying)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionIv")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionIv")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **underlying** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketOptionIvResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionMargin"></a>
+# **getVaultMarketOptionMargin**
+> GetVaultMarketOptionMarginResponse getVaultMarketOptionMargin()
+
+Your options margin: the scenario requirement (worst loss over a +/-40% price x +/-50% vol grid, with offsets from vault units and positions you hold), initial margin, equity and state (ok / call / liquidate) per underlying. Authoritative on the Crossly venue; on the partner venue the partner&#39;s figure decides and this is an estimate.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionMarginResponse = apiInstance.getVaultMarketOptionMargin()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionMargin")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionMargin")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionMarginResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionPayoff"></a>
+# **getVaultMarketOptionPayoff**
+> GetVaultMarketOptionPayoffResponse getVaultMarketOptionPayoff()
+
+Your whole options position on one &#x60;underlying&#x60; at expiry: the P&amp;L curve over 50%..150% of spot, breakevens, and the maximum gain and loss (null when unbounded).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionPayoffResponse = apiInstance.getVaultMarketOptionPayoff()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionPayoff")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionPayoff")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionPayoffResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionPosition"></a>
+# **getVaultMarketOptionPosition**
+> GetVaultMarketOptionPositionResponse getVaultMarketOptionPosition()
+
+Your options positions: signed milli-contracts, average open price, the price it is settled to (Crossly venue), the theoretical mark, unrealised and realised P&amp;L in cents, the Greeks for your size, the protective-put flag and your auto-deleveraging queue lights. &#x60;status&#x60; open (default) / all, &#x60;subaccountId&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionPositionResponse = apiInstance.getVaultMarketOptionPosition()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionPosition")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionPosition")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionPositionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionPractice"></a>
+# **getVaultMarketOptionPractice**
+> GetVaultMarketOptionPracticeResponse getVaultMarketOptionPractice()
+
+Your options practice account (play money only, $10,000 to start): cash, positions at the practice maker&#39;s price, equity and P&amp;L.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionPracticeResponse = apiInstance.getVaultMarketOptionPractice()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionPractice")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionPractice")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionPracticeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionRfq"></a>
+# **getVaultMarketOptionRfq**
+> GetVaultMarketOptionRfqResponse getVaultMarketOptionRfq(id)
+
+One option quote request: yours with every answer, or one you were sent with your own answer.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketOptionRfqResponse = apiInstance.getVaultMarketOptionRfq(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionRfq")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionRfq")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketOptionRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketOptionRisk"></a>
+# **getVaultMarketOptionRisk**
+> GetVaultMarketOptionRiskResponse getVaultMarketOptionRisk()
+
+Your options portfolio&#39;s Greeks (per underlying and total, with dollar delta and 1% gamma), a scenario&#39;s P&amp;L (&#x60;priceShift&#x60;, &#x60;volShift&#x60;, &#x60;daysForward&#x60;), a price x vol P&amp;L grid, and the beta-weighted delta against an index (&#x60;betaIndex&#x60;, default the deepest). &#x60;book&#x60; live (default) or practice.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionRiskResponse = apiInstance.getVaultMarketOptionRisk()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketOptionRisk")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketOptionRisk")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionRiskResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getVaultMarketOracle"></a>
 # **getVaultMarketOracle**
 > GetVaultMarketOracleResponse getVaultMarketOracle()
@@ -12436,7 +17799,7 @@ Configure PersonalAccessToken:
 # **getVaultMarketPartnerMe**
 > GetVaultMarketPartnerMeResponse getVaultMarketPartnerMe()
 
-Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, totals and batches.
+Your Vault Drop-off Partnership (null when you never applied): status, partner code, fee share and cap, finder profile, totals and batches; and whether your one-time ID check is done.
 
 ### Example
 ```kotlin
@@ -12823,6 +18186,1074 @@ Name | Type | Description  | Notes
 ### Return type
 
 **ListVaultMarketPositionsRiskItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPrediction"></a>
+# **getVaultMarketPrediction**
+> GetVaultMarketPredictionResponse getVaultMarketPrediction()
+
+The prediction markets home: the busiest and soonest-expiring \&quot;Will it hit?\&quot; markets with their probability (each market&#39;s own price, display only), the underlyings with markets, which venue is live, and how many positions you hold.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionResponse = apiInstance.getVaultMarketPrediction()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPrediction")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPrediction")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionAccount"></a>
+# **getVaultMarketPredictionAccount**
+> GetVaultMarketPredictionAccountResponse getVaultMarketPredictionAccount()
+
+Your prediction-market account: the live venue, your account there and the terms you accepted, whether you may trade real money (region, age, self-exclusion) and why not, your self-set limits, and the practice account line.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionAccountResponse = apiInstance.getVaultMarketPredictionAccount()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionAccount")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionAccount")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionAccountResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionBoard"></a>
+# **getVaultMarketPredictionBoard**
+> GetVaultMarketPredictionBoardResponse getVaultMarketPredictionBoard()
+
+The prediction board the Trading Floor and the Market Open plank show: the busiest open markets and their odds. Anonymous: never who holds what.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionBoardResponse = apiInstance.getVaultMarketPredictionBoard()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionBoard")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionBoard")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionBoardResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionCombo"></a>
+# **getVaultMarketPredictionCombo**
+> ListVaultMarketPredictionCombosItem getVaultMarketPredictionCombo(id)
+
+One of your combos.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketPredictionCombosItem = apiInstance.getVaultMarketPredictionCombo(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionCombo")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionCombo")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketPredictionCombosItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionComboRfq"></a>
+# **getVaultMarketPredictionComboRfq**
+> ListVaultMarketPredictionComboRfqsItem getVaultMarketPredictionComboRfq(id)
+
+One combo request: its legs and size, and the answers you can see (all of them if you asked; yours if you quoted).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketPredictionComboRfqsItem = apiInstance.getVaultMarketPredictionComboRfq(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionComboRfq")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionComboRfq")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketPredictionComboRfqsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionDailyPrice"></a>
+# **getVaultMarketPredictionDailyPrice**
+> GetVaultMarketPredictionDailyPriceResponse getVaultMarketPredictionDailyPrice()
+
+The published daily settlement price of every listed market for a day (default yesterday): the last hour&#39;s volume-weighted Yes price, else the book mid, else the prior day&#39;s, with volume and open interest.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionDailyPriceResponse = apiInstance.getVaultMarketPredictionDailyPrice()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionDailyPrice")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionDailyPrice")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionDailyPriceResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionEvent"></a>
+# **getVaultMarketPredictionEvent**
+> GetVaultMarketPredictionEventResponse getVaultMarketPredictionEvent(id)
+
+One expiry of a series (an event): its markets, what you hold in each, the real worst and best case of your holdings across them (what your limit counts), and, for a full bucket set, how many sets you could merge. &#x60;venue&#x60; paper or live.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketPredictionEventResponse = apiInstance.getVaultMarketPredictionEvent(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionEvent")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionEvent")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketPredictionEventResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionForecaster"></a>
+# **getVaultMarketPredictionForecaster**
+> GetVaultMarketPredictionForecasterResponse getVaultMarketPredictionForecaster()
+
+Your forecaster profile: display name, whether it is public (opt-in) and since when, and your followers.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionForecasterResponse = apiInstance.getVaultMarketPredictionForecaster()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionForecaster")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionForecaster")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionForecasterResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionForecasterById"></a>
+# **getVaultMarketPredictionForecasterById**
+> GetVaultMarketPredictionForecasterByIdResponse getVaultMarketPredictionForecasterById(id)
+
+A public forecaster: scores (all time and this month), open sides (never sizes), recent settled calls, followers. 404 when private.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketPredictionForecasterByIdResponse = apiInstance.getVaultMarketPredictionForecasterById(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionForecasterById")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionForecasterById")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketPredictionForecasterByIdResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionLeaderboard"></a>
+# **getVaultMarketPredictionLeaderboard**
+> GetVaultMarketPredictionLeaderboardResponse getVaultMarketPredictionLeaderboard()
+
+Opt-in forecaster leaderboards: &#x60;period&#x60; week, month or all; &#x60;metric&#x60; pnl, accuracy or brier; &#x60;venue&#x60; live or paper (practice has its own board).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionLeaderboardResponse = apiInstance.getVaultMarketPredictionLeaderboard()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionLeaderboard")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionLeaderboard")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionLeaderboardResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionLimit"></a>
+# **getVaultMarketPredictionLimit**
+> GetVaultMarketPredictionLimitResponse getVaultMarketPredictionLimit()
+
+Your self-set prediction limits: daily loss limit, self-exclusion, a raise waiting its 24 hours, and any hold the venue placed.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionLimitResponse = apiInstance.getVaultMarketPredictionLimit()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionLimit")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionLimit")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionLimitResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionMarket"></a>
+# **getVaultMarketPredictionMarket**
+> GetVaultMarketPredictionMarketResponse getVaultMarketPredictionMarket(id)
+
+One prediction market: its terms, the Yes ladder of the live venue and of the practice book, recent trades, settlement history (outcome, value, hash, review), the series rules text and hash, and your positions in it.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketPredictionMarketResponse = apiInstance.getVaultMarketPredictionMarket(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionMarket")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionMarket")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketPredictionMarketResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionMarketForecast"></a>
+# **getVaultMarketPredictionMarketForecast**
+> GetVaultMarketPredictionMarketForecastResponse getVaultMarketPredictionMarketForecast(id)
+
+How many people forecast a market and their median probability (no names).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketPredictionMarketForecastResponse = apiInstance.getVaultMarketPredictionMarketForecast(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionMarketForecast")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionMarketForecast")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketPredictionMarketForecastResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionMarketHistory"></a>
+# **getVaultMarketPredictionMarketHistory**
+> GetVaultMarketPredictionMarketHistoryResponse getVaultMarketPredictionMarketHistory(id)
+
+A market&#39;s history: probability points (display only, never a mark), candles on the Yes price, volume and open interest over &#x60;range&#x60; 1d, 1w, 1m or all; &#x60;venue&#x60; live or paper.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketPredictionMarketHistoryResponse = apiInstance.getVaultMarketPredictionMarketHistory(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionMarketHistory")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionMarketHistory")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketPredictionMarketHistoryResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionMarketStream"></a>
+# **getVaultMarketPredictionMarketStream**
+> kotlin.String getVaultMarketPredictionMarketStream(id)
+
+A server-sent event stream for one prediction market: &#x60;snapshot&#x60; first, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60; as they change.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : kotlin.String = apiInstance.getVaultMarketPredictionMarketStream(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionMarketStream")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionMarketStream")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**kotlin.String**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionMarketTrade"></a>
+# **getVaultMarketPredictionMarketTrade**
+> GetVaultMarketPredictionMarketTradeResponse getVaultMarketPredictionMarketTrade(id)
+
+The trade tape, newest first: Yes price, size, which side took, venue. Page with &#x60;before&#x60; (the last &#x60;seq&#x60;).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketPredictionMarketTradeResponse = apiInstance.getVaultMarketPredictionMarketTrade(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionMarketTrade")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionMarketTrade")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketPredictionMarketTradeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionMeStream"></a>
+# **getVaultMarketPredictionMeStream**
+> kotlin.String getVaultMarketPredictionMeStream()
+
+A server-sent event stream of your own prediction events: &#x60;pm_order&#x60; (placed, filled, amended, cancelled, expired), &#x60;pm_fill&#x60; (your side, price and fee), &#x60;pm_position&#x60;, &#x60;pm_combo&#x60; and &#x60;pm_conversion&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : kotlin.String = apiInstance.getVaultMarketPredictionMeStream()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionMeStream")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionMeStream")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**kotlin.String**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionMission"></a>
+# **getVaultMarketPredictionMission**
+> GetVaultMarketPredictionMissionResponse getVaultMarketPredictionMission()
+
+The two \&quot;Will it hit?\&quot; practice missions (your first call; see one settle), whether the server saw each done, and the pin they lead to. Pins only.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionMissionResponse = apiInstance.getVaultMarketPredictionMission()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionMission")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionMission")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionMissionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionPaper"></a>
+# **getVaultMarketPredictionPaper**
+> GetVaultMarketPredictionPaperResponse getVaultMarketPredictionPaper()
+
+Your practice prediction account (play money only, $1,000 to start, never real or convertible): cash, money locked by working orders, positions and working orders.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionPaperResponse = apiInstance.getVaultMarketPredictionPaper()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionPaper")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionPaper")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionPaperResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionQuote"></a>
+# **getVaultMarketPredictionQuote**
+> GetVaultMarketPredictionQuoteResponse getVaultMarketPredictionQuote()
+
+What an order would do now without placing it: contracts fillable inside the limit (a market order uses the 10-cent band), average price, estimated fee (Kalshi&#39;s formula), the money it would lock, and the most it could pay out.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionQuoteResponse = apiInstance.getVaultMarketPredictionQuote()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionQuote")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionQuote")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionQuoteResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionRulebook"></a>
+# **getVaultMarketPredictionRulebook**
+> GetVaultMarketPredictionRulebookResponse getVaultMarketPredictionRulebook()
+
+The prediction venue&#39;s rule book now and every version, each hashed and chained to the one before (&#x60;chainOk&#x60;).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionRulebookResponse = apiInstance.getVaultMarketPredictionRulebook()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionRulebook")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionRulebook")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionRulebookResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionStream"></a>
+# **getVaultMarketPredictionStream**
+> kotlin.String getVaultMarketPredictionStream()
+
+A server-sent event stream for up to 50 markets (&#x60;markets&#x60;&#x3D;id,id): &#x60;ready&#x60;, then &#x60;pm_depth&#x60;, &#x60;pm_trades&#x60;, &#x60;pm_probability&#x60;, &#x60;pm_status&#x60; and &#x60;pm_settlement&#x60;, each carrying its marketId.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : kotlin.String = apiInstance.getVaultMarketPredictionStream()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionStream")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionStream")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**kotlin.String**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionVenue"></a>
+# **getVaultMarketPredictionVenue**
+> GetVaultMarketPredictionVenueResponse getVaultMarketPredictionVenue()
+
+Which prediction venue is live: self (Crossly as the DCM, money at the segregated settlement bank), partner (a partner DCM) or paper (practice only), who runs the book, where money sits, and the env each real mode still needs.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionVenueResponse = apiInstance.getVaultMarketPredictionVenue()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionVenue")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionVenue")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionVenueResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketPredictionWillItHit"></a>
+# **getVaultMarketPredictionWillItHit**
+> GetVaultMarketPredictionWillItHitResponse getVaultMarketPredictionWillItHit()
+
+The \&quot;Will it hit?\&quot; panel for a key (&#x60;bookKey&#x60;) or an index (&#x60;index&#x60; slug): its open markets grouped by expiry, each with its probability. &#x60;eligible&#x60; is false when nothing is listed on it.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionWillItHitResponse = apiInstance.getVaultMarketPredictionWillItHit()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketPredictionWillItHit")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketPredictionWillItHit")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionWillItHitResponse**
 
 ### Authorization
 
@@ -13684,6 +20115,139 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getVaultMarketSetting"></a>
+# **getVaultMarketSetting**
+> GetVaultMarketSettingResponse getVaultMarketSetting()
+
+Your vault defaults: Sell from first, new-inventory suggestions, the insurance rule and the default grading service.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketSettingResponse = apiInstance.getVaultMarketSetting()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketSetting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketSetting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketSettingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShare"></a>
+# **getVaultMarketShare**
+> GetVaultMarketShareResponse getVaultMarketShare()
+
+Vault Shares at a glance: the venue mode in force (self, partner or paper) and the env it still needs, the rules (about $5 a share, 100 to 100,000 shares, originator keeps 0-50%, 3% origination, maker 0 / taker 100 bps, 90-day lockup, buyouts at the mark x 1.10 with a two-thirds vote) and the disclosure.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketShareResponse = apiInstance.getVaultMarketShare()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShare")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShare")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketShareResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShareBasket"></a>
+# **getVaultMarketShareBasket**
+> GetVaultMarketShareBasketResponse getVaultMarketShareBasket(id)
+
+One theme basket (id or slug): its series, target and live weights, prices, and your own holdings against the weights.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketShareBasketResponse = apiInstance.getVaultMarketShareBasket(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShareBasket")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShareBasket")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketShareBasketResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getVaultMarketShareCard"></a>
 # **getVaultMarketShareCard**
 > ListVaultMarketShareCardsItem getVaultMarketShareCard(id)
@@ -13719,6 +20283,460 @@ Name | Type | Description  | Notes
 ### Return type
 
 **ListVaultMarketShareCardsItem**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShareInvestor"></a>
+# **getVaultMarketShareInvestor**
+> GetVaultMarketShareInvestorResponse getVaultMarketShareInvestor()
+
+Your investor account at the venue in force: its status, the investor terms you accepted, and your Reg A+ limit for one offering (10% of the greater of income and net worth unless accredited).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketShareInvestorResponse = apiInstance.getVaultMarketShareInvestor()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShareInvestor")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShareInvestor")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketShareInvestorResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShareMe"></a>
+# **getVaultMarketShareMe**
+> GetVaultMarketShareMeResponse getVaultMarketShareMe()
+
+Your Vault Shares: shares and percent of each item, cost, implied value at the last price, your subscriptions and the payouts you were sent.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketShareMeResponse = apiInstance.getVaultMarketShareMe()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShareMe")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShareMe")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketShareMeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketSharePaper"></a>
+# **getVaultMarketSharePaper**
+> GetVaultMarketSharePaperResponse getVaultMarketSharePaper()
+
+Your practice account for Vault Shares (play money only, never real, never convertible): cash, practice holdings, open practice orders, recent practice fills.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketSharePaperResponse = apiInstance.getVaultMarketSharePaper()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketSharePaper")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketSharePaper")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketSharePaperResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketSharePaperSeryBook"></a>
+# **getVaultMarketSharePaperSeryBook**
+> GetVaultMarketSharePaperSeryBookResponse getVaultMarketSharePaperSeryBook(id)
+
+A series’ practice book: practice orders and the house quote 1% either side of the reference price.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketSharePaperSeryBookResponse = apiInstance.getVaultMarketSharePaperSeryBook(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketSharePaperSeryBook")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketSharePaperSeryBook")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketSharePaperSeryBookResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketSharePreview"></a>
+# **getVaultMarketSharePreview**
+> GetVaultMarketSharePreviewResponse getVaultMarketSharePreview()
+
+Fractionalize instead: whether one of your vault units can become a Vault Shares series now (stored, tier A or B, reliable mark of $1,000 or more, declared and insured, free) and the offering terms it would get.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketSharePreviewResponse = apiInstance.getVaultMarketSharePreview()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketSharePreview")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketSharePreview")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketSharePreviewResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShareSery"></a>
+# **getVaultMarketShareSery**
+> GetVaultMarketShareSeryResponse getVaultMarketShareSery(id)
+
+One series: the offering, the share book depth, the latest fills, holders as share percentages (nobody named), buyouts and your vote, your orders and subscriptions.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketShareSeryResponse = apiInstance.getVaultMarketShareSery(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShareSery")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShareSery")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketShareSeryResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShareSeryBook"></a>
+# **getVaultMarketShareSeryBook**
+> GetVaultMarketShareSeryBookResponse getVaultMarketShareSeryBook(id)
+
+A share book’s depth: whole shares per price level (integer cents a share), best first.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketShareSeryBookResponse = apiInstance.getVaultMarketShareSeryBook(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShareSeryBook")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShareSeryBook")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketShareSeryBookResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShareSeryHistory"></a>
+# **getVaultMarketShareSeryHistory**
+> GetVaultMarketShareSeryHistoryResponse getVaultMarketShareSeryHistory(id)
+
+A series’ full price history: OHLC candles of every share-book fill (&#x60;interval&#x60; 1h, 1d or 1w), the offering price, the change since the offering, and the appraisal history beside it. Share prices are display only, never a mark.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketShareSeryHistoryResponse = apiInstance.getVaultMarketShareSeryHistory(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShareSeryHistory")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShareSeryHistory")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketShareSeryHistoryResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShareSeryPerk"></a>
+# **getVaultMarketShareSeryPerk**
+> GetVaultMarketShareSeryPerkResponse getVaultMarketShareSeryPerk(id)
+
+Holder perks on a series: whether you hold it, your holder badge, the links to visit the item in the world vault room and in AR, the viewing days with places left and your bookings.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketShareSeryPerkResponse = apiInstance.getVaultMarketShareSeryPerk(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShareSeryPerk")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShareSeryPerk")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketShareSeryPerkResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketShareSeryRoom"></a>
+# **getVaultMarketShareSeryRoom**
+> GetVaultMarketShareSeryRoomResponse getVaultMarketShareSeryRoom(id)
+
+The holder room for a series (shareholders only): posts newest first under per-series aliases, never account names. &#x60;before&#x60; pages back.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketShareSeryRoomResponse = apiInstance.getVaultMarketShareSeryRoom(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketShareSeryRoom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketShareSeryRoom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketShareSeryRoomResponse**
 
 ### Authorization
 
@@ -14003,6 +21021,53 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getVaultMarketSupplyShipment"></a>
+# **getVaultMarketSupplyShipment**
+> GetVaultMarketSupplyShipmentResponse getVaultMarketSupplyShipment(id)
+
+One shipment into the vault, with each unit and whether it was received.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : GetVaultMarketSupplyShipmentResponse = apiInstance.getVaultMarketSupplyShipment(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketSupplyShipment")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketSupplyShipment")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketSupplyShipmentResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getVaultMarketTax"></a>
 # **getVaultMarketTax**
 > GetVaultMarketTaxResponse getVaultMarketTax()
@@ -14132,6 +21197,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="getVaultMarketTaxOption"></a>
+# **getVaultMarketTaxOption**
+> GetVaultMarketTaxOptionResponse getVaultMarketTaxOption()
+
+Your fractional options tax lots for a calendar year (&#x60;year&#x60;, default this year): FIFO disposals (closed or settled) with proceeds, cost, gain in cents and holding term, each flagged as a possible Section 1256 contract, the totals with the 60/40 split, and the positions open at year end. Real fills only; practice never appears. Not tax advice.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketTaxOptionResponse = apiInstance.getVaultMarketTaxOption()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketTaxOption")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketTaxOption")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketTaxOptionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="getVaultMarketTaxPdf"></a>
 # **getVaultMarketTaxPdf**
 > java.io.File getVaultMarketTaxPdf()
@@ -14163,6 +21271,92 @@ This endpoint does not need any parameter.
 ### Return type
 
 **java.io.File**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketTaxPrediction"></a>
+# **getVaultMarketTaxPrediction**
+> GetVaultMarketTaxPredictionResponse getVaultMarketTaxPrediction()
+
+Your prediction-market results for a calendar year (&#x60;year&#x60;), as the venue reports them: each settled or voided real-money position with its venue, cost, fees, payout, refund, closing-trade gains and net in cents, and the totals. Practice never appears. Not tax advice.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketTaxPredictionResponse = apiInstance.getVaultMarketTaxPrediction()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketTaxPrediction")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketTaxPrediction")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketTaxPredictionResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketTaxShare"></a>
+# **getVaultMarketTaxShare**
+> GetVaultMarketTaxShareResponse getVaultMarketTaxShare()
+
+Your Vault Shares tax lots for a calendar year (&#x60;year&#x60;): disposals (share-book sales, exit payouts) with holding periods, proceeds, cost and gain in cents, the open lots and the totals. The broker-dealer issues the 1099-B; not tax advice.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketTaxShareResponse = apiInstance.getVaultMarketTaxShare()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketTaxShare")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketTaxShare")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketTaxShareResponse**
 
 ### Authorization
 
@@ -14977,6 +22171,49 @@ This endpoint does not need any parameter.
 ### Return type
 
 **GetVaultMarketWorldFloorResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="getVaultMarketWorldFloorBoard"></a>
+# **getVaultMarketWorldFloorBoard**
+> GetVaultMarketWorldFloorBoardResponse getVaultMarketWorldFloorBoard()
+
+The Trading Floor boards for the round-13 products: odds (the probability ladder: the busiest open \&quot;Will it hit?\&quot; markets with probabilityBps, the market’s own price as a probability, display only), heat (option-chain heat: per listed underlying, open interest and the last day’s volume in milli-contracts in strike buckets around the underlying, a 0..1 heat per bucket and the at-the-money implied vol, display only) and shares (Vault Shares tickers: last share price in cents, changeBps from the last fill before today, shares traded today and the implied item value, display only). quality is always C: none of these is ever a mark. It never shows who traded.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketWorldFloorBoardResponse = apiInstance.getVaultMarketWorldFloorBoard()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#getVaultMarketWorldFloorBoard")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#getVaultMarketWorldFloorBoard")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketWorldFloorBoardResponse**
 
 ### Authorization
 
@@ -16827,6 +24064,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listVaultMarketHoldings"></a>
+# **listVaultMarketHoldings**
+> ListVaultMarketHoldingsResponse listVaultMarketHoldings()
+
+Everything you own in the Crossly vault, newest activity first: each unit with its status (inbound, stored, listed, withdraw_requested…) and situation (lent, pledged, in_grading…), what it is worth (&#x60;valueCents&#x60; with &#x60;valueSource&#x60; mark | last_sale | declared | none), declared and insured value, storage owed, its open ask, the deposit toggles when you sent it in, and what you may do with it now (&#x60;actions&#x60;). Units sold or shipped home in the last 90 days have &#x60;past: true&#x60;. &#x60;meta&#x60; carries the totals (units, value, declared, insured, storage owed), your recent boxes and their labels, the ship-home prices and the lending gate.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketHoldingsResponse = apiInstance.listVaultMarketHoldings()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketHoldings")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketHoldings")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketHoldingsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listVaultMarketIndexCommitteeMinutes"></a>
 # **listVaultMarketIndexCommitteeMinutes**
 > ListVaultMarketIndexCommitteeMinutesResponse listVaultMarketIndexCommitteeMinutes()
@@ -17879,6 +25159,612 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listVaultMarketOptionComboRfq"></a>
+# **listVaultMarketOptionComboRfq**
+> ListVaultMarketOptionComboRfqResponse listVaultMarketOptionComboRfq()
+
+Your strategy quote requests, newest first.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionComboRfqResponse = apiInstance.listVaultMarketOptionComboRfq()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionComboRfq")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionComboRfq")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionComboRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionComboRfqInbox"></a>
+# **listVaultMarketOptionComboRfqInbox**
+> ListVaultMarketOptionComboRfqResponse listVaultMarketOptionComboRfqInbox()
+
+Open strategy quote requests you may answer (never your own; the requester stays anonymous).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionComboRfqResponse = apiInstance.listVaultMarketOptionComboRfqInbox()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionComboRfqInbox")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionComboRfqInbox")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionComboRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionCombos"></a>
+# **listVaultMarketOptionCombos**
+> ListVaultMarketOptionCombosResponse listVaultMarketOptionCombos()
+
+Your strategies: &#x60;status&#x60; working (default), done or all, with their legs as you hold them, net per unit, filled size and status.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionCombosResponse = apiInstance.listVaultMarketOptionCombos()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionCombos")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionCombos")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionCombosResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionContractDaily"></a>
+# **listVaultMarketOptionContractDaily**
+> ListVaultMarketOptionContractDailyResponse listVaultMarketOptionContractDaily(id)
+
+A contract&#39;s published daily settlement prices, newest first (&#x60;days&#x60;, default 30): the price, how it was set (volume-weighted fills, the mid, or Black-Scholes at the reference vol), its implied vol, the underlying, open interest and volume, and each row&#39;s chain hash.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketOptionContractDailyResponse = apiInstance.listVaultMarketOptionContractDaily(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionContractDaily")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionContractDaily")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketOptionContractDailyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionMmQuotes"></a>
+# **listVaultMarketOptionMmQuotes**
+> ListVaultMarketOptionMmQuotesResponse listVaultMarketOptionMmQuotes()
+
+Your two-sided option quotes: the contract, the bid and ask orders behind them, cancel-on-disconnect and the last heartbeat.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionMmQuotesResponse = apiInstance.listVaultMarketOptionMmQuotes()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionMmQuotes")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionMmQuotes")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionMmQuotesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionNotices"></a>
+# **listVaultMarketOptionNotices**
+> ListVaultMarketOptionNoticesResponse listVaultMarketOptionNotices()
+
+Your options notices, newest first: expiry warnings, auto-closes, exercises (a long settled in the money), assignments (a short settled in the money), expiries worthless and rolls.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionNoticesResponse = apiInstance.listVaultMarketOptionNotices()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionNotices")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionNotices")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionNoticesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionOrders"></a>
+# **listVaultMarketOptionOrders**
+> ListVaultMarketOptionOrdersResponse listVaultMarketOptionOrders()
+
+Your options orders, newest first: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;, &#x60;subaccountId&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionOrdersResponse = apiInstance.listVaultMarketOptionOrders()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionOrders")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionOrders")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionOrdersResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionPracticeCombos"></a>
+# **listVaultMarketOptionPracticeCombos**
+> ListVaultMarketOptionCombosResponse listVaultMarketOptionPracticeCombos()
+
+Your practice strategies.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionCombosResponse = apiInstance.listVaultMarketOptionPracticeCombos()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionPracticeCombos")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionPracticeCombos")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionCombosResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionPracticeFills"></a>
+# **listVaultMarketOptionPracticeFills**
+> ListVaultMarketOptionPracticeFillsResponse listVaultMarketOptionPracticeFills()
+
+Your practice options fills, newest first (&#x60;limit&#x60;).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionPracticeFillsResponse = apiInstance.listVaultMarketOptionPracticeFills()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionPracticeFills")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionPracticeFills")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionPracticeFillsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionPracticeOrders"></a>
+# **listVaultMarketOptionPracticeOrders**
+> ListVaultMarketOptionPracticeOrdersResponse listVaultMarketOptionPracticeOrders()
+
+Your practice options orders: &#x60;status&#x60; working (default) / done / all, &#x60;limit&#x60;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionPracticeOrdersResponse = apiInstance.listVaultMarketOptionPracticeOrders()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionPracticeOrders")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionPracticeOrders")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionPracticeOrdersResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionRfq"></a>
+# **listVaultMarketOptionRfq**
+> ListVaultMarketOptionRfqResponse listVaultMarketOptionRfq()
+
+Your option quote requests, newest first.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionRfqResponse = apiInstance.listVaultMarketOptionRfq()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionRfq")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionRfq")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionRfqInbox"></a>
+# **listVaultMarketOptionRfqInbox**
+> ListVaultMarketOptionRfqResponse listVaultMarketOptionRfqInbox()
+
+Open option quote requests you can answer.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionRfqResponse = apiInstance.listVaultMarketOptionRfqInbox()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionRfqInbox")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionRfqInbox")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionRfqResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionSeries"></a>
+# **listVaultMarketOptionSeries**
+> ListVaultMarketOptionSeriesResponse listVaultMarketOptionSeries()
+
+Every options series: its underlying (a Crossly index, or a tier A item key with 90 days of reliable marks), status and the eligibility snapshot it last passed. &#x60;status&#x60;: active (default) or all.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionSeriesResponse = apiInstance.listVaultMarketOptionSeries()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionSeries")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionSeries")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionSeriesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketOptionStrategies"></a>
+# **listVaultMarketOptionStrategies**
+> ListVaultMarketOptionStrategiesResponse listVaultMarketOptionStrategies()
+
+The strategies the picker builds (vertical, calendar, diagonal, straddle, strangle, butterfly, iron condor, collar): how many strikes and expiries each takes, whether it needs calls or puts, and what it does in plain words.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketOptionStrategiesResponse = apiInstance.listVaultMarketOptionStrategies()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketOptionStrategies")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketOptionStrategies")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketOptionStrategiesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listVaultMarketOracleHistory"></a>
 # **listVaultMarketOracleHistory**
 > ListVaultMarketOracleHistoryResponse listVaultMarketOracleHistory(slug)
@@ -18356,6 +26242,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listVaultMarketPartnerFinder"></a>
+# **listVaultMarketPartnerFinder**
+> ListVaultMarketPartnerFinderResponse listVaultMarketPartnerFinder()
+
+Vault drop-off partners near a &#x60;postalCode&#x60;, optionally offering a &#x60;service&#x60;: address, hours and services.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPartnerFinderResponse = apiInstance.listVaultMarketPartnerFinder()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPartnerFinder")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPartnerFinder")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPartnerFinderResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listVaultMarketPoolStakes"></a>
 # **listVaultMarketPoolStakes**
 > ListVaultMarketPoolStakesResponse listVaultMarketPoolStakes()
@@ -18563,6 +26492,608 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListVaultMarketPositionsRiskResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionAlerts"></a>
+# **listVaultMarketPredictionAlerts**
+> ListVaultMarketPredictionAlertsResponse listVaultMarketPredictionAlerts()
+
+Your probability alerts: a market, a level (percent) and a direction; each fires once through the alerts hub (kind prediction_odds).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionAlertsResponse = apiInstance.listVaultMarketPredictionAlerts()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionAlerts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionAlerts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionAlertsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionComboMyRfqs"></a>
+# **listVaultMarketPredictionComboMyRfqs**
+> ListVaultMarketPredictionComboRfqsResponse listVaultMarketPredictionComboMyRfqs()
+
+Your combo requests with every answer they got.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionComboRfqsResponse = apiInstance.listVaultMarketPredictionComboMyRfqs()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionComboMyRfqs")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionComboMyRfqs")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionComboRfqsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionComboRfqs"></a>
+# **listVaultMarketPredictionComboRfqs**
+> ListVaultMarketPredictionComboRfqsResponse listVaultMarketPredictionComboRfqs()
+
+Open combo requests makers can answer: legs, size and the legs&#39; own combined price; never who asked. Your own answers are shown on them.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionComboRfqsResponse = apiInstance.listVaultMarketPredictionComboRfqs()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionComboRfqs")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionComboRfqs")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionComboRfqsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionCombos"></a>
+# **listVaultMarketPredictionCombos**
+> ListVaultMarketPredictionCombosResponse listVaultMarketPredictionCombos()
+
+Your combos, as buyer or maker: legs and their outcomes, stakes, the pot, any reprice after a voided leg, and how each settled.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionCombosResponse = apiInstance.listVaultMarketPredictionCombos()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionCombos")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionCombos")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionCombosResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionComments"></a>
+# **listVaultMarketPredictionComments**
+> ListVaultMarketPredictionCommentsResponse listVaultMarketPredictionComments()
+
+A discussion thread on a market (&#x60;marketId&#x60;) or a series (&#x60;seriesId&#x60;): comments newest first with their replies. A commenter&#39;s side shows only when their forecaster profile is public.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionCommentsResponse = apiInstance.listVaultMarketPredictionComments()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionComments")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionComments")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionCommentsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionConversions"></a>
+# **listVaultMarketPredictionConversions**
+> ListVaultMarketPredictionConversionsResponse listVaultMarketPredictionConversions()
+
+Your bucket-set conversions (split, merge, convert), newest first.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionConversionsResponse = apiInstance.listVaultMarketPredictionConversions()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionConversions")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionConversions")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionConversionsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionFollowing"></a>
+# **listVaultMarketPredictionFollowing**
+> ListVaultMarketPredictionFollowingResponse listVaultMarketPredictionFollowing()
+
+The forecasters you follow.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionFollowingResponse = apiInstance.listVaultMarketPredictionFollowing()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionFollowing")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionFollowing")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionFollowingResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionForecasts"></a>
+# **listVaultMarketPredictionForecasts**
+> ListVaultMarketPredictionForecastsResponse listVaultMarketPredictionForecasts()
+
+Your forecasts (a probability you attached to a market, money or not) and how the markets came out.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionForecastsResponse = apiInstance.listVaultMarketPredictionForecasts()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionForecasts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionForecasts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionForecastsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionMakers"></a>
+# **listVaultMarketPredictionMakers**
+> ListVaultMarketPredictionMakersResponse listVaultMarketPredictionMakers()
+
+Your prediction maker programme applications and their status (applied, active, suspended, revoked) and rebate.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionMakersResponse = apiInstance.listVaultMarketPredictionMakers()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionMakers")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionMakers")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionMakersResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionMarkets"></a>
+# **listVaultMarketPredictionMarkets**
+> ListVaultMarketPredictionMarketsResponse listVaultMarketPredictionMarkets()
+
+Prediction markets, filtered by a book key, an index slug, an underlying kind (index | book_key | category_pair), a status (open | closed | settled | all), an expiry day or text. Each with its strike, expiry, best Yes bid and ask, last price, volume, open interest and probability.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionMarketsResponse = apiInstance.listVaultMarketPredictionMarkets()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionMarkets")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionMarkets")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionMarketsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionOrders"></a>
+# **listVaultMarketPredictionOrders**
+> ListVaultMarketPredictionOrdersResponse listVaultMarketPredictionOrders()
+
+Your prediction orders, newest first: working, done or all; practice, live or all.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionOrdersResponse = apiInstance.listVaultMarketPredictionOrders()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionOrders")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionOrders")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionOrdersResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionPositions"></a>
+# **listVaultMarketPredictionPositions**
+> ListVaultMarketPredictionPositionsResponse listVaultMarketPredictionPositions()
+
+Your prediction positions (practice, live or all; open, settled or all): side, contracts, cost, value at the last price, fees, realised P&amp;L, payout or refund once settled, and the share card if you made one.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionPositionsResponse = apiInstance.listVaultMarketPredictionPositions()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionPositions")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionPositions")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionPositionsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionProposalListed"></a>
+# **listVaultMarketPredictionProposalListed**
+> ListVaultMarketPredictionProposalListedResponse listVaultMarketPredictionProposalListed()
+
+The markets you proposed that are listed: volume, status and what the creator share has earned you.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionProposalListedResponse = apiInstance.listVaultMarketPredictionProposalListed()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionProposalListed")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionProposalListed")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionProposalListedResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketPredictionProposals"></a>
+# **listVaultMarketPredictionProposals**
+> ListVaultMarketPredictionProposalsResponse listVaultMarketPredictionProposals()
+
+Your market proposals and where each stands (pending, listed, rejected, withdrawn).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketPredictionProposalsResponse = apiInstance.listVaultMarketPredictionProposals()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketPredictionProposals")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketPredictionProposals")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketPredictionProposalsResponse**
 
 ### Authorization
 
@@ -19361,6 +27892,139 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listVaultMarketShareAutoInvest"></a>
+# **listVaultMarketShareAutoInvest**
+> ListVaultMarketShareAutoInvestResponse listVaultMarketShareAutoInvest()
+
+Your recurring auto-invest plans: amount, weekly or monthly, the series and weights or the basket, what rolled over (budget too small for a whole share; your money stays at the venue), the next run.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareAutoInvestResponse = apiInstance.listVaultMarketShareAutoInvest()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareAutoInvest")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareAutoInvest")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareAutoInvestResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareAutoInvestRuns"></a>
+# **listVaultMarketShareAutoInvestRuns**
+> ListVaultMarketShareAutoInvestRunsResponse listVaultMarketShareAutoInvestRuns(id)
+
+A plan’s runs, newest first: the budget, what each series bought, what was spent and what rolled over; rebalances too.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareAutoInvestRunsResponse = apiInstance.listVaultMarketShareAutoInvestRuns(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareAutoInvestRuns")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareAutoInvestRuns")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareAutoInvestRunsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareBaskets"></a>
+# **listVaultMarketShareBaskets**
+> ListVaultMarketShareBasketsResponse listVaultMarketShareBaskets()
+
+Theme baskets: curated model portfolios of Vault Shares series with target weights. You buy and own every share directly in your own name; a basket is never a fund.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareBasketsResponse = apiInstance.listVaultMarketShareBaskets()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareBaskets")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareBaskets")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareBasketsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listVaultMarketShareCards"></a>
 # **listVaultMarketShareCards**
 > ListVaultMarketShareCardsResponse listVaultMarketShareCards()
@@ -19392,6 +28056,448 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListVaultMarketShareCardsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareDrops"></a>
+# **listVaultMarketShareDrops**
+> ListVaultMarketShareDropsResponse listVaultMarketShareDrops()
+
+The Vault Shares drops calendar: announced and open offerings, soonest first, each with its phase (announced, early_access, requests, open), the countdown, the allocation (fcfs, pro_rata or lottery with a per-person cap), your Crossly One early-access time (it moves when you may ask, never the price) and whether you asked to be told.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareDropsResponse = apiInstance.listVaultMarketShareDrops()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareDrops")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareDrops")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareDropsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareGifts"></a>
+# **listVaultMarketShareGifts**
+> ListVaultMarketShareGiftsResponse listVaultMarketShareGifts()
+
+Your share gifts, sent and received, newest first, with where each stands (offered, instructed, settled, declined, cancelled, expired, rejected).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareGiftsResponse = apiInstance.listVaultMarketShareGifts()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareGifts")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareGifts")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareGiftsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareOrders"></a>
+# **listVaultMarketShareOrders**
+> ListVaultMarketShareOrdersResponse listVaultMarketShareOrders()
+
+Your share-book orders, newest first; &#x60;seriesId&#x60; and &#x60;open&#x60; narrow it.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareOrdersResponse = apiInstance.listVaultMarketShareOrders()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareOrders")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareOrders")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareOrdersResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareSeries"></a>
+# **listVaultMarketShareSeries**
+> ListVaultMarketShareSeriesResponse listVaultMarketShareSeries()
+
+Vault Shares series: open offerings first, then trading, then the rest. &#x60;status&#x60; and &#x60;bookKey&#x60; narrow it. Each with its terms, progress, last share price and implied item value (display only, never a mark), and your holding.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareSeriesResponse = apiInstance.listVaultMarketShareSeries()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareSeries")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareSeries")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareSeriesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareSeryAppraisals"></a>
+# **listVaultMarketShareSeryAppraisals**
+> ListVaultMarketShareSeryAppraisalsResponse listVaultMarketShareSeryAppraisals(id)
+
+The item’s appraisal history: the offering valuation (sealed valuation statement), independent and insurance appraisals, and any buyout or exit price.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareSeryAppraisalsResponse = apiInstance.listVaultMarketShareSeryAppraisals(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareSeryAppraisals")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareSeryAppraisals")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareSeryAppraisalsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareSeryTape"></a>
+# **listVaultMarketShareSeryTape**
+> ListVaultMarketShareSeryTapeResponse listVaultMarketShareSeryTape(id)
+
+The latest fills on a share book, newest first, with which side made the market.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareSeryTapeResponse = apiInstance.listVaultMarketShareSeryTape(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareSeryTape")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareSeryTape")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareSeryTapeResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareSeryUpdates"></a>
+# **listVaultMarketShareSeryUpdates**
+> ListVaultMarketShareSeryUpdatesResponse listVaultMarketShareSeryUpdates(id)
+
+The item’s story, provenance, condition reports, appraisals and exhibitions, newest first. Holders also see holders-only updates.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : ListVaultMarketShareSeryUpdatesResponse = apiInstance.listVaultMarketShareSeryUpdates(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareSeryUpdates")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareSeryUpdates")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**ListVaultMarketShareSeryUpdatesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareSubscriptions"></a>
+# **listVaultMarketShareSubscriptions**
+> ListVaultMarketShareSubscriptionsResponse listVaultMarketShareSubscriptions()
+
+Your offering subscriptions, newest first, with where each stands (pending, escrowed, allocated, refunded).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareSubscriptionsResponse = apiInstance.listVaultMarketShareSubscriptions()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareSubscriptions")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareSubscriptions")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareSubscriptionsResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketShareWorld"></a>
+# **listVaultMarketShareWorld**
+> ListVaultMarketShareWorldResponse listVaultMarketShareWorld()
+
+The world vault home’s fractional tiles: each item you own a share of, with \&quot;you own 3.2%\&quot;.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketShareWorldResponse = apiInstance.listVaultMarketShareWorld()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketShareWorld")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketShareWorld")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketShareWorldResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketSupplyDeclaredValues"></a>
+# **listVaultMarketSupplyDeclaredValues**
+> ListVaultMarketSupplyDeclaredValuesResponse listVaultMarketSupplyDeclaredValues()
+
+What each item&#39;s declared value starts at, by your insurance rule (market, cost or price). &#x60;inventoryItemIds&#x60; comma-separated.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketSupplyDeclaredValuesResponse = apiInstance.listVaultMarketSupplyDeclaredValues()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketSupplyDeclaredValues")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketSupplyDeclaredValues")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketSupplyDeclaredValuesResponse**
 
 ### Authorization
 
@@ -19447,6 +28553,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="listVaultMarketSupplyEligibility"></a>
+# **listVaultMarketSupplyEligibility**
+> ListVaultMarketSupplyEligibilityResponse listVaultMarketSupplyEligibility()
+
+Can these inventory items (&#x60;inventoryItemIds&#x60;, comma-separated, or every item linked to &#x60;listingId&#x60;) be sent to the vault now? Each says why not.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketSupplyEligibilityResponse = apiInstance.listVaultMarketSupplyEligibility()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketSupplyEligibility")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketSupplyEligibility")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketSupplyEligibilityResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="listVaultMarketSupplyInvites"></a>
 # **listVaultMarketSupplyInvites**
 > ListVaultMarketSupplyInvitesResponse listVaultMarketSupplyInvites()
@@ -19478,6 +28627,49 @@ This endpoint does not need any parameter.
 ### Return type
 
 **ListVaultMarketSupplyInvitesResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listVaultMarketSupplyShipments"></a>
+# **listVaultMarketSupplyShipments**
+> ListVaultMarketSupplyShipmentsResponse listVaultMarketSupplyShipments()
+
+Your shipments into the vault, newest first: method, label or drop-off code, tracking and how many units were received.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : ListVaultMarketSupplyShipmentsResponse = apiInstance.listVaultMarketSupplyShipments()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#listVaultMarketSupplyShipments")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#listVaultMarketSupplyShipments")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**ListVaultMarketSupplyShipmentsResponse**
 
 ### Authorization
 
@@ -20006,6 +29198,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="updateVaultMarketAutoBuy"></a>
+# **updateVaultMarketAutoBuy**
+> UpdateVaultMarketAutoBuyResponse updateVaultMarketAutoBuy()
+
+Set up or change Auto-buy with payouts: &#x60;shareBps&#x60; (1–50%) and the whole want list in order, each with an optional &#x60;maxPriceCents&#x60; (fee included).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : UpdateVaultMarketAutoBuyResponse = apiInstance.updateVaultMarketAutoBuy()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#updateVaultMarketAutoBuy")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#updateVaultMarketAutoBuy")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**UpdateVaultMarketAutoBuyResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="updateVaultMarketBlockAllocation"></a>
 # **updateVaultMarketBlockAllocation**
 > ListVaultMarketBlocksItem updateVaultMarketBlockAllocation(orderId)
@@ -20511,6 +29746,53 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="updateVaultMarketItemSellFrom"></a>
+# **updateVaultMarketItemSellFrom**
+> GetVaultMarketItemLocationResponse updateVaultMarketItemSellFrom(inventoryItemId)
+
+Set which unit a sale of this item ships first: &#x60;vault_first&#x60;, &#x60;warehouse_first&#x60; or &#x60;cheapest&#x60; (to ship); null &#x3D; your default. Quantities stay the same on every channel: only who ships changes.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val inventoryItemId : kotlin.String = inventoryItemId_example // kotlin.String | 
+try {
+    val result : GetVaultMarketItemLocationResponse = apiInstance.updateVaultMarketItemSellFrom(inventoryItemId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#updateVaultMarketItemSellFrom")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#updateVaultMarketItemSellFrom")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **inventoryItemId** | **kotlin.String**|  |
+
+### Return type
+
+**GetVaultMarketItemLocationResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="updateVaultMarketLendingElection"></a>
 # **updateVaultMarketLendingElection**
 > GetVaultMarketLendingElectionResponse updateVaultMarketLendingElection()
@@ -20683,6 +29965,49 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="updateVaultMarketOptionAutoClose"></a>
+# **updateVaultMarketOptionAutoClose**
+> GetVaultMarketOptionAutoCloseResponse updateVaultMarketOptionAutoClose()
+
+Set your auto-close rule: &#x60;enabled&#x60;, &#x60;minutesBefore&#x60; (30 to 10080), &#x60;onlyItm&#x60;, &#x60;maxSlippageBps&#x60; (0 to 2000).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketOptionAutoCloseResponse = apiInstance.updateVaultMarketOptionAutoClose()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#updateVaultMarketOptionAutoClose")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#updateVaultMarketOptionAutoClose")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketOptionAutoCloseResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="updateVaultMarketPaperLeaderboard"></a>
 # **updateVaultMarketPaperLeaderboard**
 > UpdateVaultMarketPaperLeaderboardResponse updateVaultMarketPaperLeaderboard()
@@ -20714,6 +30039,49 @@ This endpoint does not need any parameter.
 ### Return type
 
 **UpdateVaultMarketPaperLeaderboardResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateVaultMarketPartnerMe"></a>
+# **updateVaultMarketPartnerMe**
+> UpdateVaultMarketPartnerMeResponse updateVaultMarketPartnerMe()
+
+Your drop-off partnership&#39;s finder profile: postal code, opening hours, services and whether you are listed.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : UpdateVaultMarketPartnerMeResponse = apiInstance.updateVaultMarketPartnerMe()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#updateVaultMarketPartnerMe")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#updateVaultMarketPartnerMe")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**UpdateVaultMarketPartnerMeResponse**
 
 ### Authorization
 
@@ -20761,6 +30129,139 @@ Name | Type | Description  | Notes
 ### Return type
 
 **UpdateVaultMarketPositionExitResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateVaultMarketPredictionComment"></a>
+# **updateVaultMarketPredictionComment**
+> CreateVaultMarketPredictionCommentResponse updateVaultMarketPredictionComment(id)
+
+Edit your comment.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+val id : kotlin.String = id_example // kotlin.String | 
+try {
+    val result : CreateVaultMarketPredictionCommentResponse = apiInstance.updateVaultMarketPredictionComment(id)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#updateVaultMarketPredictionComment")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#updateVaultMarketPredictionComment")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **kotlin.String**|  |
+
+### Return type
+
+**CreateVaultMarketPredictionCommentResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateVaultMarketPredictionForecaster"></a>
+# **updateVaultMarketPredictionForecaster**
+> GetVaultMarketPredictionForecasterResponse updateVaultMarketPredictionForecaster()
+
+Go public under a display name (&#x60;public: true&#x60;), rename, or go private (&#x60;public: false&#x60;: nothing is shown again).
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionForecasterResponse = apiInstance.updateVaultMarketPredictionForecaster()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#updateVaultMarketPredictionForecaster")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#updateVaultMarketPredictionForecaster")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionForecasterResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateVaultMarketPredictionLimit"></a>
+# **updateVaultMarketPredictionLimit**
+> GetVaultMarketPredictionLimitResponse updateVaultMarketPredictionLimit()
+
+Set your daily loss limit (&#x60;dailyLossLimitCents&#x60;, null &#x3D; none) or exclude yourself (&#x60;excludeDays&#x60;, &#x60;excludedUntil&#x60; or \&quot;forever\&quot;). Tighter takes effect at once; looser waits 24 hours.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketPredictionLimitResponse = apiInstance.updateVaultMarketPredictionLimit()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#updateVaultMarketPredictionLimit")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#updateVaultMarketPredictionLimit")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketPredictionLimitResponse**
 
 ### Authorization
 
@@ -20945,6 +30446,49 @@ Name | Type | Description  | Notes
 ### Return type
 
 **GetVaultMarketSetGoalResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="updateVaultMarketSetting"></a>
+# **updateVaultMarketSetting**
+> GetVaultMarketSettingResponse updateVaultMarketSetting()
+
+Change your vault defaults; send only the fields you change.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = VaultMarketsApi()
+try {
+    val result : GetVaultMarketSettingResponse = apiInstance.updateVaultMarketSetting()
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling VaultMarketsApi#updateVaultMarketSetting")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling VaultMarketsApi#updateVaultMarketSetting")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+This endpoint does not need any parameter.
+
+### Return type
+
+**GetVaultMarketSettingResponse**
 
 ### Authorization
 

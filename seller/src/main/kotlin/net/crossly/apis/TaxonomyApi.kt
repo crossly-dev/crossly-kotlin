@@ -23,10 +23,14 @@ package net.crossly.apis
 import java.io.IOException
 
 import net.crossly.models.common.Error
+import net.crossly.models.category.GetCategoryByIdResponse
 import net.crossly.models.taxonomy.GetTaxonomyCategoryAspectResponse
 import net.crossly.models.taxonomy.GetTaxonomyCategoryChildrenResponse
 import net.crossly.models.taxonomy.GetTaxonomyCategoryResponse
 import net.crossly.models.taxonomy.GetTaxonomyRequiredFieldResponse
+import net.crossly.models.category.ListCategoryAspectsResponse
+import net.crossly.models.category.ListCategorySearchResponse
+import net.crossly.models.taxonomy.ListTaxonomyEbayCharitiesResponse
 import net.crossly.models.taxonomy.ListTaxonomySuggestResponse
 
 import com.squareup.moshi.Json
@@ -50,6 +54,76 @@ class TaxonomyApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
         val defaultBasePath: String by lazy {
             System.getProperties().getProperty(ApiClient.baseUrlKey, "https://crossly.net/api")
         }
+    }
+
+    /**
+    * One canonical category and the category it maps to on each marketplace.
+    * 
+    * @param id  
+    * @return GetCategoryByIdResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getCategoryById(id: kotlin.String) : GetCategoryByIdResponse {
+        val localVarResponse = getCategoryByIdWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetCategoryByIdResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One canonical category and the category it maps to on each marketplace.
+    * 
+    * @param id  
+    * @return ApiResponse<GetCategoryByIdResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getCategoryByIdWithHttpInfo(id: kotlin.String) : ApiResponse<GetCategoryByIdResponse?> {
+        val localVariableConfig = getCategoryByIdRequestConfig(id = id)
+
+        return request<Unit, GetCategoryByIdResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getCategoryById
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getCategoryByIdRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/categories/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
     }
 
     /**
@@ -348,6 +422,267 @@ class TaxonomyApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePat
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/taxonomy/{platform}/required-fields".replace("{"+"platform"+"}", "$platform"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Item specifics for a canonical category: required/optional, known values, per-marketplace names.
+    * Required-ness and cardinality come from the eBay category the concept maps to. &#x60;freeText&#x60; &#x3D; any text is accepted; otherwise &#x60;values&#x60; are the known values (up to &#x60;valuesLimit&#x60;). &#x60;marketplaces&#x60; gives the attribute name each marketplace uses for the aspect. Send them as &#x60;itemSpecifics&#x60; on POST /v1/listings.
+    * @param id  
+    * @param valuesLimit  (optional, default to 50)
+    * @return ListCategoryAspectsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listCategoryAspects(id: kotlin.String, valuesLimit: kotlin.Int?) : ListCategoryAspectsResponse {
+        val localVarResponse = listCategoryAspectsWithHttpInfo(id = id, valuesLimit = valuesLimit)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListCategoryAspectsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Item specifics for a canonical category: required/optional, known values, per-marketplace names.
+    * Required-ness and cardinality come from the eBay category the concept maps to. &#x60;freeText&#x60; &#x3D; any text is accepted; otherwise &#x60;values&#x60; are the known values (up to &#x60;valuesLimit&#x60;). &#x60;marketplaces&#x60; gives the attribute name each marketplace uses for the aspect. Send them as &#x60;itemSpecifics&#x60; on POST /v1/listings.
+    * @param id  
+    * @param valuesLimit  (optional, default to 50)
+    * @return ApiResponse<ListCategoryAspectsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listCategoryAspectsWithHttpInfo(id: kotlin.String, valuesLimit: kotlin.Int?) : ApiResponse<ListCategoryAspectsResponse?> {
+        val localVariableConfig = listCategoryAspectsRequestConfig(id = id, valuesLimit = valuesLimit)
+
+        return request<Unit, ListCategoryAspectsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listCategoryAspects
+    *
+    * @param id  
+    * @param valuesLimit  (optional, default to 50)
+    * @return RequestConfig
+    */
+    fun listCategoryAspectsRequestConfig(id: kotlin.String, valuesLimit: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (valuesLimit != null) {
+                    put("valuesLimit", listOf(valuesLimit.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/categories/{id}/aspects".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Search or browse Crossly&#39;s canonical categories (the ids listings take as categoryId).
+    * &#x60;q&#x60; matches the category name and path. &#x60;path&#x60; (e.g. \&quot;Clothing &amp; Shoes &gt; Men\&quot;) limits to one branch. Without &#x60;q&#x60;, &#x60;meta.branches&#x60; lists the next level under &#x60;path&#x60; (the root when omitted) so a client can walk the tree down to a leaf.
+    * @param q  (optional)
+    * @param path  (optional)
+    * @param limit  (optional, default to 25)
+    * @return ListCategorySearchResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listCategorySearch(q: kotlin.String?, path: kotlin.String?, limit: kotlin.Int?) : ListCategorySearchResponse {
+        val localVarResponse = listCategorySearchWithHttpInfo(q = q, path = path, limit = limit)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListCategorySearchResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Search or browse Crossly&#39;s canonical categories (the ids listings take as categoryId).
+    * &#x60;q&#x60; matches the category name and path. &#x60;path&#x60; (e.g. \&quot;Clothing &amp; Shoes &gt; Men\&quot;) limits to one branch. Without &#x60;q&#x60;, &#x60;meta.branches&#x60; lists the next level under &#x60;path&#x60; (the root when omitted) so a client can walk the tree down to a leaf.
+    * @param q  (optional)
+    * @param path  (optional)
+    * @param limit  (optional, default to 25)
+    * @return ApiResponse<ListCategorySearchResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listCategorySearchWithHttpInfo(q: kotlin.String?, path: kotlin.String?, limit: kotlin.Int?) : ApiResponse<ListCategorySearchResponse?> {
+        val localVariableConfig = listCategorySearchRequestConfig(q = q, path = path, limit = limit)
+
+        return request<Unit, ListCategorySearchResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listCategorySearch
+    *
+    * @param q  (optional)
+    * @param path  (optional)
+    * @param limit  (optional, default to 25)
+    * @return RequestConfig
+    */
+    fun listCategorySearchRequestConfig(q: kotlin.String?, path: kotlin.String?, limit: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (q != null) {
+                    put("q", listOf(q.toString()))
+                }
+                if (path != null) {
+                    put("path", listOf(path.toString()))
+                }
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/categories/search",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+     * enum for parameter marketplace
+     */
+     enum class Marketplace_listTaxonomyEbayCharities(val value: kotlin.String) {
+         @Json(name = "EBAY_US") US("EBAY_US"),
+         @Json(name = "EBAY_GB") GB("EBAY_GB"),
+         ;
+     }
+
+    /**
+    * Search eBay for Charity organisations (the charityId an eBay listing donates to).
+    * Send the chosen &#x60;charityOrgId&#x60; as &#x60;overrides.ebay.charityId&#x60; with &#x60;overrides.ebay.donationPercentage&#x60; (10-100 in steps of 5) on a listing to donate that share of the eBay sale. &#x60;q&#x60; needs at least 2 characters.
+    * @param q  (optional)
+    * @param limit  (optional, default to 20)
+    * @param marketplace  (optional, default to EBAY_US)
+    * @return ListTaxonomyEbayCharitiesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listTaxonomyEbayCharities(q: kotlin.String?, limit: kotlin.Int?, marketplace: Marketplace_listTaxonomyEbayCharities?) : ListTaxonomyEbayCharitiesResponse {
+        val localVarResponse = listTaxonomyEbayCharitiesWithHttpInfo(q = q, limit = limit, marketplace = marketplace)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListTaxonomyEbayCharitiesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Search eBay for Charity organisations (the charityId an eBay listing donates to).
+    * Send the chosen &#x60;charityOrgId&#x60; as &#x60;overrides.ebay.charityId&#x60; with &#x60;overrides.ebay.donationPercentage&#x60; (10-100 in steps of 5) on a listing to donate that share of the eBay sale. &#x60;q&#x60; needs at least 2 characters.
+    * @param q  (optional)
+    * @param limit  (optional, default to 20)
+    * @param marketplace  (optional, default to EBAY_US)
+    * @return ApiResponse<ListTaxonomyEbayCharitiesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listTaxonomyEbayCharitiesWithHttpInfo(q: kotlin.String?, limit: kotlin.Int?, marketplace: Marketplace_listTaxonomyEbayCharities?) : ApiResponse<ListTaxonomyEbayCharitiesResponse?> {
+        val localVariableConfig = listTaxonomyEbayCharitiesRequestConfig(q = q, limit = limit, marketplace = marketplace)
+
+        return request<Unit, ListTaxonomyEbayCharitiesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listTaxonomyEbayCharities
+    *
+    * @param q  (optional)
+    * @param limit  (optional, default to 20)
+    * @param marketplace  (optional, default to EBAY_US)
+    * @return RequestConfig
+    */
+    fun listTaxonomyEbayCharitiesRequestConfig(q: kotlin.String?, limit: kotlin.Int?, marketplace: Marketplace_listTaxonomyEbayCharities?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (q != null) {
+                    put("q", listOf(q.toString()))
+                }
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+                if (marketplace != null) {
+                    put("marketplace", listOf(marketplace.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/taxonomy/ebay/charities",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

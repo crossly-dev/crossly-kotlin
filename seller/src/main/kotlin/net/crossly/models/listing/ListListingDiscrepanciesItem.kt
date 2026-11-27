@@ -30,11 +30,11 @@ import com.squareup.moshi.Json
  * @param createdAt 
  * @param updatedAt 
  * @param userId 
- * @param source 
  * @param platform 
- * @param listingId 
- * @param marketplaceId 
  * @param accountSlot 
+ * @param marketplaceId 
+ * @param source 
+ * @param listingId 
  * @param `field` 
  * @param firstDetectedAt 
  * @param lastDetectedAt 
@@ -59,20 +59,20 @@ data class ListListingDiscrepanciesItem (
     @Json(name = "userId")
     val userId: kotlin.String,
 
-    @Json(name = "source")
-    val source: kotlin.String,
-
     @Json(name = "platform")
     val platform: kotlin.String,
 
-    @Json(name = "listingId")
-    val listingId: kotlin.String,
+    @Json(name = "accountSlot")
+    val accountSlot: java.math.BigDecimal,
 
     @Json(name = "marketplaceId")
     val marketplaceId: kotlin.String,
 
-    @Json(name = "accountSlot")
-    val accountSlot: java.math.BigDecimal,
+    @Json(name = "source")
+    val source: kotlin.String,
+
+    @Json(name = "listingId")
+    val listingId: kotlin.String,
 
     @Json(name = "field")
     val `field`: kotlin.String,

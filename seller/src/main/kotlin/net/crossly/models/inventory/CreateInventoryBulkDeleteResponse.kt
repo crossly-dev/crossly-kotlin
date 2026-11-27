@@ -20,27 +20,42 @@
 
 package net.crossly.models.inventory
 
+import net.crossly.models.inventory.CreateInventoryBulkDeleteResponseRefused
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
- * @param success 
  * @param deleted 
+ * @param deletedIds 
+ * @param refused Items NOT deleted: a live listing Crossly may not end (action authority).
+ * @param relayed Live rows handed to their managing app as delist commands.
  * @param bulkJobId 
+ * @param success 
  */
 
 data class CreateInventoryBulkDeleteResponse (
 
-    @Json(name = "success")
-    val success: kotlin.Boolean,
-
     @Json(name = "deleted")
     val deleted: java.math.BigDecimal,
 
+    @Json(name = "deletedIds")
+    val deletedIds: kotlin.collections.List<kotlin.String>,
+
+    /* Items NOT deleted: a live listing Crossly may not end (action authority). */
+    @Json(name = "refused")
+    val refused: kotlin.collections.List<CreateInventoryBulkDeleteResponseRefused>,
+
+    /* Live rows handed to their managing app as delist commands. */
+    @Json(name = "relayed")
+    val relayed: java.math.BigDecimal,
+
     @Json(name = "bulkJobId")
-    val bulkJobId: kotlin.String
+    val bulkJobId: kotlin.String,
+
+    @Json(name = "success")
+    val success: kotlin.Boolean
 
 )
 

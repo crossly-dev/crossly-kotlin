@@ -28,15 +28,15 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param status 
- * @param orders 
  * @param streamId 
- * @param refundedPostageCents 
  * @param streamTitle 
- * @param carrier 
- * @param trackingNumber 
- * @param labelUrl 
+ * @param status 
+ * @param refundedPostageCents 
+ * @param orders 
  * @param buyerName 
+ * @param trackingNumber 
+ * @param carrier 
+ * @param labelUrl 
  */
 
 data class ListBuyerLiveShipmentsItem (
@@ -44,32 +44,32 @@ data class ListBuyerLiveShipmentsItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
-
-    @Json(name = "orders")
-    val orders: kotlin.collections.List<ListBuyerLiveShipmentsItemOrders>,
-
     @Json(name = "streamId")
     val streamId: kotlin.String,
-
-    @Json(name = "refundedPostageCents")
-    val refundedPostageCents: java.math.BigDecimal,
 
     @Json(name = "streamTitle")
     val streamTitle: kotlin.String,
 
-    @Json(name = "carrier")
-    val carrier: kotlin.String? = null,
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    @Json(name = "refundedPostageCents")
+    val refundedPostageCents: java.math.BigDecimal,
+
+    @Json(name = "orders")
+    val orders: kotlin.collections.List<ListBuyerLiveShipmentsItemOrders>,
+
+    @Json(name = "buyerName")
+    val buyerName: kotlin.String? = null,
 
     @Json(name = "trackingNumber")
     val trackingNumber: kotlin.String? = null,
 
-    @Json(name = "labelUrl")
-    val labelUrl: kotlin.String? = null,
+    @Json(name = "carrier")
+    val carrier: kotlin.String? = null,
 
-    @Json(name = "buyerName")
-    val buyerName: kotlin.String? = null
+    @Json(name = "labelUrl")
+    val labelUrl: kotlin.String? = null
 
 )
 

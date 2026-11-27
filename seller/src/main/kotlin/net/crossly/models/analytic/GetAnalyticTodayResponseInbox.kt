@@ -26,19 +26,19 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param unread Conversations not yet opened (hidden threads excluded).
- * @param awaitingReply Open threads whose newest message is the buyer's.
+ * @param unread Unread conversations + unopened offers — the Unread tab's rows (services/inbox/attention.ts).
+ * @param awaitingReply Threads and offers waiting on the seller — the Needs reply tab's rows.
  * @param answered Questions answered in the window (the median's sample).
  * @param medianResponseHours Median hours from a buyer's question to the seller's reply, last 90 days; null below MIN_ANSWERED.
  */
 
 data class GetAnalyticTodayResponseInbox (
 
-    /* Conversations not yet opened (hidden threads excluded). */
+    /* Unread conversations + unopened offers — the Unread tab's rows (services/inbox/attention.ts). */
     @Json(name = "unread")
     val unread: java.math.BigDecimal,
 
-    /* Open threads whose newest message is the buyer's. */
+    /* Threads and offers waiting on the seller — the Needs reply tab's rows. */
     @Json(name = "awaitingReply")
     val awaitingReply: java.math.BigDecimal,
 

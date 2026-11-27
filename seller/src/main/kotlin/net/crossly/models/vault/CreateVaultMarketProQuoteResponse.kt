@@ -20,7 +20,7 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.vault.CreateVaultMarketProQuoteResponseBid
+import net.crossly.models.common.OrderIdError
 
 import com.squareup.moshi.Json
 
@@ -38,10 +38,10 @@ data class CreateVaultMarketProQuoteResponse (
     val bookKey: kotlin.String,
 
     @Json(name = "bid")
-    val bid: CreateVaultMarketProQuoteResponseBid,
+    val bid: OrderIdError,
 
     @Json(name = "ask")
-    val ask: CreateVaultMarketProQuoteResponseBid
+    val ask: OrderIdError
 
 )
 

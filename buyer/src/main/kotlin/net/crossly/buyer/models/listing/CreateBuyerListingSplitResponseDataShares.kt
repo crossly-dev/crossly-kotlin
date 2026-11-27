@@ -27,8 +27,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param token 
- * @param position 
  * @param shareCents 
+ * @param position 
  */
 
 data class CreateBuyerListingSplitResponseDataShares (
@@ -36,11 +36,11 @@ data class CreateBuyerListingSplitResponseDataShares (
     @Json(name = "token")
     val token: kotlin.String,
 
-    @Json(name = "position")
-    val position: java.math.BigDecimal,
-
     @Json(name = "shareCents")
-    val shareCents: java.math.BigDecimal
+    val shareCents: java.math.BigDecimal,
+
+    @Json(name = "position")
+    val position: java.math.BigDecimal
 
 )
 

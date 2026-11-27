@@ -29,13 +29,13 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param status 
- * @param title 
  * @param slug 
+ * @param title 
  * @param priceCents 
- * @param tiers 
+ * @param status 
  * @param buybackBps 
  * @param buybackDays 
+ * @param tiers 
  * @param expectedValueCents 
  * @param openable 
  * @param chase 
@@ -48,26 +48,26 @@ data class ListBuyerPacksItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "status")
-    val status: kotlin.String,
+    @Json(name = "slug")
+    val slug: kotlin.String,
 
     @Json(name = "title")
     val title: kotlin.String,
 
-    @Json(name = "slug")
-    val slug: kotlin.String,
-
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
 
-    @Json(name = "tiers")
-    val tiers: kotlin.collections.List<ListBuyerPacksItemTiers>,
+    @Json(name = "status")
+    val status: kotlin.String,
 
     @Json(name = "buybackBps")
     val buybackBps: java.math.BigDecimal,
 
     @Json(name = "buybackDays")
     val buybackDays: java.math.BigDecimal,
+
+    @Json(name = "tiers")
+    val tiers: kotlin.collections.List<ListBuyerPacksItemTiers>,
 
     @Json(name = "expectedValueCents")
     val expectedValueCents: java.math.BigDecimal,

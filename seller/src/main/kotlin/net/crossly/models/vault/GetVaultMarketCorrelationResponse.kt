@@ -20,7 +20,7 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.common.SlugName
+import net.crossly.models.common.NameSlug
 
 import com.squareup.moshi.Json
 
@@ -57,7 +57,7 @@ data class GetVaultMarketCorrelationResponse (
     val insufficient: kotlin.Boolean,
 
     @Json(name = "indexes")
-    val indexes: kotlin.collections.List<SlugName>,
+    val indexes: kotlin.collections.List<NameSlug>,
 
     @Json(name = "rho")
     val rho: kotlin.collections.List<kotlin.collections.List<java.math.BigDecimal>>,

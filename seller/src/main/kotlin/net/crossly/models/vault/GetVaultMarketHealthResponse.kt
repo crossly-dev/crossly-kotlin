@@ -21,6 +21,7 @@
 package net.crossly.models.vault
 
 import net.crossly.models.vault.GetVaultMarketHealthResponseConcentration
+import net.crossly.models.vault.GetVaultMarketHealthResponseHedges
 import net.crossly.models.vault.GetVaultMarketHealthResponseItems
 import net.crossly.models.vault.GetVaultMarketHealthResponseLiquidity
 import net.crossly.models.vault.GetVaultMarketHealthResponseMarks
@@ -41,6 +42,7 @@ import com.squareup.moshi.Json
  * @param marks 
  * @param notes 
  * @param items The items a what-if can be run on, largest first.
+ * @param hedges 
  */
 
 data class GetVaultMarketHealthResponse (
@@ -71,7 +73,10 @@ data class GetVaultMarketHealthResponse (
 
     /* The items a what-if can be run on, largest first. */
     @Json(name = "items")
-    val items: kotlin.collections.List<GetVaultMarketHealthResponseItems>
+    val items: kotlin.collections.List<GetVaultMarketHealthResponseItems>,
+
+    @Json(name = "hedges")
+    val hedges: GetVaultMarketHealthResponseHedges
 
 )
 

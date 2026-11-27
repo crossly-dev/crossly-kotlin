@@ -67,13 +67,13 @@ data class CreateVaultMarketCreatorCohostInviteRespondResponse (
     /**
      * 
      *
-     * Values: INVITED,WITHDRAWN,ACCEPTED,DECLINED
+     * Values: ACCEPTED,DECLINED,WITHDRAWN,INVITED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "invited") INVITED("invited"),
-        @Json(name = "withdrawn") WITHDRAWN("withdrawn"),
         @Json(name = "accepted") ACCEPTED("accepted"),
-        @Json(name = "declined") DECLINED("declined");
+        @Json(name = "declined") DECLINED("declined"),
+        @Json(name = "withdrawn") WITHDRAWN("withdrawn"),
+        @Json(name = "invited") INVITED("invited");
     }
 }
 

@@ -27,10 +27,10 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param status 
  * @param platformListingId 
  * @param buyerUserId 
  * @param amountCents 
+ * @param status 
  * @param message 
  */
 
@@ -38,9 +38,6 @@ data class CreateBuyerOfferResponseDataOffer (
 
     @Json(name = "id")
     val id: kotlin.String,
-
-    @Json(name = "status")
-    val status: kotlin.String,
 
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String,
@@ -50,6 +47,9 @@ data class CreateBuyerOfferResponseDataOffer (
 
     @Json(name = "amountCents")
     val amountCents: java.math.BigDecimal,
+
+    @Json(name = "status")
+    val status: kotlin.String,
 
     @Json(name = "message")
     val message: kotlin.String? = null

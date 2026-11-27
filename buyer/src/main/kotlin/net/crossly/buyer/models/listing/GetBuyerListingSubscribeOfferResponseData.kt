@@ -26,22 +26,22 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param priceCents 
  * @param discountBps 
  * @param intervals 
+ * @param priceCents 
  * @param subscribePriceCents 
  */
 
 data class GetBuyerListingSubscribeOfferResponseData (
-
-    @Json(name = "priceCents")
-    val priceCents: java.math.BigDecimal,
 
     @Json(name = "discountBps")
     val discountBps: java.math.BigDecimal,
 
     @Json(name = "intervals")
     val intervals: kotlin.collections.List<java.math.BigDecimal>,
+
+    @Json(name = "priceCents")
+    val priceCents: java.math.BigDecimal,
 
     @Json(name = "subscribePriceCents")
     val subscribePriceCents: java.math.BigDecimal

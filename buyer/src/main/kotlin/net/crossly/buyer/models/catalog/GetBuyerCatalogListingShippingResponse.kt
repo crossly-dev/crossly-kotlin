@@ -31,6 +31,7 @@ import com.squareup.moshi.Json
  * @param quantity 
  * @param cached 
  * @param shipsToCountry 
+ * @param partial True when a fuller address (ZIP / postcode) could change the answer.
  * @param services 
  * @param international 
  * @param importChargesNote 
@@ -41,7 +42,10 @@ import com.squareup.moshi.Json
  * @param freeShippingThresholdCents 
  * @param destinationCountry 
  * @param noShipReason 
+ * @param noShipMessage Why it doesn't ship here, as the buyer should read it; null when it does.
+ * @param rule The seller's ship-to rule that decided a refusal; null when none did.
  * @param defaultServiceId 
+ * @param calculatedAtCheckout Buyer pays: calculated: no live label rate for this destination yet (give a ZIP); `cents` is null.
  */
 
 data class GetBuyerCatalogListingShippingResponse (
@@ -54,6 +58,10 @@ data class GetBuyerCatalogListingShippingResponse (
 
     @Json(name = "shipsToCountry")
     val shipsToCountry: kotlin.Boolean,
+
+    /* True when a fuller address (ZIP / postcode) could change the answer. */
+    @Json(name = "partial")
+    val partial: kotlin.Boolean,
 
     @Json(name = "services")
     val services: kotlin.collections.List<GetBuyerCatalogListingShippingResponseServices>,
@@ -85,8 +93,20 @@ data class GetBuyerCatalogListingShippingResponse (
     @Json(name = "noShipReason")
     val noShipReason: kotlin.String? = null,
 
+    /* Why it doesn't ship here, as the buyer should read it; null when it does. */
+    @Json(name = "noShipMessage")
+    val noShipMessage: kotlin.String? = null,
+
+    /* The seller's ship-to rule that decided a refusal; null when none did. */
+    @Json(name = "rule")
+    val rule: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
     @Json(name = "defaultServiceId")
-    val defaultServiceId: kotlin.String? = null
+    val defaultServiceId: kotlin.String? = null,
+
+    /* Buyer pays: calculated: no live label rate for this destination yet (give a ZIP); `cents` is null. */
+    @Json(name = "calculatedAtCheckout")
+    val calculatedAtCheckout: kotlin.Boolean? = null
 
 )
 

@@ -22,12 +22,17 @@ package net.crossly.apis
 
 import java.io.IOException
 
+import net.crossly.models.account.CreateAccountCancelDeletionResponse
+import net.crossly.models.account.CreateAccountIdentityVerificationStartRequest
 import net.crossly.models.account.CreateAccountLogoutAllResponse
+import net.crossly.models.account.CreateAccountReconfirmDeletionResponse
 import net.crossly.models.account.CreateAccountRequestDeletionResponse
+import net.crossly.models.world.CreateWorldMatureVerifyResponse
 import net.crossly.models.common.DeleteAuthSessionResponse
-import net.crossly.models.drop.DeleteDropResponse
 import net.crossly.models.common.Error
+import net.crossly.models.account.GetAccountClosureChecklistResponse
 import net.crossly.models.account.GetAccountDeletionStatusResponse
+import net.crossly.models.account.GetAccountIdentityVerificationResponse
 import net.crossly.models.me.GetMeResponse
 import net.crossly.models.common.GetMembershipResponse
 import net.crossly.models.common.ListAuthSessionsResponse
@@ -61,7 +66,7 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     /**
     * Cancel a pending account deletion.
     * 
-    * @return DeleteDropResponse
+    * @return CreateAccountCancelDeletionResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -70,11 +75,11 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createAccountCancelDeletion() : DeleteDropResponse {
+    fun createAccountCancelDeletion() : CreateAccountCancelDeletionResponse {
         val localVarResponse = createAccountCancelDeletionWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteDropResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateAccountCancelDeletionResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -91,16 +96,16 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     /**
     * Cancel a pending account deletion.
     * 
-    * @return ApiResponse<DeleteDropResponse?>
+    * @return ApiResponse<CreateAccountCancelDeletionResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createAccountCancelDeletionWithHttpInfo() : ApiResponse<DeleteDropResponse?> {
+    fun createAccountCancelDeletionWithHttpInfo() : ApiResponse<CreateAccountCancelDeletionResponse?> {
         val localVariableConfig = createAccountCancelDeletionRequestConfig()
 
-        return request<Unit, DeleteDropResponse>(
+        return request<Unit, CreateAccountCancelDeletionResponse>(
             localVariableConfig
         )
     }
@@ -119,6 +124,77 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/account/cancel-deletion",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Start the identity check (photo ID + selfie). Returns a Stripe-hosted URL the person completes.
+    * alreadyVerified:true when there is nothing to do. Nothing is verified until a person completes the link.
+    * @param createAccountIdentityVerificationStartRequest  
+    * @return CreateWorldMatureVerifyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createAccountIdentityVerificationStart(createAccountIdentityVerificationStartRequest: CreateAccountIdentityVerificationStartRequest) : CreateWorldMatureVerifyResponse {
+        val localVarResponse = createAccountIdentityVerificationStartWithHttpInfo(createAccountIdentityVerificationStartRequest = createAccountIdentityVerificationStartRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldMatureVerifyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Start the identity check (photo ID + selfie). Returns a Stripe-hosted URL the person completes.
+    * alreadyVerified:true when there is nothing to do. Nothing is verified until a person completes the link.
+    * @param createAccountIdentityVerificationStartRequest  
+    * @return ApiResponse<CreateWorldMatureVerifyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createAccountIdentityVerificationStartWithHttpInfo(createAccountIdentityVerificationStartRequest: CreateAccountIdentityVerificationStartRequest) : ApiResponse<CreateWorldMatureVerifyResponse?> {
+        val localVariableConfig = createAccountIdentityVerificationStartRequestConfig(createAccountIdentityVerificationStartRequest = createAccountIdentityVerificationStartRequest)
+
+        return request<CreateAccountIdentityVerificationStartRequest, CreateWorldMatureVerifyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createAccountIdentityVerificationStart
+    *
+    * @param createAccountIdentityVerificationStartRequest  
+    * @return RequestConfig
+    */
+    fun createAccountIdentityVerificationStartRequestConfig(createAccountIdentityVerificationStartRequest: CreateAccountIdentityVerificationStartRequest) : RequestConfig<CreateAccountIdentityVerificationStartRequest> {
+        val localVariableBody = createAccountIdentityVerificationStartRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/account/identity-verification/start",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -193,7 +269,74 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
-    * Schedule account deletion after a grace period.
+    * Confirm again a deletion paused because the account was in use.
+    * 
+    * @return CreateAccountReconfirmDeletionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createAccountReconfirmDeletion() : CreateAccountReconfirmDeletionResponse {
+        val localVarResponse = createAccountReconfirmDeletionWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateAccountReconfirmDeletionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Confirm again a deletion paused because the account was in use.
+    * 
+    * @return ApiResponse<CreateAccountReconfirmDeletionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createAccountReconfirmDeletionWithHttpInfo() : ApiResponse<CreateAccountReconfirmDeletionResponse?> {
+        val localVariableConfig = createAccountReconfirmDeletionRequestConfig()
+
+        return request<Unit, CreateAccountReconfirmDeletionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createAccountReconfirmDeletion
+    *
+    * @return RequestConfig
+    */
+    fun createAccountReconfirmDeletionRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/account/reconfirm-deletion",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Schedule account deletion after a grace period. Requires confirmEmail.
     * 
     * @return CreateAccountRequestDeletionResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -223,7 +366,7 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
-    * Schedule account deletion after a grace period.
+    * Schedule account deletion after a grace period. Requires confirmEmail.
     * 
     * @return ApiResponse<CreateAccountRequestDeletionResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -339,7 +482,7 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun deleteAuthSessionBySessionId(sessionId: java.util.UUID) : SuccessResponse {
+    fun deleteAuthSessionBySessionId(sessionId: kotlin.String) : SuccessResponse {
         val localVarResponse = deleteAuthSessionBySessionIdWithHttpInfo(sessionId = sessionId)
 
         return when (localVarResponse.responseType) {
@@ -367,7 +510,7 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun deleteAuthSessionBySessionIdWithHttpInfo(sessionId: java.util.UUID) : ApiResponse<SuccessResponse?> {
+    fun deleteAuthSessionBySessionIdWithHttpInfo(sessionId: kotlin.String) : ApiResponse<SuccessResponse?> {
         val localVariableConfig = deleteAuthSessionBySessionIdRequestConfig(sessionId = sessionId)
 
         return request<Unit, SuccessResponse>(
@@ -381,7 +524,7 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     * @param sessionId  
     * @return RequestConfig
     */
-    fun deleteAuthSessionBySessionIdRequestConfig(sessionId: java.util.UUID) : RequestConfig<Unit> {
+    fun deleteAuthSessionBySessionIdRequestConfig(sessionId: kotlin.String) : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -467,6 +610,73 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
     }
 
     /**
+    * What closing the account will and will not do, before you request it.
+    * 
+    * @return GetAccountClosureChecklistResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAccountClosureChecklist() : GetAccountClosureChecklistResponse {
+        val localVarResponse = getAccountClosureChecklistWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAccountClosureChecklistResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What closing the account will and will not do, before you request it.
+    * 
+    * @return ApiResponse<GetAccountClosureChecklistResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAccountClosureChecklistWithHttpInfo() : ApiResponse<GetAccountClosureChecklistResponse?> {
+        val localVariableConfig = getAccountClosureChecklistRequestConfig()
+
+        return request<Unit, GetAccountClosureChecklistResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAccountClosureChecklist
+    *
+    * @return RequestConfig
+    */
+    fun getAccountClosureChecklistRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/account/closure-checklist",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Get the currently-pending deletion request, if any.
     * 
     * @return GetAccountDeletionStatusResponse
@@ -527,6 +737,73 @@ class AccountApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/account/deletion-status",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your identity verification: one status for the whole account, read by every feature that needs ID.
+    * status is unverified, requires_input, processing, verified or canceled. requires_input with a lastError { code, reason } is a failed try the person can redo on the same link (start returns it); processing is being reviewed; neither is a decline, only canceled is. attempts counts the failed tries. ageVerified passes the age-restricted checkout gate. message is the next step in words (null once verified).
+    * @return GetAccountIdentityVerificationResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getAccountIdentityVerification() : GetAccountIdentityVerificationResponse {
+        val localVarResponse = getAccountIdentityVerificationWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetAccountIdentityVerificationResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your identity verification: one status for the whole account, read by every feature that needs ID.
+    * status is unverified, requires_input, processing, verified or canceled. requires_input with a lastError { code, reason } is a failed try the person can redo on the same link (start returns it); processing is being reviewed; neither is a decline, only canceled is. attempts counts the failed tries. ageVerified passes the age-restricted checkout gate. message is the next step in words (null once verified).
+    * @return ApiResponse<GetAccountIdentityVerificationResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getAccountIdentityVerificationWithHttpInfo() : ApiResponse<GetAccountIdentityVerificationResponse?> {
+        val localVariableConfig = getAccountIdentityVerificationRequestConfig()
+
+        return request<Unit, GetAccountIdentityVerificationResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getAccountIdentityVerification
+    *
+    * @return RequestConfig
+    */
+    fun getAccountIdentityVerificationRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/account/identity-verification",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

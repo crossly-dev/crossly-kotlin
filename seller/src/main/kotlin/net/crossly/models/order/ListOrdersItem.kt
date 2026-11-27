@@ -20,38 +20,53 @@
 
 package net.crossly.models.order
 
-import net.crossly.models.order.ListOrdersItemTrackingHistory
+import net.crossly.models.order.GetOrderResponseAppShare
+import net.crossly.models.order.GetOrderResponseLineItems
+import net.crossly.models.order.GetOrderResponseTrackingHistory
+import net.crossly.models.order.GetOrderResponseTrade
 
 import com.squareup.moshi.Json
 
 /**
  * 
  *
+ * @param detailsPending 
+ * @param quantity Units purchased in this order (default 1). Drives how many units the Available→Reserved→Sold state machine moves. See migration 0139. Units on the order (order.created `quantity`).
  * @param id 
+ * @param userId 
+ * @param platform 
+ * @param dutiesCents X4 (0479): import duties + taxes + fees the buyer paid at checkout for this parcel (services/landed-cost/); the label ships DDP.
+ * @param status 
+ * @param salesChannel Where the sale happened, as distinct from which platform it was on.  Shopify POS orders arrive through the same Orders API as web orders, so before this they were detected as ordinary online sales and landed in `needs_fulfillment` — queued for a shipment that will never happen, because the customer already walked out with the item.  'online' for everything else, which is what every pre-existing row is.
+ * @param channel 1121 — which BUSINESS channel sold it: retail | wholesale | auction | live | world | pos (@crosslister/shared/wholesale ORDER_CHANNELS). Orthogonal to `salesChannel` (online vs in person): a wholesale order is usually online. Written at sale record time (sale/detect/order-write.ts).
+ * @param oversoldBy Units this order could NOT be covered from stock — an oversell (0 = normal). Set at detection by recordSale's shortfall; the seller must cancel or refund. See migration 0156.
+ * @param isDisputed 
+ * @param arrivalConditionPhotos Buyer's arrival photos. Always read as a set, for one delivery.
+ * @param fulfillmentMethod `'ship'` | `'pickup'` | `'mixed'` — a DERIVED summary of this order's lines, for reads that only need the headline.  The authority is `crossly_order_items.fulfillment_method`: a buyer can collect part of one seller's order and have the rest posted, so the order-level value is 'mixed' whenever its lines disagree. Anything that acts on the difference — buying a label, packing a parcel — must read the lines, not this (migrations 0219, 0220).
  * @param createdAt 
  * @param updatedAt 
- * @param userId 
- * @param quantity 
- * @param status 
- * @param platform 
- * @param dutiesCents 
- * @param salesChannel 
- * @param oversoldBy 
- * @param isDisputed 
- * @param arrivalConditionPhotos 
- * @param fulfillmentMethod 
- * @param notes 
- * @param cancelledAt 
- * @param listingId 
+ * @param appShare 
+ * @param trade 
+ * @param salePrice DOLLARS (numbers, as order.created sends them). null = not known (no sale row, or details pending).
+ * @param platformFee 
+ * @param taxCollected 
+ * @param shippingCharged 
+ * @param feeSource 'exact' (the marketplace's charged fee) | 'estimated'.
+ * @param sku The listing's SKU (order.created `sku`).
+ * @param lineItems 
  * @param inventoryItemId 
+ * @param listingId 
  * @param platformListingId 
- * @param handlingTimeDays 
  * @param platformOrderId 
+ * @param reportedByAppId 1066 (order relay): the developer app that reported this order through an inbound item.sold (FK oauth_apps.id ON DELETE SET NULL in SQL). Null for every order Crossly detected itself. Read by action authority.
+ * @param storefrontId Crossly orders only: the seller's storefront this sale came from. Null for every non-crossly platform. See db/schema/storefronts.ts.
  * @param buyerUsername 
- * @param pickupPoint 
- * @param consolidationId 
- * @param dutiesRefundedAt 
- * @param channelLocationId 
+ * @param pickupPoint C8 (0448): the carrier location the parcel is held at — services/pickup-points.ts.
+ * @param consolidationId D4 (0448): set when this seller ships to the consolidation hub, not the buyer — services/hub/.
+ * @param dutiesRefundedAt X4: refunded because the order never shipped.
+ * @param channelLocationId POS location that rang it up. Null for online sales.
+ * @param invoiceId 1121 — the on-account invoice this order was placed on (crossly_invoices.id).
+ * @param buyerCompanyId 1121 — the buyer company (W7 crossly_buyer_companies; no FK until that table exists).
  * @param packagePresetId 
  * @param carrier 
  * @param service 
@@ -66,19 +81,20 @@ import com.squareup.moshi.Json
  * @param deliveredAt 
  * @param carrierStatus 
  * @param carrierStatusDetail 
- * @param trackingHistory 
- * @param deliveryLocation 
- * @param deliverySignature 
+ * @param trackingHistory Every carrier scan, newest first (migration 0243).  The two columns above are the CURRENT state, overwritten on each refresh. For a dispute that proves nothing: \"delivered\" with no date, no location and no chain of scans is a claim, not evidence. Shippo returns the full history on every track call; it used to be discarded.
+ * @param deliveryLocation Where the carrier says it was left, when they say.
+ * @param deliverySignature Signature name, where the service captured one. Most residential deliveries have none — absence is not evidence of non-delivery.
  * @param trackingSubmittedAt 
  * @param trackingSubmitStatus 
  * @param labelCost 
  * @param costOfGoods 
  * @param requestedCarrier 
  * @param requestedService 
+ * @param handlingTimeDays 
  * @param shipByAt 
  * @param shipByAlertedAt 
- * @param lastStatusCheckAt 
- * @param lastChatCheckAt 
+ * @param lastStatusCheckAt Last time this order's status was reconciled against the platform. NULL = never. Drives the targeted sweeper for orders that fall off page 1 of the sold-list walk. See migration 0157.
+ * @param lastChatCheckAt Last time this order's platform CHAT thread was pulled. NULL = never. Separate from lastStatusCheckAt because the cadences differ by an order of magnitude — a buyer question needs answering in minutes, a status reconcile can wait an hour. See migration 0158.
  * @param disputeReason 
  * @param disputePlatformCaseId 
  * @param disputeResolvedAt 
@@ -86,20 +102,68 @@ import com.squareup.moshi.Json
  * @param refundReason 
  * @param refundPlatformId 
  * @param refundedAt 
+ * @param cancelledAt 
  * @param cancellationReason 
- * @param arrivalConditionRequestedAt 
+ * @param notes 
+ * @param arrivalConditionRequestedAt The arrival-condition ask, recorded on the ORDER rather than read off the seller's toggle at review time. The seller can flip that toggle later; what a reviewer needs is what was asked of THIS buyer on THIS delivery — including that they were asked and declined.
  * @param arrivalConditionSubmittedAt 
  * @param arrivalConditionDeclinedAt 
- * @param deliveryPhotoUrl 
- * @param purchaseOrderRef 
+ * @param deliveryPhotoUrl The courier's proof-of-delivery photo, when one can be obtained. Third-party provenance, which makes it the strongest seal frame we can get — see services/evidence/delivery-photo.ts.
+ * @param deliveryPhotoSource Where it came from: 'carrier_api:ups' | 'trackified' | 'platform:<p>' | 'pasted' | 'uploaded' (shared delivery-photo-source.ts).
+ * @param purchaseOrderRef The buyer's OWN purchase-order reference.  A trade buyer's accounts department reconciles on their number, not ours. An order without it is one somebody has to chase by hand, which is the difference between getting paid on day 30 and day 75.
  * @param buyerEmail 
- * @param deletedAt 
+ * @param source 1074 — 'email' = the sale was found by the email monitor, not reported by the platform: the order is incomplete (no buyer address, label or confirmed fees) until the platform reports it. NULL = platform-reported.
+ * @param platformConfirmedAt 1074 — when the platform itself reported this email-found order (same order id). Clears the banner.
+ * @param deletedAt Soft-delete tombstone for bulk-delete on /orders. UI list + count queries filter WHERE deleted_at IS NULL.
  */
 
 data class ListOrdersItem (
 
+    @Json(name = "detailsPending")
+    val detailsPending: kotlin.Boolean,
+
+    /* Units purchased in this order (default 1). Drives how many units the Available→Reserved→Sold state machine moves. See migration 0139. Units on the order (order.created `quantity`). */
+    @Json(name = "quantity")
+    val quantity: java.math.BigDecimal,
+
     @Json(name = "id")
     val id: kotlin.String,
+
+    @Json(name = "userId")
+    val userId: kotlin.String,
+
+    @Json(name = "platform")
+    val platform: kotlin.String,
+
+    /* X4 (0479): import duties + taxes + fees the buyer paid at checkout for this parcel (services/landed-cost/); the label ships DDP. */
+    @Json(name = "dutiesCents")
+    val dutiesCents: java.math.BigDecimal,
+
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    /* Where the sale happened, as distinct from which platform it was on.  Shopify POS orders arrive through the same Orders API as web orders, so before this they were detected as ordinary online sales and landed in `needs_fulfillment` — queued for a shipment that will never happen, because the customer already walked out with the item.  'online' for everything else, which is what every pre-existing row is. */
+    @Json(name = "salesChannel")
+    val salesChannel: kotlin.String,
+
+    /* 1121 — which BUSINESS channel sold it: retail | wholesale | auction | live | world | pos (@crosslister/shared/wholesale ORDER_CHANNELS). Orthogonal to `salesChannel` (online vs in person): a wholesale order is usually online. Written at sale record time (sale/detect/order-write.ts). */
+    @Json(name = "channel")
+    val channel: kotlin.String,
+
+    /* Units this order could NOT be covered from stock — an oversell (0 = normal). Set at detection by recordSale's shortfall; the seller must cancel or refund. See migration 0156. */
+    @Json(name = "oversoldBy")
+    val oversoldBy: java.math.BigDecimal,
+
+    @Json(name = "isDisputed")
+    val isDisputed: kotlin.Boolean,
+
+    /* Buyer's arrival photos. Always read as a set, for one delivery. */
+    @Json(name = "arrivalConditionPhotos")
+    val arrivalConditionPhotos: kotlin.collections.List<kotlin.String>,
+
+    /* `'ship'` | `'pickup'` | `'mixed'` — a DERIVED summary of this order's lines, for reads that only need the headline.  The authority is `crossly_order_items.fulfillment_method`: a buyer can collect part of one seller's order and have the rest posted, so the order-level value is 'mixed' whenever its lines disagree. Anything that acts on the difference — buying a label, packing a parcel — must read the lines, not this (migrations 0219, 0220). */
+    @Json(name = "fulfillmentMethod")
+    val fulfillmentMethod: kotlin.String,
 
     @Json(name = "createdAt")
     val createdAt: java.time.OffsetDateTime,
@@ -107,71 +171,82 @@ data class ListOrdersItem (
     @Json(name = "updatedAt")
     val updatedAt: java.time.OffsetDateTime,
 
-    @Json(name = "userId")
-    val userId: kotlin.String,
+    @Json(name = "appShare")
+    val appShare: GetOrderResponseAppShare? = null,
 
-    @Json(name = "quantity")
-    val quantity: java.math.BigDecimal,
+    @Json(name = "trade")
+    val trade: GetOrderResponseTrade? = null,
 
-    @Json(name = "status")
-    val status: kotlin.String,
+    /* DOLLARS (numbers, as order.created sends them). null = not known (no sale row, or details pending). */
+    @Json(name = "salePrice")
+    val salePrice: java.math.BigDecimal? = null,
 
-    @Json(name = "platform")
-    val platform: kotlin.String,
+    @Json(name = "platformFee")
+    val platformFee: java.math.BigDecimal? = null,
 
-    @Json(name = "dutiesCents")
-    val dutiesCents: java.math.BigDecimal,
+    @Json(name = "taxCollected")
+    val taxCollected: java.math.BigDecimal? = null,
 
-    @Json(name = "salesChannel")
-    val salesChannel: kotlin.String,
+    @Json(name = "shippingCharged")
+    val shippingCharged: java.math.BigDecimal? = null,
 
-    @Json(name = "oversoldBy")
-    val oversoldBy: java.math.BigDecimal,
+    /* 'exact' (the marketplace's charged fee) | 'estimated'. */
+    @Json(name = "feeSource")
+    val feeSource: kotlin.String? = null,
 
-    @Json(name = "isDisputed")
-    val isDisputed: kotlin.Boolean,
+    /* The listing's SKU (order.created `sku`). */
+    @Json(name = "sku")
+    val sku: kotlin.String? = null,
 
-    @Json(name = "arrivalConditionPhotos")
-    val arrivalConditionPhotos: kotlin.collections.List<kotlin.String>,
-
-    @Json(name = "fulfillmentMethod")
-    val fulfillmentMethod: kotlin.String,
-
-    @Json(name = "notes")
-    val notes: kotlin.String? = null,
-
-    @Json(name = "cancelledAt")
-    val cancelledAt: java.time.OffsetDateTime? = null,
-
-    @Json(name = "listingId")
-    val listingId: kotlin.String? = null,
+    @Json(name = "lineItems")
+    val lineItems: kotlin.collections.List<GetOrderResponseLineItems>? = null,
 
     @Json(name = "inventoryItemId")
     val inventoryItemId: kotlin.String? = null,
 
+    @Json(name = "listingId")
+    val listingId: kotlin.String? = null,
+
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String? = null,
-
-    @Json(name = "handlingTimeDays")
-    val handlingTimeDays: java.math.BigDecimal? = null,
 
     @Json(name = "platformOrderId")
     val platformOrderId: kotlin.String? = null,
 
+    /* 1066 (order relay): the developer app that reported this order through an inbound item.sold (FK oauth_apps.id ON DELETE SET NULL in SQL). Null for every order Crossly detected itself. Read by action authority. */
+    @Json(name = "reportedByAppId")
+    val reportedByAppId: kotlin.String? = null,
+
+    /* Crossly orders only: the seller's storefront this sale came from. Null for every non-crossly platform. See db/schema/storefronts.ts. */
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
+
     @Json(name = "buyerUsername")
     val buyerUsername: kotlin.String? = null,
 
+    /* C8 (0448): the carrier location the parcel is held at — services/pickup-points.ts. */
     @Json(name = "pickupPoint")
     val pickupPoint: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
+    /* D4 (0448): set when this seller ships to the consolidation hub, not the buyer — services/hub/. */
     @Json(name = "consolidationId")
     val consolidationId: kotlin.String? = null,
 
+    /* X4: refunded because the order never shipped. */
     @Json(name = "dutiesRefundedAt")
     val dutiesRefundedAt: java.time.OffsetDateTime? = null,
 
+    /* POS location that rang it up. Null for online sales. */
     @Json(name = "channelLocationId")
     val channelLocationId: kotlin.String? = null,
+
+    /* 1121 — the on-account invoice this order was placed on (crossly_invoices.id). */
+    @Json(name = "invoiceId")
+    val invoiceId: kotlin.String? = null,
+
+    /* 1121 — the buyer company (W7 crossly_buyer_companies; no FK until that table exists). */
+    @Json(name = "buyerCompanyId")
+    val buyerCompanyId: kotlin.String? = null,
 
     @Json(name = "packagePresetId")
     val packagePresetId: kotlin.String? = null,
@@ -215,12 +290,15 @@ data class ListOrdersItem (
     @Json(name = "carrierStatusDetail")
     val carrierStatusDetail: kotlin.String? = null,
 
+    /* Every carrier scan, newest first (migration 0243).  The two columns above are the CURRENT state, overwritten on each refresh. For a dispute that proves nothing: \"delivered\" with no date, no location and no chain of scans is a claim, not evidence. Shippo returns the full history on every track call; it used to be discarded. */
     @Json(name = "trackingHistory")
-    val trackingHistory: kotlin.collections.List<ListOrdersItemTrackingHistory>? = null,
+    val trackingHistory: kotlin.collections.List<GetOrderResponseTrackingHistory>? = null,
 
+    /* Where the carrier says it was left, when they say. */
     @Json(name = "deliveryLocation")
     val deliveryLocation: kotlin.String? = null,
 
+    /* Signature name, where the service captured one. Most residential deliveries have none — absence is not evidence of non-delivery. */
     @Json(name = "deliverySignature")
     val deliverySignature: kotlin.String? = null,
 
@@ -242,15 +320,20 @@ data class ListOrdersItem (
     @Json(name = "requestedService")
     val requestedService: kotlin.String? = null,
 
+    @Json(name = "handlingTimeDays")
+    val handlingTimeDays: java.math.BigDecimal? = null,
+
     @Json(name = "shipByAt")
     val shipByAt: java.time.OffsetDateTime? = null,
 
     @Json(name = "shipByAlertedAt")
     val shipByAlertedAt: java.time.OffsetDateTime? = null,
 
+    /* Last time this order's status was reconciled against the platform. NULL = never. Drives the targeted sweeper for orders that fall off page 1 of the sold-list walk. See migration 0157. */
     @Json(name = "lastStatusCheckAt")
     val lastStatusCheckAt: java.time.OffsetDateTime? = null,
 
+    /* Last time this order's platform CHAT thread was pulled. NULL = never. Separate from lastStatusCheckAt because the cadences differ by an order of magnitude — a buyer question needs answering in minutes, a status reconcile can wait an hour. See migration 0158. */
     @Json(name = "lastChatCheckAt")
     val lastChatCheckAt: java.time.OffsetDateTime? = null,
 
@@ -275,9 +358,16 @@ data class ListOrdersItem (
     @Json(name = "refundedAt")
     val refundedAt: java.time.OffsetDateTime? = null,
 
+    @Json(name = "cancelledAt")
+    val cancelledAt: java.time.OffsetDateTime? = null,
+
     @Json(name = "cancellationReason")
     val cancellationReason: kotlin.String? = null,
 
+    @Json(name = "notes")
+    val notes: kotlin.String? = null,
+
+    /* The arrival-condition ask, recorded on the ORDER rather than read off the seller's toggle at review time. The seller can flip that toggle later; what a reviewer needs is what was asked of THIS buyer on THIS delivery — including that they were asked and declined. */
     @Json(name = "arrivalConditionRequestedAt")
     val arrivalConditionRequestedAt: java.time.OffsetDateTime? = null,
 
@@ -287,15 +377,30 @@ data class ListOrdersItem (
     @Json(name = "arrivalConditionDeclinedAt")
     val arrivalConditionDeclinedAt: java.time.OffsetDateTime? = null,
 
+    /* The courier's proof-of-delivery photo, when one can be obtained. Third-party provenance, which makes it the strongest seal frame we can get — see services/evidence/delivery-photo.ts. */
     @Json(name = "deliveryPhotoUrl")
     val deliveryPhotoUrl: kotlin.String? = null,
 
+    /* Where it came from: 'carrier_api:ups' | 'trackified' | 'platform:<p>' | 'pasted' | 'uploaded' (shared delivery-photo-source.ts). */
+    @Json(name = "deliveryPhotoSource")
+    val deliveryPhotoSource: kotlin.String? = null,
+
+    /* The buyer's OWN purchase-order reference.  A trade buyer's accounts department reconciles on their number, not ours. An order without it is one somebody has to chase by hand, which is the difference between getting paid on day 30 and day 75. */
     @Json(name = "purchaseOrderRef")
     val purchaseOrderRef: kotlin.String? = null,
 
     @Json(name = "buyerEmail")
     val buyerEmail: kotlin.String? = null,
 
+    /* 1074 — 'email' = the sale was found by the email monitor, not reported by the platform: the order is incomplete (no buyer address, label or confirmed fees) until the platform reports it. NULL = platform-reported. */
+    @Json(name = "source")
+    val source: kotlin.String? = null,
+
+    /* 1074 — when the platform itself reported this email-found order (same order id). Clears the banner. */
+    @Json(name = "platformConfirmedAt")
+    val platformConfirmedAt: java.time.OffsetDateTime? = null,
+
+    /* Soft-delete tombstone for bulk-delete on /orders. UI list + count queries filter WHERE deleted_at IS NULL. */
     @Json(name = "deletedAt")
     val deletedAt: java.time.OffsetDateTime? = null
 

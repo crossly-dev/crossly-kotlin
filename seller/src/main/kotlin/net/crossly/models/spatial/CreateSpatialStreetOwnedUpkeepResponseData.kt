@@ -47,13 +47,13 @@ data class CreateSpatialStreetOwnedUpkeepResponseData (
     /**
      * 
      *
-     * Values: ACTIVE,FORECLOSED,GRACE,DELINQUENT
+     * Values: ACTIVE,GRACE,DELINQUENT,FORECLOSED
      */
     enum class Upkeep(val value: kotlin.String) {
         @Json(name = "active") ACTIVE("active"),
-        @Json(name = "foreclosed") FORECLOSED("foreclosed"),
         @Json(name = "grace") GRACE("grace"),
-        @Json(name = "delinquent") DELINQUENT("delinquent");
+        @Json(name = "delinquent") DELINQUENT("delinquent"),
+        @Json(name = "foreclosed") FORECLOSED("foreclosed");
     }
 }
 

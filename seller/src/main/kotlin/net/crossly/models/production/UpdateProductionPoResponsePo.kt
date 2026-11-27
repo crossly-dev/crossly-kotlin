@@ -34,8 +34,8 @@ import com.squareup.moshi.Json
  * @param candidateId 
  * @param sampleRounds 
  * @param notes 
- * @param trackingCode 
  * @param supplierName 
+ * @param trackingCode 
  * @param supplierContact 
  * @param freightMode 
  * @param estimateLandedCents 
@@ -77,11 +77,11 @@ data class UpdateProductionPoResponsePo (
     @Json(name = "notes")
     val notes: kotlin.String? = null,
 
-    @Json(name = "trackingCode")
-    val trackingCode: kotlin.String? = null,
-
     @Json(name = "supplierName")
     val supplierName: kotlin.String? = null,
+
+    @Json(name = "trackingCode")
+    val trackingCode: kotlin.String? = null,
 
     @Json(name = "supplierContact")
     val supplierContact: kotlin.String? = null,

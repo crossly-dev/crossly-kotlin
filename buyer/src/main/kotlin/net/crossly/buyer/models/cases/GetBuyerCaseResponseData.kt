@@ -30,19 +30,19 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param messages 
  * @param case 
+ * @param messages 
  * @param purchase 
  * @param returnShipment 
  */
 
 data class GetBuyerCaseResponseData (
 
-    @Json(name = "messages")
-    val messages: kotlin.collections.List<GetBuyerCaseResponseDataMessages>,
-
     @Json(name = "case")
     val case: GetBuyerCaseResponseDataCase,
+
+    @Json(name = "messages")
+    val messages: kotlin.collections.List<GetBuyerCaseResponseDataMessages>,
 
     @Json(name = "purchase")
     val purchase: GetBuyerCaseResponseDataPurchase? = null,

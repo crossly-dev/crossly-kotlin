@@ -31,6 +31,7 @@ import com.squareup.moshi.Json
  * @param status 
  * @param quantityAvailable 
  * @param axisValue 
+ * @param options The member's value on every axis of a multi-axis group; null on a single-axis member.
  * @param title 
  * @param price 
  * @param images 
@@ -53,6 +54,10 @@ data class CreateVariationGroupResponseDataMembers (
 
     @Json(name = "axisValue")
     val axisValue: kotlin.String? = null,
+
+    /* The member's value on every axis of a multi-axis group; null on a single-axis member. */
+    @Json(name = "options")
+    val options: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
 
     @Json(name = "title")
     val title: kotlin.String? = null,

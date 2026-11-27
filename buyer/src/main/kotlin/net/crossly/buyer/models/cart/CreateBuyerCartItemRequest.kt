@@ -28,6 +28,7 @@ import com.squareup.moshi.Json
  *
  * @param listingSlug 
  * @param quantity 
+ * @param listingVariantId The option (variants[].id) on a listing with options.
  * @param via Where in Crossly World it was added, e.g. room:<publicSlug>.
  */
 
@@ -38,6 +39,10 @@ data class CreateBuyerCartItemRequest (
 
     @Json(name = "quantity")
     val quantity: kotlin.Int? = 1,
+
+    /* The option (variants[].id) on a listing with options. */
+    @Json(name = "listingVariantId")
+    val listingVariantId: kotlin.String? = null,
 
     /* Where in Crossly World it was added, e.g. room:<publicSlug>. */
     @Json(name = "via")

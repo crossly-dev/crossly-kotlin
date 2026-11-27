@@ -48,7 +48,7 @@ data class CreateRestockPromptRepublishResponse (
     val jobIds: kotlin.collections.List<kotlin.String>,
 
     @Json(name = "bulkJobId")
-    val bulkJobId: kotlin.String
+    val bulkJobId: kotlin.String? = null
 
 )
 

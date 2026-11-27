@@ -20,7 +20,7 @@
 
 package net.crossly.models.automation
 
-import net.crossly.models.automation.CreateAutomationRuleValidateRecipeResponseDetails
+import net.crossly.models.automation.CreateAutomationRuleValidateRecipeResponseResults
 
 import com.squareup.moshi.Json
 
@@ -28,8 +28,8 @@ import com.squareup.moshi.Json
  * 
  *
  * @param valid 
- * @param error 
- * @param details 
+ * @param count 
+ * @param results 
  */
 
 data class CreateAutomationRuleValidateRecipeResponse (
@@ -37,11 +37,11 @@ data class CreateAutomationRuleValidateRecipeResponse (
     @Json(name = "valid")
     val valid: kotlin.Boolean,
 
-    @Json(name = "error")
-    val error: kotlin.String,
+    @Json(name = "count")
+    val count: java.math.BigDecimal,
 
-    @Json(name = "details")
-    val details: CreateAutomationRuleValidateRecipeResponseDetails
+    @Json(name = "results")
+    val results: kotlin.collections.List<CreateAutomationRuleValidateRecipeResponseResults>
 
 )
 

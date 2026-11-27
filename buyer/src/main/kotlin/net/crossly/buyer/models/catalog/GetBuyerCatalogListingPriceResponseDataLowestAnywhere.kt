@@ -27,12 +27,16 @@ import com.squareup.moshi.Json
  * 
  *
  * @param platforms 
+ * @param platformNames 
  */
 
 data class GetBuyerCatalogListingPriceResponseDataLowestAnywhere (
 
     @Json(name = "platforms")
-    val platforms: kotlin.collections.List<kotlin.String>
+    val platforms: kotlin.collections.List<kotlin.String>,
+
+    @Json(name = "platformNames")
+    val platformNames: kotlin.collections.List<kotlin.String>? = null
 
 )
 

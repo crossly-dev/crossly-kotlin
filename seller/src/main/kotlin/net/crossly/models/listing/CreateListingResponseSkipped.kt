@@ -28,6 +28,7 @@ import com.squareup.moshi.Json
  *
  * @param platform 
  * @param reason 
+ * @param code 
  */
 
 data class CreateListingResponseSkipped (
@@ -36,7 +37,10 @@ data class CreateListingResponseSkipped (
     val platform: kotlin.String,
 
     @Json(name = "reason")
-    val reason: kotlin.String
+    val reason: kotlin.String,
+
+    @Json(name = "code")
+    val code: kotlin.String? = null
 
 )
 

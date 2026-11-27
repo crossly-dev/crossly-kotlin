@@ -53,11 +53,11 @@ data class GetVariationGroupPublishPlanResponsePlans (
     /**
      * 
      *
-     * Values: GROUPED,SEPARATE
+     * Values: SEPARATE,GROUPED
      */
     enum class Mode(val value: kotlin.String) {
-        @Json(name = "grouped") GROUPED("grouped"),
-        @Json(name = "separate") SEPARATE("separate");
+        @Json(name = "separate") SEPARATE("separate"),
+        @Json(name = "grouped") GROUPED("grouped");
     }
 }
 

@@ -49,13 +49,13 @@ data class ListWeb3MarketplaceKeysItem (
     /**
      * 
      *
-     * Values: OPENSEA,TENSOR,MAGIC_EDEN,RARIBLE
+     * Values: RARIBLE,MAGIC_EDEN,TENSOR,OPENSEA
      */
     enum class Marketplace(val value: kotlin.String) {
-        @Json(name = "opensea") OPENSEA("opensea"),
-        @Json(name = "tensor") TENSOR("tensor"),
+        @Json(name = "rarible") RARIBLE("rarible"),
         @Json(name = "magic_eden") MAGIC_EDEN("magic_eden"),
-        @Json(name = "rarible") RARIBLE("rarible");
+        @Json(name = "tensor") TENSOR("tensor"),
+        @Json(name = "opensea") OPENSEA("opensea");
     }
 }
 

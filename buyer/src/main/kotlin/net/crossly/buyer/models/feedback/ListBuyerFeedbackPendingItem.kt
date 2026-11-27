@@ -28,11 +28,11 @@ import com.squareup.moshi.Json
  *
  * @param purchaseId 
  * @param itemTitle 
- * @param shippedAt 
- * @param deliveredAt 
  * @param imageUrl 
- * @param sellerName 
+ * @param deliveredAt 
+ * @param shippedAt 
  * @param orderedAt 
+ * @param sellerName 
  */
 
 data class ListBuyerFeedbackPendingItem (
@@ -43,20 +43,20 @@ data class ListBuyerFeedbackPendingItem (
     @Json(name = "itemTitle")
     val itemTitle: kotlin.String,
 
-    @Json(name = "shippedAt")
-    val shippedAt: kotlin.String? = null,
+    @Json(name = "imageUrl")
+    val imageUrl: kotlin.String? = null,
 
     @Json(name = "deliveredAt")
     val deliveredAt: kotlin.String? = null,
 
-    @Json(name = "imageUrl")
-    val imageUrl: kotlin.String? = null,
-
-    @Json(name = "sellerName")
-    val sellerName: kotlin.String? = null,
+    @Json(name = "shippedAt")
+    val shippedAt: kotlin.String? = null,
 
     @Json(name = "orderedAt")
-    val orderedAt: kotlin.String? = null
+    val orderedAt: kotlin.String? = null,
+
+    @Json(name = "sellerName")
+    val sellerName: kotlin.String? = null
 
 )
 

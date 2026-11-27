@@ -26,18 +26,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param url 
  * @param token 
+ * @param url 
  * @param expiresAt 
  */
 
 data class CreateBuyerWishlistInviteResponseData (
 
-    @Json(name = "url")
-    val url: kotlin.String,
-
     @Json(name = "token")
     val token: kotlin.String,
+
+    @Json(name = "url")
+    val url: kotlin.String,
 
     @Json(name = "expiresAt")
     val expiresAt: kotlin.String

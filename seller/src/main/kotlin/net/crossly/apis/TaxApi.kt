@@ -24,9 +24,14 @@ import java.io.IOException
 
 import net.crossly.models.common.CreateMileageResponse
 import net.crossly.models.common.Error
+import net.crossly.models.book.GetBookTaxProfileResponse
 import net.crossly.models.common.GetMileageSummaryResponse
-import net.crossly.models.common.GetTaxScheduleCResponse
+import net.crossly.models.order.GetOrderSalesTaxResponse
+import net.crossly.models.tax.GetTaxSalesTaxResponse
+import net.crossly.models.tax.GetTaxScheduleCResponse
 import net.crossly.models.common.ListMileageResponse
+import net.crossly.models.tax.ListTaxCrosslyCollectsResponse
+import net.crossly.models.tax.ListTaxSalesTaxNotCollectedResponse
 import net.crossly.models.common.OkResponse
 
 import com.squareup.moshi.Json
@@ -190,8 +195,76 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Annual mileage totals + IRS deduction.
+    * Your tax profile: time zone for books boundaries, filing status, state, set-aside and rate assumptions, accounting method, and business name, EIN and address.
     * 
+    * @return GetBookTaxProfileResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getBookTaxProfile() : GetBookTaxProfileResponse {
+        val localVarResponse = getBookTaxProfileWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBookTaxProfileResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your tax profile: time zone for books boundaries, filing status, state, set-aside and rate assumptions, accounting method, and business name, EIN and address.
+    * 
+    * @return ApiResponse<GetBookTaxProfileResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getBookTaxProfileWithHttpInfo() : ApiResponse<GetBookTaxProfileResponse?> {
+        val localVariableConfig = getBookTaxProfileRequestConfig()
+
+        return request<Unit, GetBookTaxProfileResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getBookTaxProfile
+    *
+    * @return RequestConfig
+    */
+    fun getBookTaxProfileRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/books/tax-profile",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Annual mileage totals + IRS deduction. Each trip is priced at the IRS rate on its own date (2026 has two rates, listed in &#x60;rates&#x60;); &#x60;ratePerMile&#x60; is the January rate.
+    * 
+    * @param year Calendar tax year. Default the current year. (optional)
     * @return GetMileageSummaryResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -201,8 +274,8 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun getMileageSummary() : GetMileageSummaryResponse {
-        val localVarResponse = getMileageSummaryWithHttpInfo()
+    fun getMileageSummary(year: kotlin.Int?) : GetMileageSummaryResponse {
+        val localVarResponse = getMileageSummaryWithHttpInfo(year = year)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as GetMileageSummaryResponse
@@ -220,16 +293,17 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Annual mileage totals + IRS deduction.
+    * Annual mileage totals + IRS deduction. Each trip is priced at the IRS rate on its own date (2026 has two rates, listed in &#x60;rates&#x60;); &#x60;ratePerMile&#x60; is the January rate.
     * 
+    * @param year Calendar tax year. Default the current year. (optional)
     * @return ApiResponse<GetMileageSummaryResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun getMileageSummaryWithHttpInfo() : ApiResponse<GetMileageSummaryResponse?> {
-        val localVariableConfig = getMileageSummaryRequestConfig()
+    fun getMileageSummaryWithHttpInfo(year: kotlin.Int?) : ApiResponse<GetMileageSummaryResponse?> {
+        val localVariableConfig = getMileageSummaryRequestConfig(year = year)
 
         return request<Unit, GetMileageSummaryResponse>(
             localVariableConfig
@@ -239,11 +313,17 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     /**
     * To obtain the request config of the operation getMileageSummary
     *
+    * @param year Calendar tax year. Default the current year. (optional)
     * @return RequestConfig
     */
-    fun getMileageSummaryRequestConfig() : RequestConfig<Unit> {
+    fun getMileageSummaryRequestConfig(year: kotlin.Int?) : RequestConfig<Unit> {
         val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (year != null) {
+                    put("year", listOf(year.toString()))
+                }
+            }
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
         localVariableHeaders["Accept"] = "application/json"
 
@@ -257,7 +337,158 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Schedule C JSON for a tax year.
+    * Who collected sales tax on one Crossly marketplace order, where, and the seller notice.
+    * 
+    * @param id  
+    * @return GetOrderSalesTaxResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getOrderSalesTax(id: java.util.UUID) : GetOrderSalesTaxResponse {
+        val localVarResponse = getOrderSalesTaxWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetOrderSalesTaxResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Who collected sales tax on one Crossly marketplace order, where, and the seller notice.
+    * 
+    * @param id  
+    * @return ApiResponse<GetOrderSalesTaxResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getOrderSalesTaxWithHttpInfo(id: java.util.UUID) : ApiResponse<GetOrderSalesTaxResponse?> {
+        val localVariableConfig = getOrderSalesTaxRequestConfig(id = id)
+
+        return request<Unit, GetOrderSalesTaxResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getOrderSalesTax
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getOrderSalesTaxRequestConfig(id: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/orders/{id}/sales-tax".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Crossly marketplace sales Crossly did not collect sales tax on, by jurisdiction.
+    * 
+    * @param from YYYY-MM-DD, inclusive. Default 1 January this year. (optional)
+    * @param to YYYY-MM-DD, inclusive. Default now. (optional)
+    * @return GetTaxSalesTaxResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getTaxSalesTax(from: kotlin.String?, to: kotlin.String?) : GetTaxSalesTaxResponse {
+        val localVarResponse = getTaxSalesTaxWithHttpInfo(from = from, to = to)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetTaxSalesTaxResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Crossly marketplace sales Crossly did not collect sales tax on, by jurisdiction.
+    * 
+    * @param from YYYY-MM-DD, inclusive. Default 1 January this year. (optional)
+    * @param to YYYY-MM-DD, inclusive. Default now. (optional)
+    * @return ApiResponse<GetTaxSalesTaxResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getTaxSalesTaxWithHttpInfo(from: kotlin.String?, to: kotlin.String?) : ApiResponse<GetTaxSalesTaxResponse?> {
+        val localVariableConfig = getTaxSalesTaxRequestConfig(from = from, to = to)
+
+        return request<Unit, GetTaxSalesTaxResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getTaxSalesTax
+    *
+    * @param from YYYY-MM-DD, inclusive. Default 1 January this year. (optional)
+    * @param to YYYY-MM-DD, inclusive. Default now. (optional)
+    * @return RequestConfig
+    */
+    fun getTaxSalesTaxRequestConfig(from: kotlin.String?, to: kotlin.String?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/tax/sales-tax",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Schedule C JSON for a tax year (default the current year), from the same P&amp;L as GET /v1/books: line 1 gross receipts before refunds, line 2 refunds, COGS in Part III, completed sales only. GET /v1/books has the full P&amp;L by period.
     * 
     * @return GetTaxScheduleCResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -287,7 +518,7 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Schedule C JSON for a tax year.
+    * Schedule C JSON for a tax year (default the current year), from the same P&amp;L as GET /v1/books: line 1 gross receipts before refunds, line 2 refunds, COGS in Part III, completed sales only. GET /v1/books has the full P&amp;L by period.
     * 
     * @return ApiResponse<GetTaxScheduleCResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -324,8 +555,13 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * List mileage entries.
+    * List mileage entries, newest trip first, paged (limit up to 500). Narrow by year and/or an inclusive from/to date range.
     * 
+    * @param year Only trips dated in this calendar year. (optional)
+    * @param from YYYY-MM-DD, inclusive. Only trips on or after this date. Combines with year. (optional)
+    * @param to YYYY-MM-DD, inclusive. Only trips on or before this date; from &lt;&#x3D; to. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param limit Rows per page, default 100, clamped to 500. (optional)
     * @return ListMileageResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
@@ -335,8 +571,8 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun listMileage() : ListMileageResponse {
-        val localVarResponse = listMileageWithHttpInfo()
+    fun listMileage(year: kotlin.Int?, from: kotlin.String?, to: kotlin.String?, page: kotlin.Int?, limit: kotlin.Int?) : ListMileageResponse {
+        val localVarResponse = listMileageWithHttpInfo(year = year, from = from, to = to, page = page, limit = limit)
 
         return when (localVarResponse.responseType) {
             ResponseType.Success -> (localVarResponse as Success<*>).data as ListMileageResponse
@@ -354,16 +590,21 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * List mileage entries.
+    * List mileage entries, newest trip first, paged (limit up to 500). Narrow by year and/or an inclusive from/to date range.
     * 
+    * @param year Only trips dated in this calendar year. (optional)
+    * @param from YYYY-MM-DD, inclusive. Only trips on or after this date. Combines with year. (optional)
+    * @param to YYYY-MM-DD, inclusive. Only trips on or before this date; from &lt;&#x3D; to. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param limit Rows per page, default 100, clamped to 500. (optional)
     * @return ApiResponse<ListMileageResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun listMileageWithHttpInfo() : ApiResponse<ListMileageResponse?> {
-        val localVariableConfig = listMileageRequestConfig()
+    fun listMileageWithHttpInfo(year: kotlin.Int?, from: kotlin.String?, to: kotlin.String?, page: kotlin.Int?, limit: kotlin.Int?) : ApiResponse<ListMileageResponse?> {
+        val localVariableConfig = listMileageRequestConfig(year = year, from = from, to = to, page = page, limit = limit)
 
         return request<Unit, ListMileageResponse>(
             localVariableConfig
@@ -373,9 +614,98 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     /**
     * To obtain the request config of the operation listMileage
     *
+    * @param year Only trips dated in this calendar year. (optional)
+    * @param from YYYY-MM-DD, inclusive. Only trips on or after this date. Combines with year. (optional)
+    * @param to YYYY-MM-DD, inclusive. Only trips on or before this date; from &lt;&#x3D; to. (optional)
+    * @param page 1-indexed page. Default 1. (optional)
+    * @param limit Rows per page, default 100, clamped to 500. (optional)
     * @return RequestConfig
     */
-    fun listMileageRequestConfig() : RequestConfig<Unit> {
+    fun listMileageRequestConfig(year: kotlin.Int?, from: kotlin.String?, to: kotlin.String?, page: kotlin.Int?, limit: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (year != null) {
+                    put("year", listOf(year.toString()))
+                }
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (page != null) {
+                    put("page", listOf(page.toString()))
+                }
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/mileage",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Where Crossly collects sales tax today (its active Stripe Tax registrations).
+    * 
+    * @return ListTaxCrosslyCollectsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listTaxCrosslyCollects() : ListTaxCrosslyCollectsResponse {
+        val localVarResponse = listTaxCrosslyCollectsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListTaxCrosslyCollectsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Where Crossly collects sales tax today (its active Stripe Tax registrations).
+    * 
+    * @return ApiResponse<ListTaxCrosslyCollectsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listTaxCrosslyCollectsWithHttpInfo() : ApiResponse<ListTaxCrosslyCollectsResponse?> {
+        val localVariableConfig = listTaxCrosslyCollectsRequestConfig()
+
+        return request<Unit, ListTaxCrosslyCollectsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listTaxCrosslyCollects
+    *
+    * @return RequestConfig
+    */
+    fun listTaxCrosslyCollectsRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -383,7 +713,167 @@ class TaxApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
 
         return RequestConfig(
             method = RequestMethod.GET,
-            path = "/v1/mileage",
+            path = "/v1/tax/crossly-collects",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The individual Crossly sales Crossly did not collect sales tax on, newest first.
+    * 
+    * @param from  (optional)
+    * @param to  (optional)
+    * @param page  (optional)
+    * @param limit  (optional)
+    * @return ListTaxSalesTaxNotCollectedResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listTaxSalesTaxNotCollected(from: kotlin.String?, to: kotlin.String?, page: kotlin.Int?, limit: kotlin.Int?) : ListTaxSalesTaxNotCollectedResponse {
+        val localVarResponse = listTaxSalesTaxNotCollectedWithHttpInfo(from = from, to = to, page = page, limit = limit)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListTaxSalesTaxNotCollectedResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The individual Crossly sales Crossly did not collect sales tax on, newest first.
+    * 
+    * @param from  (optional)
+    * @param to  (optional)
+    * @param page  (optional)
+    * @param limit  (optional)
+    * @return ApiResponse<ListTaxSalesTaxNotCollectedResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listTaxSalesTaxNotCollectedWithHttpInfo(from: kotlin.String?, to: kotlin.String?, page: kotlin.Int?, limit: kotlin.Int?) : ApiResponse<ListTaxSalesTaxNotCollectedResponse?> {
+        val localVariableConfig = listTaxSalesTaxNotCollectedRequestConfig(from = from, to = to, page = page, limit = limit)
+
+        return request<Unit, ListTaxSalesTaxNotCollectedResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listTaxSalesTaxNotCollected
+    *
+    * @param from  (optional)
+    * @param to  (optional)
+    * @param page  (optional)
+    * @param limit  (optional)
+    * @return RequestConfig
+    */
+    fun listTaxSalesTaxNotCollectedRequestConfig(from: kotlin.String?, to: kotlin.String?, page: kotlin.Int?, limit: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (from != null) {
+                    put("from", listOf(from.toString()))
+                }
+                if (to != null) {
+                    put("to", listOf(to.toString()))
+                }
+                if (page != null) {
+                    put("page", listOf(page.toString()))
+                }
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/tax/sales-tax/not-collected",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Update your tax profile: time zone, filing status, state, set-aside and rate assumptions (basis points), accounting method, business name, EIN and address. Fields left out are unchanged.
+    * 
+    * @return GetBookTaxProfileResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateBookTaxProfile() : GetBookTaxProfileResponse {
+        val localVarResponse = updateBookTaxProfileWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetBookTaxProfileResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Update your tax profile: time zone, filing status, state, set-aside and rate assumptions (basis points), accounting method, business name, EIN and address. Fields left out are unchanged.
+    * 
+    * @return ApiResponse<GetBookTaxProfileResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateBookTaxProfileWithHttpInfo() : ApiResponse<GetBookTaxProfileResponse?> {
+        val localVariableConfig = updateBookTaxProfileRequestConfig()
+
+        return request<Unit, GetBookTaxProfileResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateBookTaxProfile
+    *
+    * @return RequestConfig
+    */
+    fun updateBookTaxProfileRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/books/tax-profile",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

@@ -37,6 +37,8 @@ import com.squareup.moshi.Json
  * @param units 
  * @param quote 
  * @param rails 
+ * @param boothKind 
+ * @param capacity 
  * @param bookable 
  * @param unbookableReason 
  */
@@ -64,11 +66,29 @@ data class GetStallQuoteResponseQuote (
     @Json(name = "rails")
     val rails: kotlin.collections.List<GetStallQuoteResponseQuoteRailsItem>,
 
+    @Json(name = "boothKind")
+    val boothKind: GetStallQuoteResponseQuote.BoothKind,
+
+    @Json(name = "capacity")
+    val capacity: java.math.BigDecimal,
+
     @Json(name = "bookable")
     val bookable: kotlin.Boolean,
 
     @Json(name = "unbookableReason")
     val unbookableReason: kotlin.String? = null
 
-)
+) {
+
+    /**
+     * 
+     *
+     * Values: BOOTH,CART,PAVILION
+     */
+    enum class BoothKind(val value: kotlin.String) {
+        @Json(name = "booth") BOOTH("booth"),
+        @Json(name = "cart") CART("cart"),
+        @Json(name = "pavilion") PAVILION("pavilion");
+    }
+}
 

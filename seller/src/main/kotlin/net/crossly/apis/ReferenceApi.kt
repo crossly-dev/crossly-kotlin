@@ -24,14 +24,16 @@ import java.io.IOException
 
 import net.crossly.models.common.Error
 import net.crossly.models.brand.GetBrandResponse
-import net.crossly.models.common.GetCategoryResponse
+import net.crossly.models.category.GetCategoryResponse
 import net.crossly.models.common.GetDepartmentResponse
 import net.crossly.models.common.GetGenderResponse
 import net.crossly.models.common.GetPatternResponse
+import net.crossly.models.common.GetReferencePostalResponse
 import net.crossly.models.common.GetSizeSystemResponse
 import net.crossly.models.common.GetStyleResponse
 import net.crossly.models.common.GetTypeResponse
 import net.crossly.models.common.ListReferenceCountriesResponse
+import net.crossly.models.common.ListReferenceMetrosResponse
 
 import com.squareup.moshi.Json
 
@@ -392,6 +394,79 @@ class ReferenceApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
     }
 
     /**
+    * Look up a postal code: canonical shape, state and US metro areas.
+    * Every country gets its canonical shape and &#x60;valid&#x60;. A US ZIP (territories normalize to country US with &#x60;territory&#x60;) also gets state, county FIPS and CBSA/CSA. &#x60;metroStatus&#x60; is known (the ZIP is mapped), unmapped (a ZIP with no metro mapping: it matches no metro rule) or no_zip.
+    * @param country  
+    * @param code  
+    * @return GetReferencePostalResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getReferencePostal(country: kotlin.String, code: kotlin.String) : GetReferencePostalResponse {
+        val localVarResponse = getReferencePostalWithHttpInfo(country = country, code = code)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetReferencePostalResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Look up a postal code: canonical shape, state and US metro areas.
+    * Every country gets its canonical shape and &#x60;valid&#x60;. A US ZIP (territories normalize to country US with &#x60;territory&#x60;) also gets state, county FIPS and CBSA/CSA. &#x60;metroStatus&#x60; is known (the ZIP is mapped), unmapped (a ZIP with no metro mapping: it matches no metro rule) or no_zip.
+    * @param country  
+    * @param code  
+    * @return ApiResponse<GetReferencePostalResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getReferencePostalWithHttpInfo(country: kotlin.String, code: kotlin.String) : ApiResponse<GetReferencePostalResponse?> {
+        val localVariableConfig = getReferencePostalRequestConfig(country = country, code = code)
+
+        return request<Unit, GetReferencePostalResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getReferencePostal
+    *
+    * @param country  
+    * @param code  
+    * @return RequestConfig
+    */
+    fun getReferencePostalRequestConfig(country: kotlin.String, code: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/reference/postal/{country}/{code}".replace("{"+"country"+"}", "$country").replace("{"+"code"+"}", "$code"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Search the Poshmark + Vestiaire size-system union (US/UK/EU/AU/FR/KR).
     * 
     * @return GetSizeSystemResponse
@@ -653,6 +728,85 @@ class ReferenceApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePa
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/reference/countries",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Search US metro areas (CSA / CBSA) for location rules.
+    * Combined Statistical Areas first, then Core-Based Statistical Areas, matched on title (or an exact code); at most 20. &#x60;q&#x60; needs 2+ characters. &#x60;meta.datasetAvailable&#x60; is false when the census dataset is not loaded, in which case no metro rule can match.
+    * @param q  
+    * @param limit  (optional, default to 20)
+    * @return ListReferenceMetrosResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listReferenceMetros(q: kotlin.String, limit: kotlin.Int?) : ListReferenceMetrosResponse {
+        val localVarResponse = listReferenceMetrosWithHttpInfo(q = q, limit = limit)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListReferenceMetrosResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Search US metro areas (CSA / CBSA) for location rules.
+    * Combined Statistical Areas first, then Core-Based Statistical Areas, matched on title (or an exact code); at most 20. &#x60;q&#x60; needs 2+ characters. &#x60;meta.datasetAvailable&#x60; is false when the census dataset is not loaded, in which case no metro rule can match.
+    * @param q  
+    * @param limit  (optional, default to 20)
+    * @return ApiResponse<ListReferenceMetrosResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listReferenceMetrosWithHttpInfo(q: kotlin.String, limit: kotlin.Int?) : ApiResponse<ListReferenceMetrosResponse?> {
+        val localVariableConfig = listReferenceMetrosRequestConfig(q = q, limit = limit)
+
+        return request<Unit, ListReferenceMetrosResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listReferenceMetros
+    *
+    * @param q  
+    * @param limit  (optional, default to 20)
+    * @return RequestConfig
+    */
+    fun listReferenceMetrosRequestConfig(q: kotlin.String, limit: kotlin.Int?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                put("q", listOf(q.toString()))
+                if (limit != null) {
+                    put("limit", listOf(limit.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/reference/metros",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

@@ -76,11 +76,11 @@ data class GetVaultMarketPositionResponseLegs (
     /**
      * 
      *
-     * Values: FILLED,CANCELLED,WORKING,BUSTED
+     * Values: CANCELLED,FILLED,WORKING,BUSTED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "filled") FILLED("filled"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "filled") FILLED("filled"),
         @Json(name = "working") WORKING("working"),
         @Json(name = "busted") BUSTED("busted");
     }

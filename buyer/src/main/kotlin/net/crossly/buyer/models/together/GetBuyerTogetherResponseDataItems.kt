@@ -27,9 +27,9 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param available 
  * @param slug 
  * @param priceCents 
+ * @param available 
  * @param addedBy 
  * @param up 
  * @param down 
@@ -43,14 +43,14 @@ data class GetBuyerTogetherResponseDataItems (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "available")
-    val available: kotlin.Boolean,
-
     @Json(name = "slug")
     val slug: kotlin.String,
 
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
+
+    @Json(name = "available")
+    val available: kotlin.Boolean,
 
     @Json(name = "addedBy")
     val addedBy: kotlin.String,

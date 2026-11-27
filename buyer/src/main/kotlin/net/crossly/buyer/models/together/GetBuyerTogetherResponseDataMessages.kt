@@ -28,9 +28,9 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param name 
- * @param createdAt 
- * @param body 
  * @param me 
+ * @param body 
+ * @param createdAt 
  */
 
 data class GetBuyerTogetherResponseDataMessages (
@@ -41,14 +41,14 @@ data class GetBuyerTogetherResponseDataMessages (
     @Json(name = "name")
     val name: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
+    @Json(name = "me")
+    val me: kotlin.Boolean,
 
     @Json(name = "body")
     val body: kotlin.String,
 
-    @Json(name = "me")
-    val me: kotlin.Boolean
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String
 
 )
 

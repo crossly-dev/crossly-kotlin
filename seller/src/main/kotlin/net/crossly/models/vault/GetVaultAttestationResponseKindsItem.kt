@@ -26,10 +26,13 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * Values: PHYSICAL_COUNT,INSURANCE_CERTIFICATE,SOC1_TYPE2,SOC2,OTHER
+ * Values: OTHER,PHYSICAL_COUNT,INSURANCE_CERTIFICATE,SOC1_TYPE2,SOC2
  */
 
 enum class GetVaultAttestationResponseKindsItem(val value: kotlin.String) {
+
+    @Json(name = "other")
+    OTHER("other"),
 
     @Json(name = "physical_count")
     PHYSICAL_COUNT("physical_count"),
@@ -41,10 +44,7 @@ enum class GetVaultAttestationResponseKindsItem(val value: kotlin.String) {
     SOC1_TYPE2("soc1_type2"),
 
     @Json(name = "soc2")
-    SOC2("soc2"),
-
-    @Json(name = "other")
-    OTHER("other");
+    SOC2("soc2");
 
     /**
      * Override toString() to avoid using the enum variable name as the value, and instead use

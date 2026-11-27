@@ -126,14 +126,14 @@ data class ListDropMineItem (
     /**
      * 
      *
-     * Values: SCHEDULED,CANCELLED,CLOSED,RELEASED,LINE_OPEN
+     * Values: CANCELLED,SCHEDULED,CLOSED,LINE_OPEN,RELEASED
      */
     enum class Status(val value: kotlin.String) {
-        @Json(name = "scheduled") SCHEDULED("scheduled"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
+        @Json(name = "scheduled") SCHEDULED("scheduled"),
         @Json(name = "closed") CLOSED("closed"),
-        @Json(name = "released") RELEASED("released"),
-        @Json(name = "line_open") LINE_OPEN("line_open");
+        @Json(name = "line_open") LINE_OPEN("line_open"),
+        @Json(name = "released") RELEASED("released");
     }
     /**
      * 

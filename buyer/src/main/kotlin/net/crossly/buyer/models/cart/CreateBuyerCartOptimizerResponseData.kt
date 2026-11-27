@@ -27,15 +27,21 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param lines 
+ * @param itemsCents 
  * @param shippingCents 
  * @param totalCents 
- * @param lines 
  * @param sellers 
- * @param itemsCents 
  * @param unmatched 
  */
 
 data class CreateBuyerCartOptimizerResponseData (
+
+    @Json(name = "lines")
+    val lines: kotlin.collections.List<CreateBuyerCartOptimizerResponseDataLines>,
+
+    @Json(name = "itemsCents")
+    val itemsCents: java.math.BigDecimal,
 
     @Json(name = "shippingCents")
     val shippingCents: java.math.BigDecimal,
@@ -43,14 +49,8 @@ data class CreateBuyerCartOptimizerResponseData (
     @Json(name = "totalCents")
     val totalCents: java.math.BigDecimal,
 
-    @Json(name = "lines")
-    val lines: kotlin.collections.List<CreateBuyerCartOptimizerResponseDataLines>,
-
     @Json(name = "sellers")
     val sellers: java.math.BigDecimal,
-
-    @Json(name = "itemsCents")
-    val itemsCents: java.math.BigDecimal,
 
     @Json(name = "unmatched")
     val unmatched: kotlin.collections.List<kotlin.String>

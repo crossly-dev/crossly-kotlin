@@ -60,32 +60,32 @@ data class GetWorldCapabilityCatalogueResponseDataKinds (
     /**
      * Needs a person's review before it is live (its asset, clip, quest or design).
      *
-     * Values: ALWAYS,ASSET,NEVER
+     * Values: ALWAYS,NEVER,ASSET
      */
     enum class Review(val value: kotlin.String) {
         @Json(name = "always") ALWAYS("always"),
-        @Json(name = "asset") ASSET("asset"),
-        @Json(name = "never") NEVER("never");
+        @Json(name = "never") NEVER("never"),
+        @Json(name = "asset") ASSET("asset");
     }
     /**
      * 
      *
-     * Values: PORTAL,DISPLAY,PLACE,BADGE,WEAR,EMOTE,ROOM_THEME,PET,GATE,QUEST,GAME_PASS,PERK,INTERACTIVE
+     * Values: PORTAL,INTERACTIVE,PLACE,DISPLAY,BADGE,PERK,WEAR,EMOTE,ROOM_THEME,PET,GATE,QUEST,GAME_PASS
      */
     enum class Kind(val value: kotlin.String) {
         @Json(name = "portal") PORTAL("portal"),
-        @Json(name = "display") DISPLAY("display"),
+        @Json(name = "interactive") INTERACTIVE("interactive"),
         @Json(name = "place") PLACE("place"),
+        @Json(name = "display") DISPLAY("display"),
         @Json(name = "badge") BADGE("badge"),
+        @Json(name = "perk") PERK("perk"),
         @Json(name = "wear") WEAR("wear"),
         @Json(name = "emote") EMOTE("emote"),
         @Json(name = "room_theme") ROOM_THEME("room_theme"),
         @Json(name = "pet") PET("pet"),
         @Json(name = "gate") GATE("gate"),
         @Json(name = "quest") QUEST("quest"),
-        @Json(name = "game_pass") GAME_PASS("game_pass"),
-        @Json(name = "perk") PERK("perk"),
-        @Json(name = "interactive") INTERACTIVE("interactive");
+        @Json(name = "game_pass") GAME_PASS("game_pass");
     }
 }
 

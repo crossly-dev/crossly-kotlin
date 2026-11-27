@@ -59,12 +59,12 @@ data class CreateBuyerAgentSessionResponseBriefPending (
     /**
      * 
      *
-     * Values: DISPUTE,CANCEL,RETURN
+     * Values: RETURN,CANCEL,DISPUTE
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "dispute") DISPUTE("dispute"),
+        @Json(name = "return") RETURN("return"),
         @Json(name = "cancel") CANCEL("cancel"),
-        @Json(name = "return") RETURN("return");
+        @Json(name = "dispute") DISPUTE("dispute");
     }
 }
 

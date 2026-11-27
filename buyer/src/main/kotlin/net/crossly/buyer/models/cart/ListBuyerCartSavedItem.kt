@@ -27,17 +27,20 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param quantity 
- * @param title 
  * @param platformListingId 
- * @param sellerUserId 
  * @param slug 
+ * @param title 
  * @param priceCents The listing's price NOW, in cents — what moving it back would charge.
+ * @param quantity 
  * @param inStock 
  * @param availableQuantity 
+ * @param sellerUserId 
  * @param savedAt 
- * @param sellerDisplayName 
  * @param thumbnail 
+ * @param sellerDisplayName 
+ * @param listingVariantId The option it was saved as (catalog `variants[].id`), restored on move-to-cart; null otherwise.
+ * @param variantName That option's label (\"M\").
+ * @param needsOption The listing has options and this item names none: add it again with an option (move-to-cart refuses).
  */
 
 data class ListBuyerCartSavedItem (
@@ -45,24 +48,21 @@ data class ListBuyerCartSavedItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "quantity")
-    val quantity: java.math.BigDecimal,
-
-    @Json(name = "title")
-    val title: kotlin.String,
-
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String,
-
-    @Json(name = "sellerUserId")
-    val sellerUserId: kotlin.String,
 
     @Json(name = "slug")
     val slug: kotlin.String,
 
+    @Json(name = "title")
+    val title: kotlin.String,
+
     /* The listing's price NOW, in cents — what moving it back would charge. */
     @Json(name = "priceCents")
     val priceCents: java.math.BigDecimal,
+
+    @Json(name = "quantity")
+    val quantity: java.math.BigDecimal,
 
     @Json(name = "inStock")
     val inStock: kotlin.Boolean,
@@ -70,14 +70,29 @@ data class ListBuyerCartSavedItem (
     @Json(name = "availableQuantity")
     val availableQuantity: java.math.BigDecimal,
 
+    @Json(name = "sellerUserId")
+    val sellerUserId: kotlin.String,
+
     @Json(name = "savedAt")
     val savedAt: kotlin.String,
+
+    @Json(name = "thumbnail")
+    val thumbnail: kotlin.String? = null,
 
     @Json(name = "sellerDisplayName")
     val sellerDisplayName: kotlin.String? = null,
 
-    @Json(name = "thumbnail")
-    val thumbnail: kotlin.String? = null
+    /* The option it was saved as (catalog `variants[].id`), restored on move-to-cart; null otherwise. */
+    @Json(name = "listingVariantId")
+    val listingVariantId: kotlin.String? = null,
+
+    /* That option's label (\"M\"). */
+    @Json(name = "variantName")
+    val variantName: kotlin.String? = null,
+
+    /* The listing has options and this item names none: add it again with an option (move-to-cart refuses). */
+    @Json(name = "needsOption")
+    val needsOption: kotlin.Boolean? = null
 
 )
 

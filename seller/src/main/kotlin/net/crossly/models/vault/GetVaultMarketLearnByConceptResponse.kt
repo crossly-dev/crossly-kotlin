@@ -67,7 +67,7 @@ data class GetVaultMarketLearnByConceptResponse (
     /**
      * 
      *
-     * Values: LENDING,INSTANT_MINUS_EXIT,SHORTS,LIENS,AUCTIONS,INDEXES,MARKS
+     * Values: LENDING,INSTANT_MINUS_EXIT,SHORTS,LIENS,AUCTIONS,INDEXES,MARKS,VAULT_MINUS_SHARES
      */
     enum class Slug(val value: kotlin.String) {
         @Json(name = "lending") LENDING("lending"),
@@ -76,7 +76,8 @@ data class GetVaultMarketLearnByConceptResponse (
         @Json(name = "liens") LIENS("liens"),
         @Json(name = "auctions") AUCTIONS("auctions"),
         @Json(name = "indexes") INDEXES("indexes"),
-        @Json(name = "marks") MARKS("marks");
+        @Json(name = "marks") MARKS("marks"),
+        @Json(name = "vault-shares") VAULT_MINUS_SHARES("vault-shares");
     }
 }
 

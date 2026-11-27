@@ -43,12 +43,12 @@ data class UpdateSpatialSceneShopLayoutResponseDataShell (
     /**
      * 
      *
-     * Values: STANDARD,LARGE,AUTO,COMPACT,FLAGSHIP
+     * Values: AUTO,STANDARD,LARGE,COMPACT,FLAGSHIP
      */
     enum class PropertySize(val value: kotlin.String) {
+        @Json(name = "auto") AUTO("auto"),
         @Json(name = "standard") STANDARD("standard"),
         @Json(name = "large") LARGE("large"),
-        @Json(name = "auto") AUTO("auto"),
         @Json(name = "compact") COMPACT("compact"),
         @Json(name = "flagship") FLAGSHIP("flagship");
     }

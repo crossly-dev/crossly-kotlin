@@ -29,9 +29,10 @@ import com.squareup.moshi.Json
  * @param platform 
  * @param sales 
  * @param grossCents 
+ * @param netCents 
  * @param avgDaysToSale 
  * @param avgSaleCents 
- * @param netCents 
+ * @param netProfitCents 
  */
 
 data class ListInsightByPlatformItem (
@@ -40,19 +41,22 @@ data class ListInsightByPlatformItem (
     val platform: kotlin.String,
 
     @Json(name = "sales")
-    val sales: kotlin.String,
+    val sales: java.math.BigDecimal,
 
     @Json(name = "gross_cents")
-    val grossCents: kotlin.String,
-
-    @Json(name = "avg_days_to_sale")
-    val avgDaysToSale: java.math.BigDecimal,
-
-    @Json(name = "avg_sale_cents")
-    val avgSaleCents: java.math.BigDecimal,
+    val grossCents: java.math.BigDecimal,
 
     @Json(name = "net_cents")
-    val netCents: kotlin.String
+    val netCents: java.math.BigDecimal,
+
+    @Json(name = "avg_days_to_sale")
+    val avgDaysToSale: java.math.BigDecimal? = null,
+
+    @Json(name = "avg_sale_cents")
+    val avgSaleCents: java.math.BigDecimal? = null,
+
+    @Json(name = "net_profit_cents")
+    val netProfitCents: java.math.BigDecimal? = null
 
 )
 

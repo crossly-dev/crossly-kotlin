@@ -58,7 +58,7 @@ Configure PersonalAccessToken:
 
 <a name="createBreakCancel"></a>
 # **createBreakCancel**
-> CreateBreakCancelResponse createBreakCancel(id)
+> UpdateGroupBuyResponse createBreakCancel(id)
 
 Cancel a break before any spot is paid for; after that, refund those orders instead (409).
 
@@ -71,7 +71,7 @@ Cancel a break before any spot is paid for; after that, refund those orders inst
 val apiInstance = BreaksApi()
 val id : kotlin.String = id_example // kotlin.String | 
 try {
-    val result : CreateBreakCancelResponse = apiInstance.createBreakCancel(id)
+    val result : UpdateGroupBuyResponse = apiInstance.createBreakCancel(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling BreaksApi#createBreakCancel")
@@ -90,7 +90,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**CreateBreakCancelResponse**
+**UpdateGroupBuyResponse**
 
 ### Authorization
 
@@ -152,7 +152,7 @@ Configure PersonalAccessToken:
 
 <a name="createBreakOpened"></a>
 # **createBreakOpened**
-> CreateBreakCancelResponse createBreakOpened(id)
+> UpdateGroupBuyResponse createBreakOpened(id)
 
 Mark the product opened on stream.
 
@@ -165,7 +165,7 @@ Mark the product opened on stream.
 val apiInstance = BreaksApi()
 val id : kotlin.String = id_example // kotlin.String | 
 try {
-    val result : CreateBreakCancelResponse = apiInstance.createBreakOpened(id)
+    val result : UpdateGroupBuyResponse = apiInstance.createBreakOpened(id)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling BreaksApi#createBreakOpened")
@@ -184,7 +184,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**CreateBreakCancelResponse**
+**UpdateGroupBuyResponse**
 
 ### Authorization
 
@@ -199,7 +199,7 @@ Configure PersonalAccessToken:
 
 <a name="createBreakSpotHit"></a>
 # **createBreakSpotHit**
-> CreateBreakCancelResponse createBreakSpotHit(id, spotId)
+> UpdateGroupBuyResponse createBreakSpotHit(id, spotId)
 
 Record what a spot pulled.
 
@@ -213,7 +213,7 @@ val apiInstance = BreaksApi()
 val id : kotlin.String = id_example // kotlin.String | 
 val spotId : kotlin.String = spotId_example // kotlin.String | 
 try {
-    val result : CreateBreakCancelResponse = apiInstance.createBreakSpotHit(id, spotId)
+    val result : UpdateGroupBuyResponse = apiInstance.createBreakSpotHit(id, spotId)
     println(result)
 } catch (e: ClientException) {
     println("4xx response calling BreaksApi#createBreakSpotHit")
@@ -233,7 +233,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**CreateBreakCancelResponse**
+**UpdateGroupBuyResponse**
 
 ### Authorization
 

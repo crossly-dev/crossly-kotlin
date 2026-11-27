@@ -27,14 +27,14 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param status 
- * @param url 
- * @param recipientEmail 
  * @param recipientName 
- * @param openedAt 
- * @param revealedAt 
+ * @param recipientEmail 
+ * @param status 
+ * @param createdAt 
+ * @param url 
  * @param teaserSentAt 
+ * @param revealedAt 
+ * @param openedAt 
  * @param thanksMessage 
  */
 
@@ -43,29 +43,29 @@ data class ListBuyerGiftSentItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
-
-    @Json(name = "status")
-    val status: kotlin.String,
-
-    @Json(name = "url")
-    val url: kotlin.String,
+    @Json(name = "recipientName")
+    val recipientName: kotlin.String,
 
     @Json(name = "recipientEmail")
     val recipientEmail: kotlin.String,
 
-    @Json(name = "recipientName")
-    val recipientName: kotlin.String,
+    @Json(name = "status")
+    val status: kotlin.String,
 
-    @Json(name = "openedAt")
-    val openedAt: kotlin.String? = null,
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
+
+    @Json(name = "url")
+    val url: kotlin.String,
+
+    @Json(name = "teaserSentAt")
+    val teaserSentAt: kotlin.String? = null,
 
     @Json(name = "revealedAt")
     val revealedAt: kotlin.String? = null,
 
-    @Json(name = "teaserSentAt")
-    val teaserSentAt: kotlin.String? = null,
+    @Json(name = "openedAt")
+    val openedAt: kotlin.String? = null,
 
     @Json(name = "thanksMessage")
     val thanksMessage: kotlin.String? = null

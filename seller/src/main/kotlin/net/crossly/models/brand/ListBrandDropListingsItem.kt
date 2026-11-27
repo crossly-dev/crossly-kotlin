@@ -32,6 +32,8 @@ import com.squareup.moshi.Json
  * @param title 
  * @param imageUrl 
  * @param priceCents 
+ * @param slug The Crossly listing's slug (platform_listings.platform_listing_id): what the cart adds by.
+ * @param quantity Units the listing offers (null = untracked): a pre-book's reservable quantity.
  */
 
 data class ListBrandDropListingsItem (
@@ -52,7 +54,15 @@ data class ListBrandDropListingsItem (
     val imageUrl: kotlin.String? = null,
 
     @Json(name = "priceCents")
-    val priceCents: java.math.BigDecimal? = null
+    val priceCents: java.math.BigDecimal? = null,
+
+    /* The Crossly listing's slug (platform_listings.platform_listing_id): what the cart adds by. */
+    @Json(name = "slug")
+    val slug: kotlin.String? = null,
+
+    /* Units the listing offers (null = untracked): a pre-book's reservable quantity. */
+    @Json(name = "quantity")
+    val quantity: java.math.BigDecimal? = null
 
 )
 

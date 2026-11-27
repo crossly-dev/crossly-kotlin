@@ -63,11 +63,11 @@ data class GetWeb3ProfileResponse (
     /**
      * 
      *
-     * Values: EVM,SOLANA
+     * Values: SOLANA,EVM
      */
     enum class Family(val value: kotlin.String) {
-        @Json(name = "evm") EVM("evm"),
-        @Json(name = "solana") SOLANA("solana");
+        @Json(name = "solana") SOLANA("solana"),
+        @Json(name = "evm") EVM("evm");
     }
 }
 

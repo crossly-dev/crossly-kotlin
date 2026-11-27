@@ -28,8 +28,8 @@ import com.squareup.moshi.Json
  *
  * @param id 
  * @param name 
- * @param createdAt 
  * @param isPublic 
+ * @param createdAt 
  * @param shareUrl 
  * @param shareToken 
  */
@@ -42,11 +42,11 @@ data class UpdateBuyerWishlistResponseData (
     @Json(name = "name")
     val name: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
-
     @Json(name = "isPublic")
     val isPublic: kotlin.Boolean,
+
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
 
     @Json(name = "shareUrl")
     val shareUrl: kotlin.String? = null,

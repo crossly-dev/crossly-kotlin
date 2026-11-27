@@ -53,15 +53,15 @@ data class GetSpatialSceneWarehouseResponseDataShell (
     /**
      * 
      *
-     * Values: STORYBOOK,STUDIO,NOIR,DAYLIGHT,VITRINE,STREET
+     * Values: STUDIO,NOIR,DAYLIGHT,VITRINE,STREET,STORYBOOK
      */
     enum class Theme(val value: kotlin.String) {
-        @Json(name = "storybook") STORYBOOK("storybook"),
         @Json(name = "studio") STUDIO("studio"),
         @Json(name = "noir") NOIR("noir"),
         @Json(name = "daylight") DAYLIGHT("daylight"),
         @Json(name = "vitrine") VITRINE("vitrine"),
-        @Json(name = "street") STREET("street");
+        @Json(name = "street") STREET("street"),
+        @Json(name = "storybook") STORYBOOK("storybook");
     }
 }
 

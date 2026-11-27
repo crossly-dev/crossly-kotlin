@@ -22,11 +22,18 @@ package net.crossly.apis
 
 import java.io.IOException
 
+import net.crossly.models.magic.CreateMagicAutoDecisionUndoResponse
+import net.crossly.models.magic.CreateMagicAutoItemResponse
+import net.crossly.models.magic.CreateMagicAutoRunResponse
+import net.crossly.models.magic.CreateMagicAutoRunSwipeResponse
 import net.crossly.models.magic.CreateMagicScanResponse
 import net.crossly.models.magic.CreateMagicScanSynthesizeResponse
 import net.crossly.models.common.Error
+import net.crossly.models.magic.GetMagicAutoSettingResponse
 import net.crossly.models.magic.GetMagicDraftResponse
+import net.crossly.models.magic.ListMagicAutoRunDecisionsResponse
 import net.crossly.models.magic.ListMagicRecentResponse
+import net.crossly.models.magic.UpdateMagicAutoSettingRequest
 
 import com.squareup.moshi.Json
 
@@ -49,6 +56,283 @@ class MagicApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         val defaultBasePath: String by lazy {
             System.getProperties().getProperty(ApiClient.baseUrlKey, "https://crossly.net/api")
         }
+    }
+
+    /**
+    * Undo an automated Magic List decision, deleting its unpublished draft.
+    * 
+    * @param decisionId  
+    * @return CreateMagicAutoDecisionUndoResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createMagicAutoDecisionUndo(decisionId: java.util.UUID) : CreateMagicAutoDecisionUndoResponse {
+        val localVarResponse = createMagicAutoDecisionUndoWithHttpInfo(decisionId = decisionId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateMagicAutoDecisionUndoResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Undo an automated Magic List decision, deleting its unpublished draft.
+    * 
+    * @param decisionId  
+    * @return ApiResponse<CreateMagicAutoDecisionUndoResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createMagicAutoDecisionUndoWithHttpInfo(decisionId: java.util.UUID) : ApiResponse<CreateMagicAutoDecisionUndoResponse?> {
+        val localVariableConfig = createMagicAutoDecisionUndoRequestConfig(decisionId = decisionId)
+
+        return request<Unit, CreateMagicAutoDecisionUndoResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createMagicAutoDecisionUndo
+    *
+    * @param decisionId  
+    * @return RequestConfig
+    */
+    fun createMagicAutoDecisionUndoRequestConfig(decisionId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/magic/auto/decisions/{decisionId}/undo".replace("{"+"decisionId"+"}", "$decisionId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Scan one item and match it automatically (drafts only, never publishes).
+    * 
+    * @return CreateMagicAutoItemResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createMagicAutoItem() : CreateMagicAutoItemResponse {
+        val localVarResponse = createMagicAutoItemWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateMagicAutoItemResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Scan one item and match it automatically (drafts only, never publishes).
+    * 
+    * @return ApiResponse<CreateMagicAutoItemResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createMagicAutoItemWithHttpInfo() : ApiResponse<CreateMagicAutoItemResponse?> {
+        val localVariableConfig = createMagicAutoItemRequestConfig()
+
+        return request<Unit, CreateMagicAutoItemResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createMagicAutoItem
+    *
+    * @return RequestConfig
+    */
+    fun createMagicAutoItemRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/magic/auto/items",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Score a Magic List run automatically; a confident match in auto mode becomes a draft.
+    * 
+    * @param runId  
+    * @return CreateMagicAutoRunResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createMagicAutoRun(runId: java.util.UUID) : CreateMagicAutoRunResponse {
+        val localVarResponse = createMagicAutoRunWithHttpInfo(runId = runId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateMagicAutoRunResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Score a Magic List run automatically; a confident match in auto mode becomes a draft.
+    * 
+    * @param runId  
+    * @return ApiResponse<CreateMagicAutoRunResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createMagicAutoRunWithHttpInfo(runId: java.util.UUID) : ApiResponse<CreateMagicAutoRunResponse?> {
+        val localVariableConfig = createMagicAutoRunRequestConfig(runId = runId)
+
+        return request<Unit, CreateMagicAutoRunResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createMagicAutoRun
+    *
+    * @param runId  
+    * @return RequestConfig
+    */
+    fun createMagicAutoRunRequestConfig(runId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/magic/auto/runs/{runId}".replace("{"+"runId"+"}", "$runId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Record a seller swipe session (kept and rejected match keys) for a Magic List run.
+    * 
+    * @param runId  
+    * @return CreateMagicAutoRunSwipeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createMagicAutoRunSwipe(runId: java.util.UUID) : CreateMagicAutoRunSwipeResponse {
+        val localVarResponse = createMagicAutoRunSwipeWithHttpInfo(runId = runId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateMagicAutoRunSwipeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Record a seller swipe session (kept and rejected match keys) for a Magic List run.
+    * 
+    * @param runId  
+    * @return ApiResponse<CreateMagicAutoRunSwipeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createMagicAutoRunSwipeWithHttpInfo(runId: java.util.UUID) : ApiResponse<CreateMagicAutoRunSwipeResponse?> {
+        val localVariableConfig = createMagicAutoRunSwipeRequestConfig(runId = runId)
+
+        return request<Unit, CreateMagicAutoRunSwipeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createMagicAutoRunSwipe
+    *
+    * @param runId  
+    * @return RequestConfig
+    */
+    fun createMagicAutoRunSwipeRequestConfig(runId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/magic/auto/runs/{runId}/swipes".replace("{"+"runId"+"}", "$runId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
     }
 
     /**
@@ -189,6 +473,73 @@ class MagicApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * The seller’s Magic List automated-matching mode.
+    * mode: off (every match is swiped by hand), auto (confident matches become DRAFTS on their own, never published, always undoable) or review_all (Crossly pre-marks its picks; the seller confirms). Default review_all.
+    * @return GetMagicAutoSettingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getMagicAutoSetting() : GetMagicAutoSettingResponse {
+        val localVarResponse = getMagicAutoSettingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetMagicAutoSettingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The seller’s Magic List automated-matching mode.
+    * mode: off (every match is swiped by hand), auto (confident matches become DRAFTS on their own, never published, always undoable) or review_all (Crossly pre-marks its picks; the seller confirms). Default review_all.
+    * @return ApiResponse<GetMagicAutoSettingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getMagicAutoSettingWithHttpInfo() : ApiResponse<GetMagicAutoSettingResponse?> {
+        val localVariableConfig = getMagicAutoSettingRequestConfig()
+
+        return request<Unit, GetMagicAutoSettingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getMagicAutoSetting
+    *
+    * @return RequestConfig
+    */
+    fun getMagicAutoSettingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/magic/auto/settings",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Get a synthesized Magic List draft.
     * 
     * @param draftId  
@@ -259,6 +610,76 @@ class MagicApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Every match decision round (automated and seller) for a Magic List run.
+    * 
+    * @param runId  
+    * @return ListMagicAutoRunDecisionsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listMagicAutoRunDecisions(runId: java.util.UUID) : ListMagicAutoRunDecisionsResponse {
+        val localVarResponse = listMagicAutoRunDecisionsWithHttpInfo(runId = runId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListMagicAutoRunDecisionsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Every match decision round (automated and seller) for a Magic List run.
+    * 
+    * @param runId  
+    * @return ApiResponse<ListMagicAutoRunDecisionsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listMagicAutoRunDecisionsWithHttpInfo(runId: java.util.UUID) : ApiResponse<ListMagicAutoRunDecisionsResponse?> {
+        val localVariableConfig = listMagicAutoRunDecisionsRequestConfig(runId = runId)
+
+        return request<Unit, ListMagicAutoRunDecisionsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listMagicAutoRunDecisions
+    *
+    * @param runId  
+    * @return RequestConfig
+    */
+    fun listMagicAutoRunDecisionsRequestConfig(runId: java.util.UUID) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/magic/auto/runs/{runId}/decisions".replace("{"+"runId"+"}", "$runId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Recent Magic List scans for this seller.
     * 
     * @return ListMagicRecentResponse
@@ -319,6 +740,77 @@ class MagicApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/magic/recent",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Set the Magic List automated-matching mode (off | auto | review_all).
+    * 
+    * @param updateMagicAutoSettingRequest  
+    * @return GetMagicAutoSettingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateMagicAutoSetting(updateMagicAutoSettingRequest: UpdateMagicAutoSettingRequest) : GetMagicAutoSettingResponse {
+        val localVarResponse = updateMagicAutoSettingWithHttpInfo(updateMagicAutoSettingRequest = updateMagicAutoSettingRequest)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetMagicAutoSettingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set the Magic List automated-matching mode (off | auto | review_all).
+    * 
+    * @param updateMagicAutoSettingRequest  
+    * @return ApiResponse<GetMagicAutoSettingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateMagicAutoSettingWithHttpInfo(updateMagicAutoSettingRequest: UpdateMagicAutoSettingRequest) : ApiResponse<GetMagicAutoSettingResponse?> {
+        val localVariableConfig = updateMagicAutoSettingRequestConfig(updateMagicAutoSettingRequest = updateMagicAutoSettingRequest)
+
+        return request<UpdateMagicAutoSettingRequest, GetMagicAutoSettingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateMagicAutoSetting
+    *
+    * @param updateMagicAutoSettingRequest  
+    * @return RequestConfig
+    */
+    fun updateMagicAutoSettingRequestConfig(updateMagicAutoSettingRequest: UpdateMagicAutoSettingRequest) : RequestConfig<UpdateMagicAutoSettingRequest> {
+        val localVariableBody = updateMagicAutoSettingRequest
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Content-Type"] = "application/json"
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/magic/auto/settings",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody

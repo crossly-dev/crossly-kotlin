@@ -34,11 +34,12 @@ import com.squareup.moshi.Json
  * @param carrier 
  * @param service 
  * @param trackingNumber 
- * @param voidedAt 
  * @param labelCostCents 
  * @param labelUrl 
+ * @param labelQrUrl 
  * @param shippoShipmentId 
  * @param trackingRegisteredAt 
+ * @param voidedAt 
  */
 
 data class GetOrderShipmentResponseData (
@@ -67,20 +68,23 @@ data class GetOrderShipmentResponseData (
     @Json(name = "trackingNumber")
     val trackingNumber: kotlin.String? = null,
 
-    @Json(name = "voidedAt")
-    val voidedAt: java.time.OffsetDateTime? = null,
-
     @Json(name = "labelCostCents")
     val labelCostCents: java.math.BigDecimal? = null,
 
     @Json(name = "labelUrl")
     val labelUrl: kotlin.String? = null,
 
+    @Json(name = "labelQrUrl")
+    val labelQrUrl: kotlin.String? = null,
+
     @Json(name = "shippoShipmentId")
     val shippoShipmentId: kotlin.String? = null,
 
     @Json(name = "trackingRegisteredAt")
-    val trackingRegisteredAt: java.time.OffsetDateTime? = null
+    val trackingRegisteredAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "voidedAt")
+    val voidedAt: java.time.OffsetDateTime? = null
 
 )
 

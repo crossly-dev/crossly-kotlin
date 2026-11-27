@@ -26,7 +26,7 @@ import net.crossly.models.vault.GetVaultMarketUnitStoryResponseEvents
 import net.crossly.models.vault.GetVaultMarketUnitStoryResponseHolder
 import net.crossly.models.vault.GetVaultMarketUnitStoryResponseStats
 import net.crossly.models.vault.GetVaultMarketUnitStoryResponseUnit
-import net.crossly.models.vault.ListVaultMarketFeedItemMark
+import net.crossly.models.vault.ListVaultMarketOpeningItemMark
 
 import com.squareup.moshi.Json
 
@@ -55,7 +55,7 @@ data class GetVaultMarketUnitStoryResponse (
     val holder: GetVaultMarketUnitStoryResponseHolder,
 
     @Json(name = "mark")
-    val mark: ListVaultMarketFeedItemMark,
+    val mark: ListVaultMarketOpeningItemMark,
 
     /* 'holder' sees everything about their unit; 'public' is the share page. */
     @Json(name = "viewer")
@@ -88,11 +88,11 @@ data class GetVaultMarketUnitStoryResponse (
     /**
      * 'holder' sees everything about their unit; 'public' is the share page.
      *
-     * Values: HOLDER,PUBLIC
+     * Values: PUBLIC,HOLDER
      */
     enum class Viewer(val value: kotlin.String) {
-        @Json(name = "holder") HOLDER("holder"),
-        @Json(name = "public") PUBLIC("public");
+        @Json(name = "public") PUBLIC("public"),
+        @Json(name = "holder") HOLDER("holder");
     }
 }
 

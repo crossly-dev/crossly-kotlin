@@ -29,6 +29,7 @@ import com.squareup.moshi.Json
  * @param id 
  * @param family 
  * @param address 
+ * @param autoImport A sync adds new NFTs to inventory (migration 0740); off, it only refreshes the ones already there.
  * @param createdAt 
  * @param label 
  * @param verifiedAt 
@@ -45,6 +46,10 @@ data class ListWeb3WalletsItem (
 
     @Json(name = "address")
     val address: kotlin.String,
+
+    /* A sync adds new NFTs to inventory (migration 0740); off, it only refreshes the ones already there. */
+    @Json(name = "autoImport")
+    val autoImport: kotlin.Boolean,
 
     @Json(name = "createdAt")
     val createdAt: java.time.OffsetDateTime,
@@ -63,11 +68,11 @@ data class ListWeb3WalletsItem (
     /**
      * 
      *
-     * Values: EVM,SOLANA
+     * Values: SOLANA,EVM
      */
     enum class Family(val value: kotlin.String) {
-        @Json(name = "evm") EVM("evm"),
-        @Json(name = "solana") SOLANA("solana");
+        @Json(name = "solana") SOLANA("solana"),
+        @Json(name = "evm") EVM("evm");
     }
 }
 

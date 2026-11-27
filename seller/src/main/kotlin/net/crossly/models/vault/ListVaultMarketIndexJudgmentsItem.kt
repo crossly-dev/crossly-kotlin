@@ -63,12 +63,12 @@ data class ListVaultMarketIndexJudgmentsItem (
     /**
      * 
      *
-     * Values: METHOD,HALT,RESUME,EXCLUDE_KEY,VOID_TRADE,RESTATE,RETIRE
+     * Values: METHOD,RESUME,HALT,EXCLUDE_KEY,VOID_TRADE,RESTATE,RETIRE
      */
     enum class Action(val value: kotlin.String) {
         @Json(name = "method") METHOD("method"),
-        @Json(name = "halt") HALT("halt"),
         @Json(name = "resume") RESUME("resume"),
+        @Json(name = "halt") HALT("halt"),
         @Json(name = "exclude_key") EXCLUDE_KEY("exclude_key"),
         @Json(name = "void_trade") VOID_TRADE("void_trade"),
         @Json(name = "restate") RESTATE("restate"),

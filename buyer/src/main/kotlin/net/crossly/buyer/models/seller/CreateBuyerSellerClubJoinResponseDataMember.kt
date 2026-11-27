@@ -27,23 +27,23 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param joinedAt 
- * @param discountBps 
  * @param spendCents 
+ * @param discountBps 
+ * @param joinedAt 
  * @param tier 
  * @param next 
  */
 
 data class CreateBuyerSellerClubJoinResponseDataMember (
 
-    @Json(name = "joinedAt")
-    val joinedAt: kotlin.String,
+    @Json(name = "spendCents")
+    val spendCents: java.math.BigDecimal,
 
     @Json(name = "discountBps")
     val discountBps: java.math.BigDecimal,
 
-    @Json(name = "spendCents")
-    val spendCents: java.math.BigDecimal,
+    @Json(name = "joinedAt")
+    val joinedAt: kotlin.String,
 
     @Json(name = "tier")
     val tier: kotlin.String? = null,

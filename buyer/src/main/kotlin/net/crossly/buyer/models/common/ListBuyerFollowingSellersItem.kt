@@ -30,9 +30,9 @@ import com.squareup.moshi.Json
  * @param followedAt 
  * @param activeListings 
  * @param newListings Active listings put up since you last marked this seller seen.
+ * @param username 
  * @param name 
  * @param avatarUrl 
- * @param username 
  * @param lastSeenAt 
  */
 
@@ -51,14 +51,14 @@ data class ListBuyerFollowingSellersItem (
     @Json(name = "newListings")
     val newListings: java.math.BigDecimal,
 
+    @Json(name = "username")
+    val username: kotlin.String? = null,
+
     @Json(name = "name")
     val name: kotlin.String? = null,
 
     @Json(name = "avatarUrl")
     val avatarUrl: kotlin.String? = null,
-
-    @Json(name = "username")
-    val username: kotlin.String? = null,
 
     @Json(name = "lastSeenAt")
     val lastSeenAt: kotlin.String? = null

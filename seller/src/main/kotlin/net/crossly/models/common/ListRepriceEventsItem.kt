@@ -36,12 +36,12 @@ import com.squareup.moshi.Json
  * @param platform 
  * @param listingId 
  * @param platformListingId 
- * @param decidedAt 
  * @param ruleId 
- * @param floorCents 
  * @param oldPriceCents 
  * @param newPriceCents 
+ * @param floorCents 
  * @param approval 
+ * @param decidedAt 
  */
 
 data class ListRepriceEventsItem (
@@ -76,14 +76,8 @@ data class ListRepriceEventsItem (
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String? = null,
 
-    @Json(name = "decidedAt")
-    val decidedAt: java.time.OffsetDateTime? = null,
-
     @Json(name = "ruleId")
     val ruleId: kotlin.String? = null,
-
-    @Json(name = "floorCents")
-    val floorCents: java.math.BigDecimal? = null,
 
     @Json(name = "oldPriceCents")
     val oldPriceCents: java.math.BigDecimal? = null,
@@ -91,8 +85,14 @@ data class ListRepriceEventsItem (
     @Json(name = "newPriceCents")
     val newPriceCents: java.math.BigDecimal? = null,
 
+    @Json(name = "floorCents")
+    val floorCents: java.math.BigDecimal? = null,
+
     @Json(name = "approval")
-    val approval: kotlin.String? = null
+    val approval: kotlin.String? = null,
+
+    @Json(name = "decidedAt")
+    val decidedAt: java.time.OffsetDateTime? = null
 
 )
 

@@ -26,23 +26,23 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param source 
- * @param label 
  * @param key 
+ * @param label 
+ * @param source 
  * @param co2Kg 
  * @param waterL 
  */
 
 data class GetBuyerListingImpactResponseData (
 
-    @Json(name = "source")
-    val source: kotlin.String,
+    @Json(name = "key")
+    val key: kotlin.String,
 
     @Json(name = "label")
     val label: kotlin.String,
 
-    @Json(name = "key")
-    val key: kotlin.String,
+    @Json(name = "source")
+    val source: kotlin.String,
 
     @Json(name = "co2Kg")
     val co2Kg: java.math.BigDecimal? = null,

@@ -20,6 +20,7 @@
 
 package net.crossly.models.listing
 
+import net.crossly.models.listing.CreateListingResponseWarnings
 import net.crossly.models.listing.UpdateListingResponseJobs
 
 import com.squareup.moshi.Json
@@ -28,12 +29,16 @@ import com.squareup.moshi.Json
  * 
  *
  * @param jobs 
+ * @param warnings 
  */
 
 data class UpdateListingResponse (
 
     @Json(name = "jobs")
-    val jobs: kotlin.collections.List<UpdateListingResponseJobs>
+    val jobs: kotlin.collections.List<UpdateListingResponseJobs>,
+
+    @Json(name = "warnings")
+    val warnings: kotlin.collections.List<CreateListingResponseWarnings>? = null
 
 )
 

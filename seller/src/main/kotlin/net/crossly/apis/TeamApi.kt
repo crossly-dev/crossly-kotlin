@@ -54,7 +54,7 @@ class TeamApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Accept a pending team invitation by raw token.
+    * Accept a team invitation by the raw token from its link.
     * 
     * @return CreateTeamAcceptResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -84,7 +84,7 @@ class TeamApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Accept a pending team invitation by raw token.
+    * Accept a team invitation by the raw token from its link.
     * 
     * @return ApiResponse<CreateTeamAcceptResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -121,7 +121,7 @@ class TeamApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Mint a team invitation; returns the one-time accept URL.
+    * Issue a team invitation; returns the one-time accept URL (nothing is emailed).
     * 
     * @return CreateTeamInviteResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -151,7 +151,7 @@ class TeamApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) {
     }
 
     /**
-    * Mint a team invitation; returns the one-time accept URL.
+    * Issue a team invitation; returns the one-time accept URL (nothing is emailed).
     * 
     * @return ApiResponse<CreateTeamInviteResponse?>
     * @throws IllegalStateException If the request is not correctly configured

@@ -102,22 +102,22 @@ data class GetVaultMarketTaxLossSuggestionResponseSuggestions (
     /**
      * 
      *
-     * Values: NONE,A,B,C
+     * Values: NONE,C,A,B
      */
     enum class MarkQuality(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
-        @Json(name = "B") B("B"),
-        @Json(name = "C") C("C");
+        @Json(name = "B") B("B");
     }
     /**
      * If it were sold today. Null when the acquisition day is not known.
      *
-     * Values: LONG,SHORT
+     * Values: SHORT,LONG
      */
     enum class Term(val value: kotlin.String) {
-        @Json(name = "long") LONG("long"),
-        @Json(name = "short") SHORT("short");
+        @Json(name = "short") SHORT("short"),
+        @Json(name = "long") LONG("long");
     }
 }
 

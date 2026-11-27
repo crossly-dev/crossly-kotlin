@@ -26,9 +26,9 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param number 
- * @param title 
  * @param skuId 
+ * @param title 
+ * @param number 
  * @param owned 
  * @param imageUrl 
  * @param bestAskCents 
@@ -36,14 +36,14 @@ import com.squareup.moshi.Json
 
 data class GetBuyerCollectionSetResponseDataPieces (
 
-    @Json(name = "number")
-    val number: java.math.BigDecimal,
+    @Json(name = "skuId")
+    val skuId: kotlin.String,
 
     @Json(name = "title")
     val title: kotlin.String,
 
-    @Json(name = "skuId")
-    val skuId: kotlin.String,
+    @Json(name = "number")
+    val number: java.math.BigDecimal,
 
     @Json(name = "owned")
     val owned: kotlin.Boolean,

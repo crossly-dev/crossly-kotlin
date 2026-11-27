@@ -47,12 +47,12 @@ data class CreateInboxReplyResponse (
     /**
      * 
      *
-     * Values: FAILED,SENT,SENDING
+     * Values: SENDING,SENT,FAILED
      */
     enum class DeliveryStatus(val value: kotlin.String) {
-        @Json(name = "failed") FAILED("failed"),
+        @Json(name = "sending") SENDING("sending"),
         @Json(name = "sent") SENT("sent"),
-        @Json(name = "sending") SENDING("sending");
+        @Json(name = "failed") FAILED("failed");
     }
 }
 

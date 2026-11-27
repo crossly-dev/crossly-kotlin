@@ -20,7 +20,7 @@
 
 package net.crossly.models.common
 
-import net.crossly.models.common.ListReferenceCountriesItemSubdivisions
+import net.crossly.models.common.CodeName
 
 import com.squareup.moshi.Json
 
@@ -73,7 +73,7 @@ data class ListReferenceCountriesItem (
     val embargoed: kotlin.Boolean,
 
     @Json(name = "subdivisions")
-    val subdivisions: kotlin.collections.List<ListReferenceCountriesItemSubdivisions>? = null
+    val subdivisions: kotlin.collections.List<CodeName>? = null
 
 )
 

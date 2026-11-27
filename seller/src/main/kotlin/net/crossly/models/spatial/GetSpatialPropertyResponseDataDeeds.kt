@@ -29,6 +29,7 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
+ * @param plotId 
  * @param address 
  * @param label 
  * @param priceCents 
@@ -44,6 +45,9 @@ data class GetSpatialPropertyResponseDataDeeds (
 
     @Json(name = "id")
     val id: kotlin.String,
+
+    @Json(name = "plotId")
+    val plotId: kotlin.String,
 
     @Json(name = "address")
     val address: kotlin.String,
@@ -77,13 +81,13 @@ data class GetSpatialPropertyResponseDataDeeds (
     /**
      * 
      *
-     * Values: ACTIVE,FORECLOSED,GRACE,DELINQUENT
+     * Values: ACTIVE,GRACE,DELINQUENT,FORECLOSED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "active") ACTIVE("active"),
-        @Json(name = "foreclosed") FORECLOSED("foreclosed"),
         @Json(name = "grace") GRACE("grace"),
-        @Json(name = "delinquent") DELINQUENT("delinquent");
+        @Json(name = "delinquent") DELINQUENT("delinquent"),
+        @Json(name = "foreclosed") FORECLOSED("foreclosed");
     }
 }
 

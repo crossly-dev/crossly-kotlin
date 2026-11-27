@@ -5,9 +5,11 @@ All URIs are relative to *https://crossly.net/api*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**createWebhook**](WebhooksApi.md#createWebhook) | **POST** /v1/webhooks | Register a webhook endpoint (returns the signing secret once).
-[**createWebhookTest**](WebhooksApi.md#createWebhookTest) | **POST** /v1/webhooks/{id}/test | Fire a synthetic test.ping delivery to one webhook.
+[**createWebhookDeliveryRedeliver**](WebhooksApi.md#createWebhookDeliveryRedeliver) | **POST** /v1/webhooks/{id}/deliveries/{deliveryId}/redeliver | Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+[**createWebhookTest**](WebhooksApi.md#createWebhookTest) | **POST** /v1/webhooks/{id}/test | Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\&quot;event\&quot;:\&quot;order.created\&quot;}, payload marked test: true).
 [**deleteWebhook**](WebhooksApi.md#deleteWebhook) | **DELETE** /v1/webhooks/{id} | Delete a webhook endpoint.
 [**getWebhookStream**](WebhooksApi.md#getWebhookStream) | **GET** /v1/webhooks/stream | Stream this account&#39;s webhook events as they happen (SSE).
+[**listWebhookDeliveries**](WebhooksApi.md#listWebhookDeliveries) | **GET** /v1/webhooks/{id}/deliveries | List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
 [**listWebhooks**](WebhooksApi.md#listWebhooks) | **GET** /v1/webhooks | List your registered webhook endpoints.
 
 
@@ -54,11 +56,60 @@ Configure PersonalAccessToken:
  - **Content-Type**: Not defined
  - **Accept**: application/json
 
+<a name="createWebhookDeliveryRedeliver"></a>
+# **createWebhookDeliveryRedeliver**
+> CreateWebhookDeliveryRedeliverResponse createWebhookDeliveryRedeliver(id, deliveryId)
+
+Redeliver one past delivery: a new delivery (new Crossly-Delivery-Id) of the same event id and payload.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WebhooksApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val deliveryId : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+try {
+    val result : CreateWebhookDeliveryRedeliverResponse = apiInstance.createWebhookDeliveryRedeliver(id, deliveryId)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WebhooksApi#createWebhookDeliveryRedeliver")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WebhooksApi#createWebhookDeliveryRedeliver")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+ **deliveryId** | **java.util.UUID**|  |
+
+### Return type
+
+**CreateWebhookDeliveryRedeliverResponse**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
 <a name="createWebhookTest"></a>
 # **createWebhookTest**
 > CreateWebhookTestResponse createWebhookTest(id)
 
-Fire a synthetic test.ping delivery to one webhook.
+Fire a test delivery to one webhook: test.ping, or a sample of any event (body {\&quot;event\&quot;:\&quot;order.created\&quot;}, payload marked test: true).
 
 ### Example
 ```kotlin
@@ -181,6 +232,57 @@ This endpoint does not need any parameter.
 ### Return type
 
 **kotlin.String**
+
+### Authorization
+
+
+Configure PersonalAccessToken:
+    ApiClient.accessToken = ""
+
+### HTTP request headers
+
+ - **Content-Type**: Not defined
+ - **Accept**: application/json
+
+<a name="listWebhookDeliveries"></a>
+# **listWebhookDeliveries**
+> ListWebhookDeliveriesResponse listWebhookDeliveries(id, status, limit)
+
+List deliveries to one webhook (30 days, newest first): event, status, attempts, last HTTP status and error, payload.
+
+### Example
+```kotlin
+// Import classes:
+//import net.crossly.infrastructure.*
+//import net.crossly.models.*
+
+val apiInstance = WebhooksApi()
+val id : java.util.UUID = 38400000-8cf0-11bd-b23e-10b96e4ef00d // java.util.UUID | 
+val status : kotlin.String = status_example // kotlin.String | 
+val limit : kotlin.Int = 56 // kotlin.Int | 
+try {
+    val result : ListWebhookDeliveriesResponse = apiInstance.listWebhookDeliveries(id, status, limit)
+    println(result)
+} catch (e: ClientException) {
+    println("4xx response calling WebhooksApi#listWebhookDeliveries")
+    e.printStackTrace()
+} catch (e: ServerException) {
+    println("5xx response calling WebhooksApi#listWebhookDeliveries")
+    e.printStackTrace()
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **id** | **java.util.UUID**|  |
+ **status** | **kotlin.String**|  | [optional] [enum: pending, succeeded, failed]
+ **limit** | **kotlin.Int**|  | [optional] [default to 25]
+
+### Return type
+
+**ListWebhookDeliveriesResponse**
 
 ### Authorization
 

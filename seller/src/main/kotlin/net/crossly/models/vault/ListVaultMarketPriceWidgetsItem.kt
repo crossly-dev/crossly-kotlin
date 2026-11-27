@@ -106,11 +106,11 @@ data class ListVaultMarketPriceWidgetsItem (
     /**
      * 
      *
-     * Values: MARK,INDEX
+     * Values: INDEX,MARK
      */
     enum class Kind(val value: kotlin.String) {
-        @Json(name = "mark") MARK("mark"),
-        @Json(name = "index") INDEX("index");
+        @Json(name = "index") INDEX("index"),
+        @Json(name = "mark") MARK("mark");
     }
     /**
      * 

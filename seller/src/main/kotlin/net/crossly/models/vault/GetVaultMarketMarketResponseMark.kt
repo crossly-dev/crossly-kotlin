@@ -75,27 +75,27 @@ data class GetVaultMarketMarketResponseMark (
     /**
      * 
      *
-     * Values: NONE,TWAP,MID,ASK,BID,LAST,IMPLIED
+     * Values: NONE,ASK,MID,LAST,BID,TWAP,IMPLIED
      */
     enum class Source(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
-        @Json(name = "twap") TWAP("twap"),
-        @Json(name = "mid") MID("mid"),
         @Json(name = "ask") ASK("ask"),
-        @Json(name = "bid") BID("bid"),
+        @Json(name = "mid") MID("mid"),
         @Json(name = "last") LAST("last"),
+        @Json(name = "bid") BID("bid"),
+        @Json(name = "twap") TWAP("twap"),
         @Json(name = "implied") IMPLIED("implied");
     }
     /**
      * 
      *
-     * Values: NONE,A,B,C
+     * Values: NONE,C,A,B
      */
     enum class Quality(val value: kotlin.String) {
         @Json(name = "none") NONE("none"),
+        @Json(name = "C") C("C"),
         @Json(name = "A") A("A"),
-        @Json(name = "B") B("B"),
-        @Json(name = "C") C("C");
+        @Json(name = "B") B("B");
     }
 }
 

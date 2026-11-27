@@ -26,17 +26,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param position 
  * @param entry 
+ * @param position 
  */
 
 data class GetBuyerBreakResponseDataDraw (
 
-    @Json(name = "position")
-    val position: java.math.BigDecimal,
-
     @Json(name = "entry")
-    val entry: java.math.BigDecimal
+    val entry: java.math.BigDecimal,
+
+    @Json(name = "position")
+    val position: java.math.BigDecimal
 
 )
 

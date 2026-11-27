@@ -26,12 +26,12 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param currency 
  * @param kind 
- * @param taxCents 
- * @param shippingCents 
- * @param totalCents 
  * @param itemsTotalCents 
+ * @param shippingCents 
+ * @param taxCents 
+ * @param totalCents 
+ * @param currency 
  * @param pickupCartItemIds Lines being collected in person, so a summary can name what ships free.
  * @param taxComplete False means there is no saved delivery address, so `taxCents` is a floor rather than a final figure — not that tax is zero.
  * @param dutiesCents Import duties + taxes + fees for parcels crossing a border, charged now when dutiesStatus is 'included'.
@@ -44,23 +44,23 @@ import com.squareup.moshi.Json
 
 data class CreateBuyerCartQuoteResponseData (
 
-    @Json(name = "currency")
-    val currency: kotlin.String,
-
     @Json(name = "kind")
     val kind: kotlin.String,
 
-    @Json(name = "taxCents")
-    val taxCents: java.math.BigDecimal,
+    @Json(name = "itemsTotalCents")
+    val itemsTotalCents: java.math.BigDecimal,
 
     @Json(name = "shippingCents")
     val shippingCents: java.math.BigDecimal,
 
+    @Json(name = "taxCents")
+    val taxCents: java.math.BigDecimal,
+
     @Json(name = "totalCents")
     val totalCents: java.math.BigDecimal,
 
-    @Json(name = "itemsTotalCents")
-    val itemsTotalCents: java.math.BigDecimal,
+    @Json(name = "currency")
+    val currency: kotlin.String,
 
     /* Lines being collected in person, so a summary can name what ships free. */
     @Json(name = "pickupCartItemIds")

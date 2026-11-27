@@ -20,8 +20,8 @@
 
 package net.crossly.models.automation
 
-import net.crossly.models.automation.CreateAutomationRuleImportResponseCreated
 import net.crossly.models.automation.CreateAutomationRuleImportResponseErrors
+import net.crossly.models.common.IdName
 
 import com.squareup.moshi.Json
 
@@ -35,7 +35,7 @@ import com.squareup.moshi.Json
 data class CreateAutomationRuleImportResponse (
 
     @Json(name = "created")
-    val created: kotlin.collections.List<CreateAutomationRuleImportResponseCreated>,
+    val created: kotlin.collections.List<IdName>,
 
     @Json(name = "errors")
     val errors: kotlin.collections.List<CreateAutomationRuleImportResponseErrors>

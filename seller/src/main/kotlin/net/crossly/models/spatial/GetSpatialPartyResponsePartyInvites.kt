@@ -67,14 +67,14 @@ data class GetSpatialPartyResponsePartyInvites (
     /**
      * 
      *
-     * Values: PENDING,CANCELLED,EXPIRED,ACCEPTED,DECLINED
+     * Values: PENDING,CANCELLED,ACCEPTED,DECLINED,EXPIRED
      */
     enum class Status(val value: kotlin.String) {
         @Json(name = "pending") PENDING("pending"),
         @Json(name = "cancelled") CANCELLED("cancelled"),
-        @Json(name = "expired") EXPIRED("expired"),
         @Json(name = "accepted") ACCEPTED("accepted"),
-        @Json(name = "declined") DECLINED("declined");
+        @Json(name = "declined") DECLINED("declined"),
+        @Json(name = "expired") EXPIRED("expired");
     }
 }
 

@@ -20,8 +20,8 @@
 
 package net.crossly.models.vault
 
-import net.crossly.models.vault.GetVaultMarketProofOfReserveByDayResponse
 import net.crossly.models.vault.GetVaultMarketProofOfReserveResponseAnchoring
+import net.crossly.models.vault.GetVaultMarketProofOfReserveResponseHistory
 import net.crossly.models.vault.GetVaultMarketProofOfReserveResponseLatest
 import net.crossly.models.vault.GetVaultMarketProofOfReserveResponseMethod
 
@@ -39,7 +39,7 @@ import com.squareup.moshi.Json
 data class GetVaultMarketProofOfReserveResponse (
 
     @Json(name = "history")
-    val history: kotlin.collections.List<GetVaultMarketProofOfReserveByDayResponse>,
+    val history: kotlin.collections.List<GetVaultMarketProofOfReserveResponseHistory>,
 
     @Json(name = "anchoring")
     val anchoring: GetVaultMarketProofOfReserveResponseAnchoring,

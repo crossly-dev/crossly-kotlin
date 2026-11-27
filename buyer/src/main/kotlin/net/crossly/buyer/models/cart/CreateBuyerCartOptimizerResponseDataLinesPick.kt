@@ -26,9 +26,9 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param slug 
  * @param title 
  * @param sellerUserId 
- * @param slug 
  * @param unitCents 
  * @param shipCents 
  * @param sellerName 
@@ -36,14 +36,14 @@ import com.squareup.moshi.Json
 
 data class CreateBuyerCartOptimizerResponseDataLinesPick (
 
+    @Json(name = "slug")
+    val slug: kotlin.String,
+
     @Json(name = "title")
     val title: kotlin.String,
 
     @Json(name = "sellerUserId")
     val sellerUserId: kotlin.String,
-
-    @Json(name = "slug")
-    val slug: kotlin.String,
 
     @Json(name = "unitCents")
     val unitCents: java.math.BigDecimal,

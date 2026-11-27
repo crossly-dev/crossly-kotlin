@@ -27,21 +27,21 @@ import com.squareup.moshi.Json
 /**
  * 
  *
+ * @param vaultStock 
  * @param fastShipCents 
  * @param gradingRuns 
- * @param vaultStock 
  */
 
 data class GetBuyerMarketPurchaseOptionResponseData (
+
+    @Json(name = "vaultStock")
+    val vaultStock: kotlin.Boolean,
 
     @Json(name = "fastShipCents")
     val fastShipCents: java.math.BigDecimal,
 
     @Json(name = "gradingRuns")
-    val gradingRuns: kotlin.collections.List<GetBuyerMarketPurchaseOptionResponseDataGradingRuns>,
-
-    @Json(name = "vaultStock")
-    val vaultStock: kotlin.Boolean
+    val gradingRuns: kotlin.collections.List<GetBuyerMarketPurchaseOptionResponseDataGradingRuns>
 
 )
 

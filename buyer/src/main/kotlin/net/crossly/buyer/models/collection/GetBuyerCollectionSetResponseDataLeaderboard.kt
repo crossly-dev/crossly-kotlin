@@ -26,18 +26,18 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param name 
  * @param rank 
+ * @param name 
  * @param owned 
  */
 
 data class GetBuyerCollectionSetResponseDataLeaderboard (
 
-    @Json(name = "name")
-    val name: kotlin.String,
-
     @Json(name = "rank")
     val rank: java.math.BigDecimal,
+
+    @Json(name = "name")
+    val name: kotlin.String,
 
     @Json(name = "owned")
     val owned: java.math.BigDecimal

@@ -30,21 +30,21 @@ import com.squareup.moshi.Json
  * 
  *
  * @param id 
- * @param createdAt 
- * @param status 
  * @param title 
- * @param seller 
- * @param priceCents 
  * @param format 
- * @param seedCommit 
+ * @param status 
+ * @param priceCents 
+ * @param seller 
  * @param spots 
  * @param spotsLeft 
- * @param assignedAt 
+ * @param seedCommit 
+ * @param createdAt 
+ * @param product 
  * @param slug 
  * @param streamId 
  * @param seed 
- * @param product 
  * @param draw 
+ * @param assignedAt 
  */
 
 data class GetBuyerBreakResponseData (
@@ -52,26 +52,20 @@ data class GetBuyerBreakResponseData (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: kotlin.String,
-
-    @Json(name = "status")
-    val status: kotlin.String,
-
     @Json(name = "title")
     val title: kotlin.String,
-
-    @Json(name = "seller")
-    val seller: GetBuyerBreakResponseDataSeller,
-
-    @Json(name = "priceCents")
-    val priceCents: java.math.BigDecimal,
 
     @Json(name = "format")
     val format: kotlin.String,
 
-    @Json(name = "seedCommit")
-    val seedCommit: kotlin.String,
+    @Json(name = "status")
+    val status: kotlin.String,
+
+    @Json(name = "priceCents")
+    val priceCents: java.math.BigDecimal,
+
+    @Json(name = "seller")
+    val seller: GetBuyerBreakResponseDataSeller,
 
     @Json(name = "spots")
     val spots: kotlin.collections.List<GetBuyerBreakResponseDataSpots>,
@@ -79,8 +73,14 @@ data class GetBuyerBreakResponseData (
     @Json(name = "spotsLeft")
     val spotsLeft: java.math.BigDecimal,
 
-    @Json(name = "assignedAt")
-    val assignedAt: kotlin.String? = null,
+    @Json(name = "seedCommit")
+    val seedCommit: kotlin.String,
+
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String,
+
+    @Json(name = "product")
+    val product: kotlin.String? = null,
 
     @Json(name = "slug")
     val slug: kotlin.String? = null,
@@ -91,11 +91,11 @@ data class GetBuyerBreakResponseData (
     @Json(name = "seed")
     val seed: kotlin.String? = null,
 
-    @Json(name = "product")
-    val product: kotlin.String? = null,
-
     @Json(name = "draw")
-    val draw: kotlin.collections.List<GetBuyerBreakResponseDataDraw>? = null
+    val draw: kotlin.collections.List<GetBuyerBreakResponseDataDraw>? = null,
+
+    @Json(name = "assignedAt")
+    val assignedAt: kotlin.String? = null
 
 )
 

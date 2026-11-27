@@ -40,7 +40,7 @@ data class GetAnalyticDashboardResponseAvgSalePriceByPlatform (
     val avgPrice: java.math.BigDecimal,
 
     @Json(name = "count")
-    val count: kotlin.String
+    val count: java.math.BigDecimal
 
 )
 

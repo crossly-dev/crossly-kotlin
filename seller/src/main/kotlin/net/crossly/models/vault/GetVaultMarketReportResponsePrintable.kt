@@ -29,20 +29,16 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param notes Closing paragraphs, small and grey.
  * @param title 
  * @param meta Small grey lines under the title (order id, date, seller…).
  * @param sections Labelled blocks: \"Shipped to\" + its lines.
+ * @param notes Closing paragraphs, small and grey.
  * @param paper 
  * @param table 
  * @param qr 
  */
 
 data class GetVaultMarketReportResponsePrintable (
-
-    /* Closing paragraphs, small and grey. */
-    @Json(name = "notes")
-    val notes: kotlin.collections.List<kotlin.String>,
 
     @Json(name = "title")
     val title: kotlin.String,
@@ -54,6 +50,10 @@ data class GetVaultMarketReportResponsePrintable (
     /* Labelled blocks: \"Shipped to\" + its lines. */
     @Json(name = "sections")
     val sections: kotlin.collections.List<GetVaultMarketOrderHandlingResponseSections>,
+
+    /* Closing paragraphs, small and grey. */
+    @Json(name = "notes")
+    val notes: kotlin.collections.List<kotlin.String>,
 
     @Json(name = "paper")
     val paper: GetVaultMarketReportResponsePrintable.Paper,

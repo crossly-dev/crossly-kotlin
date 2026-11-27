@@ -20,6 +20,7 @@
 
 package net.crossly.models.common
 
+import net.crossly.models.common.RentalResponseDataInspection
 
 import com.squareup.moshi.Json
 
@@ -29,16 +30,18 @@ import com.squareup.moshi.Json
  * @param id 
  * @param createdAt 
  * @param status 
+ * @param days 
  * @param platformListingId 
  * @param sellerUserId 
  * @param crosslyFeeCents 
  * @param shippingCents 
+ * @param terms 
  * @param depositCents 
+ * @param fulfilment 
  * @param shipTo 
  * @param renterUserId 
  * @param startDate 
  * @param endDate 
- * @param days 
  * @param rentCents 
  * @param claimCents 
  * @param claimPhotos 
@@ -46,19 +49,40 @@ import com.squareup.moshi.Json
  * @param depositRefundedCents 
  * @param conditionPhotosOut 
  * @param conditionPhotosIn 
- * @param cancelledAt 
+ * @param unitIndex 
+ * @param charges 
+ * @param damageWaiver 
+ * @param cleaningFeeCents 
+ * @param damageWaiverCents 
+ * @param lateFeeCents 
+ * @param rentRefundedCents 
+ * @param payoutTiming 
+ * @param conditionPhotosReturn 
+ * @param inspection 
+ * @param storefrontId 
  * @param shippedAt 
+ * @param deliveredAt 
+ * @param cancelledAt 
+ * @param orderId 
+ * @param inspectedAt 
  * @param stripePaymentIntentId 
+ * @param payoutAccountId 
  * @param returnLabelUrl 
  * @param closedAt 
+ * @param approvedAt 
  * @param outboundLabelUrl 
  * @param claimedAt 
- * @param outboundTracking 
  * @param shipFrom 
+ * @param outboundTracking 
  * @param returnTracking 
  * @param returnedAt 
  * @param claimNote 
  * @param approvalDueAt 
+ * @param payoutReleasedAt 
+ * @param returnShippedAt 
+ * @param boughtOutAt 
+ * @param buyoutCents 
+ * @param notReturnedAt 
  */
 
 data class RentalResponseData (
@@ -72,6 +96,9 @@ data class RentalResponseData (
     @Json(name = "status")
     val status: kotlin.String,
 
+    @Json(name = "days")
+    val days: java.math.BigDecimal,
+
     @Json(name = "platformListingId")
     val platformListingId: kotlin.String,
 
@@ -84,8 +111,14 @@ data class RentalResponseData (
     @Json(name = "shippingCents")
     val shippingCents: java.math.BigDecimal,
 
+    @Json(name = "terms")
+    val terms: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
     @Json(name = "depositCents")
     val depositCents: java.math.BigDecimal,
+
+    @Json(name = "fulfilment")
+    val fulfilment: kotlin.String,
 
     @Json(name = "shipTo")
     val shipTo: kotlin.collections.Map<kotlin.String, kotlin.Any>,
@@ -98,9 +131,6 @@ data class RentalResponseData (
 
     @Json(name = "endDate")
     val endDate: kotlin.String,
-
-    @Json(name = "days")
-    val days: java.math.BigDecimal,
 
     @Json(name = "rentCents")
     val rentCents: java.math.BigDecimal,
@@ -123,14 +153,59 @@ data class RentalResponseData (
     @Json(name = "conditionPhotosIn")
     val conditionPhotosIn: kotlin.collections.List<kotlin.String>,
 
-    @Json(name = "cancelledAt")
-    val cancelledAt: java.time.OffsetDateTime? = null,
+    @Json(name = "unitIndex")
+    val unitIndex: java.math.BigDecimal,
+
+    @Json(name = "charges")
+    val charges: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
+    @Json(name = "damageWaiver")
+    val damageWaiver: kotlin.Boolean,
+
+    @Json(name = "cleaningFeeCents")
+    val cleaningFeeCents: java.math.BigDecimal,
+
+    @Json(name = "damageWaiverCents")
+    val damageWaiverCents: java.math.BigDecimal,
+
+    @Json(name = "lateFeeCents")
+    val lateFeeCents: java.math.BigDecimal,
+
+    @Json(name = "rentRefundedCents")
+    val rentRefundedCents: java.math.BigDecimal,
+
+    @Json(name = "payoutTiming")
+    val payoutTiming: kotlin.String,
+
+    @Json(name = "conditionPhotosReturn")
+    val conditionPhotosReturn: kotlin.collections.List<kotlin.String>,
+
+    @Json(name = "inspection")
+    val inspection: kotlin.collections.List<RentalResponseDataInspection>,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
 
     @Json(name = "shippedAt")
     val shippedAt: java.time.OffsetDateTime? = null,
 
+    @Json(name = "deliveredAt")
+    val deliveredAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "cancelledAt")
+    val cancelledAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "orderId")
+    val orderId: kotlin.String? = null,
+
+    @Json(name = "inspectedAt")
+    val inspectedAt: java.time.OffsetDateTime? = null,
+
     @Json(name = "stripePaymentIntentId")
     val stripePaymentIntentId: kotlin.String? = null,
+
+    @Json(name = "payoutAccountId")
+    val payoutAccountId: kotlin.String? = null,
 
     @Json(name = "returnLabelUrl")
     val returnLabelUrl: kotlin.String? = null,
@@ -138,17 +213,20 @@ data class RentalResponseData (
     @Json(name = "closedAt")
     val closedAt: java.time.OffsetDateTime? = null,
 
+    @Json(name = "approvedAt")
+    val approvedAt: java.time.OffsetDateTime? = null,
+
     @Json(name = "outboundLabelUrl")
     val outboundLabelUrl: kotlin.String? = null,
 
     @Json(name = "claimedAt")
     val claimedAt: java.time.OffsetDateTime? = null,
 
-    @Json(name = "outboundTracking")
-    val outboundTracking: kotlin.String? = null,
-
     @Json(name = "shipFrom")
     val shipFrom: kotlin.collections.Map<kotlin.String, kotlin.Any>? = null,
+
+    @Json(name = "outboundTracking")
+    val outboundTracking: kotlin.String? = null,
 
     @Json(name = "returnTracking")
     val returnTracking: kotlin.String? = null,
@@ -160,7 +238,22 @@ data class RentalResponseData (
     val claimNote: kotlin.String? = null,
 
     @Json(name = "approvalDueAt")
-    val approvalDueAt: java.time.OffsetDateTime? = null
+    val approvalDueAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "payoutReleasedAt")
+    val payoutReleasedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "returnShippedAt")
+    val returnShippedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "boughtOutAt")
+    val boughtOutAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "buyoutCents")
+    val buyoutCents: java.math.BigDecimal? = null,
+
+    @Json(name = "notReturnedAt")
+    val notReturnedAt: java.time.OffsetDateTime? = null
 
 )
 

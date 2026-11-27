@@ -37,7 +37,7 @@ data class GetInventoryValueHistoryResponseData (
     val points: kotlin.collections.List<GetInventoryValueHistoryResponseDataPoints>,
 
     @Json(name = "collectingSince")
-    val collectingSince: kotlin.String
+    val collectingSince: kotlin.String? = null
 
 )
 

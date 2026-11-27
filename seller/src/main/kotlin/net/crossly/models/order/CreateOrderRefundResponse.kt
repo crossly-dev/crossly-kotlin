@@ -28,6 +28,10 @@ import com.squareup.moshi.Json
  *
  * @param refundId 
  * @param amount 
+ * @param id 
+ * @param totalRefunded 
+ * @param replayed 
+ * @param remaining 
  */
 
 data class CreateOrderRefundResponse (
@@ -36,7 +40,19 @@ data class CreateOrderRefundResponse (
     val refundId: kotlin.String,
 
     @Json(name = "amount")
-    val amount: java.math.BigDecimal
+    val amount: java.math.BigDecimal,
+
+    @Json(name = "id")
+    val id: kotlin.String,
+
+    @Json(name = "totalRefunded")
+    val totalRefunded: java.math.BigDecimal,
+
+    @Json(name = "replayed")
+    val replayed: kotlin.Boolean,
+
+    @Json(name = "remaining")
+    val remaining: java.math.BigDecimal? = null
 
 )
 

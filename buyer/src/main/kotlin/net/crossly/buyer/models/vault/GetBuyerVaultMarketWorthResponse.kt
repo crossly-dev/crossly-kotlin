@@ -22,6 +22,7 @@ package net.crossly.buyer.models.vault
 
 import net.crossly.buyer.models.vault.GetBuyerVaultMarketHistoryResponseNowMarks
 import net.crossly.buyer.models.vault.GetBuyerVaultMarketWorthResponseSellNow
+import net.crossly.buyer.models.vault.GetBuyerVaultMarketWorthResponseToday
 
 import com.squareup.moshi.Json
 
@@ -38,6 +39,7 @@ import com.squareup.moshi.Json
  * @param marks 
  * @param costCents 
  * @param pnlCents 
+ * @param today 
  * @param sellNow 
  * @param note 
  */
@@ -73,6 +75,9 @@ data class GetBuyerVaultMarketWorthResponse (
 
     @Json(name = "pnlCents")
     val pnlCents: java.math.BigDecimal,
+
+    @Json(name = "today")
+    val today: GetBuyerVaultMarketWorthResponseToday,
 
     @Json(name = "sellNow")
     val sellNow: GetBuyerVaultMarketWorthResponseSellNow,

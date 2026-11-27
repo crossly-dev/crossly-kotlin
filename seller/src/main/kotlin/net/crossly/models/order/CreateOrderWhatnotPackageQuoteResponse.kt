@@ -26,15 +26,17 @@ import com.squareup.moshi.Json
 /**
  * 
  *
- * @param costCents 
- * @param error 
+ * @param costCents Cents the platform charges for the change; 0 = free.
+ * @param error The platform's refusal of this package, when it gives one.
  */
 
 data class CreateOrderWhatnotPackageQuoteResponse (
 
+    /* Cents the platform charges for the change; 0 = free. */
     @Json(name = "costCents")
     val costCents: java.math.BigDecimal,
 
+    /* The platform's refusal of this package, when it gives one. */
     @Json(name = "error")
     val error: kotlin.String? = null
 

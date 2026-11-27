@@ -20,8 +20,8 @@
 
 package net.crossly.models.inventory
 
+import net.crossly.models.analytic.GetAnalyticInventoryResponseDataWorst
 import net.crossly.models.inventory.GetInventoryAgingResponseDataBuckets
-import net.crossly.models.inventory.GetInventoryAgingResponseDataWorst
 
 import com.squareup.moshi.Json
 
@@ -30,9 +30,17 @@ import com.squareup.moshi.Json
  *
  * @param buckets 
  * @param worst 
- * @param stuckCapitalCents 
+ * @param stuckCapitalCents Cost of stock 30+ days listed or unlisted (30-90 + 90+ + unlisted): the same number as attentionCostCents. Not \"older than three months\"; that is over90CostCents.
+ * @param attentionCostCents 
+ * @param over90CostCents 
+ * @param over90ListedValueCents 
  * @param totalItems 
  * @param totalUnits 
+ * @param costKnownItems 
+ * @param costUnknownItems 
+ * @param listedValueCents 
+ * @param sizeBy 
+ * @param marketValueCents 
  */
 
 data class GetInventoryAgingResponseData (
@@ -41,16 +49,53 @@ data class GetInventoryAgingResponseData (
     val buckets: kotlin.collections.List<GetInventoryAgingResponseDataBuckets>,
 
     @Json(name = "worst")
-    val worst: kotlin.collections.List<GetInventoryAgingResponseDataWorst>,
+    val worst: kotlin.collections.List<GetAnalyticInventoryResponseDataWorst>,
 
+    /* Cost of stock 30+ days listed or unlisted (30-90 + 90+ + unlisted): the same number as attentionCostCents. Not \"older than three months\"; that is over90CostCents. */
     @Json(name = "stuckCapitalCents")
     val stuckCapitalCents: java.math.BigDecimal,
+
+    @Json(name = "attentionCostCents")
+    val attentionCostCents: java.math.BigDecimal,
+
+    @Json(name = "over90CostCents")
+    val over90CostCents: java.math.BigDecimal,
+
+    @Json(name = "over90ListedValueCents")
+    val over90ListedValueCents: java.math.BigDecimal,
 
     @Json(name = "totalItems")
     val totalItems: java.math.BigDecimal,
 
     @Json(name = "totalUnits")
-    val totalUnits: java.math.BigDecimal
+    val totalUnits: java.math.BigDecimal,
 
-)
+    @Json(name = "costKnownItems")
+    val costKnownItems: java.math.BigDecimal,
+
+    @Json(name = "costUnknownItems")
+    val costUnknownItems: java.math.BigDecimal,
+
+    @Json(name = "listedValueCents")
+    val listedValueCents: java.math.BigDecimal,
+
+    @Json(name = "sizeBy")
+    val sizeBy: GetInventoryAgingResponseData.SizeBy,
+
+    @Json(name = "marketValueCents")
+    val marketValueCents: java.math.BigDecimal? = null
+
+) {
+
+    /**
+     * 
+     *
+     * Values: valueOption,cost,units
+     */
+    enum class SizeBy(val value: kotlin.String) {
+        @Json(name = "value") valueOption("value"),
+        @Json(name = "cost") cost("cost"),
+        @Json(name = "units") units("units");
+    }
+}
 

@@ -27,6 +27,7 @@ import com.squareup.moshi.Json
  * 
  *
  * @param status 
+ * @param accountSource 
  * @param defaultCountry 
  * @param payoutsEnabled 
  * @param chargesEnabled 
@@ -45,6 +46,9 @@ data class GetPayoutConnectResponseData (
 
     @Json(name = "status")
     val status: kotlin.String,
+
+    @Json(name = "accountSource")
+    val accountSource: kotlin.String,
 
     @Json(name = "defaultCountry")
     val defaultCountry: kotlin.String? = null,

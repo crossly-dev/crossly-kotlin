@@ -28,12 +28,12 @@ import com.squareup.moshi.Json
  *
  * @param isCurrent 
  * @param id 
- * @param createdAt 
- * @param lastUsedAt 
- * @param expiresAt 
  * @param userAgent 
  * @param ipAddress 
  * @param ipCountry 
+ * @param createdAt 
+ * @param lastUsedAt 
+ * @param expiresAt 
  */
 
 data class ListAuthSessionsItem (
@@ -44,15 +44,6 @@ data class ListAuthSessionsItem (
     @Json(name = "id")
     val id: kotlin.String,
 
-    @Json(name = "createdAt")
-    val createdAt: java.time.OffsetDateTime,
-
-    @Json(name = "lastUsedAt")
-    val lastUsedAt: java.time.OffsetDateTime,
-
-    @Json(name = "expiresAt")
-    val expiresAt: java.time.OffsetDateTime,
-
     @Json(name = "userAgent")
     val userAgent: kotlin.String? = null,
 
@@ -60,7 +51,16 @@ data class ListAuthSessionsItem (
     val ipAddress: kotlin.String? = null,
 
     @Json(name = "ipCountry")
-    val ipCountry: kotlin.String? = null
+    val ipCountry: kotlin.String? = null,
+
+    @Json(name = "createdAt")
+    val createdAt: kotlin.String? = null,
+
+    @Json(name = "lastUsedAt")
+    val lastUsedAt: kotlin.String? = null,
+
+    @Json(name = "expiresAt")
+    val expiresAt: kotlin.String? = null
 
 )
 

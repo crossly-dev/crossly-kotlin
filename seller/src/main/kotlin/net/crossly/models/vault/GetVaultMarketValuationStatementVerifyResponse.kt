@@ -89,21 +89,21 @@ data class GetVaultMarketValuationStatementVerifyResponse (
     /**
      * 
      *
-     * Values: INSURANCE,APPRAISAL
+     * Values: APPRAISAL,INSURANCE
      */
     enum class Purpose(val value: kotlin.String) {
-        @Json(name = "insurance") INSURANCE("insurance"),
-        @Json(name = "appraisal") APPRAISAL("appraisal");
+        @Json(name = "appraisal") APPRAISAL("appraisal"),
+        @Json(name = "insurance") INSURANCE("insurance");
     }
     /**
      * 
      *
-     * Values: VALID,ALTERED,MISMATCH
+     * Values: MISMATCH,ALTERED,VALID
      */
     enum class Verdict(val value: kotlin.String) {
-        @Json(name = "valid") VALID("valid"),
+        @Json(name = "mismatch") MISMATCH("mismatch"),
         @Json(name = "altered") ALTERED("altered"),
-        @Json(name = "mismatch") MISMATCH("mismatch");
+        @Json(name = "valid") VALID("valid");
     }
 }
 

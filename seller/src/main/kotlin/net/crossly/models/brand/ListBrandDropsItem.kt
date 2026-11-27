@@ -29,27 +29,47 @@ import com.squareup.moshi.Json
  * @param id 
  * @param name 
  * @param createdAt 
+ * @param updatedAt 
  * @param status 
- * @param sellerUserId 
  * @param published 
+ * @param format 
+ * @param config 
+ * @param sellerUserId 
  * @param dropAt 
  * @param buyerApiEnabled 
+ * @param placements 
+ * @param audience 
+ * @param dropKind 
  * @param listingCount 
  * @param description 
+ * @param releasedAt 
+ * @param storefrontId 
  * @param endsAt 
+ * @param eventId 
  * @param coverImageUrl 
- * @param publishedAt 
- * @param reviewedAt 
- * @param reviewNote 
- * @param supplierName 
- * @param partnerId 
  * @param platformListingIds 
+ * @param partnerId 
  * @param wholesaleUnitCostCents 
  * @param unitsPurchased 
+ * @param supplierName 
  * @param poReference 
  * @param retailUnitPriceCents 
  * @param perCustomerLimit 
  * @param previewFrom 
+ * @param publishedAt 
+ * @param reviewNote 
+ * @param reviewedAt 
+ * @param announceAt 
+ * @param countdownAt 
+ * @param pausedAt 
+ * @param liveStreamId 
+ * @param spatialDropId 
+ * @param timezone 
+ * @param featuredStatus 
+ * @param audienceCatalogId 
+ * @param depositBps 
+ * @param shipBy 
+ * @param balanceNetDays 
  */
 
 data class ListBrandDropsItem (
@@ -63,14 +83,23 @@ data class ListBrandDropsItem (
     @Json(name = "createdAt")
     val createdAt: java.time.OffsetDateTime,
 
+    @Json(name = "updatedAt")
+    val updatedAt: java.time.OffsetDateTime,
+
     @Json(name = "status")
     val status: kotlin.String,
 
-    @Json(name = "sellerUserId")
-    val sellerUserId: kotlin.String,
-
     @Json(name = "published")
     val published: kotlin.Boolean,
+
+    @Json(name = "format")
+    val format: kotlin.String,
+
+    @Json(name = "config")
+    val config: kotlin.collections.Map<kotlin.String, kotlin.Any>,
+
+    @Json(name = "sellerUserId")
+    val sellerUserId: kotlin.String,
 
     @Json(name = "dropAt")
     val dropAt: java.time.OffsetDateTime,
@@ -78,41 +107,50 @@ data class ListBrandDropsItem (
     @Json(name = "buyerApiEnabled")
     val buyerApiEnabled: kotlin.Boolean,
 
+    @Json(name = "placements")
+    val placements: kotlin.collections.List<kotlin.String>,
+
+    @Json(name = "audience")
+    val audience: kotlin.String,
+
+    @Json(name = "dropKind")
+    val dropKind: kotlin.String,
+
     @Json(name = "listingCount")
     val listingCount: java.math.BigDecimal,
 
     @Json(name = "description")
     val description: kotlin.String? = null,
 
+    @Json(name = "releasedAt")
+    val releasedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "storefrontId")
+    val storefrontId: kotlin.String? = null,
+
     @Json(name = "endsAt")
     val endsAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "eventId")
+    val eventId: kotlin.String? = null,
 
     @Json(name = "coverImageUrl")
     val coverImageUrl: kotlin.String? = null,
 
-    @Json(name = "publishedAt")
-    val publishedAt: java.time.OffsetDateTime? = null,
-
-    @Json(name = "reviewedAt")
-    val reviewedAt: java.time.OffsetDateTime? = null,
-
-    @Json(name = "reviewNote")
-    val reviewNote: kotlin.String? = null,
-
-    @Json(name = "supplierName")
-    val supplierName: kotlin.String? = null,
+    @Json(name = "platformListingIds")
+    val platformListingIds: kotlin.collections.List<kotlin.String>? = null,
 
     @Json(name = "partnerId")
     val partnerId: kotlin.String? = null,
-
-    @Json(name = "platformListingIds")
-    val platformListingIds: kotlin.collections.List<kotlin.String>? = null,
 
     @Json(name = "wholesaleUnitCostCents")
     val wholesaleUnitCostCents: java.math.BigDecimal? = null,
 
     @Json(name = "unitsPurchased")
     val unitsPurchased: java.math.BigDecimal? = null,
+
+    @Json(name = "supplierName")
+    val supplierName: kotlin.String? = null,
 
     @Json(name = "poReference")
     val poReference: kotlin.String? = null,
@@ -124,7 +162,49 @@ data class ListBrandDropsItem (
     val perCustomerLimit: java.math.BigDecimal? = null,
 
     @Json(name = "previewFrom")
-    val previewFrom: java.time.OffsetDateTime? = null
+    val previewFrom: java.time.OffsetDateTime? = null,
+
+    @Json(name = "publishedAt")
+    val publishedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "reviewNote")
+    val reviewNote: kotlin.String? = null,
+
+    @Json(name = "reviewedAt")
+    val reviewedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "announceAt")
+    val announceAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "countdownAt")
+    val countdownAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "pausedAt")
+    val pausedAt: java.time.OffsetDateTime? = null,
+
+    @Json(name = "liveStreamId")
+    val liveStreamId: kotlin.String? = null,
+
+    @Json(name = "spatialDropId")
+    val spatialDropId: kotlin.String? = null,
+
+    @Json(name = "timezone")
+    val timezone: kotlin.String? = null,
+
+    @Json(name = "featuredStatus")
+    val featuredStatus: kotlin.String? = null,
+
+    @Json(name = "audienceCatalogId")
+    val audienceCatalogId: kotlin.String? = null,
+
+    @Json(name = "depositBps")
+    val depositBps: java.math.BigDecimal? = null,
+
+    @Json(name = "shipBy")
+    val shipBy: kotlin.String? = null,
+
+    @Json(name = "balanceNetDays")
+    val balanceNetDays: java.math.BigDecimal? = null
 
 )
 

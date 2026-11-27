@@ -43,30 +43,30 @@ data class ColourPattern (
     /**
      * 
      *
-     * Values: RED,ORANGE,YELLOW,GREEN,TEAL,BLUE,PURPLE,PINK,CREAM,CHARCOAL
+     * Values: YELLOW,BLUE,GREEN,PINK,PURPLE,CHARCOAL,RED,ORANGE,TEAL,CREAM
      */
     enum class Colour(val value: kotlin.String) {
+        @Json(name = "yellow") YELLOW("yellow"),
+        @Json(name = "blue") BLUE("blue"),
+        @Json(name = "green") GREEN("green"),
+        @Json(name = "pink") PINK("pink"),
+        @Json(name = "purple") PURPLE("purple"),
+        @Json(name = "charcoal") CHARCOAL("charcoal"),
         @Json(name = "red") RED("red"),
         @Json(name = "orange") ORANGE("orange"),
-        @Json(name = "yellow") YELLOW("yellow"),
-        @Json(name = "green") GREEN("green"),
         @Json(name = "teal") TEAL("teal"),
-        @Json(name = "blue") BLUE("blue"),
-        @Json(name = "purple") PURPLE("purple"),
-        @Json(name = "pink") PINK("pink"),
-        @Json(name = "cream") CREAM("cream"),
-        @Json(name = "charcoal") CHARCOAL("charcoal");
+        @Json(name = "cream") CREAM("cream");
     }
     /**
      * 
      *
-     * Values: SOLID,STRIPE,SCALLOP,CHECK
+     * Values: CHECK,STRIPE,SOLID,SCALLOP
      */
     enum class Pattern(val value: kotlin.String) {
-        @Json(name = "solid") SOLID("solid"),
+        @Json(name = "check") CHECK("check"),
         @Json(name = "stripe") STRIPE("stripe"),
-        @Json(name = "scallop") SCALLOP("scallop"),
-        @Json(name = "check") CHECK("check");
+        @Json(name = "solid") SOLID("solid"),
+        @Json(name = "scallop") SCALLOP("scallop");
     }
 }
 

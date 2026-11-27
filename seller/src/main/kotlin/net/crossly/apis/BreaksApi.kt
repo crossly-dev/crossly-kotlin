@@ -22,12 +22,12 @@ package net.crossly.apis
 
 import java.io.IOException
 
-import net.crossly.models.breaks.CreateBreakCancelResponse
 import net.crossly.models.breaks.CreateBreakDrawResponse
 import net.crossly.models.breaks.CreateBreakResponse
 import net.crossly.models.common.Error
 import net.crossly.models.breaks.GetBreakResponse
 import net.crossly.models.breaks.ListBreaksResponse
+import net.crossly.models.group.UpdateGroupBuyResponse
 
 import com.squareup.moshi.Json
 
@@ -123,7 +123,7 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     * Cancel a break before any spot is paid for; after that, refund those orders instead (409).
     * 
     * @param id  
-    * @return CreateBreakCancelResponse
+    * @return UpdateGroupBuyResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -132,11 +132,11 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createBreakCancel(id: kotlin.String) : CreateBreakCancelResponse {
+    fun createBreakCancel(id: kotlin.String) : UpdateGroupBuyResponse {
         val localVarResponse = createBreakCancelWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBreakCancelResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateGroupBuyResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -154,16 +154,16 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     * Cancel a break before any spot is paid for; after that, refund those orders instead (409).
     * 
     * @param id  
-    * @return ApiResponse<CreateBreakCancelResponse?>
+    * @return ApiResponse<UpdateGroupBuyResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createBreakCancelWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBreakCancelResponse?> {
+    fun createBreakCancelWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateGroupBuyResponse?> {
         val localVariableConfig = createBreakCancelRequestConfig(id = id)
 
-        return request<Unit, CreateBreakCancelResponse>(
+        return request<Unit, UpdateGroupBuyResponse>(
             localVariableConfig
         )
     }
@@ -263,7 +263,7 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     * Mark the product opened on stream.
     * 
     * @param id  
-    * @return CreateBreakCancelResponse
+    * @return UpdateGroupBuyResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -272,11 +272,11 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createBreakOpened(id: kotlin.String) : CreateBreakCancelResponse {
+    fun createBreakOpened(id: kotlin.String) : UpdateGroupBuyResponse {
         val localVarResponse = createBreakOpenedWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBreakCancelResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateGroupBuyResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -294,16 +294,16 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     * Mark the product opened on stream.
     * 
     * @param id  
-    * @return ApiResponse<CreateBreakCancelResponse?>
+    * @return ApiResponse<UpdateGroupBuyResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createBreakOpenedWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBreakCancelResponse?> {
+    fun createBreakOpenedWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateGroupBuyResponse?> {
         val localVariableConfig = createBreakOpenedRequestConfig(id = id)
 
-        return request<Unit, CreateBreakCancelResponse>(
+        return request<Unit, UpdateGroupBuyResponse>(
             localVariableConfig
         )
     }
@@ -334,7 +334,7 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     * 
     * @param id  
     * @param spotId  
-    * @return CreateBreakCancelResponse
+    * @return UpdateGroupBuyResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -343,11 +343,11 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createBreakSpotHit(id: kotlin.String, spotId: kotlin.String) : CreateBreakCancelResponse {
+    fun createBreakSpotHit(id: kotlin.String, spotId: kotlin.String) : UpdateGroupBuyResponse {
         val localVarResponse = createBreakSpotHitWithHttpInfo(id = id, spotId = spotId)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBreakCancelResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateGroupBuyResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -366,16 +366,16 @@ class BreaksApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath)
     * 
     * @param id  
     * @param spotId  
-    * @return ApiResponse<CreateBreakCancelResponse?>
+    * @return ApiResponse<UpdateGroupBuyResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createBreakSpotHitWithHttpInfo(id: kotlin.String, spotId: kotlin.String) : ApiResponse<CreateBreakCancelResponse?> {
+    fun createBreakSpotHitWithHttpInfo(id: kotlin.String, spotId: kotlin.String) : ApiResponse<UpdateGroupBuyResponse?> {
         val localVariableConfig = createBreakSpotHitRequestConfig(id = id, spotId = spotId)
 
-        return request<Unit, CreateBreakCancelResponse>(
+        return request<Unit, UpdateGroupBuyResponse>(
             localVariableConfig
         )
     }

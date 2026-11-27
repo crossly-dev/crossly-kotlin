@@ -22,18 +22,23 @@ package net.crossly.apis
 
 import java.io.IOException
 
-import net.crossly.models.breaks.CreateBreakCancelResponse
 import net.crossly.models.breaks.CreateBreakResponse
 import net.crossly.models.cosm.CreateCosmDesignerChainAutoUnlockResponse
+import net.crossly.models.game.CreateGamePackBreakPickResponse
+import net.crossly.models.game.CreateGamePackBreakResponse
+import net.crossly.models.showroom.CreateShowroomPlacementResponse
+import net.crossly.models.showroom.CreateShowroomResponse
 import net.crossly.models.spatial.CreateSpatialInviteAcceptResponse
 import net.crossly.models.spatial.CreateSpatialSceneGrantResponse
 import net.crossly.models.spatial.CreateSpatialSceneInviteResponse
 import net.crossly.models.spatial.CreateSpatialSceneNodeResponse
+import net.crossly.models.spatial.CreateSpatialScenePlaceResponse
 import net.crossly.models.spatial.CreateSpatialSceneRenameRequest
 import net.crossly.models.spatial.CreateSpatialSceneRequest
+import net.crossly.models.spatial.CreateSpatialSceneShopPlaceResponse
 import net.crossly.models.spatial.CreateSpatialSceneVisibilityRequest
-import net.crossly.models.spatial.CreateSpatialShopNeighbourhoodResponse
 import net.crossly.models.spatial.CreateSpatialStreetApplyResponse
+import net.crossly.models.world.CreateWorldAttendantTestChatResponse
 import net.crossly.models.world.CreateWorldAvatarEquipRequest
 import net.crossly.models.world.CreateWorldAvatarEquipResponse
 import net.crossly.models.world.CreateWorldAvatarUnequipRequest
@@ -44,7 +49,12 @@ import net.crossly.models.world.CreateWorldContestJoinResponse
 import net.crossly.models.world.CreateWorldContestResponse
 import net.crossly.models.world.CreateWorldConventionAcceptResponse
 import net.crossly.models.world.CreateWorldConventionApplyResponse
+import net.crossly.models.world.CreateWorldConventionBoothApplyResponse
+import net.crossly.models.world.CreateWorldConventionBoothFeeResponse
+import net.crossly.models.world.CreateWorldConventionCheckInResponse
+import net.crossly.models.world.CreateWorldConventionMessageResponse
 import net.crossly.models.world.CreateWorldConventionResponse
+import net.crossly.models.world.CreateWorldConventionSellerAssignResponse
 import net.crossly.models.world.CreateWorldCrewChatRequest
 import net.crossly.models.world.CreateWorldCrewJoinRequest
 import net.crossly.models.world.CreateWorldCrewJoinResponse
@@ -59,7 +69,11 @@ import net.crossly.models.world.CreateWorldFollowResponse
 import net.crossly.models.world.CreateWorldFriendInviteRequest
 import net.crossly.models.world.CreateWorldFriendInviteResponse
 import net.crossly.models.world.CreateWorldGamePackageCheckResponse
+import net.crossly.models.world.CreateWorldGamePackagePublishResponse
 import net.crossly.models.world.CreateWorldGamePackageResponse
+import net.crossly.models.world.CreateWorldGamePackageRestoreResponse
+import net.crossly.models.world.CreateWorldGamePackageUnpublishResponse
+import net.crossly.models.world.CreateWorldGamePackageVersionSubmitResponse
 import net.crossly.models.world.CreateWorldGameRatingResponse
 import net.crossly.models.world.CreateWorldGameReportResponse
 import net.crossly.models.world.CreateWorldGameStoreCheckoutResponse
@@ -75,6 +89,9 @@ import net.crossly.models.world.CreateWorldInteractiveResetResponse
 import net.crossly.models.world.CreateWorldJobAppraisalAnswerResponse
 import net.crossly.models.world.CreateWorldJobShiftClaimResponse
 import net.crossly.models.world.CreateWorldJobShiftReleaseResponse
+import net.crossly.models.world.CreateWorldMarketBuyResponse
+import net.crossly.models.world.CreateWorldMarketListingResponse
+import net.crossly.models.world.CreateWorldMarketPlotRentResponse
 import net.crossly.models.world.CreateWorldOutfitApplyResponse
 import net.crossly.models.world.CreateWorldOutfitRequest
 import net.crossly.models.world.CreateWorldOutfitResponse
@@ -85,6 +102,8 @@ import net.crossly.models.world.CreateWorldPartyLeaderResponse
 import net.crossly.models.world.CreateWorldPartyLeaveResponse
 import net.crossly.models.world.CreateWorldPartyWishlistResponse
 import net.crossly.models.world.CreateWorldPlaceItemWantResponse
+import net.crossly.models.world.CreateWorldPropertyPlotPhotoUploadUrlResponse
+import net.crossly.models.world.CreateWorldPropertyPlotShowroomResponse
 import net.crossly.models.world.CreateWorldSpaceEventResponse
 import net.crossly.models.world.CreateWorldSpaceEventRsvpResponse
 import net.crossly.models.world.CreateWorldSpaceInviteResponse
@@ -92,18 +111,31 @@ import net.crossly.models.world.CreateWorldSpaceJoinResponse
 import net.crossly.models.world.CreateWorldSpaceRequestByUserIdResponse
 import net.crossly.models.world.CreateWorldSpaceResponse
 import net.crossly.models.world.CreateWorldSpaceRoleResponse
+import net.crossly.models.world.CreateWorldStaffApplicationDecideResponse
+import net.crossly.models.world.CreateWorldStaffAssignmentRateWorkerResponse
+import net.crossly.models.world.CreateWorldStreetOwnedUpkeepPayResponse
+import net.crossly.models.world.CreateWorldVenueBookingCancelResponse
+import net.crossly.models.world.CreateWorldWorkPostingApplyResponse
 import net.crossly.models.dao.DeleteDaoProposalResponse
+import net.crossly.models.showroom.DeleteShowroomResponse
 import net.crossly.models.spatial.DeleteSpatialSceneGrantResponse
 import net.crossly.models.spatial.DeleteSpatialSceneNodeResponse
 import net.crossly.models.world.DeleteWorldBlockResponse
+import net.crossly.models.world.DeleteWorldGamePackageResponse
 import net.crossly.models.world.DeleteWorldHomeGuestbookResponse
 import net.crossly.models.world.DeleteWorldInteractiveDesignResponse
 import net.crossly.models.world.DeleteWorldJobShiftResponse
+import net.crossly.models.world.DeleteWorldMarketListingResponse
 import net.crossly.models.world.DeleteWorldOutfitResponse
 import net.crossly.models.world.DeleteWorldPlaceBanResponse
+import net.crossly.models.world.DeleteWorldPropertyPlotShowroomResponse
 import net.crossly.models.world.DeleteWorldSpaceResponse
 import net.crossly.models.common.Error
 import net.crossly.models.game.GetGameLeaderboardResponse
+import net.crossly.models.showroom.GetShowroomBillingResponse
+import net.crossly.models.showroom.GetShowroomCatalogResponse
+import net.crossly.models.showroom.GetShowroomPlacementResponse
+import net.crossly.models.showroom.GetShowroomResponse
 import net.crossly.models.spatial.GetSpatialSceneAttentionResponse
 import net.crossly.models.spatial.GetSpatialSceneWindowResponse
 import net.crossly.models.spatial.GetSpatialShopNeighbourhoodResponse
@@ -111,19 +143,26 @@ import net.crossly.models.spatial.GetSpatialSpaceResponse
 import net.crossly.models.spatial.GetSpatialStreetAdmissionResponse
 import net.crossly.models.spatial.GetSpatialStreetDecorResponse
 import net.crossly.models.world.GetWorldArcadeResponse
+import net.crossly.models.world.GetWorldAttendantResponse
 import net.crossly.models.world.GetWorldAuroraResponse
-import net.crossly.models.world.GetWorldAutoShopResponse
+import net.crossly.models.world.GetWorldAvatarBasicResponse
 import net.crossly.models.world.GetWorldAvatarIdentityResponse
 import net.crossly.models.world.GetWorldAvatarLoadoutResponse
 import net.crossly.models.world.GetWorldAvatarLookResponse
 import net.crossly.models.world.GetWorldAvatarNftBadgeResponse
+import net.crossly.models.world.GetWorldBillingRailResponse
 import net.crossly.models.world.GetWorldCapabilityCatalogueResponse
 import net.crossly.models.world.GetWorldCapabilityResponse
 import net.crossly.models.world.GetWorldCapabilityWearResponse
 import net.crossly.models.world.GetWorldChestResponse
 import net.crossly.models.world.GetWorldCollectionCapabilityResponse
 import net.crossly.models.world.GetWorldContestMineResponse
+import net.crossly.models.world.GetWorldControlResponse
+import net.crossly.models.world.GetWorldConventionExhibitResponse
+import net.crossly.models.world.GetWorldConventionHallResponse
+import net.crossly.models.world.GetWorldConventionManageResponse
 import net.crossly.models.world.GetWorldConventionResponse
+import net.crossly.models.world.GetWorldConventionStatusPageResponse
 import net.crossly.models.world.GetWorldCosmBalanceResponse
 import net.crossly.models.world.GetWorldCrewResponse
 import net.crossly.models.world.GetWorldDmResponse
@@ -133,6 +172,8 @@ import net.crossly.models.world.GetWorldFitStatResponse
 import net.crossly.models.world.GetWorldFitValueResponse
 import net.crossly.models.world.GetWorldGameLeaderboardResponse
 import net.crossly.models.world.GetWorldGamePackageResponse
+import net.crossly.models.world.GetWorldGamePackageStatResponse
+import net.crossly.models.world.GetWorldGamePackageVersionResponse
 import net.crossly.models.world.GetWorldGameResponse
 import net.crossly.models.world.GetWorldGameTemplateResponse
 import net.crossly.models.world.GetWorldHallLoanResponse
@@ -143,6 +184,12 @@ import net.crossly.models.world.GetWorldHuntScoreboardResponse
 import net.crossly.models.world.GetWorldInteractiveDesignResponse
 import net.crossly.models.world.GetWorldJobResponse
 import net.crossly.models.world.GetWorldKiteResponse
+import net.crossly.models.world.GetWorldLauncherResponse
+import net.crossly.models.world.GetWorldManageLedgerResponse
+import net.crossly.models.world.GetWorldManageOverviewResponse
+import net.crossly.models.world.GetWorldManageVisitorResponse
+import net.crossly.models.world.GetWorldMarketResponse
+import net.crossly.models.world.GetWorldNeighbourhoodClaimResponse
 import net.crossly.models.world.GetWorldPlaceBoardResponse
 import net.crossly.models.world.GetWorldPlaceCollectionResponse
 import net.crossly.models.world.GetWorldPlaceDropResponse
@@ -150,19 +197,34 @@ import net.crossly.models.world.GetWorldPlaceItemInterestResponse
 import net.crossly.models.world.GetWorldPlaceLiveResponse
 import net.crossly.models.world.GetWorldPlaceSellerResponse
 import net.crossly.models.world.GetWorldPlaceShopPetResponse
+import net.crossly.models.world.GetWorldPropertyPlotResponse
+import net.crossly.models.world.GetWorldPropertyRentalResponse
+import net.crossly.models.world.GetWorldRailResponse
 import net.crossly.models.world.GetWorldSpaceCanHostResponse
 import net.crossly.models.world.GetWorldSpaceResponse
+import net.crossly.models.world.GetWorldStaffPostingResponse
+import net.crossly.models.world.GetWorldStaffReputationResponse
+import net.crossly.models.world.GetWorldStreetFundResponse
+import net.crossly.models.world.GetWorldStreetOwnedResponse
+import net.crossly.models.world.GetWorldStreetTrespassBarrierResponse
 import net.crossly.models.world.GetWorldTrialLeaderboardResponse
 import net.crossly.models.world.GetWorldTrialMineResponse
+import net.crossly.models.world.GetWorldVenueQuoteResponse
 import net.crossly.models.world.GetWorldWalletResponse
 import net.crossly.models.world.GetWorldWishResponse
+import net.crossly.models.world.GetWorldWorkEarningResponse
+import net.crossly.models.world.GetWorldWorkMineResponse
 import net.crossly.models.cosm.ListCosmCosmeticsResponse
+import net.crossly.models.game.ListGameCouponsResponse
 import net.crossly.models.common.ListJobShiftsResponse
+import net.crossly.models.showroom.ListShowroomItemSearchResponse
+import net.crossly.models.showroom.ListShowroomsResponse
+import net.crossly.models.spatial.ListSpatialLeasesResponse
 import net.crossly.models.spatial.ListSpatialSceneGrantsResponse
 import net.crossly.models.spatial.ListSpatialSceneWarehouseUnplacedResponse
 import net.crossly.models.spatial.ListSpatialSharedWithMeResponse
-import net.crossly.models.spatial.ListSpatialStreetLeasesResponse
 import net.crossly.models.stall.ListStallMineResponse
+import net.crossly.models.world.ListWorldAttendantUsageResponse
 import net.crossly.models.world.ListWorldAvatarClosetResponse
 import net.crossly.models.world.ListWorldAvatarStockResponse
 import net.crossly.models.world.ListWorldAvatarWearablesResponse
@@ -171,6 +233,7 @@ import net.crossly.models.world.ListWorldCapabilityDeclarationsResponse
 import net.crossly.models.world.ListWorldContestStandingsResponse
 import net.crossly.models.world.ListWorldContestsResponse
 import net.crossly.models.world.ListWorldConventionExhibitorsResponse
+import net.crossly.models.world.ListWorldConventionMessagesResponse
 import net.crossly.models.world.ListWorldConventionMineResponse
 import net.crossly.models.world.ListWorldConventionsResponse
 import net.crossly.models.world.ListWorldCosmDesignsResponse
@@ -185,12 +248,16 @@ import net.crossly.models.world.ListWorldDmsResponse
 import net.crossly.models.world.ListWorldFollowingRoomsResponse
 import net.crossly.models.world.ListWorldFollowsResponse
 import net.crossly.models.world.ListWorldFriendsResponse
+import net.crossly.models.world.ListWorldGamePackageReceiptsResponse
 import net.crossly.models.world.ListWorldGamePackagesResponse
 import net.crossly.models.world.ListWorldGameRewardsResponse
 import net.crossly.models.world.ListWorldGamesResponse
 import net.crossly.models.world.ListWorldHomeBuildingResponse
 import net.crossly.models.world.ListWorldInteractiveCatalogueResponse
 import net.crossly.models.world.ListWorldInteractiveDesignsResponse
+import net.crossly.models.world.ListWorldJobBoardResponse
+import net.crossly.models.world.ListWorldMarketResponse
+import net.crossly.models.world.ListWorldMarketStreetSignsResponse
 import net.crossly.models.world.ListWorldOutfitsResponse
 import net.crossly.models.world.ListWorldPlaceBansResponse
 import net.crossly.models.world.ListWorldPlaceBundlesResponse
@@ -199,25 +266,39 @@ import net.crossly.models.world.ListWorldPlaceOffersResponse
 import net.crossly.models.world.ListWorldPlaceRadarResponse
 import net.crossly.models.world.ListWorldPlaceTradeTablesResponse
 import net.crossly.models.world.ListWorldPlaceTradesResponse
+import net.crossly.models.world.ListWorldPromotedResponse
+import net.crossly.models.world.ListWorldPropertyPlotsResponse
+import net.crossly.models.world.ListWorldPropertyRentalsResponse
+import net.crossly.models.world.ListWorldPropertyTrespassedResponse
 import net.crossly.models.world.ListWorldProvenanceResponse
 import net.crossly.models.world.ListWorldQuestsResponse
 import net.crossly.models.world.ListWorldSpaceRequestsResponse
 import net.crossly.models.world.ListWorldSpaceWhatsOnResponse
 import net.crossly.models.world.ListWorldSpacesResponse
+import net.crossly.models.world.ListWorldStaffApplicantsResponse
+import net.crossly.models.world.ListWorldStaffPeopleResponse
+import net.crossly.models.world.ListWorldStaffPlacesResponse
+import net.crossly.models.world.ListWorldStaffPostingsResponse
+import net.crossly.models.world.ListWorldStaffShiftsResponse
 import net.crossly.models.world.ListWorldStreaksResponse
 import net.crossly.models.world.ListWorldTradeMineResponse
 import net.crossly.models.world.ListWorldTradeTableBinderResponse
 import net.crossly.models.world.ListWorldTradeTableListingsResponse
+import net.crossly.models.world.ListWorldVenuesResponse
 import net.crossly.models.common.SpatialSceneResponse
-import net.crossly.models.common.SpatialSceneResponse2
 import net.crossly.models.common.SpatialStreetResponse
+import net.crossly.models.group.UpdateGroupBuyResponse
+import net.crossly.models.showroom2.UpdateShowroom2Response
+import net.crossly.models.showroom.UpdateShowroomResponse
 import net.crossly.models.spatial.UpdateSpatialSceneCosmeticResponse
 import net.crossly.models.spatial.UpdateSpatialSceneNodeResponse
 import net.crossly.models.spatial.UpdateSpatialSceneShopLayoutResponse
 import net.crossly.models.spatial.UpdateSpatialSceneWindowResponse
-import net.crossly.models.world.UpdateWorldAutoShopRequest
+import net.crossly.models.world.UpdateWorldAttendantResponse
 import net.crossly.models.world.UpdateWorldAvatarIdentityResponse
 import net.crossly.models.world.UpdateWorldAvatarLookResponse
+import net.crossly.models.world.UpdateWorldConventionHallResponse
+import net.crossly.models.world.UpdateWorldConventionMyBoothResponse
 import net.crossly.models.world.UpdateWorldConventionStatusResponse
 import net.crossly.models.world.UpdateWorldEmoteWheelRequest
 import net.crossly.models.world.UpdateWorldEmoteWheelResponse
@@ -230,13 +311,17 @@ import net.crossly.models.world.UpdateWorldOutfitRequest
 import net.crossly.models.world.UpdateWorldOutfitResponse
 import net.crossly.models.world.UpdateWorldPetActiveRequest
 import net.crossly.models.world.UpdateWorldPetActiveResponse
+import net.crossly.models.world.UpdateWorldPropertyPlotPhotoResponse
+import net.crossly.models.world.UpdateWorldPropertyRentingResponse
 import net.crossly.models.world.UpdateWorldQuestPinRequest
 import net.crossly.models.world.UpdateWorldQuestPinResponse
 import net.crossly.models.world.UpdateWorldRoomHolderGateResponse
 import net.crossly.models.world.UpdateWorldSpaceResponse
 import net.crossly.models.world.UpdateWorldStallBookingBoothResponse
+import net.crossly.models.world.UpdateWorldStreetOwnedThemeResponse
 import net.crossly.models.common.WorldHomeResponse
 import net.crossly.models.common.WorldResponse
+import net.crossly.models.common.WorldStaffPostingResponse
 
 import com.squareup.moshi.Json
 
@@ -259,6 +344,296 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         val defaultBasePath: String by lazy {
             System.getProperties().getProperty(ApiClient.baseUrlKey, "https://crossly.net/api")
         }
+    }
+
+    /**
+    * Pack Break: your open pack of five real market pieces, or a fresh one. No prices until you pick.
+    * 
+    * @return CreateGamePackBreakResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createGamePackBreak() : CreateGamePackBreakResponse {
+        val localVarResponse = createGamePackBreakWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateGamePackBreakResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pack Break: your open pack of five real market pieces, or a fresh one. No prices until you pick.
+    * 
+    * @return ApiResponse<CreateGamePackBreakResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createGamePackBreakWithHttpInfo() : ApiResponse<CreateGamePackBreakResponse?> {
+        val localVariableConfig = createGamePackBreakRequestConfig()
+
+        return request<Unit, CreateGamePackBreakResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createGamePackBreak
+    *
+    * @return RequestConfig
+    */
+    fun createGamePackBreakRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/games/pack-break",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
+    * 
+    * @param id  
+    * @return CreateGamePackBreakPickResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createGamePackBreakPick(id: kotlin.String) : CreateGamePackBreakPickResponse {
+        val localVarResponse = createGamePackBreakPickWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateGamePackBreakPickResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pick the pull you think is worth the most: every lowest open ask is revealed, and a win earns a fee-back coupon.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateGamePackBreakPickResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createGamePackBreakPickWithHttpInfo(id: kotlin.String) : ApiResponse<CreateGamePackBreakPickResponse?> {
+        val localVariableConfig = createGamePackBreakPickRequestConfig(id = id)
+
+        return request<Unit, CreateGamePackBreakPickResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createGamePackBreakPick
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createGamePackBreakPickRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/games/pack-break/{id}/pick".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return CreateShowroomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createShowroom(storefrontId: java.util.UUID?) : CreateShowroomResponse {
+        val localVarResponse = createShowroomWithHttpInfo(storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateShowroomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Add a showroom. The first is included; an extra one has a monthly fee and is added in the dashboard (402 world_payment_failed here).
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<CreateShowroomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createShowroomWithHttpInfo(storefrontId: java.util.UUID?) : ApiResponse<CreateShowroomResponse?> {
+        val localVariableConfig = createShowroomRequestConfig(storefrontId = storefrontId)
+
+        return request<Unit, CreateShowroomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createShowroom
+    *
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun createShowroomRequestConfig(storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/showrooms",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return CreateShowroomPlacementResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createShowroomPlacement(id: kotlin.String, storefrontId: java.util.UUID?) : CreateShowroomPlacementResponse {
+        val localVarResponse = createShowroomPlacementWithHttpInfo(id = id, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateShowroomPlacementResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Stand a showroom on a plot your store owns or rents (403 when it does not; 409 when another showroom stands there).
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<CreateShowroomPlacementResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createShowroomPlacementWithHttpInfo(id: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<CreateShowroomPlacementResponse?> {
+        val localVariableConfig = createShowroomPlacementRequestConfig(id = id, storefrontId = storefrontId)
+
+        return request<Unit, CreateShowroomPlacementResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createShowroomPlacement
+    *
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun createShowroomPlacementRequestConfig(id: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/showrooms/{id}/placement".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
     }
 
     /**
@@ -402,7 +777,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Start a 3D room: a collection (your items on shelves) or a warehouse (racks you arrange). Private until you make it public.
     * 
     * @param createSpatialSceneRequest  
-    * @return SpatialSceneResponse2
+    * @return SpatialSceneResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -411,11 +786,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createSpatialScene(createSpatialSceneRequest: CreateSpatialSceneRequest) : SpatialSceneResponse2 {
+    fun createSpatialScene(createSpatialSceneRequest: CreateSpatialSceneRequest) : SpatialSceneResponse {
         val localVarResponse = createSpatialSceneWithHttpInfo(createSpatialSceneRequest = createSpatialSceneRequest)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse2
+            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -433,16 +808,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Start a 3D room: a collection (your items on shelves) or a warehouse (racks you arrange). Private until you make it public.
     * 
     * @param createSpatialSceneRequest  
-    * @return ApiResponse<SpatialSceneResponse2?>
+    * @return ApiResponse<SpatialSceneResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createSpatialSceneWithHttpInfo(createSpatialSceneRequest: CreateSpatialSceneRequest) : ApiResponse<SpatialSceneResponse2?> {
+    fun createSpatialSceneWithHttpInfo(createSpatialSceneRequest: CreateSpatialSceneRequest) : ApiResponse<SpatialSceneResponse?> {
         val localVariableConfig = createSpatialSceneRequestConfig(createSpatialSceneRequest = createSpatialSceneRequest)
 
-        return request<CreateSpatialSceneRequest, SpatialSceneResponse2>(
+        return request<CreateSpatialSceneRequest, SpatialSceneResponse>(
             localVariableConfig
         )
     }
@@ -683,7 +1058,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Pin an inventory item to a slot in one of your rooms: by warehouse nodeId, or by a collection container key and index.
     * 
     * @param id  
-    * @return SpatialSceneResponse
+    * @return CreateSpatialScenePlaceResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -692,11 +1067,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createSpatialScenePlace(id: kotlin.String) : SpatialSceneResponse {
+    fun createSpatialScenePlace(id: kotlin.String) : CreateSpatialScenePlaceResponse {
         val localVarResponse = createSpatialScenePlaceWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateSpatialScenePlaceResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -714,16 +1089,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Pin an inventory item to a slot in one of your rooms: by warehouse nodeId, or by a collection container key and index.
     * 
     * @param id  
-    * @return ApiResponse<SpatialSceneResponse?>
+    * @return ApiResponse<CreateSpatialScenePlaceResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createSpatialScenePlaceWithHttpInfo(id: kotlin.String) : ApiResponse<SpatialSceneResponse?> {
+    fun createSpatialScenePlaceWithHttpInfo(id: kotlin.String) : ApiResponse<CreateSpatialScenePlaceResponse?> {
         val localVariableConfig = createSpatialScenePlaceRequestConfig(id = id)
 
-        return request<Unit, SpatialSceneResponse>(
+        return request<Unit, CreateSpatialScenePlaceResponse>(
             localVariableConfig
         )
     }
@@ -754,7 +1129,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * 
     * @param id  
     * @param createSpatialSceneRenameRequest  
-    * @return SpatialSceneResponse2
+    * @return SpatialSceneResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -763,11 +1138,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createSpatialSceneRename(id: kotlin.String, createSpatialSceneRenameRequest: CreateSpatialSceneRenameRequest) : SpatialSceneResponse2 {
+    fun createSpatialSceneRename(id: kotlin.String, createSpatialSceneRenameRequest: CreateSpatialSceneRenameRequest) : SpatialSceneResponse {
         val localVarResponse = createSpatialSceneRenameWithHttpInfo(id = id, createSpatialSceneRenameRequest = createSpatialSceneRenameRequest)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse2
+            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -786,16 +1161,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * 
     * @param id  
     * @param createSpatialSceneRenameRequest  
-    * @return ApiResponse<SpatialSceneResponse2?>
+    * @return ApiResponse<SpatialSceneResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createSpatialSceneRenameWithHttpInfo(id: kotlin.String, createSpatialSceneRenameRequest: CreateSpatialSceneRenameRequest) : ApiResponse<SpatialSceneResponse2?> {
+    fun createSpatialSceneRenameWithHttpInfo(id: kotlin.String, createSpatialSceneRenameRequest: CreateSpatialSceneRenameRequest) : ApiResponse<SpatialSceneResponse?> {
         val localVariableConfig = createSpatialSceneRenameRequestConfig(id = id, createSpatialSceneRenameRequest = createSpatialSceneRenameRequest)
 
-        return request<CreateSpatialSceneRenameRequest, SpatialSceneResponse2>(
+        return request<CreateSpatialSceneRenameRequest, SpatialSceneResponse>(
             localVariableConfig
         )
     }
@@ -827,7 +1202,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Place an inventory item in a section and display of your shop room.
     * 
     * @param id  
-    * @return SpatialSceneResponse
+    * @return CreateSpatialSceneShopPlaceResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -836,11 +1211,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createSpatialSceneShopPlace(id: kotlin.String) : SpatialSceneResponse {
+    fun createSpatialSceneShopPlace(id: kotlin.String) : CreateSpatialSceneShopPlaceResponse {
         val localVarResponse = createSpatialSceneShopPlaceWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateSpatialSceneShopPlaceResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -858,16 +1233,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Place an inventory item in a section and display of your shop room.
     * 
     * @param id  
-    * @return ApiResponse<SpatialSceneResponse?>
+    * @return ApiResponse<CreateSpatialSceneShopPlaceResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createSpatialSceneShopPlaceWithHttpInfo(id: kotlin.String) : ApiResponse<SpatialSceneResponse?> {
+    fun createSpatialSceneShopPlaceWithHttpInfo(id: kotlin.String) : ApiResponse<CreateSpatialSceneShopPlaceResponse?> {
         val localVariableConfig = createSpatialSceneShopPlaceRequestConfig(id = id)
 
-        return request<Unit, SpatialSceneResponse>(
+        return request<Unit, CreateSpatialSceneShopPlaceResponse>(
             localVariableConfig
         )
     }
@@ -968,7 +1343,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * 
     * @param id  
     * @param createSpatialSceneVisibilityRequest  
-    * @return SpatialSceneResponse2
+    * @return SpatialSceneResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -977,11 +1352,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createSpatialSceneVisibility(id: kotlin.String, createSpatialSceneVisibilityRequest: CreateSpatialSceneVisibilityRequest) : SpatialSceneResponse2 {
+    fun createSpatialSceneVisibility(id: kotlin.String, createSpatialSceneVisibilityRequest: CreateSpatialSceneVisibilityRequest) : SpatialSceneResponse {
         val localVarResponse = createSpatialSceneVisibilityWithHttpInfo(id = id, createSpatialSceneVisibilityRequest = createSpatialSceneVisibilityRequest)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse2
+            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -1000,16 +1375,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * 
     * @param id  
     * @param createSpatialSceneVisibilityRequest  
-    * @return ApiResponse<SpatialSceneResponse2?>
+    * @return ApiResponse<SpatialSceneResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createSpatialSceneVisibilityWithHttpInfo(id: kotlin.String, createSpatialSceneVisibilityRequest: CreateSpatialSceneVisibilityRequest) : ApiResponse<SpatialSceneResponse2?> {
+    fun createSpatialSceneVisibilityWithHttpInfo(id: kotlin.String, createSpatialSceneVisibilityRequest: CreateSpatialSceneVisibilityRequest) : ApiResponse<SpatialSceneResponse?> {
         val localVariableConfig = createSpatialSceneVisibilityRequestConfig(id = id, createSpatialSceneVisibilityRequest = createSpatialSceneVisibilityRequest)
 
-        return request<CreateSpatialSceneVisibilityRequest, SpatialSceneResponse2>(
+        return request<CreateSpatialSceneVisibilityRequest, SpatialSceneResponse>(
             localVariableConfig
         )
     }
@@ -1041,7 +1416,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Put an inventory item (or unit) on a rack in one of your warehouse rooms.
     * 
     * @param id  
-    * @return SpatialSceneResponse
+    * @return CreateSpatialScenePlaceResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -1050,11 +1425,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createSpatialSceneWarehouseStock(id: kotlin.String) : SpatialSceneResponse {
+    fun createSpatialSceneWarehouseStock(id: kotlin.String) : CreateSpatialScenePlaceResponse {
         val localVarResponse = createSpatialSceneWarehouseStockWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateSpatialScenePlaceResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -1072,16 +1447,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Put an inventory item (or unit) on a rack in one of your warehouse rooms.
     * 
     * @param id  
-    * @return ApiResponse<SpatialSceneResponse?>
+    * @return ApiResponse<CreateSpatialScenePlaceResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createSpatialSceneWarehouseStockWithHttpInfo(id: kotlin.String) : ApiResponse<SpatialSceneResponse?> {
+    fun createSpatialSceneWarehouseStockWithHttpInfo(id: kotlin.String) : ApiResponse<CreateSpatialScenePlaceResponse?> {
         val localVariableConfig = createSpatialSceneWarehouseStockRequestConfig(id = id)
 
-        return request<Unit, SpatialSceneResponse>(
+        return request<Unit, CreateSpatialScenePlaceResponse>(
             localVariableConfig
         )
     }
@@ -1101,73 +1476,6 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/spatial/scenes/{id}/warehouse/stock".replace("{"+"id"+"}", "$id"),
-            query = localVariableQuery,
-            headers = localVariableHeaders,
-            body = localVariableBody
-        )
-    }
-
-    /**
-    * Move your shop to another neighbourhood (by slug).
-    * 
-    * @return CreateSpatialShopNeighbourhoodResponse
-    * @throws IllegalStateException If the request is not correctly configured
-    * @throws IOException Rethrows the OkHttp execute method exception
-    * @throws UnsupportedOperationException If the API returns an informational or redirection response
-    * @throws ClientException If the API returns a client error response
-    * @throws ServerException If the API returns a server error response
-    */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createSpatialShopNeighbourhood() : CreateSpatialShopNeighbourhoodResponse {
-        val localVarResponse = createSpatialShopNeighbourhoodWithHttpInfo()
-
-        return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateSpatialShopNeighbourhoodResponse
-            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
-            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
-            ResponseType.ClientError -> {
-                val localVarError = localVarResponse as ClientError<*>
-                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-            ResponseType.ServerError -> {
-                val localVarError = localVarResponse as ServerError<*>
-                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
-            }
-        }
-    }
-
-    /**
-    * Move your shop to another neighbourhood (by slug).
-    * 
-    * @return ApiResponse<CreateSpatialShopNeighbourhoodResponse?>
-    * @throws IllegalStateException If the request is not correctly configured
-    * @throws IOException Rethrows the OkHttp execute method exception
-    */
-    @Suppress("UNCHECKED_CAST")
-    @Throws(IllegalStateException::class, IOException::class)
-    fun createSpatialShopNeighbourhoodWithHttpInfo() : ApiResponse<CreateSpatialShopNeighbourhoodResponse?> {
-        val localVariableConfig = createSpatialShopNeighbourhoodRequestConfig()
-
-        return request<Unit, CreateSpatialShopNeighbourhoodResponse>(
-            localVariableConfig
-        )
-    }
-
-    /**
-    * To obtain the request config of the operation createSpatialShopNeighbourhood
-    *
-    * @return RequestConfig
-    */
-    fun createSpatialShopNeighbourhoodRequestConfig() : RequestConfig<Unit> {
-        val localVariableBody = null
-        val localVariableQuery: MultiValueMap = mutableMapOf()
-        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        localVariableHeaders["Accept"] = "application/json"
-
-        return RequestConfig(
-            method = RequestMethod.POST,
-            path = "/v1/spatial/shop/neighbourhood",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -1308,6 +1616,73 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/spatial/streets/{slug}/invite".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
+    * 
+    * @return CreateWorldAttendantTestChatResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldAttendantTestChat() : CreateWorldAttendantTestChatResponse {
+        val localVarResponse = createWorldAttendantTestChatWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldAttendantTestChatResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One test answer from your AI attendant, on your own AI key (409 ai_key_required without one).
+    * 
+    * @return ApiResponse<CreateWorldAttendantTestChatResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldAttendantTestChatWithHttpInfo() : ApiResponse<CreateWorldAttendantTestChatResponse?> {
+        val localVariableConfig = createWorldAttendantTestChatRequestConfig()
+
+        return request<Unit, CreateWorldAttendantTestChatResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldAttendantTestChat
+    *
+    * @return RequestConfig
+    */
+    fun createWorldAttendantTestChatRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/attendant/test-chat",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -1938,6 +2313,283 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
+    * 
+    * @param id  
+    * @return CreateWorldConventionBoothApplyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldConventionBoothApply(id: kotlin.String) : CreateWorldConventionBoothApplyResponse {
+        val localVarResponse = createWorldConventionBoothApplyWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldConventionBoothApplyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Apply for a booth tier (or book it at once in open mode): { tierId, note?, categories? }.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldConventionBoothApplyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldConventionBoothApplyWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldConventionBoothApplyResponse?> {
+        val localVariableConfig = createWorldConventionBoothApplyRequestConfig(id = id)
+
+        return request<Unit, CreateWorldConventionBoothApplyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldConventionBoothApply
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldConventionBoothApplyRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/conventions/{id}/booths/apply".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pay your booth fee to the organiser on a Worlds rail: { rail: \&quot;cash\&quot; | \&quot;cbx\&quot; }. Once per booth. Full-access token and Idempotency-Key required.
+    * 
+    * @param id  
+    * @return CreateWorldConventionBoothFeeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldConventionBoothFee(id: kotlin.String) : CreateWorldConventionBoothFeeResponse {
+        val localVarResponse = createWorldConventionBoothFeeWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldConventionBoothFeeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pay your booth fee to the organiser on a Worlds rail: { rail: \&quot;cash\&quot; | \&quot;cbx\&quot; }. Once per booth. Full-access token and Idempotency-Key required.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldConventionBoothFeeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldConventionBoothFeeWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldConventionBoothFeeResponse?> {
+        val localVariableConfig = createWorldConventionBoothFeeRequestConfig(id = id)
+
+        return request<Unit, CreateWorldConventionBoothFeeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldConventionBoothFee
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldConventionBoothFeeRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/conventions/{id}/booth-fee".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
+    * 
+    * @param id  
+    * @return CreateWorldConventionCheckInResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldConventionCheckIn(id: kotlin.String) : CreateWorldConventionCheckInResponse {
+        val localVarResponse = createWorldConventionCheckInWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldConventionCheckInResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Check in: the organiser names { exhibitorId }; an exhibitor checks themselves in with {}.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldConventionCheckInResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldConventionCheckInWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldConventionCheckInResponse?> {
+        val localVariableConfig = createWorldConventionCheckInRequestConfig(id = id)
+
+        return request<Unit, CreateWorldConventionCheckInResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldConventionCheckIn
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldConventionCheckInRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/conventions/{id}/check-in".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
+    * 
+    * @return GetWorldConventionManageResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldConventionFull() : GetWorldConventionManageResponse {
+        val localVarResponse = createWorldConventionFullWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldConventionManageResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Create a convention in full: venue + days (rented and paid now on the rail), hours, theme, booth tiers and prices, application or open booking, seller limits, promotion. Full-access token and Idempotency-Key required.
+    * 
+    * @return ApiResponse<GetWorldConventionManageResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldConventionFullWithHttpInfo() : ApiResponse<GetWorldConventionManageResponse?> {
+        val localVariableConfig = createWorldConventionFullRequestConfig()
+
+        return request<Unit, GetWorldConventionManageResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldConventionFull
+    *
+    * @return RequestConfig
+    */
+    fun createWorldConventionFullRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/conventions/full",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Invite a seller (by shop handle) to a convention you host.
     * 
     * @param id  
@@ -2008,10 +2660,10 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * As host, record that a seller (username) paid their table fee off-platform. Moves no money.
+    * Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
     * 
     * @param id  
-    * @return CreateBreakCancelResponse
+    * @return CreateWorldConventionMessageResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -2020,11 +2672,81 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createWorldConventionPaid(id: kotlin.String) : CreateBreakCancelResponse {
+    fun createWorldConventionMessage(id: kotlin.String) : CreateWorldConventionMessageResponse {
+        val localVarResponse = createWorldConventionMessageWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldConventionMessageResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Send a convention message: { body, toUserId? }. The organiser writes to one seller or every seller; an exhibitor writes to the organiser.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldConventionMessageResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldConventionMessageWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldConventionMessageResponse?> {
+        val localVariableConfig = createWorldConventionMessageRequestConfig(id = id)
+
+        return request<Unit, CreateWorldConventionMessageResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldConventionMessage
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldConventionMessageRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/conventions/{id}/messages".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * As host, record that a seller (username) paid their table fee off-platform. Moves no money.
+    * 
+    * @param id  
+    * @return UpdateGroupBuyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldConventionPaid(id: kotlin.String) : UpdateGroupBuyResponse {
         val localVarResponse = createWorldConventionPaidWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBreakCancelResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateGroupBuyResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -2042,16 +2764,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * As host, record that a seller (username) paid their table fee off-platform. Moves no money.
     * 
     * @param id  
-    * @return ApiResponse<CreateBreakCancelResponse?>
+    * @return ApiResponse<UpdateGroupBuyResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createWorldConventionPaidWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBreakCancelResponse?> {
+    fun createWorldConventionPaidWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateGroupBuyResponse?> {
         val localVariableConfig = createWorldConventionPaidRequestConfig(id = id)
 
-        return request<Unit, CreateBreakCancelResponse>(
+        return request<Unit, UpdateGroupBuyResponse>(
             localVariableConfig
         )
     }
@@ -2078,10 +2800,10 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Withdraw your table or decline your invitation; as host, decline someone (username).
+    * Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
     * 
     * @param id  
-    * @return CreateBreakCancelResponse
+    * @return CreateWorldConventionSellerAssignResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -2090,11 +2812,151 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun createWorldConventionWithdraw(id: kotlin.String) : CreateBreakCancelResponse {
+    fun createWorldConventionSellerAssign(id: kotlin.String) : CreateWorldConventionSellerAssignResponse {
+        val localVarResponse = createWorldConventionSellerAssignWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldConventionSellerAssignResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Move an accepted seller to another booth of their tier (swaps with whoever is there): { exhibitorId, boothKey }.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldConventionSellerAssignResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldConventionSellerAssignWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldConventionSellerAssignResponse?> {
+        val localVariableConfig = createWorldConventionSellerAssignRequestConfig(id = id)
+
+        return request<Unit, CreateWorldConventionSellerAssignResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldConventionSellerAssign
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldConventionSellerAssignRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/conventions/{id}/sellers/assign".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
+    * 
+    * @param id  
+    * @return CreateWorldConventionBoothApplyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldConventionSellerDecide(id: kotlin.String) : CreateWorldConventionBoothApplyResponse {
+        val localVarResponse = createWorldConventionSellerDecideWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldConventionBoothApplyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Approve (terms frozen, a booth assigned) or decline an application: { exhibitorId, decision }.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldConventionBoothApplyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldConventionSellerDecideWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldConventionBoothApplyResponse?> {
+        val localVariableConfig = createWorldConventionSellerDecideRequestConfig(id = id)
+
+        return request<Unit, CreateWorldConventionBoothApplyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldConventionSellerDecide
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldConventionSellerDecideRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/conventions/{id}/sellers/decide".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Withdraw your table or decline your invitation; as host, decline someone (username).
+    * 
+    * @param id  
+    * @return UpdateGroupBuyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldConventionWithdraw(id: kotlin.String) : UpdateGroupBuyResponse {
         val localVarResponse = createWorldConventionWithdrawWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateBreakCancelResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateGroupBuyResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -2112,16 +2974,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Withdraw your table or decline your invitation; as host, decline someone (username).
     * 
     * @param id  
-    * @return ApiResponse<CreateBreakCancelResponse?>
+    * @return ApiResponse<UpdateGroupBuyResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun createWorldConventionWithdrawWithHttpInfo(id: kotlin.String) : ApiResponse<CreateBreakCancelResponse?> {
+    fun createWorldConventionWithdrawWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateGroupBuyResponse?> {
         val localVariableConfig = createWorldConventionWithdrawRequestConfig(id = id)
 
-        return request<Unit, CreateBreakCancelResponse>(
+        return request<Unit, UpdateGroupBuyResponse>(
             localVariableConfig
         )
     }
@@ -2984,6 +3846,289 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
+    * 
+    * @param id  
+    * @return CreateWorldGamePackagePublishResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldGamePackagePublish(id: kotlin.String) : CreateWorldGamePackagePublishResponse {
+        val localVarResponse = createWorldGamePackagePublishWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldGamePackagePublishResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Make an approved version the one every placed copy runs (rollback or roll-forward; running copies restart on it) and list the game again if it was unpublished. Body { version }. Starter seller plan or higher.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldGamePackagePublishResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldGamePackagePublishWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldGamePackagePublishResponse?> {
+        val localVariableConfig = createWorldGamePackagePublishRequestConfig(id = id)
+
+        return request<Unit, CreateWorldGamePackagePublishResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldGamePackagePublish
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldGamePackagePublishRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/games/packages/{id}/publish".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Restore a deleted Classic game within 30 days (it comes back unpublished).
+    * 
+    * @param id  
+    * @return CreateWorldGamePackageRestoreResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldGamePackageRestore(id: kotlin.String) : CreateWorldGamePackageRestoreResponse {
+        val localVarResponse = createWorldGamePackageRestoreWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldGamePackageRestoreResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Restore a deleted Classic game within 30 days (it comes back unpublished).
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldGamePackageRestoreResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldGamePackageRestoreWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldGamePackageRestoreResponse?> {
+        val localVariableConfig = createWorldGamePackageRestoreRequestConfig(id = id)
+
+        return request<Unit, CreateWorldGamePackageRestoreResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldGamePackageRestore
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldGamePackageRestoreRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/games/packages/{id}/restore".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take a Classic game off the Game Directory and the Carnival Plaza launcher, its store off sale. Copies people already placed keep running. Needs no plan: a lapsed creator can always take a game down.
+    * 
+    * @param id  
+    * @return CreateWorldGamePackageUnpublishResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldGamePackageUnpublish(id: kotlin.String) : CreateWorldGamePackageUnpublishResponse {
+        val localVarResponse = createWorldGamePackageUnpublishWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldGamePackageUnpublishResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take a Classic game off the Game Directory and the Carnival Plaza launcher, its store off sale. Copies people already placed keep running. Needs no plan: a lapsed creator can always take a game down.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldGamePackageUnpublishResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldGamePackageUnpublishWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldGamePackageUnpublishResponse?> {
+        val localVariableConfig = createWorldGamePackageUnpublishRequestConfig(id = id)
+
+        return request<Unit, CreateWorldGamePackageUnpublishResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldGamePackageUnpublish
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldGamePackageUnpublishRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/games/packages/{id}/unpublish".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Send a draft version (uploaded with submit: false) to review: the same static check, sandbox dry run and human review as an upload. Starter seller plan or higher.
+    * 
+    * @param id  
+    * @param semver  
+    * @return CreateWorldGamePackageVersionSubmitResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldGamePackageVersionSubmit(id: kotlin.String, semver: kotlin.String) : CreateWorldGamePackageVersionSubmitResponse {
+        val localVarResponse = createWorldGamePackageVersionSubmitWithHttpInfo(id = id, semver = semver)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldGamePackageVersionSubmitResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Send a draft version (uploaded with submit: false) to review: the same static check, sandbox dry run and human review as an upload. Starter seller plan or higher.
+    * 
+    * @param id  
+    * @param semver  
+    * @return ApiResponse<CreateWorldGamePackageVersionSubmitResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldGamePackageVersionSubmitWithHttpInfo(id: kotlin.String, semver: kotlin.String) : ApiResponse<CreateWorldGamePackageVersionSubmitResponse?> {
+        val localVariableConfig = createWorldGamePackageVersionSubmitRequestConfig(id = id, semver = semver)
+
+        return request<Unit, CreateWorldGamePackageVersionSubmitResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldGamePackageVersionSubmit
+    *
+    * @param id  
+    * @param semver  
+    * @return RequestConfig
+    */
+    fun createWorldGamePackageVersionSubmitRequestConfig(id: kotlin.String, semver: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/games/packages/{id}/versions/{semver}/submit".replace("{"+"id"+"}", "$id").replace("{"+"semver"+"}", "$semver"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Rate a game you played, 1 to 5 stars (rating again replaces it). Only players the runner recorded in that game can rate it.
     * 
     * @param id  
@@ -3611,7 +4756,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Upload one asset for your designs: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64. Answers its sha256 and the path to reference from MML.
+    * Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
     * 
     * @return CreateWorldInteractiveAssetResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -3641,7 +4786,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Upload one asset for your designs: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64. Answers its sha256 and the path to reference from MML.
+    * Upload one asset: kind glb (4 MB), wav (4 MB) or png (1 MB), the file as base64; purpose product (your designs, the default) or game (Carnival Studio files such as badge icons). Answers its sha256 and the path to reference from MML.
     * 
     * @return ApiResponse<CreateWorldInteractiveAssetResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -4225,6 +5370,216 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.POST,
             path = "/v1/world/jobs/shifts/{id}/release".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Buy a plot or a street.
+    * 
+    * @param kind  
+    * @param id  
+    * @return CreateWorldMarketBuyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldMarketBuy(kind: kotlin.String, id: kotlin.String) : CreateWorldMarketBuyResponse {
+        val localVarResponse = createWorldMarketBuyWithHttpInfo(kind = kind, id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldMarketBuyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Buy a plot or a street.
+    * 
+    * @param kind  
+    * @param id  
+    * @return ApiResponse<CreateWorldMarketBuyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldMarketBuyWithHttpInfo(kind: kotlin.String, id: kotlin.String) : ApiResponse<CreateWorldMarketBuyResponse?> {
+        val localVariableConfig = createWorldMarketBuyRequestConfig(kind = kind, id = id)
+
+        return request<Unit, CreateWorldMarketBuyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldMarketBuy
+    *
+    * @param kind  
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldMarketBuyRequestConfig(kind: kotlin.String, id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/market/{kind}/{id}/buy".replace("{"+"kind"+"}", "$kind").replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * List a plot for sale or rent, or a street for sale.
+    * 
+    * @return CreateWorldMarketListingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldMarketListing() : CreateWorldMarketListingResponse {
+        val localVarResponse = createWorldMarketListingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldMarketListingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * List a plot for sale or rent, or a street for sale.
+    * 
+    * @return ApiResponse<CreateWorldMarketListingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldMarketListingWithHttpInfo() : ApiResponse<CreateWorldMarketListingResponse?> {
+        val localVariableConfig = createWorldMarketListingRequestConfig()
+
+        return request<Unit, CreateWorldMarketListingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldMarketListing
+    *
+    * @return RequestConfig
+    */
+    fun createWorldMarketListingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/market/listings",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Rent a plot offered for lease.
+    * 
+    * @param id  
+    * @return CreateWorldMarketPlotRentResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldMarketPlotRent(id: kotlin.String) : CreateWorldMarketPlotRentResponse {
+        val localVarResponse = createWorldMarketPlotRentWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldMarketPlotRentResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Rent a plot offered for lease.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldMarketPlotRentResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldMarketPlotRentWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldMarketPlotRentResponse?> {
+        val localVariableConfig = createWorldMarketPlotRentRequestConfig(id = id)
+
+        return request<Unit, CreateWorldMarketPlotRentResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldMarketPlotRent
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldMarketPlotRentRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/market/plot/{id}/rent".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -5146,6 +6501,213 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * A presigned upload for a plot&#39;s photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
+    * 
+    * @param plotId  
+    * @return CreateWorldPropertyPlotPhotoUploadUrlResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldPropertyPlotPhotoUploadUrl(plotId: kotlin.String) : CreateWorldPropertyPlotPhotoUploadUrlResponse {
+        val localVarResponse = createWorldPropertyPlotPhotoUploadUrlWithHttpInfo(plotId = plotId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldPropertyPlotPhotoUploadUrlResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A presigned upload for a plot&#39;s photo (WebP/PNG/JPEG, up to 4 MB): PUT the image to uploadUrl with the same Content-Type and exact Content-Length, then store publicUrl with PUT .../photo.
+    * 
+    * @param plotId  
+    * @return ApiResponse<CreateWorldPropertyPlotPhotoUploadUrlResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldPropertyPlotPhotoUploadUrlWithHttpInfo(plotId: kotlin.String) : ApiResponse<CreateWorldPropertyPlotPhotoUploadUrlResponse?> {
+        val localVariableConfig = createWorldPropertyPlotPhotoUploadUrlRequestConfig(plotId = plotId)
+
+        return request<Unit, CreateWorldPropertyPlotPhotoUploadUrlResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldPropertyPlotPhotoUploadUrl
+    *
+    * @param plotId  
+    * @return RequestConfig
+    */
+    fun createWorldPropertyPlotPhotoUploadUrlRequestConfig(plotId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/property/plots/{plotId}/photo/upload-url".replace("{"+"plotId"+"}", "$plotId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Stand one of your showrooms on a plot you own or rent.
+    * 
+    * @param plotId  
+    * @return CreateWorldPropertyPlotShowroomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldPropertyPlotShowroom(plotId: kotlin.String) : CreateWorldPropertyPlotShowroomResponse {
+        val localVarResponse = createWorldPropertyPlotShowroomWithHttpInfo(plotId = plotId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldPropertyPlotShowroomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Stand one of your showrooms on a plot you own or rent.
+    * 
+    * @param plotId  
+    * @return ApiResponse<CreateWorldPropertyPlotShowroomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldPropertyPlotShowroomWithHttpInfo(plotId: kotlin.String) : ApiResponse<CreateWorldPropertyPlotShowroomResponse?> {
+        val localVariableConfig = createWorldPropertyPlotShowroomRequestConfig(plotId = plotId)
+
+        return request<Unit, CreateWorldPropertyPlotShowroomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldPropertyPlotShowroom
+    *
+    * @param plotId  
+    * @return RequestConfig
+    */
+    fun createWorldPropertyPlotShowroomRequestConfig(plotId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/property/plots/{plotId}/showroom".replace("{"+"plotId"+"}", "$plotId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Ban someone owner-wide or from one showroom.
+    * 
+    * @return ListWorldPropertyTrespassedResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldPropertyTrespassed() : ListWorldPropertyTrespassedResponse {
+        val localVarResponse = createWorldPropertyTrespassedWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldPropertyTrespassedResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Ban someone owner-wide or from one showroom.
+    * 
+    * @return ApiResponse<ListWorldPropertyTrespassedResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldPropertyTrespassedWithHttpInfo() : ApiResponse<ListWorldPropertyTrespassedResponse?> {
+        val localVariableConfig = createWorldPropertyTrespassedRequestConfig()
+
+        return request<Unit, ListWorldPropertyTrespassedResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldPropertyTrespassed
+    *
+    * @return RequestConfig
+    */
+    fun createWorldPropertyTrespassedRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/property/trespassed",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Open a Space (sellers only, at most two): slug, name, venue, optional membership and about.
     * 
     * @return CreateWorldSpaceResponse
@@ -5709,6 +7271,722 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Accept or decline an application.
+    * 
+    * @param id  
+    * @return CreateWorldStaffApplicationDecideResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldStaffApplicationDecide(id: kotlin.String) : CreateWorldStaffApplicationDecideResponse {
+        val localVarResponse = createWorldStaffApplicationDecideWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldStaffApplicationDecideResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Accept or decline an application.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldStaffApplicationDecideResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldStaffApplicationDecideWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldStaffApplicationDecideResponse?> {
+        val localVariableConfig = createWorldStaffApplicationDecideRequestConfig(id = id)
+
+        return request<Unit, CreateWorldStaffApplicationDecideResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldStaffApplicationDecide
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldStaffApplicationDecideRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/staff/applications/{id}/decide".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Rate the worker of one of your seats.
+    * 
+    * @param id  
+    * @return CreateWorldStaffAssignmentRateWorkerResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldStaffAssignmentRateWorker(id: kotlin.String) : CreateWorldStaffAssignmentRateWorkerResponse {
+        val localVarResponse = createWorldStaffAssignmentRateWorkerWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldStaffAssignmentRateWorkerResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Rate the worker of one of your seats.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldStaffAssignmentRateWorkerResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldStaffAssignmentRateWorkerWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldStaffAssignmentRateWorkerResponse?> {
+        val localVariableConfig = createWorldStaffAssignmentRateWorkerRequestConfig(id = id)
+
+        return request<Unit, CreateWorldStaffAssignmentRateWorkerResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldStaffAssignmentRateWorker
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldStaffAssignmentRateWorkerRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/staff/assignments/{id}/rate-worker".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Post a job: a showroom, stall or convention, pay, recurrence and rules.
+    * 
+    * @return WorldStaffPostingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldStaffPosting() : WorldStaffPostingResponse {
+        val localVarResponse = createWorldStaffPostingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as WorldStaffPostingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Post a job: a showroom, stall or convention, pay, recurrence and rules.
+    * 
+    * @return ApiResponse<WorldStaffPostingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldStaffPostingWithHttpInfo() : ApiResponse<WorldStaffPostingResponse?> {
+        val localVariableConfig = createWorldStaffPostingRequestConfig()
+
+        return request<Unit, WorldStaffPostingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldStaffPosting
+    *
+    * @return RequestConfig
+    */
+    fun createWorldStaffPostingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/staff/postings",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Open, pause or close a posting.
+    * 
+    * @param id  
+    * @return WorldStaffPostingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldStaffPostingStatus(id: kotlin.String) : WorldStaffPostingResponse {
+        val localVarResponse = createWorldStaffPostingStatusWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as WorldStaffPostingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Open, pause or close a posting.
+    * 
+    * @param id  
+    * @return ApiResponse<WorldStaffPostingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldStaffPostingStatusWithHttpInfo(id: kotlin.String) : ApiResponse<WorldStaffPostingResponse?> {
+        val localVariableConfig = createWorldStaffPostingStatusRequestConfig(id = id)
+
+        return request<Unit, WorldStaffPostingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldStaffPostingStatus
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldStaffPostingStatusRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/staff/postings/{id}/status".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pay your street&#39;s upkeep forward.
+    * 
+    * @param id  
+    * @return CreateWorldStreetOwnedUpkeepPayResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldStreetOwnedUpkeepPay(id: kotlin.String) : CreateWorldStreetOwnedUpkeepPayResponse {
+        val localVarResponse = createWorldStreetOwnedUpkeepPayWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldStreetOwnedUpkeepPayResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pay your street&#39;s upkeep forward.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldStreetOwnedUpkeepPayResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldStreetOwnedUpkeepPayWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldStreetOwnedUpkeepPayResponse?> {
+        val localVariableConfig = createWorldStreetOwnedUpkeepPayRequestConfig(id = id)
+
+        return request<Unit, CreateWorldStreetOwnedUpkeepPayResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldStreetOwnedUpkeepPay
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldStreetOwnedUpkeepPayRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/streets/owned/{id}/upkeep/pay".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Cancel a hall rental: the whole rent back until 7 days before the first day, nothing after.
+    * 
+    * @param id  
+    * @return CreateWorldVenueBookingCancelResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldVenueBookingCancel(id: kotlin.String) : CreateWorldVenueBookingCancelResponse {
+        val localVarResponse = createWorldVenueBookingCancelWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldVenueBookingCancelResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Cancel a hall rental: the whole rent back until 7 days before the first day, nothing after.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldVenueBookingCancelResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldVenueBookingCancelWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldVenueBookingCancelResponse?> {
+        val localVariableConfig = createWorldVenueBookingCancelRequestConfig(id = id)
+
+        return request<Unit, CreateWorldVenueBookingCancelResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldVenueBookingCancel
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldVenueBookingCancelRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/venue-bookings/{id}/cancel".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
+    * 
+    * @param id  
+    * @return CreateWorldStaffAssignmentRateWorkerResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldWorkAssignmentRateEmployer(id: kotlin.String) : CreateWorldStaffAssignmentRateWorkerResponse {
+        val localVarResponse = createWorldWorkAssignmentRateEmployerWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldStaffAssignmentRateWorkerResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Rate the employer of a public-job shift you worked: paid on time, job as described, conduct.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldStaffAssignmentRateWorkerResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldWorkAssignmentRateEmployerWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldStaffAssignmentRateWorkerResponse?> {
+        val localVariableConfig = createWorldWorkAssignmentRateEmployerRequestConfig(id = id)
+
+        return request<Unit, CreateWorldStaffAssignmentRateWorkerResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldWorkAssignmentRateEmployer
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldWorkAssignmentRateEmployerRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/work/assignments/{id}/rate-employer".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Apply for a job.
+    * 
+    * @param id  
+    * @return CreateWorldWorkPostingApplyResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun createWorldWorkPostingApply(id: kotlin.String) : CreateWorldWorkPostingApplyResponse {
+        val localVarResponse = createWorldWorkPostingApplyWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateWorldWorkPostingApplyResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Apply for a job.
+    * 
+    * @param id  
+    * @return ApiResponse<CreateWorldWorkPostingApplyResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun createWorldWorkPostingApplyWithHttpInfo(id: kotlin.String) : ApiResponse<CreateWorldWorkPostingApplyResponse?> {
+        val localVariableConfig = createWorldWorkPostingApplyRequestConfig(id = id)
+
+        return request<Unit, CreateWorldWorkPostingApplyResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation createWorldWorkPostingApply
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun createWorldWorkPostingApplyRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.POST,
+            path = "/v1/world/work/postings/{id}/apply".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Archive a showroom: private, off its plots, billing stopped. Never deletes; the primary cannot be archived (409 showroom_primary).
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return DeleteShowroomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteShowroom(id: kotlin.String, storefrontId: java.util.UUID?) : DeleteShowroomResponse {
+        val localVarResponse = deleteShowroomWithHttpInfo(id = id, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteShowroomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Archive a showroom: private, off its plots, billing stopped. Never deletes; the primary cannot be archived (409 showroom_primary).
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<DeleteShowroomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteShowroomWithHttpInfo(id: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<DeleteShowroomResponse?> {
+        val localVariableConfig = deleteShowroomRequestConfig(id = id, storefrontId = storefrontId)
+
+        return request<Unit, DeleteShowroomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteShowroom
+    *
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun deleteShowroomRequestConfig(id: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/showrooms/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take a showroom off a plot (the plot stays yours).
+    * 
+    * @param id  
+    * @param plotId  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return CreateShowroomPlacementResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteShowroomPlacement(id: kotlin.String, plotId: kotlin.String, storefrontId: java.util.UUID?) : CreateShowroomPlacementResponse {
+        val localVarResponse = deleteShowroomPlacementWithHttpInfo(id = id, plotId = plotId, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as CreateShowroomPlacementResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take a showroom off a plot (the plot stays yours).
+    * 
+    * @param id  
+    * @param plotId  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<CreateShowroomPlacementResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteShowroomPlacementWithHttpInfo(id: kotlin.String, plotId: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<CreateShowroomPlacementResponse?> {
+        val localVariableConfig = deleteShowroomPlacementRequestConfig(id = id, plotId = plotId, storefrontId = storefrontId)
+
+        return request<Unit, CreateShowroomPlacementResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteShowroomPlacement
+    *
+    * @param id  
+    * @param plotId  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun deleteShowroomPlacementRequestConfig(id: kotlin.String, plotId: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/showrooms/{id}/placement/{plotId}".replace("{"+"id"+"}", "$id").replace("{"+"plotId"+"}", "$plotId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Take somebody&#39;s access to your room away, or kill an invite nobody has used yet.
     * 
     * @param id  
@@ -6203,6 +8481,76 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
+    * 
+    * @param id  
+    * @return DeleteWorldGamePackageResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteWorldGamePackage(id: kotlin.String) : DeleteWorldGamePackageResponse {
+        val localVarResponse = deleteWorldGamePackageWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteWorldGamePackageResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Delete a Classic game: unpublished, then a tombstone restorable for 30 days.
+    * 
+    * @param id  
+    * @return ApiResponse<DeleteWorldGamePackageResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteWorldGamePackageWithHttpInfo(id: kotlin.String) : ApiResponse<DeleteWorldGamePackageResponse?> {
+        val localVariableConfig = deleteWorldGamePackageRequestConfig(id = id)
+
+        return request<Unit, DeleteWorldGamePackageResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteWorldGamePackage
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteWorldGamePackageRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/world/games/packages/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Take one of your loans off show in the Hall of Grails.
     * 
     * @param id  
@@ -6486,6 +8834,82 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Withdraw a plot or street from the Market.
+    * 
+    * @param kind  
+    * @param id  
+    * @param mode  
+    * @return DeleteWorldMarketListingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteWorldMarketListing(kind: kotlin.String, id: kotlin.String, mode: kotlin.String) : DeleteWorldMarketListingResponse {
+        val localVarResponse = deleteWorldMarketListingWithHttpInfo(kind = kind, id = id, mode = mode)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteWorldMarketListingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Withdraw a plot or street from the Market.
+    * 
+    * @param kind  
+    * @param id  
+    * @param mode  
+    * @return ApiResponse<DeleteWorldMarketListingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteWorldMarketListingWithHttpInfo(kind: kotlin.String, id: kotlin.String, mode: kotlin.String) : ApiResponse<DeleteWorldMarketListingResponse?> {
+        val localVariableConfig = deleteWorldMarketListingRequestConfig(kind = kind, id = id, mode = mode)
+
+        return request<Unit, DeleteWorldMarketListingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteWorldMarketListing
+    *
+    * @param kind  
+    * @param id  
+    * @param mode  
+    * @return RequestConfig
+    */
+    fun deleteWorldMarketListingRequestConfig(kind: kotlin.String, id: kotlin.String, mode: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/world/market/listings/{kind}/{id}/{mode}".replace("{"+"kind"+"}", "$kind").replace("{"+"id"+"}", "$id").replace("{"+"mode"+"}", "$mode"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Delete a saved look. 404 when it is not yours.
     * 
     * @param id  
@@ -6702,6 +9126,146 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Take the showroom off a plot.
+    * 
+    * @param plotId  
+    * @return DeleteWorldPropertyPlotShowroomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteWorldPropertyPlotShowroom(plotId: kotlin.String) : DeleteWorldPropertyPlotShowroomResponse {
+        val localVarResponse = deleteWorldPropertyPlotShowroomWithHttpInfo(plotId = plotId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteWorldPropertyPlotShowroomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take the showroom off a plot.
+    * 
+    * @param plotId  
+    * @return ApiResponse<DeleteWorldPropertyPlotShowroomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteWorldPropertyPlotShowroomWithHttpInfo(plotId: kotlin.String) : ApiResponse<DeleteWorldPropertyPlotShowroomResponse?> {
+        val localVariableConfig = deleteWorldPropertyPlotShowroomRequestConfig(plotId = plotId)
+
+        return request<Unit, DeleteWorldPropertyPlotShowroomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteWorldPropertyPlotShowroom
+    *
+    * @param plotId  
+    * @return RequestConfig
+    */
+    fun deleteWorldPropertyPlotShowroomRequestConfig(plotId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/world/property/plots/{plotId}/showroom".replace("{"+"plotId"+"}", "$plotId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Lift a ban.
+    * 
+    * @param userId  
+    * @return DeleteSpatialSceneGrantResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteWorldPropertyTrespassed(userId: kotlin.String) : DeleteSpatialSceneGrantResponse {
+        val localVarResponse = deleteWorldPropertyTrespassedWithHttpInfo(userId = userId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteSpatialSceneGrantResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Lift a ban.
+    * 
+    * @param userId  
+    * @return ApiResponse<DeleteSpatialSceneGrantResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteWorldPropertyTrespassedWithHttpInfo(userId: kotlin.String) : ApiResponse<DeleteSpatialSceneGrantResponse?> {
+        val localVariableConfig = deleteWorldPropertyTrespassedRequestConfig(userId = userId)
+
+        return request<Unit, DeleteSpatialSceneGrantResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteWorldPropertyTrespassed
+    *
+    * @param userId  
+    * @return RequestConfig
+    */
+    fun deleteWorldPropertyTrespassedRequestConfig(userId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/world/property/trespassed/{userId}".replace("{"+"userId"+"}", "$userId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * As host, close a Space.
     * 
     * @param slug  
@@ -6838,6 +9402,452 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.DELETE,
             path = "/v1/world/spaces/{slug}/events/{id}".replace("{"+"slug"+"}", "$slug").replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Take a worker off a seat that has not started.
+    * 
+    * @param id  
+    * @return DeleteSpatialSceneGrantResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun deleteWorldStaffAssignment(id: kotlin.String) : DeleteSpatialSceneGrantResponse {
+        val localVarResponse = deleteWorldStaffAssignmentWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as DeleteSpatialSceneGrantResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Take a worker off a seat that has not started.
+    * 
+    * @param id  
+    * @return ApiResponse<DeleteSpatialSceneGrantResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun deleteWorldStaffAssignmentWithHttpInfo(id: kotlin.String) : ApiResponse<DeleteSpatialSceneGrantResponse?> {
+        val localVariableConfig = deleteWorldStaffAssignmentRequestConfig(id = id)
+
+        return request<Unit, DeleteSpatialSceneGrantResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation deleteWorldStaffAssignment
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun deleteWorldStaffAssignmentRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.DELETE,
+            path = "/v1/world/staff/assignments/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your store&#39;s showroom in Crossly World: the room and its look, fixtures with their slot grids, where every item stands (pinned by a person or placed automatically), sharing settings and the stock that can stand there. The ETag is the version.
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return GetShowroomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getShowroom(storefrontId: java.util.UUID?) : GetShowroomResponse {
+        val localVarResponse = getShowroomWithHttpInfo(storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetShowroomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your store&#39;s showroom in Crossly World: the room and its look, fixtures with their slot grids, where every item stands (pinned by a person or placed automatically), sharing settings and the stock that can stand there. The ETag is the version.
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<GetShowroomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getShowroomWithHttpInfo(storefrontId: java.util.UUID?) : ApiResponse<GetShowroomResponse?> {
+        val localVariableConfig = getShowroomRequestConfig(storefrontId = storefrontId)
+
+        return request<Unit, GetShowroomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getShowroom
+    *
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun getShowroomRequestConfig(storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/showroom",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A showroom&#39;s billing: included, active (paid through), past due or cancelled, and the rails a payment can use.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return GetShowroomBillingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getShowroomBilling(id: kotlin.String, storefrontId: java.util.UUID?) : GetShowroomBillingResponse {
+        val localVarResponse = getShowroomBillingWithHttpInfo(id = id, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetShowroomBillingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A showroom&#39;s billing: included, active (paid through), past due or cancelled, and the rails a payment can use.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<GetShowroomBillingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getShowroomBillingWithHttpInfo(id: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<GetShowroomBillingResponse?> {
+        val localVariableConfig = getShowroomBillingRequestConfig(id = id, storefrontId = storefrontId)
+
+        return request<Unit, GetShowroomBillingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getShowroomBilling
+    *
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun getShowroomBillingRequestConfig(id: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/showrooms/{id}/billing".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One showroom: room and look, fixtures (with holders), placements, settings (hours, auto-include) and stock. The ETag is the version.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return GetShowroomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getShowroomById(id: kotlin.String, storefrontId: java.util.UUID?) : GetShowroomResponse {
+        val localVarResponse = getShowroomByIdWithHttpInfo(id = id, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetShowroomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One showroom: room and look, fixtures (with holders), placements, settings (hours, auto-include) and stock. The ETag is the version.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<GetShowroomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getShowroomByIdWithHttpInfo(id: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<GetShowroomResponse?> {
+        val localVariableConfig = getShowroomByIdRequestConfig(id = id, storefrontId = storefrontId)
+
+        return request<Unit, GetShowroomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getShowroomById
+    *
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun getShowroomByIdRequestConfig(id: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/showrooms/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Everything a showroom can be made of: fixture displays (kind, slots per unit), room sizes, themes, surfaces, shopfronts, facades, sign styles and fonts, window moods, and &#x60;holders&#x60;: every fixture holder with &#x60;owned&#x60; (free, or a premium one you bought in the in-world cosmetics market; an unowned premium holder is refused with holder_not_owned).
+    * 
+    * @return GetShowroomCatalogResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getShowroomCatalog() : GetShowroomCatalogResponse {
+        val localVarResponse = getShowroomCatalogWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetShowroomCatalogResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Everything a showroom can be made of: fixture displays (kind, slots per unit), room sizes, themes, surfaces, shopfronts, facades, sign styles and fonts, window moods, and &#x60;holders&#x60;: every fixture holder with &#x60;owned&#x60; (free, or a premium one you bought in the in-world cosmetics market; an unowned premium holder is refused with holder_not_owned).
+    * 
+    * @return ApiResponse<GetShowroomCatalogResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getShowroomCatalogWithHttpInfo() : ApiResponse<GetShowroomCatalogResponse?> {
+        val localVariableConfig = getShowroomCatalogRequestConfig()
+
+        return request<Unit, GetShowroomCatalogResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getShowroomCatalog
+    *
+    * @return RequestConfig
+    */
+    fun getShowroomCatalogRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/showroom/catalog",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The plots a showroom stands on, and the plots your store owns or rents that it could stand on.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return GetShowroomPlacementResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getShowroomPlacement(id: kotlin.String, storefrontId: java.util.UUID?) : GetShowroomPlacementResponse {
+        val localVarResponse = getShowroomPlacementWithHttpInfo(id = id, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetShowroomPlacementResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The plots a showroom stands on, and the plots your store owns or rents that it could stand on.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<GetShowroomPlacementResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getShowroomPlacementWithHttpInfo(id: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<GetShowroomPlacementResponse?> {
+        val localVariableConfig = getShowroomPlacementRequestConfig(id = id, storefrontId = storefrontId)
+
+        return request<Unit, GetShowroomPlacementResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getShowroomPlacement
+    *
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun getShowroomPlacementRequestConfig(id: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/showrooms/{id}/placement".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -6985,7 +9995,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Your shop&#39;s neighbourhood, and whether and where it may move.
+    * Where your shop stands, and the district theme your stock fits.
     * 
     * @return GetSpatialShopNeighbourhoodResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -7015,7 +10025,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Your shop&#39;s neighbourhood, and whether and where it may move.
+    * Where your shop stands, and the district theme your stock fits.
     * 
     * @return ApiResponse<GetSpatialShopNeighbourhoodResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -7323,6 +10333,73 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Your AI attendant and whether your AI key is connected.
+    * 
+    * @return GetWorldAttendantResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldAttendant() : GetWorldAttendantResponse {
+        val localVarResponse = getWorldAttendantWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldAttendantResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your AI attendant and whether your AI key is connected.
+    * 
+    * @return ApiResponse<GetWorldAttendantResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldAttendantWithHttpInfo() : ApiResponse<GetWorldAttendantResponse?> {
+        val localVariableConfig = getWorldAttendantRequestConfig()
+
+        return request<Unit, GetWorldAttendantResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldAttendant
+    *
+    * @return RequestConfig
+    */
+    fun getWorldAttendantRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/attendant",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * The Sales Aurora over the Commons in Crossly World: every real sale on Crossly in the last data.windowDays (30) days. data.total (sales in the window), data.families (key, label, colour, count per colour family: cards, coins, jewellery, electronics, media, fashion, toys, other) and data.sales (newest first, at most 48: family, ageHours, fresh -- sold in the last ten minutes, which shimmers). Aggregate only: no item, price, seller or platform. data.updatedAt is when it was read.
     * 
     * @return GetWorldAuroraResponse
@@ -7390,9 +10467,9 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Whether Crossly keeps a world shop for you automatically: enabled, and the shop (id, name, visibility, autoCreated, address, label) or null. Change it with PATCH /v1/world/auto-shop.
+    * The free basic wardrobe every account owns: 25 garments (tees, hoodie, overshirt, polo, jacket, vest, jeans, shorts, skirt, sneakers, boots, loafers, caps...) by slot, each with its colourways. Wear one by saving appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } as \&quot;garment:colour\&quot; (outer and hat may be \&quot;none\&quot;) with PUT /v1/world/avatar/look.
     * 
-    * @return GetWorldAutoShopResponse
+    * @return GetWorldAvatarBasicResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -7401,11 +10478,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun getWorldAutoShop() : GetWorldAutoShopResponse {
-        val localVarResponse = getWorldAutoShopWithHttpInfo()
+    fun getWorldAvatarBasic() : GetWorldAvatarBasicResponse {
+        val localVarResponse = getWorldAvatarBasicWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldAutoShopResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldAvatarBasicResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -7420,28 +10497,28 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Whether Crossly keeps a world shop for you automatically: enabled, and the shop (id, name, visibility, autoCreated, address, label) or null. Change it with PATCH /v1/world/auto-shop.
+    * The free basic wardrobe every account owns: 25 garments (tees, hoodie, overshirt, polo, jacket, vest, jeans, shorts, skirt, sneakers, boots, loafers, caps...) by slot, each with its colourways. Wear one by saving appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } as \&quot;garment:colour\&quot; (outer and hat may be \&quot;none\&quot;) with PUT /v1/world/avatar/look.
     * 
-    * @return ApiResponse<GetWorldAutoShopResponse?>
+    * @return ApiResponse<GetWorldAvatarBasicResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun getWorldAutoShopWithHttpInfo() : ApiResponse<GetWorldAutoShopResponse?> {
-        val localVariableConfig = getWorldAutoShopRequestConfig()
+    fun getWorldAvatarBasicWithHttpInfo() : ApiResponse<GetWorldAvatarBasicResponse?> {
+        val localVariableConfig = getWorldAvatarBasicRequestConfig()
 
-        return request<Unit, GetWorldAutoShopResponse>(
+        return request<Unit, GetWorldAvatarBasicResponse>(
             localVariableConfig
         )
     }
 
     /**
-    * To obtain the request config of the operation getWorldAutoShop
+    * To obtain the request config of the operation getWorldAvatarBasic
     *
     * @return RequestConfig
     */
-    fun getWorldAutoShopRequestConfig() : RequestConfig<Unit> {
+    fun getWorldAvatarBasicRequestConfig() : RequestConfig<Unit> {
         val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
@@ -7449,7 +10526,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
 
         return RequestConfig(
             method = RequestMethod.GET,
-            path = "/v1/world/auto-shop",
+            path = "/v1/world/avatar/basics",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -7788,6 +10865,73 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/world/avatar/nft-badge",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Which rails (card, CBX) can pay in the world right now.
+    * 
+    * @return GetWorldBillingRailResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldBillingRail() : GetWorldBillingRailResponse {
+        val localVarResponse = getWorldBillingRailWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldBillingRailResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Which rails (card, CBX) can pay in the world right now.
+    * 
+    * @return ApiResponse<GetWorldBillingRailResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldBillingRailWithHttpInfo() : ApiResponse<GetWorldBillingRailResponse?> {
+        val localVariableConfig = getWorldBillingRailRequestConfig()
+
+        return request<Unit, GetWorldBillingRailResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldBillingRail
+    *
+    * @return RequestConfig
+    */
+    fun getWorldBillingRailRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/billing/rails",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -8203,6 +11347,73 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Your world controls settings (look sensitivity, invert look, stick size, left-handed, camera distance, reduced camera motion, tap-to-walk, haptics) and whether you have seen the controls tutorial.
+    * 
+    * @return GetWorldControlResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldControl() : GetWorldControlResponse {
+        val localVarResponse = getWorldControlWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldControlResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your world controls settings (look sensitivity, invert look, stick size, left-handed, camera distance, reduced camera motion, tap-to-walk, haptics) and whether you have seen the controls tutorial.
+    * 
+    * @return ApiResponse<GetWorldControlResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldControlWithHttpInfo() : ApiResponse<GetWorldControlResponse?> {
+        val localVariableConfig = getWorldControlRequestConfig()
+
+        return request<Unit, GetWorldControlResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldControl
+    *
+    * @return RequestConfig
+    */
+    fun getWorldControlRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/controls",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * One convention. 404 for an unknown or malformed id alike.
     * 
     * @param id  
@@ -8266,6 +11477,286 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/world/conventions/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A convention from the exhibitor side: tiers with price, size, capacity and booths left, the rails that pay now, and your own booth (status, fee, paid, checked in, listings).
+    * 
+    * @param id  
+    * @return GetWorldConventionExhibitResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldConventionExhibit(id: kotlin.String) : GetWorldConventionExhibitResponse {
+        val localVarResponse = getWorldConventionExhibitWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldConventionExhibitResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A convention from the exhibitor side: tiers with price, size, capacity and booths left, the rails that pay now, and your own booth (status, fee, paid, checked in, listings).
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldConventionExhibitResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldConventionExhibitWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldConventionExhibitResponse?> {
+        val localVariableConfig = getWorldConventionExhibitRequestConfig(id = id)
+
+        return request<Unit, GetWorldConventionExhibitResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldConventionExhibit
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldConventionExhibitRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/conventions/{id}/exhibit".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The hall design (booths, stage, signs, entrance, kiosk), its version and any problems.
+    * 
+    * @param id  
+    * @return GetWorldConventionHallResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldConventionHall(id: kotlin.String) : GetWorldConventionHallResponse {
+        val localVarResponse = getWorldConventionHallWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldConventionHallResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The hall design (booths, stage, signs, entrance, kiosk), its version and any problems.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldConventionHallResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldConventionHallWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldConventionHallResponse?> {
+        val localVariableConfig = getWorldConventionHallRequestConfig(id = id)
+
+        return request<Unit, GetWorldConventionHallResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldConventionHall
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldConventionHallRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/conventions/{id}/hall".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A convention you organise: its settings, booth tiers, every seller (status, booth, fee, paid, checked in) and the venue.
+    * 
+    * @param id  
+    * @return GetWorldConventionManageResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldConventionManage(id: kotlin.String) : GetWorldConventionManageResponse {
+        val localVarResponse = getWorldConventionManageWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldConventionManageResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A convention you organise: its settings, booth tiers, every seller (status, booth, fee, paid, checked in) and the venue.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldConventionManageResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldConventionManageWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldConventionManageResponse?> {
+        val localVariableConfig = getWorldConventionManageRequestConfig(id = id)
+
+        return request<Unit, GetWorldConventionManageResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldConventionManage
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldConventionManageRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/conventions/{id}/manage".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The status page: sellers, booths filled per tier, walk-ins, sales of brought listings, booth fees paid and owed.
+    * 
+    * @param id  
+    * @return GetWorldConventionStatusPageResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldConventionStatusPage(id: kotlin.String) : GetWorldConventionStatusPageResponse {
+        val localVarResponse = getWorldConventionStatusPageWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldConventionStatusPageResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The status page: sellers, booths filled per tier, walk-ins, sales of brought listings, booth fees paid and owed.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldConventionStatusPageResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldConventionStatusPageWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldConventionStatusPageResponse?> {
+        val localVariableConfig = getWorldConventionStatusPageRequestConfig(id = id)
+
+        return request<Unit, GetWorldConventionStatusPageResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldConventionStatusPage
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldConventionStatusPageRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/conventions/{id}/status-page".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -9089,6 +12580,146 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days&#x3D;1-90.
+    * 
+    * @param id  
+    * @return GetWorldGamePackageStatResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldGamePackageStat(id: kotlin.String) : GetWorldGamePackageStatResponse {
+        val localVarResponse = getWorldGamePackageStatWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldGamePackageStatResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Play stats for one of your Classic games: 30-day totals, the daily series the launcher ranks on (uniques, sessions, playtime, first-play bounces, D1/D7/D28), its ranking score, test impressions and players right now. ?days&#x3D;1-90.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldGamePackageStatResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldGamePackageStatWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldGamePackageStatResponse?> {
+        val localVariableConfig = getWorldGamePackageStatRequestConfig(id = id)
+
+        return request<Unit, GetWorldGamePackageStatResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldGamePackageStat
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldGamePackageStatRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/games/packages/{id}/stats".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Every version of one of your Classic games: draft, pending, approved, rejected, withdrawn or cancelled, which one is live, its documents and report.
+    * 
+    * @param id  
+    * @return GetWorldGamePackageVersionResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldGamePackageVersion(id: kotlin.String) : GetWorldGamePackageVersionResponse {
+        val localVarResponse = getWorldGamePackageVersionWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldGamePackageVersionResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Every version of one of your Classic games: draft, pending, approved, rejected, withdrawn or cancelled, which one is live, its documents and report.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldGamePackageVersionResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldGamePackageVersionWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldGamePackageVersionResponse?> {
+        val localVariableConfig = getWorldGamePackageVersionRequestConfig(id = id)
+
+        return request<Unit, GetWorldGamePackageVersionResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldGamePackageVersion
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldGamePackageVersionRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/games/packages/{id}/versions".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * A fresh game package from a template (table, arena, object; collection is an NFT capability declaration), as { path, base64 } files: the world-kit init, for an agent with no local kit. ?id&#x3D;my-game&amp;name&#x3D;My Game.
     * 
     * @param kind  
@@ -9765,6 +13396,417 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * The Carnival Plaza launcher: portals for Classic games, Crossly&#39;s own card games and the Commons card tables, each with players right now, your friends inside, its ranking score (published weights, retention-weighted, first-play bounce negative) and where Play goes. Twelve ring slots: friends&#39; pick, new &amp; rising (guaranteed test impressions), then the top, first-party capped at 25%.
+    * 
+    * @return GetWorldLauncherResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldLauncher() : GetWorldLauncherResponse {
+        val localVarResponse = getWorldLauncherWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldLauncherResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The Carnival Plaza launcher: portals for Classic games, Crossly&#39;s own card games and the Commons card tables, each with players right now, your friends inside, its ranking score (published weights, retention-weighted, first-play bounce negative) and where Play goes. Twelve ring slots: friends&#39; pick, new &amp; rising (guaranteed test impressions), then the top, first-party capped at 25%.
+    * 
+    * @return ApiResponse<GetWorldLauncherResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldLauncherWithHttpInfo() : ApiResponse<GetWorldLauncherResponse?> {
+        val localVariableConfig = getWorldLauncherRequestConfig()
+
+        return request<Unit, GetWorldLauncherResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldLauncher
+    *
+    * @return RequestConfig
+    */
+    fun getWorldLauncherRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/worlds/launcher",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * World money over 7, 30 or 90 days: plot purchases, maintenance, rent, deed sales, staff wages, shifts and stalls, in and out.
+    * 
+    * @return GetWorldManageLedgerResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldManageLedger() : GetWorldManageLedgerResponse {
+        val localVarResponse = getWorldManageLedgerWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldManageLedgerResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * World money over 7, 30 or 90 days: plot purchases, maintenance, rent, deed sales, staff wages, shifts and stalls, in and out.
+    * 
+    * @return ApiResponse<GetWorldManageLedgerResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldManageLedgerWithHttpInfo() : ApiResponse<GetWorldManageLedgerResponse?> {
+        val localVariableConfig = getWorldManageLedgerRequestConfig()
+
+        return request<Unit, GetWorldManageLedgerResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldManageLedger
+    *
+    * @return RequestConfig
+    */
+    fun getWorldManageLedgerRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/manage/ledger",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your Crossly World at a glance: shop and addresses, property, staff and shifts, conventions, stalls, 30-day visitors and money.
+    * 
+    * @return GetWorldManageOverviewResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldManageOverview() : GetWorldManageOverviewResponse {
+        val localVarResponse = getWorldManageOverviewWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldManageOverviewResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your Crossly World at a glance: shop and addresses, property, staff and shifts, conventions, stalls, 30-day visitors and money.
+    * 
+    * @return ApiResponse<GetWorldManageOverviewResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldManageOverviewWithHttpInfo() : ApiResponse<GetWorldManageOverviewResponse?> {
+        val localVariableConfig = getWorldManageOverviewRequestConfig()
+
+        return request<Unit, GetWorldManageOverviewResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldManageOverview
+    *
+    * @return RequestConfig
+    */
+    fun getWorldManageOverviewRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/manage/overview",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Who came to your world shop over 7, 30 or 90 days: the funnel, attention by day, most-looked and most-wanted items.
+    * 
+    * @return GetWorldManageVisitorResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldManageVisitor() : GetWorldManageVisitorResponse {
+        val localVarResponse = getWorldManageVisitorWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldManageVisitorResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Who came to your world shop over 7, 30 or 90 days: the funnel, attention by day, most-looked and most-wanted items.
+    * 
+    * @return ApiResponse<GetWorldManageVisitorResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldManageVisitorWithHttpInfo() : ApiResponse<GetWorldManageVisitorResponse?> {
+        val localVariableConfig = getWorldManageVisitorRequestConfig()
+
+        return request<Unit, GetWorldManageVisitorResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldManageVisitor
+    *
+    * @return RequestConfig
+    */
+    fun getWorldManageVisitorRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/manage/visitors",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One plot or street in the Market: price, renders, neighbours, foot traffic, history.
+    * 
+    * @param kind  
+    * @param id  
+    * @return GetWorldMarketResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldMarket(kind: kotlin.String, id: kotlin.String) : GetWorldMarketResponse {
+        val localVarResponse = getWorldMarketWithHttpInfo(kind = kind, id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldMarketResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One plot or street in the Market: price, renders, neighbours, foot traffic, history.
+    * 
+    * @param kind  
+    * @param id  
+    * @return ApiResponse<GetWorldMarketResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldMarketWithHttpInfo(kind: kotlin.String, id: kotlin.String) : ApiResponse<GetWorldMarketResponse?> {
+        val localVariableConfig = getWorldMarketRequestConfig(kind = kind, id = id)
+
+        return request<Unit, GetWorldMarketResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldMarket
+    *
+    * @param kind  
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldMarketRequestConfig(kind: kotlin.String, id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/market/{kind}/{id}".replace("{"+"kind"+"}", "$kind").replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Whether you may claim a plot on a neighbourhood street (its top sellers by recent sales), and why not.
+    * 
+    * @param slug  
+    * @return GetWorldNeighbourhoodClaimResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldNeighbourhoodClaim(slug: kotlin.String) : GetWorldNeighbourhoodClaimResponse {
+        val localVarResponse = getWorldNeighbourhoodClaimWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldNeighbourhoodClaimResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Whether you may claim a plot on a neighbourhood street (its top sellers by recent sales), and why not.
+    * 
+    * @param slug  
+    * @return ApiResponse<GetWorldNeighbourhoodClaimResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldNeighbourhoodClaimWithHttpInfo(slug: kotlin.String) : ApiResponse<GetWorldNeighbourhoodClaimResponse?> {
+        val localVariableConfig = getWorldNeighbourhoodClaimRequestConfig(slug = slug)
+
+        return request<Unit, GetWorldNeighbourhoodClaimResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldNeighbourhoodClaim
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun getWorldNeighbourhoodClaimRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/neighbourhoods/{slug}/claim".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Your party chat: the recent lines. 404 when this is not your party.
     * 
     * @param id  
@@ -10337,6 +14379,283 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * One plot of yours: showroom, rental, value, upkeep.
+    * 
+    * @param plotId  
+    * @return GetWorldPropertyPlotResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldPropertyPlot(plotId: kotlin.String) : GetWorldPropertyPlotResponse {
+        val localVarResponse = getWorldPropertyPlotWithHttpInfo(plotId = plotId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldPropertyPlotResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One plot of yours: showroom, rental, value, upkeep.
+    * 
+    * @param plotId  
+    * @return ApiResponse<GetWorldPropertyPlotResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldPropertyPlotWithHttpInfo(plotId: kotlin.String) : ApiResponse<GetWorldPropertyPlotResponse?> {
+        val localVariableConfig = getWorldPropertyPlotRequestConfig(plotId = plotId)
+
+        return request<Unit, GetWorldPropertyPlotResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldPropertyPlot
+    *
+    * @param plotId  
+    * @return RequestConfig
+    */
+    fun getWorldPropertyPlotRequestConfig(plotId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/property/plots/{plotId}".replace("{"+"plotId"+"}", "$plotId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One plot you rent out, with its payments.
+    * 
+    * @param leaseId  
+    * @return GetWorldPropertyRentalResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldPropertyRental(leaseId: kotlin.String) : GetWorldPropertyRentalResponse {
+        val localVarResponse = getWorldPropertyRentalWithHttpInfo(leaseId = leaseId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldPropertyRentalResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One plot you rent out, with its payments.
+    * 
+    * @param leaseId  
+    * @return ApiResponse<GetWorldPropertyRentalResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldPropertyRentalWithHttpInfo(leaseId: kotlin.String) : ApiResponse<GetWorldPropertyRentalResponse?> {
+        val localVariableConfig = getWorldPropertyRentalRequestConfig(leaseId = leaseId)
+
+        return request<Unit, GetWorldPropertyRentalResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldPropertyRental
+    *
+    * @param leaseId  
+    * @return RequestConfig
+    */
+    fun getWorldPropertyRentalRequestConfig(leaseId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/property/rentals/{leaseId}".replace("{"+"leaseId"+"}", "$leaseId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One plot you rent, with its payments.
+    * 
+    * @param leaseId  
+    * @return GetWorldPropertyRentalResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldPropertyRenting(leaseId: kotlin.String) : GetWorldPropertyRentalResponse {
+        val localVarResponse = getWorldPropertyRentingWithHttpInfo(leaseId = leaseId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldPropertyRentalResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One plot you rent, with its payments.
+    * 
+    * @param leaseId  
+    * @return ApiResponse<GetWorldPropertyRentalResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldPropertyRentingWithHttpInfo(leaseId: kotlin.String) : ApiResponse<GetWorldPropertyRentalResponse?> {
+        val localVariableConfig = getWorldPropertyRentingRequestConfig(leaseId = leaseId)
+
+        return request<Unit, GetWorldPropertyRentalResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldPropertyRenting
+    *
+    * @param leaseId  
+    * @return RequestConfig
+    */
+    fun getWorldPropertyRentingRequestConfig(leaseId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/property/renting/{leaseId}".replace("{"+"leaseId"+"}", "$leaseId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Which Worlds payment rails are on now: cash (card), CBX, or both.
+    * 
+    * @return GetWorldRailResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldRail() : GetWorldRailResponse {
+        val localVarResponse = getWorldRailWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldRailResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Which Worlds payment rails are on now: cash (card), CBX, or both.
+    * 
+    * @return ApiResponse<GetWorldRailResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldRailWithHttpInfo() : ApiResponse<GetWorldRailResponse?> {
+        val localVariableConfig = getWorldRailRequestConfig()
+
+        return request<Unit, GetWorldRailResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldRail
+    *
+    * @return RequestConfig
+    */
+    fun getWorldRailRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/rails",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * One Space: its layout, host, events and your place in it.
     * 
     * @param slug  
@@ -10467,6 +14786,353 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/world/spaces/can-host",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * One of your postings, with its shifts.
+    * 
+    * @param id  
+    * @return GetWorldStaffPostingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldStaffPosting(id: kotlin.String) : GetWorldStaffPostingResponse {
+        val localVarResponse = getWorldStaffPostingWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldStaffPostingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * One of your postings, with its shifts.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldStaffPostingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldStaffPostingWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldStaffPostingResponse?> {
+        val localVariableConfig = getWorldStaffPostingRequestConfig(id = id)
+
+        return request<Unit, GetWorldStaffPostingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldStaffPosting
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldStaffPostingRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/staff/postings/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your employer reputation, rated by the people who worked your public jobs.
+    * 
+    * @return GetWorldStaffReputationResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldStaffReputation() : GetWorldStaffReputationResponse {
+        val localVarResponse = getWorldStaffReputationWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldStaffReputationResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your employer reputation, rated by the people who worked your public jobs.
+    * 
+    * @return ApiResponse<GetWorldStaffReputationResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldStaffReputationWithHttpInfo() : ApiResponse<GetWorldStaffReputationResponse?> {
+        val localVariableConfig = getWorldStaffReputationRequestConfig()
+
+        return request<Unit, GetWorldStaffReputationResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldStaffReputation
+    *
+    * @return RequestConfig
+    */
+    fun getWorldStaffReputationRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/staff/reputation",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A street&#39;s fund: the CBX property payments on its plots over the last four weeks, and the street events it unlocked.
+    * 
+    * @param slug  
+    * @return GetWorldStreetFundResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldStreetFund(slug: kotlin.String) : GetWorldStreetFundResponse {
+        val localVarResponse = getWorldStreetFundWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldStreetFundResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A street&#39;s fund: the CBX property payments on its plots over the last four weeks, and the street events it unlocked.
+    * 
+    * @param slug  
+    * @return ApiResponse<GetWorldStreetFundResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldStreetFundWithHttpInfo(slug: kotlin.String) : ApiResponse<GetWorldStreetFundResponse?> {
+        val localVariableConfig = getWorldStreetFundRequestConfig(slug = slug)
+
+        return request<Unit, GetWorldStreetFundResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldStreetFund
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun getWorldStreetFundRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/streets/{slug}/fund".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * A street you own: tenants, applications, upkeep, look, fund.
+    * 
+    * @param id  
+    * @return GetWorldStreetOwnedResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldStreetOwned(id: kotlin.String) : GetWorldStreetOwnedResponse {
+        val localVarResponse = getWorldStreetOwnedWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldStreetOwnedResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * A street you own: tenants, applications, upkeep, look, fund.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldStreetOwnedResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldStreetOwnedWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldStreetOwnedResponse?> {
+        val localVariableConfig = getWorldStreetOwnedRequestConfig(id = id)
+
+        return request<Unit, GetWorldStreetOwnedResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldStreetOwned
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldStreetOwnedRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/streets/owned/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Plot numbers on the street you are trespassed from.
+    * 
+    * @param slug  
+    * @return GetWorldStreetTrespassBarrierResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldStreetTrespassBarrier(slug: kotlin.String) : GetWorldStreetTrespassBarrierResponse {
+        val localVarResponse = getWorldStreetTrespassBarrierWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldStreetTrespassBarrierResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Plot numbers on the street you are trespassed from.
+    * 
+    * @param slug  
+    * @return ApiResponse<GetWorldStreetTrespassBarrierResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldStreetTrespassBarrierWithHttpInfo(slug: kotlin.String) : ApiResponse<GetWorldStreetTrespassBarrierResponse?> {
+        val localVariableConfig = getWorldStreetTrespassBarrierRequestConfig(slug = slug)
+
+        return request<Unit, GetWorldStreetTrespassBarrierResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldStreetTrespassBarrier
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun getWorldStreetTrespassBarrierRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/streets/{slug}/trespass-barriers".replace("{"+"slug"+"}", "$slug"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -10611,6 +15277,76 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
+    * 
+    * @param id  
+    * @return GetWorldVenueQuoteResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldVenueQuote(id: kotlin.String) : GetWorldVenueQuoteResponse {
+        val localVarResponse = getWorldVenueQuoteWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldVenueQuoteResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What a hall costs for those days (startsOn, endsOn), the full-refund date, and whether it is free.
+    * 
+    * @param id  
+    * @return ApiResponse<GetWorldVenueQuoteResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldVenueQuoteWithHttpInfo(id: kotlin.String) : ApiResponse<GetWorldVenueQuoteResponse?> {
+        val localVariableConfig = getWorldVenueQuoteRequestConfig(id = id)
+
+        return request<Unit, GetWorldVenueQuoteResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldVenueQuote
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun getWorldVenueQuoteRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/venues/{id}/quote".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Every balance you hold in Crossly World, read-only: bucksCents (Crossly Bucks, cents); cbx (available, decimals, and the three CBX balances kept apart as base-unit STRINGS -- granted (spend here only), earned (withdrawable once matured), connected (a delegation ceiling on your own wallet, not cash on hand) -- plus pendingCents of cashback not yet matured); cosm (available, decimals, baseUnits string). available:false means that currency is not provisioned on this deployment, not that you hold none.
     * 
     * @return GetWorldWalletResponse
@@ -10738,6 +15474,427 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/world/wishes",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * What your shifts paid, by rail.
+    * 
+    * @return GetWorldWorkEarningResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldWorkEarning() : GetWorldWorkEarningResponse {
+        val localVarResponse = getWorldWorkEarningWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldWorkEarningResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * What your shifts paid, by rail.
+    * 
+    * @return ApiResponse<GetWorldWorkEarningResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldWorkEarningWithHttpInfo() : ApiResponse<GetWorldWorkEarningResponse?> {
+        val localVariableConfig = getWorldWorkEarningRequestConfig()
+
+        return request<Unit, GetWorldWorkEarningResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldWorkEarning
+    *
+    * @return RequestConfig
+    */
+    fun getWorldWorkEarningRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/work/earnings",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Where you work: your seats, applications and your teams’ open jobs.
+    * 
+    * @return GetWorldWorkMineResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun getWorldWorkMine() : GetWorldWorkMineResponse {
+        val localVarResponse = getWorldWorkMineWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldWorkMineResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Where you work: your seats, applications and your teams’ open jobs.
+    * 
+    * @return ApiResponse<GetWorldWorkMineResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun getWorldWorkMineWithHttpInfo() : ApiResponse<GetWorldWorkMineResponse?> {
+        val localVariableConfig = getWorldWorkMineRequestConfig()
+
+        return request<Unit, GetWorldWorkMineResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation getWorldWorkMine
+    *
+    * @return RequestConfig
+    */
+    fun getWorldWorkMineRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/work/mine",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your fee-back coupons from house-game wins: Bucks paid out of the fee on your next market purchase.
+    * 
+    * @return ListGameCouponsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listGameCoupons() : ListGameCouponsResponse {
+        val localVarResponse = listGameCouponsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListGameCouponsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your fee-back coupons from house-game wins: Bucks paid out of the fee on your next market purchase.
+    * 
+    * @return ApiResponse<ListGameCouponsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listGameCouponsWithHttpInfo() : ApiResponse<ListGameCouponsResponse?> {
+        val localVariableConfig = listGameCouponsRequestConfig()
+
+        return request<Unit, ListGameCouponsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listGameCoupons
+    *
+    * @return RequestConfig
+    */
+    fun listGameCouponsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/games/coupons",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Search this store&#39;s in-stock items (title, brand, SKU) to put on a fixture or in a window slot; each with listed / passport / multi_unit badges.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ListShowroomItemSearchResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listShowroomItemSearch(id: kotlin.String, storefrontId: java.util.UUID?) : ListShowroomItemSearchResponse {
+        val localVarResponse = listShowroomItemSearchWithHttpInfo(id = id, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListShowroomItemSearchResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Search this store&#39;s in-stock items (title, brand, SKU) to put on a fixture or in a window slot; each with listed / passport / multi_unit badges.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<ListShowroomItemSearchResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listShowroomItemSearchWithHttpInfo(id: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<ListShowroomItemSearchResponse?> {
+        val localVariableConfig = listShowroomItemSearchRequestConfig(id = id, storefrontId = storefrontId)
+
+        return request<Unit, ListShowroomItemSearchResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listShowroomItemSearch
+    *
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun listShowroomItemSearchRequestConfig(id: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/showrooms/{id}/item-search".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your store&#39;s showrooms, primary first: name, visibility, auto-include, pinned items, fixtures, billing and the plots each stands on.
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ListShowroomsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listShowrooms(storefrontId: java.util.UUID?) : ListShowroomsResponse {
+        val localVarResponse = listShowroomsWithHttpInfo(storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListShowroomsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your store&#39;s showrooms, primary first: name, visibility, auto-include, pinned items, fixtures, billing and the plots each stands on.
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<ListShowroomsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listShowroomsWithHttpInfo(storefrontId: java.util.UUID?) : ApiResponse<ListShowroomsResponse?> {
+        val localVariableConfig = listShowroomsRequestConfig(storefrontId = storefrontId)
+
+        return request<Unit, ListShowroomsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listShowrooms
+    *
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun listShowroomsRequestConfig(storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/showrooms",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Plots offered for lease on every street, cheapest first: address, weekly rent and maintenance in CENTS.
+    * 
+    * @return ListSpatialLeasesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listSpatialLeases() : ListSpatialLeasesResponse {
+        val localVarResponse = listSpatialLeasesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListSpatialLeasesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Plots offered for lease on every street, cheapest first: address, weekly rent and maintenance in CENTS.
+    * 
+    * @return ApiResponse<ListSpatialLeasesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listSpatialLeasesWithHttpInfo() : ApiResponse<ListSpatialLeasesResponse?> {
+        val localVariableConfig = listSpatialLeasesRequestConfig()
+
+        return request<Unit, ListSpatialLeasesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listSpatialLeases
+    *
+    * @return RequestConfig
+    */
+    fun listSpatialLeasesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/spatial/leases",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -10955,7 +16112,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Plots on a street offered for lease: weekly rent in CENTS and terms.
     * 
     * @param slug  
-    * @return ListSpatialStreetLeasesResponse
+    * @return ListSpatialLeasesResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -10964,11 +16121,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun listSpatialStreetLeases(slug: kotlin.String) : ListSpatialStreetLeasesResponse {
+    fun listSpatialStreetLeases(slug: kotlin.String) : ListSpatialLeasesResponse {
         val localVarResponse = listSpatialStreetLeasesWithHttpInfo(slug = slug)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as ListSpatialStreetLeasesResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListSpatialLeasesResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -10986,16 +16143,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * Plots on a street offered for lease: weekly rent in CENTS and terms.
     * 
     * @param slug  
-    * @return ApiResponse<ListSpatialStreetLeasesResponse?>
+    * @return ApiResponse<ListSpatialLeasesResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun listSpatialStreetLeasesWithHttpInfo(slug: kotlin.String) : ApiResponse<ListSpatialStreetLeasesResponse?> {
+    fun listSpatialStreetLeasesWithHttpInfo(slug: kotlin.String) : ApiResponse<ListSpatialLeasesResponse?> {
         val localVariableConfig = listSpatialStreetLeasesRequestConfig(slug = slug)
 
-        return request<Unit, ListSpatialStreetLeasesResponse>(
+        return request<Unit, ListSpatialLeasesResponse>(
             localVariableConfig
         )
     }
@@ -11015,6 +16172,73 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/spatial/streets/{slug}/leases".replace("{"+"slug"+"}", "$slug"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your AI attendant’s usage log.
+    * 
+    * @return ListWorldAttendantUsageResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldAttendantUsage() : ListWorldAttendantUsageResponse {
+        val localVarResponse = listWorldAttendantUsageWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldAttendantUsageResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your AI attendant’s usage log.
+    * 
+    * @return ApiResponse<ListWorldAttendantUsageResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldAttendantUsageWithHttpInfo() : ApiResponse<ListWorldAttendantUsageResponse?> {
+        val localVariableConfig = listWorldAttendantUsageRequestConfig()
+
+        return request<Unit, ListWorldAttendantUsageResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldAttendantUsage
+    *
+    * @return RequestConfig
+    */
+    fun listWorldAttendantUsageRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/attendant/usage",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -11571,6 +16795,76 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/world/conventions/{id}/exhibitors".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Convention messages you may read: the organiser all of them (?with&#x3D;&lt;userId&gt; for one seller), an exhibitor theirs and the broadcasts.
+    * 
+    * @param id  
+    * @return ListWorldConventionMessagesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldConventionMessages(id: kotlin.String) : ListWorldConventionMessagesResponse {
+        val localVarResponse = listWorldConventionMessagesWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldConventionMessagesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Convention messages you may read: the organiser all of them (?with&#x3D;&lt;userId&gt; for one seller), an exhibitor theirs and the broadcasts.
+    * 
+    * @param id  
+    * @return ApiResponse<ListWorldConventionMessagesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldConventionMessagesWithHttpInfo(id: kotlin.String) : ApiResponse<ListWorldConventionMessagesResponse?> {
+        val localVariableConfig = listWorldConventionMessagesRequestConfig(id = id)
+
+        return request<Unit, ListWorldConventionMessagesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldConventionMessages
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun listWorldConventionMessagesRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/conventions/{id}/messages".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -12761,6 +18055,76 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Store sales of one of your game packages, newest first: item, price paid, edition, when. Never who bought. Cursor-paged: pass pagination.nextCursor back as ?cursor&#x3D;.
+    * 
+    * @param id  
+    * @return ListWorldGamePackageReceiptsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldGamePackageReceipts(id: kotlin.String) : ListWorldGamePackageReceiptsResponse {
+        val localVarResponse = listWorldGamePackageReceiptsWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldGamePackageReceiptsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Store sales of one of your game packages, newest first: item, price paid, edition, when. Never who bought. Cursor-paged: pass pagination.nextCursor back as ?cursor&#x3D;.
+    * 
+    * @param id  
+    * @return ApiResponse<ListWorldGamePackageReceiptsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldGamePackageReceiptsWithHttpInfo(id: kotlin.String) : ApiResponse<ListWorldGamePackageReceiptsResponse?> {
+        val localVariableConfig = listWorldGamePackageReceiptsRequestConfig(id = id)
+
+        return request<Unit, ListWorldGamePackageReceiptsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldGamePackageReceipts
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun listWorldGamePackageReceiptsRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/games/packages/{id}/receipts".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Your game packages, each with its latest version and review state.
     * 
     * @return ListWorldGamePackagesResponse
@@ -13106,7 +18470,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
      }
 
     /**
-    * Your interactive-object designs (MML documents you wrote), newest first: id, handle, name, footprint (s | m | l | f), tint, priceBaseUnits (COSM, base-unit string), maxSupply, model, decorValue, cosmeticId, liveVersion (the approved version every copy runs; null &#x3D; none), withdrawnReason, archivedAt (you archived it: off sale, owned copies keep running; null &#x3D; not archived), latestVersion { version, state: pending | approved | rejected | withdrawn | cancelled, decisionNote }, inReview. &#x60;archived&#x60;: exclude (default), include or only archived designs. Read-only: writing, previewing, submitting and archiving happen on crossly.net/shop/decor?tab&#x3D;interactive.
+    * Your interactive-object designs (MML documents you wrote), newest first: id, handle, name, footprint (s | m | l | f), tint, priceBaseUnits (COSM, base-unit string), maxSupply, model, decorValue, cosmeticId, liveVersion (the approved version every copy runs; null &#x3D; none), withdrawnReason, archivedAt (you archived it: off sale, owned copies keep running; null &#x3D; not archived), latestVersion { version, state: pending | approved | rejected | withdrawn | cancelled, decisionNote }, inReview. &#x60;archived&#x60;: exclude (default), include or only archived designs. Read-only: writing, previewing, submitting and archiving happen in the Creator Studio on crossly.net (/studio/creator/creations/interactive/new/edit).
     * 
     * @param archived  (optional)
     * @return ListWorldInteractiveDesignsResponse
@@ -13137,7 +18501,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Your interactive-object designs (MML documents you wrote), newest first: id, handle, name, footprint (s | m | l | f), tint, priceBaseUnits (COSM, base-unit string), maxSupply, model, decorValue, cosmeticId, liveVersion (the approved version every copy runs; null &#x3D; none), withdrawnReason, archivedAt (you archived it: off sale, owned copies keep running; null &#x3D; not archived), latestVersion { version, state: pending | approved | rejected | withdrawn | cancelled, decisionNote }, inReview. &#x60;archived&#x60;: exclude (default), include or only archived designs. Read-only: writing, previewing, submitting and archiving happen on crossly.net/shop/decor?tab&#x3D;interactive.
+    * Your interactive-object designs (MML documents you wrote), newest first: id, handle, name, footprint (s | m | l | f), tint, priceBaseUnits (COSM, base-unit string), maxSupply, model, decorValue, cosmeticId, liveVersion (the approved version every copy runs; null &#x3D; none), withdrawnReason, archivedAt (you archived it: off sale, owned copies keep running; null &#x3D; not archived), latestVersion { version, state: pending | approved | rejected | withdrawn | cancelled, decisionNote }, inReview. &#x60;archived&#x60;: exclude (default), include or only archived designs. Read-only: writing, previewing, submitting and archiving happen in the Creator Studio on crossly.net (/studio/creator/creations/interactive/new/edit).
     * 
     * @param archived  (optional)
     * @return ApiResponse<ListWorldInteractiveDesignsResponse?>
@@ -13174,6 +18538,73 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/world/interactive/designs",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The public Job Board, filterable.
+    * 
+    * @return ListWorldJobBoardResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldJobBoard() : ListWorldJobBoardResponse {
+        val localVarResponse = listWorldJobBoardWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldJobBoardResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The public Job Board, filterable.
+    * 
+    * @return ApiResponse<ListWorldJobBoardResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldJobBoardWithHttpInfo() : ApiResponse<ListWorldJobBoardResponse?> {
+        val localVariableConfig = listWorldJobBoardRequestConfig()
+
+        return request<Unit, ListWorldJobBoardResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldJobBoard
+    *
+    * @return RequestConfig
+    */
+    fun listWorldJobBoardRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/jobs/board",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -13241,6 +18672,143 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.GET,
             path = "/v1/world/jobs/posted",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Plots and streets for sale or rent in the Worlds Market.
+    * 
+    * @return ListWorldMarketResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldMarket() : ListWorldMarketResponse {
+        val localVarResponse = listWorldMarketWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldMarketResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Plots and streets for sale or rent in the Worlds Market.
+    * 
+    * @return ApiResponse<ListWorldMarketResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldMarketWithHttpInfo() : ApiResponse<ListWorldMarketResponse?> {
+        val localVariableConfig = listWorldMarketRequestConfig()
+
+        return request<Unit, ListWorldMarketResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldMarket
+    *
+    * @return RequestConfig
+    */
+    fun listWorldMarketRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/market",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The street&#39;s for-sale and for-rent boards.
+    * 
+    * @param slug  
+    * @return ListWorldMarketStreetSignsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldMarketStreetSigns(slug: kotlin.String) : ListWorldMarketStreetSignsResponse {
+        val localVarResponse = listWorldMarketStreetSignsWithHttpInfo(slug = slug)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldMarketStreetSignsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The street&#39;s for-sale and for-rent boards.
+    * 
+    * @param slug  
+    * @return ApiResponse<ListWorldMarketStreetSignsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldMarketStreetSignsWithHttpInfo(slug: kotlin.String) : ApiResponse<ListWorldMarketStreetSignsResponse?> {
+        val localVariableConfig = listWorldMarketStreetSignsRequestConfig(slug = slug)
+
+        return request<Unit, ListWorldMarketStreetSignsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldMarketStreetSigns
+    *
+    * @param slug  
+    * @return RequestConfig
+    */
+    fun listWorldMarketStreetSignsRequestConfig(slug: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/market/streets/{slug}/signs".replace("{"+"slug"+"}", "$slug"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -13805,6 +19373,341 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \&quot;Promoted\&quot;), with the token to send when one is opened.
+    * 
+    * @return ListWorldPromotedResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldPromoted() : ListWorldPromotedResponse {
+        val localVarResponse = listWorldPromotedWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldPromotedResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Promoted places in Crossly World: boosted showrooms and conventions (Sponsored, labelled \&quot;Promoted\&quot;), with the token to send when one is opened.
+    * 
+    * @return ApiResponse<ListWorldPromotedResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldPromotedWithHttpInfo() : ApiResponse<ListWorldPromotedResponse?> {
+        val localVariableConfig = listWorldPromotedRequestConfig()
+
+        return request<Unit, ListWorldPromotedResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldPromoted
+    *
+    * @return RequestConfig
+    */
+    fun listWorldPromotedRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/promoted",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Plots your store owns or rents.
+    * 
+    * @return ListWorldPropertyPlotsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldPropertyPlots() : ListWorldPropertyPlotsResponse {
+        val localVarResponse = listWorldPropertyPlotsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldPropertyPlotsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Plots your store owns or rents.
+    * 
+    * @return ApiResponse<ListWorldPropertyPlotsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldPropertyPlotsWithHttpInfo() : ApiResponse<ListWorldPropertyPlotsResponse?> {
+        val localVariableConfig = listWorldPropertyPlotsRequestConfig()
+
+        return request<Unit, ListWorldPropertyPlotsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldPropertyPlots
+    *
+    * @return RequestConfig
+    */
+    fun listWorldPropertyPlotsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/property/plots",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Plots you rent out.
+    * 
+    * @return ListWorldPropertyRentalsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldPropertyRentals() : ListWorldPropertyRentalsResponse {
+        val localVarResponse = listWorldPropertyRentalsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldPropertyRentalsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Plots you rent out.
+    * 
+    * @return ApiResponse<ListWorldPropertyRentalsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldPropertyRentalsWithHttpInfo() : ApiResponse<ListWorldPropertyRentalsResponse?> {
+        val localVariableConfig = listWorldPropertyRentalsRequestConfig()
+
+        return request<Unit, ListWorldPropertyRentalsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldPropertyRentals
+    *
+    * @return RequestConfig
+    */
+    fun listWorldPropertyRentalsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/property/rentals",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Plots you rent.
+    * 
+    * @return ListWorldPropertyRentalsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldPropertyRenting() : ListWorldPropertyRentalsResponse {
+        val localVarResponse = listWorldPropertyRentingWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldPropertyRentalsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Plots you rent.
+    * 
+    * @return ApiResponse<ListWorldPropertyRentalsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldPropertyRentingWithHttpInfo() : ApiResponse<ListWorldPropertyRentalsResponse?> {
+        val localVariableConfig = listWorldPropertyRentingRequestConfig()
+
+        return request<Unit, ListWorldPropertyRentalsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldPropertyRenting
+    *
+    * @return RequestConfig
+    */
+    fun listWorldPropertyRentingRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/property/renting",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * People your store has banned, owner-wide or from one showroom.
+    * 
+    * @return ListWorldPropertyTrespassedResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldPropertyTrespassed() : ListWorldPropertyTrespassedResponse {
+        val localVarResponse = listWorldPropertyTrespassedWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldPropertyTrespassedResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * People your store has banned, owner-wide or from one showroom.
+    * 
+    * @return ApiResponse<ListWorldPropertyTrespassedResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldPropertyTrespassedWithHttpInfo() : ApiResponse<ListWorldPropertyTrespassedResponse?> {
+        val localVariableConfig = listWorldPropertyTrespassedRequestConfig()
+
+        return request<Unit, ListWorldPropertyTrespassedResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldPropertyTrespassed
+    *
+    * @return RequestConfig
+    */
+    fun listWorldPropertyTrespassedRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/property/trespassed",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Provenance trails: where in Crossly World your purchases were found, newest first (optionally ?listingIds&#x3D;a,b -- platform listing ids). data: [{ platformListingId, slug (the listing public slug), kind (room | window | stall | space | drop | auction | worn | agent), place (its name, or null when gone), at, line -- e.g. \&quot;Found at The Sneaker Vault, Oct 2026\&quot; }]. Yours only.
     * 
     * @return ListWorldProvenanceResponse
@@ -14210,6 +20113,341 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Who applied to your postings, with their worker reputation.
+    * 
+    * @return ListWorldStaffApplicantsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldStaffApplicants() : ListWorldStaffApplicantsResponse {
+        val localVarResponse = listWorldStaffApplicantsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldStaffApplicantsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Who applied to your postings, with their worker reputation.
+    * 
+    * @return ApiResponse<ListWorldStaffApplicantsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldStaffApplicantsWithHttpInfo() : ApiResponse<ListWorldStaffApplicantsResponse?> {
+        val localVariableConfig = listWorldStaffApplicantsRequestConfig()
+
+        return request<Unit, ListWorldStaffApplicantsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldStaffApplicants
+    *
+    * @return RequestConfig
+    */
+    fun listWorldStaffApplicantsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/staff/applicants",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Everyone working for you: your Settings team and public workers, with their seats.
+    * 
+    * @return ListWorldStaffPeopleResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldStaffPeople() : ListWorldStaffPeopleResponse {
+        val localVarResponse = listWorldStaffPeopleWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldStaffPeopleResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Everyone working for you: your Settings team and public workers, with their seats.
+    * 
+    * @return ApiResponse<ListWorldStaffPeopleResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldStaffPeopleWithHttpInfo() : ApiResponse<ListWorldStaffPeopleResponse?> {
+        val localVariableConfig = listWorldStaffPeopleRequestConfig()
+
+        return request<Unit, ListWorldStaffPeopleResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldStaffPeople
+    *
+    * @return RequestConfig
+    */
+    fun listWorldStaffPeopleRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/staff/people",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * The showrooms, stalls and conventions a job can be posted at, and the pay rails that are live.
+    * 
+    * @return ListWorldStaffPlacesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldStaffPlaces() : ListWorldStaffPlacesResponse {
+        val localVarResponse = listWorldStaffPlacesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldStaffPlacesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The showrooms, stalls and conventions a job can be posted at, and the pay rails that are live.
+    * 
+    * @return ApiResponse<ListWorldStaffPlacesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldStaffPlacesWithHttpInfo() : ApiResponse<ListWorldStaffPlacesResponse?> {
+        val localVariableConfig = listWorldStaffPlacesRequestConfig()
+
+        return request<Unit, ListWorldStaffPlacesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldStaffPlaces
+    *
+    * @return RequestConfig
+    */
+    fun listWorldStaffPlacesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/staff/places",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your job postings, with their upcoming shifts.
+    * 
+    * @return ListWorldStaffPostingsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldStaffPostings() : ListWorldStaffPostingsResponse {
+        val localVarResponse = listWorldStaffPostingsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldStaffPostingsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your job postings, with their upcoming shifts.
+    * 
+    * @return ApiResponse<ListWorldStaffPostingsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldStaffPostingsWithHttpInfo() : ApiResponse<ListWorldStaffPostingsResponse?> {
+        val localVariableConfig = listWorldStaffPostingsRequestConfig()
+
+        return request<Unit, ListWorldStaffPostingsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldStaffPostings
+    *
+    * @return RequestConfig
+    */
+    fun listWorldStaffPostingsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/staff/postings",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Your scheduled seats and who is on them.
+    * 
+    * @return ListWorldStaffShiftsResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldStaffShifts() : ListWorldStaffShiftsResponse {
+        val localVarResponse = listWorldStaffShiftsWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldStaffShiftsResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Your scheduled seats and who is on them.
+    * 
+    * @return ApiResponse<ListWorldStaffShiftsResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldStaffShiftsWithHttpInfo() : ApiResponse<ListWorldStaffShiftsResponse?> {
+        val localVariableConfig = listWorldStaffShiftsRequestConfig()
+
+        return request<Unit, ListWorldStaffShiftsResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldStaffShifts
+    *
+    * @return RequestConfig
+    */
+    fun listWorldStaffShiftsRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/staff/shifts",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * The longest current daily visit streaks (2+ days), top ten: name and days. Only people still choosing to be seen by name.
     * 
     * @return ListWorldStreaksResponse
@@ -14478,6 +20716,379 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
+    * 
+    * @return ListWorldVenuesResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun listWorldVenues() : ListWorldVenuesResponse {
+        val localVarResponse = listWorldVenuesWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as ListWorldVenuesResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * The Convention Center halls for rent: size, floor, booths, price per day, and the days already taken (from, to).
+    * 
+    * @return ApiResponse<ListWorldVenuesResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun listWorldVenuesWithHttpInfo() : ApiResponse<ListWorldVenuesResponse?> {
+        val localVariableConfig = listWorldVenuesRequestConfig()
+
+        return request<Unit, ListWorldVenuesResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation listWorldVenues
+    *
+    * @return RequestConfig
+    */
+    fun listWorldVenuesRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.GET,
+            path = "/v1/world/venues",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store&#39;s, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return UpdateShowroomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateShowroom(storefrontId: java.util.UUID?) : UpdateShowroomResponse {
+        val localVarResponse = updateShowroomWithHttpInfo(storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateShowroomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Replace the whole showroom layout (room, fixtures, placements, settings). Validated as a whole: every item must be this store&#39;s, every pin must fit its fixture, no two pins share a slot. Send If-Match (or expectedVersion) to refuse with 409 version_conflict if it changed meanwhile.
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<UpdateShowroomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateShowroomWithHttpInfo(storefrontId: java.util.UUID?) : ApiResponse<UpdateShowroomResponse?> {
+        val localVariableConfig = updateShowroomRequestConfig(storefrontId = storefrontId)
+
+        return request<Unit, UpdateShowroomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateShowroom
+    *
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun updateShowroomRequestConfig(storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/showroom",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return UpdateShowroom2Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateShowroom2(storefrontId: java.util.UUID?) : UpdateShowroom2Response {
+        val localVarResponse = updateShowroom2WithHttpInfo(storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateShowroom2Response
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Apply showroom ops in order, all or nothing: place, move, remove, fill (from a category / tag / brand / collection / search, in price, age, value or title order), sort, clear, add_fixture, update_fixture, remove_fixture, set_room, set_settings. Idempotent; refusals name the op (details.opIndex) with codes slot_occupied, item_not_in_store, fixture_capacity, unknown_fixture, unknown_display, version_conflict.
+    * 
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<UpdateShowroom2Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateShowroom2WithHttpInfo(storefrontId: java.util.UUID?) : ApiResponse<UpdateShowroom2Response?> {
+        val localVariableConfig = updateShowroom2RequestConfig(storefrontId = storefrontId)
+
+        return request<Unit, UpdateShowroom2Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateShowroom2
+    *
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun updateShowroom2RequestConfig(storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/showroom",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return UpdateShowroom2Response
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateShowroom3(id: kotlin.String, storefrontId: java.util.UUID?) : UpdateShowroom2Response {
+        val localVarResponse = updateShowroom3WithHttpInfo(id = id, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateShowroom2Response
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Apply ops to one showroom in order, all or nothing (the same ops as PATCH /api/v1/showroom).
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<UpdateShowroom2Response?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateShowroom3WithHttpInfo(id: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<UpdateShowroom2Response?> {
+        val localVariableConfig = updateShowroom3RequestConfig(id = id, storefrontId = storefrontId)
+
+        return request<Unit, UpdateShowroom2Response>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateShowroom3
+    *
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun updateShowroom3RequestConfig(id: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/showrooms/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Replace one showroom&#39;s whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return UpdateShowroomResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateShowroomById(id: kotlin.String, storefrontId: java.util.UUID?) : UpdateShowroomResponse {
+        val localVarResponse = updateShowroomByIdWithHttpInfo(id = id, storefrontId = storefrontId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateShowroomResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Replace one showroom&#39;s whole layout. If-Match (or expectedVersion) refuses with 409 version_conflict on a concurrent edit.
+    * 
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return ApiResponse<UpdateShowroomResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateShowroomByIdWithHttpInfo(id: kotlin.String, storefrontId: java.util.UUID?) : ApiResponse<UpdateShowroomResponse?> {
+        val localVariableConfig = updateShowroomByIdRequestConfig(id = id, storefrontId = storefrontId)
+
+        return request<Unit, UpdateShowroomResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateShowroomById
+    *
+    * @param id  
+    * @param storefrontId Which store (else X-Storefront-Id, else your default store). (optional)
+    * @return RequestConfig
+    */
+    fun updateShowroomByIdRequestConfig(id: kotlin.String, storefrontId: java.util.UUID?) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf<kotlin.String, kotlin.collections.List<kotlin.String>>()
+            .apply {
+                if (storefrontId != null) {
+                    put("storefrontId", listOf(storefrontId.toString()))
+                }
+            }
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/showrooms/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Redecorate one of your rooms (wall, floor, lighting, trim...). Unknown keys are dropped; the response is what survived. &#x60;clear&#x60; lists keys to reset.
     * 
     * @param id  
@@ -14624,7 +21235,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
     * 
     * @param id  
-    * @return SpatialSceneResponse2
+    * @return SpatialSceneResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -14633,11 +21244,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun updateSpatialSceneSetting(id: kotlin.String) : SpatialSceneResponse2 {
+    fun updateSpatialSceneSetting(id: kotlin.String) : SpatialSceneResponse {
         val localVarResponse = updateSpatialSceneSettingWithHttpInfo(id = id)
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse2
+            ResponseType.Success -> (localVarResponse as Success<*>).data as SpatialSceneResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -14655,16 +21266,16 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     * How one of your rooms is laid out and lit: grouping and sort keys, theme, overlay and the arrival camera. Cosmetics and the shop layout have their own writers.
     * 
     * @param id  
-    * @return ApiResponse<SpatialSceneResponse2?>
+    * @return ApiResponse<SpatialSceneResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun updateSpatialSceneSettingWithHttpInfo(id: kotlin.String) : ApiResponse<SpatialSceneResponse2?> {
+    fun updateSpatialSceneSettingWithHttpInfo(id: kotlin.String) : ApiResponse<SpatialSceneResponse?> {
         val localVariableConfig = updateSpatialSceneSettingRequestConfig(id = id)
 
-        return request<Unit, SpatialSceneResponse2>(
+        return request<Unit, SpatialSceneResponse>(
             localVariableConfig
         )
     }
@@ -14971,10 +21582,9 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Turn your automatic world shop off ({ enabled: false } -- an auto-created shop is made private, never deleted) or back on. Answers the new status.
+    * Create or replace your AI attendant (BYOK: switching it on needs your AI key).
     * 
-    * @param updateWorldAutoShopRequest  
-    * @return GetWorldAutoShopResponse
+    * @return UpdateWorldAttendantResponse
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     * @throws UnsupportedOperationException If the API returns an informational or redirection response
@@ -14983,11 +21593,11 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
-    fun updateWorldAutoShop(updateWorldAutoShopRequest: UpdateWorldAutoShopRequest) : GetWorldAutoShopResponse {
-        val localVarResponse = updateWorldAutoShopWithHttpInfo(updateWorldAutoShopRequest = updateWorldAutoShopRequest)
+    fun updateWorldAttendant() : UpdateWorldAttendantResponse {
+        val localVarResponse = updateWorldAttendantWithHttpInfo()
 
         return when (localVarResponse.responseType) {
-            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldAutoShopResponse
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWorldAttendantResponse
             ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
             ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
             ResponseType.ClientError -> {
@@ -15002,39 +21612,36 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Turn your automatic world shop off ({ enabled: false } -- an auto-created shop is made private, never deleted) or back on. Answers the new status.
+    * Create or replace your AI attendant (BYOK: switching it on needs your AI key).
     * 
-    * @param updateWorldAutoShopRequest  
-    * @return ApiResponse<GetWorldAutoShopResponse?>
+    * @return ApiResponse<UpdateWorldAttendantResponse?>
     * @throws IllegalStateException If the request is not correctly configured
     * @throws IOException Rethrows the OkHttp execute method exception
     */
     @Suppress("UNCHECKED_CAST")
     @Throws(IllegalStateException::class, IOException::class)
-    fun updateWorldAutoShopWithHttpInfo(updateWorldAutoShopRequest: UpdateWorldAutoShopRequest) : ApiResponse<GetWorldAutoShopResponse?> {
-        val localVariableConfig = updateWorldAutoShopRequestConfig(updateWorldAutoShopRequest = updateWorldAutoShopRequest)
+    fun updateWorldAttendantWithHttpInfo() : ApiResponse<UpdateWorldAttendantResponse?> {
+        val localVariableConfig = updateWorldAttendantRequestConfig()
 
-        return request<UpdateWorldAutoShopRequest, GetWorldAutoShopResponse>(
+        return request<Unit, UpdateWorldAttendantResponse>(
             localVariableConfig
         )
     }
 
     /**
-    * To obtain the request config of the operation updateWorldAutoShop
+    * To obtain the request config of the operation updateWorldAttendant
     *
-    * @param updateWorldAutoShopRequest  
     * @return RequestConfig
     */
-    fun updateWorldAutoShopRequestConfig(updateWorldAutoShopRequest: UpdateWorldAutoShopRequest) : RequestConfig<UpdateWorldAutoShopRequest> {
-        val localVariableBody = updateWorldAutoShopRequest
+    fun updateWorldAttendantRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
         val localVariableQuery: MultiValueMap = mutableMapOf()
         val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
-        localVariableHeaders["Content-Type"] = "application/json"
         localVariableHeaders["Accept"] = "application/json"
 
         return RequestConfig(
-            method = RequestMethod.PATCH,
-            path = "/v1/world/auto-shop",
+            method = RequestMethod.PUT,
+            path = "/v1/world/attendant",
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -15109,7 +21716,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Save your world look to the account, so every device starts from it. look: null stays anonymous.
+    * Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
     * 
     * @return UpdateWorldAvatarLookResponse
     * @throws IllegalStateException If the request is not correctly configured
@@ -15139,7 +21746,7 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
-    * Save your world look to the account, so every device starts from it. look: null stays anonymous.
+    * Save your world look to the account, so every device starts from it. look: null stays anonymous. appearance.outfit &#x3D; { top, outer, bottom, shoes, hat } picks the basic outfit (GET /v1/world/avatar/basics).
     * 
     * @return ApiResponse<UpdateWorldAvatarLookResponse?>
     * @throws IllegalStateException If the request is not correctly configured
@@ -15376,6 +21983,213 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/world/collections/{chain}/{contract}/capabilities".replace("{"+"chain"+"}", "$chain").replace("{"+"contract"+"}", "$contract"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
+    * 
+    * @return GetWorldControlResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWorldControl() : GetWorldControlResponse {
+        val localVarResponse = updateWorldControlWithHttpInfo()
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as GetWorldControlResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Save your world controls settings to the account (any subset of prefs; out-of-range values take the default) and/or mark the controls tutorial seen.
+    * 
+    * @return ApiResponse<GetWorldControlResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWorldControlWithHttpInfo() : ApiResponse<GetWorldControlResponse?> {
+        val localVariableConfig = updateWorldControlRequestConfig()
+
+        return request<Unit, GetWorldControlResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWorldControl
+    *
+    * @return RequestConfig
+    */
+    fun updateWorldControlRequestConfig() : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/world/controls",
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
+    * 
+    * @param id  
+    * @return UpdateWorldConventionHallResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWorldConventionHall(id: kotlin.String) : UpdateWorldConventionHallResponse {
+        val localVarResponse = updateWorldConventionHallWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWorldConventionHallResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Save the hall design: { doc, expectedVersion }. Refused on overlaps, narrow aisles, too many booths or a booth with a seller removed.
+    * 
+    * @param id  
+    * @return ApiResponse<UpdateWorldConventionHallResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWorldConventionHallWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateWorldConventionHallResponse?> {
+        val localVariableConfig = updateWorldConventionHallRequestConfig(id = id)
+
+        return request<Unit, UpdateWorldConventionHallResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWorldConventionHall
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateWorldConventionHallRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/world/conventions/{id}/hall".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
+    * 
+    * @param id  
+    * @return UpdateWorldConventionMyBoothResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWorldConventionMyBooth(id: kotlin.String) : UpdateWorldConventionMyBoothResponse {
+        val localVarResponse = updateWorldConventionMyBoothWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWorldConventionMyBoothResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Pick what your booth shows: { listingIds } — any of your live listings, up to the tier’s capacity.
+    * 
+    * @param id  
+    * @return ApiResponse<UpdateWorldConventionMyBoothResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWorldConventionMyBoothWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateWorldConventionMyBoothResponse?> {
+        val localVariableConfig = updateWorldConventionMyBoothRequestConfig(id = id)
+
+        return request<Unit, UpdateWorldConventionMyBoothResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWorldConventionMyBooth
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateWorldConventionMyBoothRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/world/conventions/{id}/my-booth".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
@@ -16221,6 +23035,146 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Store a plot&#39;s photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot&#39;s current one) or an in-world capture.
+    * 
+    * @param plotId  
+    * @return UpdateWorldPropertyPlotPhotoResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWorldPropertyPlotPhoto(plotId: kotlin.String) : UpdateWorldPropertyPlotPhotoResponse {
+        val localVarResponse = updateWorldPropertyPlotPhotoWithHttpInfo(plotId = plotId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWorldPropertyPlotPhotoResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Store a plot&#39;s photo: an image of its frontage you uploaded through POST .../photo/upload-url, a render (buildKey must be the plot&#39;s current one) or an in-world capture.
+    * 
+    * @param plotId  
+    * @return ApiResponse<UpdateWorldPropertyPlotPhotoResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWorldPropertyPlotPhotoWithHttpInfo(plotId: kotlin.String) : ApiResponse<UpdateWorldPropertyPlotPhotoResponse?> {
+        val localVariableConfig = updateWorldPropertyPlotPhotoRequestConfig(plotId = plotId)
+
+        return request<Unit, UpdateWorldPropertyPlotPhotoResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWorldPropertyPlotPhoto
+    *
+    * @param plotId  
+    * @return RequestConfig
+    */
+    fun updateWorldPropertyPlotPhotoRequestConfig(plotId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/world/property/plots/{plotId}/photo".replace("{"+"plotId"+"}", "$plotId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Turn weekly autopay on or off (card leases).
+    * 
+    * @param leaseId  
+    * @return UpdateWorldPropertyRentingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWorldPropertyRenting(leaseId: kotlin.String) : UpdateWorldPropertyRentingResponse {
+        val localVarResponse = updateWorldPropertyRentingWithHttpInfo(leaseId = leaseId)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWorldPropertyRentingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Turn weekly autopay on or off (card leases).
+    * 
+    * @param leaseId  
+    * @return ApiResponse<UpdateWorldPropertyRentingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWorldPropertyRentingWithHttpInfo(leaseId: kotlin.String) : ApiResponse<UpdateWorldPropertyRentingResponse?> {
+        val localVariableConfig = updateWorldPropertyRentingRequestConfig(leaseId = leaseId)
+
+        return request<Unit, UpdateWorldPropertyRentingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWorldPropertyRenting
+    *
+    * @param leaseId  
+    * @return RequestConfig
+    */
+    fun updateWorldPropertyRentingRequestConfig(leaseId: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PATCH,
+            path = "/v1/world/property/renting/{leaseId}".replace("{"+"leaseId"+"}", "$leaseId"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Wear a pin you EARNED from a quest on your nameplate, or { pin: null } to wear none. 403 for a pin you have not earned. Shows from the next room you walk into.
     * 
     * @param updateWorldQuestPinRequest  
@@ -16502,6 +23456,76 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
     }
 
     /**
+    * Replace a posting; its future unstaffed shifts are re-made.
+    * 
+    * @param id  
+    * @return WorldStaffPostingResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWorldStaffPosting(id: kotlin.String) : WorldStaffPostingResponse {
+        val localVarResponse = updateWorldStaffPostingWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as WorldStaffPostingResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Replace a posting; its future unstaffed shifts are re-made.
+    * 
+    * @param id  
+    * @return ApiResponse<WorldStaffPostingResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWorldStaffPostingWithHttpInfo(id: kotlin.String) : ApiResponse<WorldStaffPostingResponse?> {
+        val localVariableConfig = updateWorldStaffPostingRequestConfig(id = id)
+
+        return request<Unit, WorldStaffPostingResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWorldStaffPosting
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateWorldStaffPostingRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/world/staff/postings/{id}".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
     * Dress the booth of a stall you booked (decor you hold).
     * 
     * @param id  
@@ -16565,6 +23589,76 @@ class WorldApi(basePath: kotlin.String = defaultBasePath) : ApiClient(basePath) 
         return RequestConfig(
             method = RequestMethod.PUT,
             path = "/v1/world/stalls/bookings/{id}/booth".replace("{"+"id"+"}", "$id"),
+            query = localVariableQuery,
+            headers = localVariableHeaders,
+            body = localVariableBody
+        )
+    }
+
+    /**
+    * Set your street&#39;s theme.
+    * 
+    * @param id  
+    * @return UpdateWorldStreetOwnedThemeResponse
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    * @throws UnsupportedOperationException If the API returns an informational or redirection response
+    * @throws ClientException If the API returns a client error response
+    * @throws ServerException If the API returns a server error response
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class, UnsupportedOperationException::class, ClientException::class, ServerException::class)
+    fun updateWorldStreetOwnedTheme(id: kotlin.String) : UpdateWorldStreetOwnedThemeResponse {
+        val localVarResponse = updateWorldStreetOwnedThemeWithHttpInfo(id = id)
+
+        return when (localVarResponse.responseType) {
+            ResponseType.Success -> (localVarResponse as Success<*>).data as UpdateWorldStreetOwnedThemeResponse
+            ResponseType.Informational -> throw UnsupportedOperationException("Client does not support Informational responses.")
+            ResponseType.Redirection -> throw UnsupportedOperationException("Client does not support Redirection responses.")
+            ResponseType.ClientError -> {
+                val localVarError = localVarResponse as ClientError<*>
+                throw ClientException("Client error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+            ResponseType.ServerError -> {
+                val localVarError = localVarResponse as ServerError<*>
+                throw ServerException("Server error : ${localVarError.statusCode} ${localVarError.message.orEmpty()}", localVarError.statusCode, localVarResponse)
+            }
+        }
+    }
+
+    /**
+    * Set your street&#39;s theme.
+    * 
+    * @param id  
+    * @return ApiResponse<UpdateWorldStreetOwnedThemeResponse?>
+    * @throws IllegalStateException If the request is not correctly configured
+    * @throws IOException Rethrows the OkHttp execute method exception
+    */
+    @Suppress("UNCHECKED_CAST")
+    @Throws(IllegalStateException::class, IOException::class)
+    fun updateWorldStreetOwnedThemeWithHttpInfo(id: kotlin.String) : ApiResponse<UpdateWorldStreetOwnedThemeResponse?> {
+        val localVariableConfig = updateWorldStreetOwnedThemeRequestConfig(id = id)
+
+        return request<Unit, UpdateWorldStreetOwnedThemeResponse>(
+            localVariableConfig
+        )
+    }
+
+    /**
+    * To obtain the request config of the operation updateWorldStreetOwnedTheme
+    *
+    * @param id  
+    * @return RequestConfig
+    */
+    fun updateWorldStreetOwnedThemeRequestConfig(id: kotlin.String) : RequestConfig<Unit> {
+        val localVariableBody = null
+        val localVariableQuery: MultiValueMap = mutableMapOf()
+        val localVariableHeaders: MutableMap<String, String> = mutableMapOf()
+        localVariableHeaders["Accept"] = "application/json"
+
+        return RequestConfig(
+            method = RequestMethod.PUT,
+            path = "/v1/world/streets/owned/{id}/theme".replace("{"+"id"+"}", "$id"),
             query = localVariableQuery,
             headers = localVariableHeaders,
             body = localVariableBody
