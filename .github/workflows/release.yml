@@ -1,0 +1,20 @@
+# Placeholder so release.yml is registered on the default branch and can be dispatched on a work-in-progress
+# branch (a dispatch runs the workflow file of the ref it names). Replaced by tools/sdk-repo/seed.mjs --push.
+name: release
+
+on:
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Regenerate and release even when the specs are unchanged
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+jobs:
+  placeholder:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "release.yml is not seeded on this branch yet"
