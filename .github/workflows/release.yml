@@ -1,20 +1,187 @@
-# Placeholder so release.yml is registered on the default branch and can be dispatched on a work-in-progress
-# branch (a dispatch runs the workflow file of the ref it names). Replaced by tools/sdk-repo/seed.mjs --push.
+# Regenerate from the public Crossly OpenAPI specs and release, with signed build provenance.
+#
+# Daily, on dispatch, or on a crossly-spec-updated repository_dispatch: if the specs changed since the last
+# release, generate, build, test, write the CHANGELOG entry and version (codegen/ci/next-version.mjs), commit
+# and tag with this repository's own GITHUB_TOKEN, then publish. Publishing uses OIDC trusted publishing where the
+# registry supports it, so no registry token is stored here.
+#
+# Dispatched on any other branch it is a DRY RUN: it always regenerates, builds and tests, uploads the artifacts,
+# and never commits, tags or publishes.
+#
+# Managed by tools/sdk-repo/seed.mjs in the Crossly monorepo: edits here are overwritten on the next seed.
 name: release
 
 on:
+  schedule:
+    - cron: '23 7 * * *'
   workflow_dispatch:
     inputs:
       force:
         description: Regenerate and release even when the specs are unchanged
         type: boolean
         default: false
+  repository_dispatch:
+    types: [crossly-spec-updated]
+
+concurrency:
+  group: release
+  cancel-in-progress: false
 
 permissions:
   contents: read
 
 jobs:
-  placeholder:
+  detect:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
+    outputs:
+      changed: ${{ steps.specs.outputs.changed }}
     steps:
-      - run: echo "release.yml is not seeded on this branch yet"
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      - id: specs
+        env:
+          FORCE: ${{ (inputs.force || github.ref != 'refs/heads/main') && 'true' || 'false' }}
+        run: node codegen/ci/fetch-specs.mjs
+
+  regen:
+    needs: detect
+    if: needs.detect.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    permissions:
+      contents: write
+    outputs:
+      tag: ${{ steps.version.outputs.tag }}
+    env:
+      CROSSLY_SPEC_DIR: codegen/specs
+      # Every compile check so far was made against 5.4.0 output (it runs on Java 8).
+      OPENAPI_GENERATOR_VERSION: '5.4.0'
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '22'
+      # Generator runtime. Zulu, because Temurin has no Java 8 for Apple silicon.
+      - uses: actions/setup-java@v6
+        with:
+          distribution: zulu
+          java-version: '8'
+      - uses: actions/cache@v6
+        with:
+          path: codegen/.tools
+          key: openapi-generator-${{ env.OPENAPI_GENERATOR_VERSION }}
+      - name: fetch specs
+        env:
+          FORCE: 'true'
+        run: node codegen/ci/fetch-specs.mjs
+      - name: version and changelog
+        id: version
+        run: node codegen/ci/next-version.mjs
+      - name: generate
+        env:
+          CROSSLY_SDK_VERSION: ${{ steps.version.outputs.version }}
+        run: node codegen/scripts/generate-sdks.mjs --lang kotlin
+      - name: assemble and scan
+        run: node codegen/ci/assemble.mjs
+      - uses: actions/setup-java@v6
+        with:
+          distribution: temurin
+          java-version: '17'
+      - uses: gradle/actions/setup-gradle@v4
+      - name: build seller
+        run: bash codegen/ci/check.sh kotlin seller
+      - name: build buyer
+        run: bash codegen/ci/check.sh kotlin buyer
+      - name: webhook conformance vectors
+        working-directory: codegen/integrations/webhooks/kotlin
+        run: bash check-vectors.sh
+      - name: package
+        run: |
+          bash codegen/integrations/extras/kotlin/package.sh
+      - name: commit and tag
+        if: github.ref == 'refs/heads/main'
+        env:
+          TAG: ${{ steps.version.outputs.tag }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A seller buyer webhooks CHANGELOG.md codegen/state.json codegen/index
+          git commit -q -m "$TAG: regenerate from the Crossly API" -m "$(head -c 4000 codegen/release-notes.md)"
+          git tag -a "$TAG" -m "$TAG"
+          git push origin HEAD:main
+          git push origin "$TAG"
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release
+          path: |
+            dist/
+            codegen/release-notes.md
+          retention-days: 30
+
+  publish:
+    needs: regen
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment: release
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@v8
+        with:
+          name: release
+      # Signed SLSA build provenance for every artifact: gh attestation verify <file> --repo crossly-dev/crossly-kotlin
+      - uses: actions/attest-build-provenance@v4
+        with:
+          subject-path: 'dist/*'
+      - name: publish to Maven Central
+        if: vars.PUBLISH_MAVEN == 'true'
+        env:
+          TAG: ${{ needs.regen.outputs.tag }}
+          MAVEN_CENTRAL_USERNAME: ${{ secrets.MAVEN_CENTRAL_USERNAME }}
+          MAVEN_CENTRAL_PASSWORD: ${{ secrets.MAVEN_CENTRAL_PASSWORD }}
+          MAVEN_GPG_PRIVATE_KEY: ${{ secrets.MAVEN_GPG_PRIVATE_KEY }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.MAVEN_GPG_PASSPHRASE }}
+        run: |
+          set -euo pipefail
+          ver="${TAG#v}"
+          export GNUPGHOME="$(mktemp -d)"
+          printf '%s\n' "$MAVEN_GPG_PRIVATE_KEY" | gpg --batch --quiet --import
+          work="$(mktemp -d)"
+          for art in crossly-kotlin crossly-kotlin-buyer; do
+            d="$work/bundle/net/crossly/$art/$ver"
+            mkdir -p "$d"
+            for f in "$art-$ver.jar" "$art-$ver-sources.jar" "$art-$ver-javadoc.jar" "$art-$ver.pom"; do
+              cp "dist/$f" "$d/$f"
+              gpg --batch --yes --quiet --pinentry-mode loopback --passphrase "$MAVEN_GPG_PASSPHRASE" --armor --detach-sign "$d/$f"
+              md5sum "$d/$f" | cut -d' ' -f1 > "$d/$f.md5"
+              sha1sum "$d/$f" | cut -d' ' -f1 > "$d/$f.sha1"
+            done
+          done
+          (cd "$work/bundle" && zip -qr "$work/bundle.zip" net)
+          auth="Authorization: Bearer $(printf '%s:%s' "$MAVEN_CENTRAL_USERNAME" "$MAVEN_CENTRAL_PASSWORD" | base64 -w0)"
+          api=https://central.sonatype.com/api/v1/publisher
+          id=$(curl -fsS -H "$auth" -F "bundle=@$work/bundle.zip" "$api/upload?publishingType=AUTOMATIC&name=crossly-kotlin-$ver")
+          echo "Central deployment $id"
+          for _ in $(seq 1 60); do
+            status=$(curl -fsS -X POST -H "$auth" "$api/status?id=$id")
+            state=$(printf '%s' "$status" | jq -r .deploymentState)
+            echo "  $state"
+            case "$state" in
+              PUBLISHING|PUBLISHED) exit 0 ;;
+              FAILED) printf '%s' "$status" | jq .errors; exit 1 ;;
+            esac
+            sleep 15
+          done
+          echo "::error::Central deployment $id did not validate within 15 minutes"
+          exit 1
+      - name: GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ needs.regen.outputs.tag }}
+        run: gh release create "$TAG" dist/* --repo "$GITHUB_REPOSITORY" --title "$TAG" --notes-file codegen/release-notes.md --verify-tag

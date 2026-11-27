@@ -1,0 +1,3 @@
+// Compiles the repository's examples/ against the seller client in seller/ (codegen/ci/check-kotlin.sh).
+rootProject.name = 'crossly-kotlin-examples'
+includeBuild('../../../../../seller')

@@ -1,0 +1,61 @@
+{
+  "lang": "kotlin",
+  "vendor": [
+    {
+      "from": "webhooks/kotlin/CrosslyWebhooks.kt",
+      "to": "seller/src/main/kotlin/net/crossly/CrosslyWebhooks.kt"
+    },
+    {
+      "from": "extras/kotlin/CrosslyKtor.kt",
+      "to": "seller/src/main/kotlin/net/crossly/CrosslyKtor.kt"
+    },
+    {
+      "from": "extras/kotlin/CrosslyHttp.kt",
+      "to": "seller/src/main/kotlin/net/crossly/CrosslyHttp.kt"
+    },
+    {
+      "from": "extras/kotlin/CrosslyException.kt",
+      "to": "seller/src/main/kotlin/net/crossly/CrosslyException.kt"
+    },
+    {
+      "from": "extras/kotlin/Pages.kt",
+      "to": "seller/src/main/kotlin/net/crossly/Pages.kt"
+    },
+    {
+      "from": "extras/kotlin/PagesFlow.kt",
+      "to": "seller/src/main/kotlin/net/crossly/PagesFlow.kt"
+    },
+    {
+      "from": "extras/kotlin/Crossly.kt",
+      "to": "seller/src/main/kotlin/net/crossly/Crossly.kt"
+    },
+    {
+      "from": "webhooks/kotlin/CrosslyWebhooks.kt",
+      "to": "buyer/src/main/kotlin/net/crossly/CrosslyWebhooks.kt"
+    },
+    {
+      "from": "extras/kotlin/CrosslyKtor.kt",
+      "to": "buyer/src/main/kotlin/net/crossly/CrosslyKtor.kt"
+    },
+    {
+      "from": "extras/kotlin/CrosslyHttp.kt",
+      "to": "buyer/src/main/kotlin/net/crossly/CrosslyHttp.kt"
+    },
+    {
+      "from": "extras/kotlin/CrosslyException.kt",
+      "to": "buyer/src/main/kotlin/net/crossly/CrosslyException.kt"
+    },
+    {
+      "from": "extras/kotlin/Pages.kt",
+      "to": "buyer/src/main/kotlin/net/crossly/Pages.kt"
+    },
+    {
+      "from": "extras/kotlin/PagesFlow.kt",
+      "to": "buyer/src/main/kotlin/net/crossly/PagesFlow.kt"
+    },
+    {
+      "from": "extras/kotlin/CrosslyBuyer.kt",
+      "to": "buyer/src/main/kotlin/net/crossly/buyer/CrosslyBuyer.kt"
+    }
+  ]
+}
